@@ -111,27 +111,25 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     displayPic: {
+      defaultValue: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       type: DataTypes.STRING,
-      get() {
-        if (!this.getDataValue("displayPic"))
-          return "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-        return this.getDataValue("displayPic")
-      }
     },
     theme: {
+      allowNull: false,
+      defaultValue: "cows",
       type: DataTypes.STRING,
-      allowNull: false
     },
     moolah: {
       allowNull: false,
+      defaultValue: 15,
       type: DataTypes.INTEGER
     },
     activePet: {
-      allowNull: false,
+      // allowNull: false,
       type: DataTypes.INTEGER
     },
     activeBg: {
-      allowNull: false,
+      // allowNull: false,
       type: DataTypes.INTEGER
     },
   }, {
