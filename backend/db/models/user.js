@@ -51,14 +51,6 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // comment in once schema is approved and pet, background, and useritem tables are created
-      // create default pet
-      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
-      // const pet = await Pet.create()
-
-      // create default background
-      // const bg = await Background.create({
-      //   itemName: "Farm"
-      // })
 
       // add the pet and background into UserItems
       // const petUserItem = UserItem.create({
@@ -70,6 +62,22 @@ module.exports = (sequelize, DataTypes) => {
       //   userId: user.id,
       //   itemType: "background"
       // })
+
+      // create default pet
+      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+      // const pet = await Pet.create({
+      //   userItemId: petUserItem.id
+      // })
+
+      // create default background
+      // const bg = await Background.create({
+      //   userItemId: bgUserItem.id
+      // })
+
+      user.activePet = pet.id;
+      user.activeBg = bg.id;
+
+      await user.save();
 
       // await pet.setUserItem(petUserItem);
       // await bg.setUserItem(bgUserItem);
