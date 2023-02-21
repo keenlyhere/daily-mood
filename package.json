@@ -13,13 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keenlyhere/API-project.git"
+    "url": "git+https://github.com/keenlyhere/daily-mood.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/keenlyhere/API-project/issues"
+    "url": "https://github.com/keenlyhere/daily-mood/issues"
   },
-  "homepage": "https://github.com/keenlyhere/API-project#readme"
+  "homepage": "https://github.com/keenlyhere/daily-mood#readme"
 }
