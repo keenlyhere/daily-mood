@@ -1,4 +1,5 @@
 'use strict';
+
 const bcrypt = require('bcryptjs');
 
 const {  Model, Validator } = require('sequelize');
@@ -10,9 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
     toSafeObject() {
-      const { id, firstName, lastName, username, email } = this;
-      return { id, firstName, lastName, username, email };
+      const { id, email, firstName, lastName, birthday, displayPic, theme, moolah, activePet, activeBg } = this;
+      return { id, email, firstName, lastName, birthday, displayPic, theme, moolah, activePet, activeBg };
     }
 
     validatePassword(password) {
@@ -27,26 +29,51 @@ module.exports = (sequelize, DataTypes) => {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
-          [Op.or]: {
-            username: credential,
-            email: credential
-          }
+          email: credential
         }
       });
       if (user && user.validatePassword(password)) {
+        console.log("User model - login:", user)
         return await User.scope('currentUser').findByPk(user.id);
       }
     }
 
-    static async signup({ username, email, password, firstName, lastName }) {
+    static async signup({ email, password, firstName, lastName, birthday, displayPic }) {
       const hashedPassword = bcrypt.hashSync(password);
+
       const user = await User.create({
-        username,
         email,
         hashedPassword,
         firstName,
-        lastName
+        lastName,
+        birthday,
+        displayPic
       });
+
+      // comment in once schema is approved and pet, background, and useritem tables are created
+      // create default pet
+      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+      // const pet = await Pet.create()
+
+      // create default background
+      // const bg = await Background.create({
+      //   itemName: "Farm"
+      // })
+
+      // add the pet and background into UserItems
+      // const petUserItem = UserItem.create({
+      //   userId: user.id,
+      //   itemType: "pet"
+      // })
+
+      // const bgUserItem = UserItem.create({
+      //   userId: user.id,
+      //   itemType: "background"
+      // })
+
+      // await pet.setUserItem(petUserItem);
+      // await bg.setUserItem(bgUserItem);
+
       return await User.scope('currentUser').findByPk(user.id);
     }
 
@@ -55,14 +82,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -71,17 +90,13 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true
       }
     },
-    username: {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [4, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error("Cannot be an email.");
-          }
-        }
-      }
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
@@ -89,7 +104,34 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
-    }
+    },
+    birthday: {
+      allowNull: false,
+      type: DataTypes.DATEONLY,
+      unique: true
+    },
+    displayPic: {
+      defaultValue: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+      type: DataTypes.STRING,
+    },
+    theme: {
+      allowNull: false,
+      defaultValue: "cows",
+      type: DataTypes.STRING,
+    },
+    moolah: {
+      allowNull: false,
+      defaultValue: 15,
+      type: DataTypes.INTEGER
+    },
+    activePet: {
+      // allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    activeBg: {
+      // allowNull: false,
+      type: DataTypes.INTEGER
+    },
   }, {
     sequelize,
     modelName: 'User',
@@ -101,7 +143,7 @@ module.exports = (sequelize, DataTypes) => {
     scopes: {
       currentUser: {
         attributes: {
-          exclude: ['hashedPassword']
+          exclude: ['hashedPassword', 'createdAt', 'updatedAt']
         }
       },
       loginUser: {
