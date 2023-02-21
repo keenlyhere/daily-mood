@@ -24,25 +24,54 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password'),
         firstName: "Demo",
-        lastName: "User"
+        lastName: "User",
+        hashedPassword: bcrypt.hashSync('password'),
+        birthday: "2012-01-01",
+        displayPic: "https://www.example.com/images/bob-smith.png",
+        theme: "cows",
+        moolah: 100,
       },
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2'),
-        firstName: "User",
-        lastName: "1"
+        email: 'amy@gmail.com',
+        firstName: "Amy",
+        lastName: "Dong",
+        hashedPassword: bcrypt.hashSync('password'),
+        birthday: "1992-01-06",
+        displayPic: "https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        theme: "cows",
+        moolah: 800,
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3'),
-        firstName: "User",
-        lastName: "2"
-      }
+        email: 'kevin@gmail.com',
+        firstName: "Kevin",
+        lastName: "Nguyen",
+        hashedPassword: bcrypt.hashSync('password'),
+        birthday: "1992-01-26",
+        displayPic: "https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg",
+        theme: "cows",
+        moolah: 500,
+      },
+      {
+        email: 'fahd@gmail.com',
+        firstName: "Fahd",
+        lastName: "Ahsan",
+        hashedPassword: bcrypt.hashSync('password'),
+        birthday: "1992-06-01",
+        displayPic: "https://nationaltoday.com/wp-content/uploads/2022/10/36-Lionel-Messi.jpg",
+        theme: "cows",
+        moolah: 500,
+      },
+      {
+        email: 'james@gmail.com',
+        firstName: "James",
+        lastName: "Duh",
+        hashedPassword: bcrypt.hashSync('password'),
+        birthday: "1995-03-01",
+        displayPic: "https://robbreport.com/wp-content/uploads/2021/02/1-7.jpg?w=1000",
+        theme: "cows",
+        moolah: 500,
+      },
     ], {});
 
   },
@@ -57,7 +86,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      email: { [Op.in]: ['demo@user.io', 'kevin@gmail.com', 'fahd@gmail.com', 'james@gmail.com'] }
     }, {});
 
   }
