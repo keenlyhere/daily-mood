@@ -15,10 +15,14 @@ const router = express.Router();
 const validateSignup = [
     check("email")
         .exists({ checkFalsy: true })
+        .withMessage("Email is required.")
+        .bail()
         .isEmail()
         .withMessage("Please provide a valid email."),
     check("password")
         .exists({ checkFalsy: true })
+        .withMessage("Password is required.")
+        .bail()
         .isLength({ min: 6 })
         .withMessage("Password must be 6 characters or more."),
     check("firstName", "First Name is required")
@@ -32,7 +36,7 @@ const validateSignup = [
 ];
 
 // POST /api/users to sign up
-router.post("/", validateSignup, async (req, res) => {
+router.post("/", validateSignup, async (req, res, next) => {
     const { email, password, firstName, lastName, birthday, displayPic } = req.body;
 
     const existingEmail = await User.findOne({
