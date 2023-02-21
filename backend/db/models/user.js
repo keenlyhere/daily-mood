@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     toSafeObject() {
-      const { id, firstName, lastName, username, email, profileImageUrl } = this;
-      return { id, firstName, lastName, username, email, profileImageUrl };
+      const { id, email, firstName, lastName, birthday, displayPic, theme, moolah, activePet, activeBg } = this;
+      return { id, email, firstName, lastName, birthday, displayPic, theme, moolah, activePet, activeBg };
     }
 
     validatePassword(password) {
@@ -29,10 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
-          [Op.or]: {
-            username: credential,
-            email: credential
-          }
+          email: credential
         }
       });
       if (user && user.validatePassword(password)) {
@@ -41,17 +38,42 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password, firstName, lastName, profileImageUrl }) {
+    static async signup({ email, password, firstName, lastName, birthday, displayPic }) {
       const hashedPassword = bcrypt.hashSync(password);
 
       const user = await User.create({
-        username,
         email,
         hashedPassword,
         firstName,
         lastName,
-        profileImageUrl
+        birthday,
+        displayPic
       });
+
+      // comment in once schema is approved and pet, background, and useritem tables are created
+      // create default pet
+      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+      // const pet = await Pet.create()
+
+      // create default background
+      // const bg = await Background.create({
+      //   itemName: "Farm"
+      // })
+
+      // add the pet and background into UserItems
+      // const petUserItem = UserItem.create({
+      //   userId: user.id,
+      //   itemType: "pet"
+      // })
+
+      // const bgUserItem = UserItem.create({
+      //   userId: user.id,
+      //   itemType: "background"
+      // })
+
+      // await pet.setUserItem(petUserItem);
+      // await bg.setUserItem(bgUserItem);
+
       return await User.scope('currentUser').findByPk(user.id);
     }
 
@@ -115,6 +137,21 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    defaultScope: {
+      attributes: {
+        exclude: ['hashedPassword', 'updatedAt', 'email', 'createdAt']
+      }
+    },
+    scopes: {
+      currentUser: {
+        attributes: {
+          exclude: ['hashedPassword', 'createdAt', 'updatedAt']
+        }
+      },
+      loginUser: {
+        attributes: {}
+      },
+    }
   });
   return User;
 };
