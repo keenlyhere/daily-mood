@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 
 const {  Model, Validator } = require('sequelize');
+const { UserItem, Pet, Background } = require("../models")
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -51,28 +52,35 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // comment in once schema is approved and pet, background, and useritem tables are created
-      // create default pet
-      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
-      // const pet = await Pet.create()
-
-      // create default background
-      // const bg = await Background.create({
-      //   itemName: "Farm"
-      // })
 
       // add the pet and background into UserItems
-      // const petUserItem = UserItem.create({
-      //   userId: user.id,
-      //   itemType: "pet"
-      // })
+      const petUserItem = UserItem.create({
+        userId: user.id,
+        itemType: "pet"
+      })
 
-      // const bgUserItem = UserItem.create({
-      //   userId: user.id,
-      //   itemType: "background"
-      // })
+      const bgUserItem = UserItem.create({
+        userId: user.id,
+        itemType: "background"
+      })
 
-      // await pet.setUserItem(petUserItem);
-      // await bg.setUserItem(bgUserItem);
+      // create default pet
+      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+      const pet = await Pet.create({
+        userItemId: petUserItem.id
+      })
+
+      // create default background
+      const bg = await Background.create({
+        userItemId: bgUserItem.id
+      })
+
+      user.activePet = pet.id;
+      user.activeBg = bg.id;
+
+      await user.save();
+
+      console.log("User model - new user:", user);
 
       return await User.scope('currentUser').findByPk(user.id);
     }

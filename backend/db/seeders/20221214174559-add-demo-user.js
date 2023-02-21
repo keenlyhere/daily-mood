@@ -31,6 +31,8 @@ module.exports = {
         displayPic: "https://www.example.com/images/bob-smith.png",
         theme: "cows",
         moolah: 100,
+        activePet: 1,
+        activeBg: 2
       },
       {
         email: 'amy@gmail.com',
@@ -41,6 +43,8 @@ module.exports = {
         displayPic: "https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         theme: "cows",
         moolah: 800,
+        activePet: 3,
+        activeBg: 4
       },
       {
         email: 'kevin@gmail.com',
@@ -51,6 +55,8 @@ module.exports = {
         displayPic: "https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg",
         theme: "cows",
         moolah: 500,
+        activePet: 5,
+        activeBg: 6
       },
       {
         email: 'fahd@gmail.com',
@@ -61,6 +67,8 @@ module.exports = {
         displayPic: "https://nationaltoday.com/wp-content/uploads/2022/10/36-Lionel-Messi.jpg",
         theme: "cows",
         moolah: 500,
+        activePet: 7,
+        activeBg: 8
       },
       {
         email: 'james@gmail.com',
@@ -71,6 +79,8 @@ module.exports = {
         displayPic: "https://robbreport.com/wp-content/uploads/2021/02/1-7.jpg?w=1000",
         theme: "cows",
         moolah: 500,
+        activePet: 9,
+        activeBg: 10
       },
     ], {});
 
@@ -85,9 +95,7 @@ module.exports = {
      */
     options.tableName = 'Users';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      email: { [Op.in]: ['demo@user.io', 'kevin@gmail.com', 'fahd@gmail.com', 'james@gmail.com'] }
-    }, {});
+    return queryInterface.bulkDelete(options, {}, {});
 
   }
 };
