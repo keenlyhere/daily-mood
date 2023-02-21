@@ -8,3 +8,5 @@ npx sequelize model:generate --name Pet --attributes name:string,flavor:string,h
 
 
 npx sequelize model:generate --name Background --attributes bgName:string,bgImageUrl:string,userItemId:integer
+
+npx sequelize seed:generate --name add-pets
