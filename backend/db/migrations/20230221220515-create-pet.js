@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      name: {
+      flavor: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -45,10 +45,12 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         type: Sequelize.DATE
       }
     }, options);

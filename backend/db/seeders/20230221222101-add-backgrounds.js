@@ -21,27 +21,27 @@ module.exports = {
     */
    return queryInterface.bulkInsert(options, [
     {
-      itemName: "Farm",
+      bgName: "Farm",
       bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
       userItemId: 2
     },
     {
-      itemName: "Farm",
+      bgName: "Farm",
       bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
       userItemId: 4
     },
     {
-      itemName: "Farm",
+      bgName: "Farm",
       bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
       userItemId: 6
     },
     {
-      itemName: "Farm",
+      bgName: "Farm",
       bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
       userItemId: 8
     },
     {
-      itemName: "Farm",
+      bgName: "Farm",
       bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
       userItemId: 10
     },

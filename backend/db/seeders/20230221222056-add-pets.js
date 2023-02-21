@@ -24,7 +24,7 @@ module.exports = {
     {
       name: "Moo-Moo",
       flavor: "Sesame",
-      health: 100,
+      health: 80,
       friendliness: 12,
       petImageUrl: "https://keenlychung.com/images/cow_temp.png",
       userItemId: 1
