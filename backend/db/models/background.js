@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Background.init({
-    name: {
+    bgName: {
       allowNull: false,
       defaultValue: "Farm",
       type: DataTypes.STRING
