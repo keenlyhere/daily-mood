@@ -51,34 +51,34 @@ module.exports = (sequelize, DataTypes) => {
         displayPic
       });
 
-      // comment in once schema is approved and pet, background, and useritem tables are created
+      // // comment in once schema is approved and pet, background, and useritem tables are created
 
-      // add the pet and background into UserItems
-      const petUserItem = UserItem.create({
-        userId: user.id,
-        itemType: "pet"
-      })
+      // // add the pet and background into UserItems
+      // const petUserItem = await UserItem.create({
+      //   userId: user.id,
+      //   itemType: "pet"
+      // })
 
-      const bgUserItem = UserItem.create({
-        userId: user.id,
-        itemType: "background"
-      })
+      // const bgUserItem = await UserItem.create({
+      //   userId: user.id,
+      //   itemType: "background"
+      // })
 
-      // create default pet
-      // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
-      const pet = await Pet.create({
-        userItemId: petUserItem.id
-      })
+      // // create default pet
+      // // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+      // const pet = await Pet.create({
+      //   userItemId: petUserItem.id
+      // })
 
-      // create default background
-      const bg = await Background.create({
-        userItemId: bgUserItem.id
-      })
+      // // create default background
+      // const bg = await Background.create({
+      //   userItemId: bgUserItem.id
+      // })
 
-      user.activePet = pet.id;
-      user.activeBg = bg.id;
+      // user.activePet = pet.id;
+      // user.activeBg = bg.id;
 
-      await user.save();
+      // await user.save();
 
       console.log("User model - new user:", user);
 

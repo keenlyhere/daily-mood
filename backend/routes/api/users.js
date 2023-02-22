@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, UserItem, Pet, Background } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -65,6 +65,35 @@ router.post("/", validateSignup, async (req, res, next) => {
         birthday,
         displayPic
     });
+
+    // comment in once schema is approved and pet, background, and useritem tables are created
+
+    // add the pet and background into UserItems
+    const petUserItem = await UserItem.create({
+        userId: user.id,
+        itemType: "pet"
+    })
+
+    const bgUserItem = await UserItem.create({
+        userId: user.id,
+        itemType: "background"
+    })
+
+    // create default pet
+    // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
+    const pet = await Pet.create({
+        userItemId: petUserItem.id
+    })
+
+    // create default background
+    const bg = await Background.create({
+        userItemId: bgUserItem.id
+    })
+
+    user.activePet = petUserItem.id;
+    user.activeBg = bgUserItem.id;
+
+    await user.save();
 
     await setTokenCookie(res, user);
 
