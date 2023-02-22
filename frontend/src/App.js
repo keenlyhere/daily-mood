@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import LoginFormModal from "./components/LoginFormModal";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SignupFormModal from "./components/SignupFormModal";
+import Daily from "./components/DayEntries";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,9 +47,7 @@ function App() {
             <SignupFormModal />
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
-            <div className="MainPage-container" id={theme}>
-              Daily stuff here
-            </div>
+            <Daily />
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>

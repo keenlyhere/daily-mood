@@ -1,0 +1,191 @@
+import { csrfFetch } from "./csrf";
+
+const LOAD_CURRENT_DAY = "dayEntries/LOAD_CURRENT_DAY";
+const LOAD_SPECIFIC_DAY = "dayEntries/LOAD_SPECIFIC_DAY";
+const ADD_DAY_ENTRY = "dayEntries/ADD_DAY_ENTRY";
+const EDIT_DAY_ENTRY = "dayEntries/EDIT_DAY_ENTRY";
+const DELETE_DAY_ENTRY = "dayEntries/DELETE_DAY_ENTRY";
+
+const normalize = (entries) => {
+    const normalizedData = {};
+    if (!entries.length) return entries;
+    entries.forEach(entry => normalizedData[entry.id] = entry);
+    console.log("normalize - normalizedData:", normalizedData);
+    return normalizedData;
+}
+
+// action creators
+export const actionLoadCurrentDay = (userId, dayEntries) => {
+    return {
+        type: LOAD_CURRENT_DAY,
+        userId,
+        dayEntries
+    }
+}
+
+export const actionLoadSpotReviews = (spotId, reviews) => {
+    return {
+        type: LOAD_SPECIFIC_DAY,
+        spotId,
+        reviews
+    }
+}
+
+export const actionAddDayEntry = (dayEntry) => {
+    return {
+        type: ADD_DAY_ENTRY,
+        dayEntry
+    }
+}
+
+export const actionDeleteDayEntry = (entryId) => {
+    return {
+        type: DELETE_DAY_ENTRY,
+        entryId
+    }
+}
+
+export const actionEditDayEntry = (entryId, dayEntry) => {
+    return {
+        type: EDIT_DAY_ENTRY,
+        entryId,
+        dayEntry
+    }
+}
+
+// thunk actions
+export const loadCurrentDay = (userId) => async (dispatch) => {
+    const res = await csrfFetch("/api/day/current");
+
+    if (res.ok) {
+        const dayEntries = await res.json();
+        console.log("loadCurrentDay - dayEntries:", dayEntries.dayEntries);
+        dispatch(actionLoadCurrentDay(userId, dayEntries.dayEntries));
+        return dayEntries;
+    }
+}
+
+export const loadSpotReviews = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+
+    if (res.ok) {
+        const reviews = await res.json();
+        // console.log("loadSpotReviews - reviews:", reviews);
+        dispatch(actionLoadSpotReviews(spotId, reviews));
+        return reviews;
+    }
+}
+
+export const addDayEntry = (newEntry) => async (dispatch) => {
+    const { entryType, entryData } = newEntry;
+    const formData = new FormData();
+
+    formData.append("entryType", entryType);
+
+    if (entryType === "dayImage") {
+        formData.append("image", entryData);
+    }
+
+    const res = await csrfFetch(`/api/day`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: formData
+    })
+
+    if (res.ok) {
+        const entry = await res.json();
+        console.log("addDayEntry - entry:", entry);
+        dispatch(actionAddDayEntry(entry.dayEntry));
+        return entry;
+    }
+}
+
+export const deleteDayEntry = (entryId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/day/${entryId}`, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        const deletedDayEntry = await res.json();
+        console.log("deletedDayEntry - :", deletedDayEntry);
+        dispatch(actionDeleteDayEntry(entryId));
+        return deletedDayEntry;
+    }
+}
+
+export const editDayEntry = (entryId, entry) => async (dispatch) => {
+
+    const { entryType, entryData } = entry;
+    const formData = new FormData();
+
+    formData.append("entryType", entryType);
+
+    if (entryType === "dayImage") {
+        formData.append("image", entryData);
+    }
+
+    const res = await csrfFetch(`/api/day/${entryId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: formData
+    })
+
+    if (res.ok) {
+        const editedEntry = await res.json();
+        console.log("editEntry - editedEntry:", editedEntry);
+        dispatch(actionEditDayEntry(entryId, editedEntry.dayEntry));
+        return editedEntry;
+    }
+}
+
+const initialState = {
+    dayEntries: {}
+}
+export default function dayEntriesReducer(state = initialState, action) {
+    switch (action.type) {
+        case LOAD_CURRENT_DAY: {
+            const userDayEntriesState = { ...state };
+            userDayEntriesState.dayEntries = normalize(action.dayEntries);
+            console.log("LOAD_CURRENT_DAY - userDayEntriesState", userDayEntriesState);
+            return userDayEntriesState;
+        }
+        case LOAD_SPECIFIC_DAY: {
+            const spotReviewsState = { ...state };
+            // console.log("LOAD_SPOT_REVIEWS - action.reviews:", action.reviews)
+            if (action.reviews.Reviews) {
+                spotReviewsState.spot = normalize(action.reviews.Reviews);
+            } else {
+                return { ...state, spot: null };
+            }
+            // console.log("LOAD_SPOT_REVIEWS - spotReviewsState:", spotReviewsState)
+            return spotReviewsState;
+        }
+        case ADD_DAY_ENTRY: {
+            const addDayEntryState = { ...state };
+            addDayEntryState.dayEntries = { ...state.dayEntries, [action.dayEntry.id]: action.dayEntry }
+            // console.log("ADD_REVIEW - addReviewState:", addReviewState);
+            return addDayEntryState;
+        }
+        case DELETE_DAY_ENTRY: {
+            const deleteDayEntryState = { ...state };
+            console.log("action.entryId", action.entryId, typeof action.entryId)
+            console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
+            delete deleteDayEntryState.dayEntries[+action.entryId];
+            console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
+            return deleteDayEntryState;
+        }
+        case EDIT_DAY_ENTRY: {
+            const editEntryState = { ...state };
+            console.log("action.entryId", action.entryId)
+            console.log("action.dayEntry", action.dayEntry)
+            editEntryState.dayEntries = { ...state.dayEntries, [action.entryId]: action.dayEntry };
+            return editEntryState;
+        }
+        default:
+            return state;
+    }
+}
