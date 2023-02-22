@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     entryType: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: {
+        name: "uniqueDayType",
+        fields: [ "entryType", "day" ]
+      }
     },
     entryData: {
       allowNull: false,
@@ -46,6 +50,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'DayEntry',
+    indexes: [
+    {
+      unique: true,
+      fields: ['userId', 'day', 'entryType']
+    }
+  ]
   });
   return DayEntry;
 };
