@@ -12,7 +12,7 @@ const { moodParser } = require("../../utils/moods");
 
 const router = express.Router();
 
-// GET /api/day
+// GET /api/day/current - get's current day
 router.get("/", requireAuth, async (req, res, next) => {
     const { user } = req;
     // query for current day
@@ -28,7 +28,6 @@ router.get("/", requireAuth, async (req, res, next) => {
         }
     })
 
-    console.log("GET DAY - today:", today);
 
     if (!today.length > 0) {
         return res.json({
@@ -38,6 +37,41 @@ router.get("/", requireAuth, async (req, res, next) => {
 
 
     return res.json(today)
+})
+
+// GET /api/day/:day - get specific day
+router.get("/:day", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const date = req.params.day;
+    console.log("day", date, typeof date)
+
+    const queriedDay = await DayEntry.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: date
+            }
+        }
+    })
+
+    const queriedDayArray = [];
+
+    queriedDay.forEach(dayQuery => {
+        dayQuery = dayQuery.toJSON();
+        queriedDayArray.push(dayQuery);
+        // console.log(">>> DAY QUERY >>>\n", dayQuery.day === date)
+        // if (dayQuery.day === date) {
+        // }
+
+    })
+
+    const queriedDayData = {
+        DayEntries: queriedDayArray
+    };
+
+    console.log("queriedDAY>>>>>\n", queriedDayData)
+    return res.json(queriedDayData)
+
 })
 
 // POST /api/day
@@ -94,7 +128,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             mood = mood.toJSON();
             res.status(201);
-            res.json(mood);
+            return res.json(mood);
         }
         case "dayImage": {
             let image = await user.createDayEntry({
@@ -107,7 +141,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             image = image.toJSON();
             res.status(201);
-            res.json(image);
+            return res.json(image);
         }
         case "dayJournal": {
             let journal = await user.createDayEntry({
@@ -120,7 +154,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             journal = journal.toJSON();
             res.status(201);
-            res.json(journal);
+            return res.json(journal);
         }
         default:
             break;
@@ -148,7 +182,6 @@ router.put("/:dayId", singleMulterUpload("image"), requireAuth, async (req, res,
     const dayId = req.params.dayId;
 
     const updateDay = await DayEntry.findByPk(dayId);
-    console.log("BACKEND - DayEntry EDIT - updateDay:", updateDay);
     let updateDayImage;
 
     const err = {};
@@ -168,7 +201,7 @@ router.put("/:dayId", singleMulterUpload("image"), requireAuth, async (req, res,
         return next(err);
     }
 
-    const { entryData } = req.body;
+    const { entryType, entryData } = req.body;
 
     if (req.file) {
         updateDayImage = await singlePublicFileUpload(req.file);
@@ -176,11 +209,39 @@ router.put("/:dayId", singleMulterUpload("image"), requireAuth, async (req, res,
         updateDayImage = entryData;
     }
 
-    updateDay.DayEntry = updateDayImage;
+    switch (entryType) {
+        case "dayMood": {
+            updateDay.entryData = moodParser(entryData);
 
-    await updateDay.save();
+            console.log("dayMood - UPDATED - mood:", updateDay.dataValues);
+            await updateDay.save();
 
-    res.json(updateDay)
+            res.status(201);
+            return res.json(updateDay)
+
+        }
+        case "dayImage": {
+            updateDay.entryData = updateDayImage;
+
+            console.log("dayImage - UPDATED - image:", updateDay);
+            await updateDay.save();
+
+            res.status(201);
+            return res.json(updateDay)
+        }
+        case "dayJournal": {
+            updateDay.entryData = entryData;
+
+            console.log("dayJournal - UPDATED - journal:", updateDay);
+            await updateDay.save();
+
+            res.status(201);
+            return res.json(updateDay)
+        }
+        default:
+            break;
+    }
+
 })
 
 module.exports = router;
