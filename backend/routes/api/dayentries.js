@@ -30,12 +30,6 @@ router.get("/", requireAuth, async (req, res, next) => {
 
     console.log("GET DAY - today:", today);
 
-    // const err = {};
-    // err.errors = [];
-
-    // const spotsArray = [];
-
-
     if (!today.length > 0) {
         return res.json({
             dayEntries: []
@@ -146,6 +140,47 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
     return res.json({
         "error": "should not see this"
     })
+})
+
+// EDIT /api/day/:dayId
+router.put("/:dayId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const dayId = req.params.dayId;
+
+    const updateDay = await DayEntry.findByPk(dayId);
+    console.log("BACKEND - DayEntry EDIT - updateDay:", updateDay);
+    let updateDayImage;
+
+    const err = {};
+    if (!updateDay) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "DayEntry could not be found";
+        return next(err);
+    }
+
+    if (user.id !== updateDay.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden: cannot edit a DayEntry that is not yours";
+        return next(err);
+    }
+
+    const { entryData } = req.body;
+
+    if (req.file) {
+        updateDayImage = await singlePublicFileUpload(req.file);
+    } else {
+        updateDayImage = entryData;
+    }
+
+    updateDay.DayEntry = updateDayImage;
+
+    await updateDay.save();
+
+    res.json(updateDay)
 })
 
 module.exports = router;
