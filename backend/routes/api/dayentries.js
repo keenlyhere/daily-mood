@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireAuth } = require("../../utils/auth");
-const { DayEntry, sequelize } = require("../../db/models");
+const { DayEntry, User, sequelize } = require("../../db/models");
 
 const { validateQuery } = require("../../utils/validation");
 
@@ -12,7 +12,7 @@ const { moodParser } = require("../../utils/moods");
 
 const router = express.Router();
 
-// GET /api/day
+// GET /api/day/current - get's current day
 router.get("/", requireAuth, async (req, res, next) => {
     const { user } = req;
     // query for current day
@@ -28,13 +28,6 @@ router.get("/", requireAuth, async (req, res, next) => {
         }
     })
 
-    console.log("GET DAY - today:", today);
-
-    // const err = {};
-    // err.errors = [];
-
-    // const spotsArray = [];
-
 
     if (!today.length > 0) {
         return res.json({
@@ -46,9 +39,50 @@ router.get("/", requireAuth, async (req, res, next) => {
     return res.json(today)
 })
 
+// GET /api/day/:day - get specific day
+router.get("/:day", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const date = req.params.day
+
+    const queriedDay = await DayEntry.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: date
+            }
+        }
+    })
+
+    const queriedDayArray = [];
+
+    queriedDay.forEach(dayQuery => {
+        dayQuery = dayQuery.toJSON();
+        queriedDayArray.push(dayQuery);
+        // console.log(">>> DAY QUERY >>>\n", dayQuery.day === date)
+        // if (dayQuery.day === date) {
+        // }
+
+    })
+
+    const queriedDayData = {
+        DayEntries: queriedDayArray
+    };
+
+    console.log("queriedDAY>>>>>\n", queriedDayData)
+    return res.json(queriedDayData)
+
+})
+
 // POST /api/day
 router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
     const { user } = req;
+
+    const currentUser = await User.findByPk(user.id, {
+        attributes: {
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
+        }
+    });
 
     const { entryType, entryData } = req.body;
     let newDayImage;
@@ -96,11 +130,18 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
                 entryData: moodParser(entryData)
             });
 
-            console.log("dayMood - mood:", mood);
-
             mood = mood.toJSON();
+
+            currentUser.moolah += 5;
+            currentUser.save();
+
+            mood.User = currentUser;
+            // console.log("USER MOOLAH>>>>", currentUser.moolah);
+
             res.status(201);
-            res.json(mood);
+            return res.json({
+                dayEntry: mood
+            });
         }
         case "dayImage": {
             let image = await user.createDayEntry({
@@ -109,11 +150,16 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
                 entryData: newDayImage
             })
 
-            console.log("dayImage - image:", image);
-
             image = image.toJSON();
+
+            currentUser.moolah += 5;
+            currentUser.save();
+            image.User = currentUser;
+
             res.status(201);
-            res.json(image);
+            return res.json({
+                dayEntry: image
+            });
         }
         case "dayJournal": {
             let journal = await user.createDayEntry({
@@ -122,29 +168,135 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
                 entryData
             })
 
-            console.log("dayJournal - journal:", journal);
-
             journal = journal.toJSON();
+
+            currentUser.moolah += 5;
+            currentUser.save();
+            journal.User = currentUser;
+
             res.status(201);
-            res.json(journal);
+            return res.json({
+                dayEntry: journal
+            });
         }
         default:
             break;
     }
 
-    // {
-    //     "pointsEarned": 5,
-    //     "id": 27,
-    //     "day": "2023-02-22",
-    //     "entryType": "dayImage",
-    //     "entryData": "https://images.pexels.com/photos/3640930/pexels-photo-3640930.jpeg",
-    //     "userId": 7,
-    //     "updatedAt": "2023-02-22T08:25:44.723Z",
-    //     "createdAt": "2023-02-22T08:25:44.723Z"
-    // }
-
     return res.json({
         "error": "should not see this"
+    })
+})
+
+// EDIT /api/day/:entryId
+router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const entryId = req.params.entryId;
+
+    const updateDay = await DayEntry.findByPk(entryId);
+    let updateDayImage;
+
+    const err = {};
+    if (!updateDay) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "DayEntry could not be found";
+        return next(err);
+    }
+
+    if (user.id !== updateDay.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden: cannot edit a DayEntry that is not yours";
+        return next(err);
+    }
+
+    const { entryType, entryData } = req.body;
+
+    if (req.file) {
+        updateDayImage = await singlePublicFileUpload(req.file);
+    } else {
+        updateDayImage = entryData;
+    }
+
+    switch (entryType) {
+        case "dayMood": {
+            updateDay.entryData = moodParser(entryData);
+
+            console.log("dayMood - UPDATED - mood:", updateDay.dataValues);
+            await updateDay.save();
+
+            res.status(201);
+            return res.json(updateDay)
+
+        }
+        case "dayImage": {
+            updateDay.entryData = updateDayImage;
+
+            console.log("dayImage - UPDATED - image:", updateDay);
+            await updateDay.save();
+
+            res.status(201);
+            return res.json(updateDay)
+        }
+        case "dayJournal": {
+            updateDay.entryData = entryData;
+
+            console.log("dayJournal - UPDATED - journal:", updateDay);
+            await updateDay.save();
+
+            res.status(201);
+            return res.json(updateDay)
+        }
+        default:
+            break;
+    }
+
+})
+
+router.delete("/:entryId", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const currentUser = await User.findByPk(user.id, {
+        attributes: {
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
+        }
+    });
+
+    const entryId = req.params.entryId;
+
+    // const currentUser = await
+    let deleteEntry = await DayEntry.findByPk(entryId);
+
+    const err = {};
+    if (!deleteEntry) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "DayEntry couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== deleteEntry.userId) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden: cannot delete a DayEntry that is not yours";
+        return next(err);
+    }
+
+    await deleteEntry.destroy();
+
+    // deduct points from user if they delete an entry
+    currentUser.moolah -= 5;
+    currentUser.save();
+    // console.log("DELETED ENTRY - MOOLAH", currentUser.moolah);
+
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
     })
 })
 
