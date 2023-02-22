@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class DayEntry extends Model {
+  class UserTask extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      DayEntry.belongsTo(
+      UserTask.belongsTo(
         models.User,
         {
           foreignKey: "userId"
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
   }
-  DayEntry.init({
+  UserTask.init({
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER
@@ -30,13 +30,32 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATEONLY
     },
-    entryType: {
+    categoryName: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    entryData: {
+    taskName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      unique: {
+        name: "uniqueHabit",
+        fields: [ "taskName", "taskType" ],
+        where: {
+          taskType: "Habit"
+        }
+      }
+    },
+    taskType: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    taskIcon: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    isCompleted: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN
     },
     pointsEarned: {
       allowNull: false,
@@ -45,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'DayEntry',
+    modelName: 'UserTask',
   });
-  return DayEntry;
+  return UserTask;
 };

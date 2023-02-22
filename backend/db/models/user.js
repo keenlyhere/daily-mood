@@ -106,6 +106,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
 
+      User.hasMany(
+        models.UserTask,
+        {
+          foreignKey: "userId",
+          onDelete: "CASCADE",
+          hooks: true
+        }
+      );
+
     }
   }
   User.init({
