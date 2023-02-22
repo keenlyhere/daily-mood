@@ -5,6 +5,7 @@ const { User, UserItem, Pet, Background } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -36,8 +37,13 @@ const validateSignup = [
 ];
 
 // POST /api/users to sign up
-router.post("/", validateSignup, async (req, res, next) => {
-    const { email, password, firstName, lastName, birthday, displayPic } = req.body;
+router.post("/", singleMulterUpload("image"), validateSignup, async (req, res, next) => {
+    const { email, password, firstName, lastName, birthday } = req.body;
+    let displayPic;
+
+    if (req.file) {
+        displayPic = await singlePublicFileUpload(req.file);
+    }
 
     const existingEmail = await User.findOne({
         where: {
@@ -97,7 +103,44 @@ router.post("/", validateSignup, async (req, res, next) => {
 
     await setTokenCookie(res, user);
 
+    console.log("User signup backend - user:", user);
+
     return res.json(user);
 });
+
+// PUT /api/users to edit profile picture
+router.put("/", singleMulterUpload("image"), async (req, res, next) => {
+    const { user } = req;
+    const { userId } = req.body;
+    const displayPic = await singlePublicFileUpload(req.file);
+
+    const updateUser = await User.findByPk(userId);
+
+    console.log("updateUser:", updateUser);
+    console.log("userId:", userId);
+
+    if (!updateUser) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found"
+        err.message = "User couldn't be found";
+        return next(err);
+    }
+
+    if (user.id !== updateUser.id) {
+        err.title = "Forbidden";
+        err.status = 403;
+        err.statusCode = 403;
+        err.message = "Forbidden: cannot edit a Spot that is not yours";
+        return next(err);
+    }
+
+    updateUser.displayPic = displayPic;
+
+    await updateUser.save();
+    // console.log("updateUser - updated:", updateUser);
+
+    res.json(updateUser);
+})
 
 module.exports = router;
