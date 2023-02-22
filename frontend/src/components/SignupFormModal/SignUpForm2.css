@@ -1,0 +1,184 @@
+.SignUpForm-container {
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    font-size: 14px;
+}
+
+.SignUpForm-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #f0fae4;
+}
+
+.SignUpForm-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.SignUpForm-create {
+    position: absolute;
+    top: 15px;
+    left: 170px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.SignUpForm-form {
+    margin-top: 18px;
+    width: 100%;
+    padding: 0px 18px;
+}
+
+.SignUpForm-group-profile-pic {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpForm-profile-pic-upload {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    color: #c4c4c4;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.SignUpForm-group-profile-pic > input[type="file"] {
+    display: none;
+}
+
+.SignUpForm-default-profile-image {
+    border-radius: 50%;
+    width: 100px;
+    aspect-ratio: 1;
+}
+
+.SignUpForm-group-split {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.SignUpForm-group,
+.SignUpForm-group-half {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* height: 48px; */
+    /* margin-bottom: 8px; */
+}
+
+.SignUpForm-group-half {
+    width: 50%;
+}
+
+
+.SignUpForm-group > input,
+.SignUpForm-group-half > input {
+    /* background-color: #f0fae4; */
+    border: 1px solid #878787;
+    /* border: 2px solid #fff; */
+    /* box-shadow: 0px 0px 0px 1px rgb(157, 164, 149); */
+    border-radius: 8px;
+    height: 48px;
+    padding: 8px;
+    width: 100%;
+}
+
+.SignUpForm-group-half > input {
+    width: 100%;
+}
+
+.SignUpForm-group > input,
+.SignUpForm-group > input[type="date"],
+.SignUpForm-group-half > input {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    outline: none;
+    padding: 8px;
+}
+
+.email label,
+.birthday label,
+.firstName label,
+.lastName label,
+.password label,
+.confirmPassword label {
+    position: absolute;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+    transition: 0.2s ease-in-out;
+}
+
+.SignUpForm-group > input:focus + label,
+.SignUpForm-group-split > .SignUpForm-group-half > input:focus + label {
+    color:#878787;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    top: -13px;
+}
+
+.SignUpForm-group > input:valid + label,
+.SignUpForm-group-split > .SignUpForm-group-half > input:valid + label {
+    color:#878787;
+    font-size: 8px;
+    top: -13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.SignUpForm-group > input:focus,
+.SignUpForm-group-split > .SignUpForm-group-half > input:focus {
+    border: 2px solid #878787;
+    border-radius: 8px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.SignUpForm-submit {
+    background: #f0fae4;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    height: 48px;
+    width: 100%;
+}

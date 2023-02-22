@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Ubuntu:wght@700&display=swap');
+
+* {
+    font-family: Roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+.LoginFormModal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+}
+
+.LoginFormModal-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #f0fae4;
+}
+
+.LoginFormModal-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.LoginFormModal-Login {
+    position: absolute;
+    top: 15px;
+    left: 170px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.LoginFormModal-form {
+    width: 100%;
+    align-self: center;
+    margin-top: 36px;
+    width: 100%;
+}
+
+.LoginFormModal-group {
+    margin: 0px 18px 0px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginFormModal-group-credential {
+    position: relative;
+    display: flex;
+    height: 48px;
+    margin-bottom: 8px;
+}
+
+.LoginFormModal-group-password {
+    position: relative;
+    display: flex;
+    height: 48px;
+}
+
+.LoginFormModal-group-credential > input {
+    height: 48px;
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.LoginFormModal-group-password > input {
+    height: 48px;
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.LoginFormModal-group-credential label {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+}
+
+.LoginFormModal-group-password label {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    color: #878787;
+    transition: 0.2s ease-in-out;
+    padding: 2px;
+    padding-left: 8px;
+    font-size: 13px;
+}
+
+.LoginFormModal-errors-container {
+    margin: auto;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.LoginFormModal-errors, .LoginFormModal-errors > li {
+    list-style-type: none;
+    font-size: 12px;
+    padding: 0px;
+    color: #ff385c;
+    align-self: center;
+}
+
+.LoginFormModal-group-credential > input:focus + label,
+.LoginFormModal-group-credential > input:valid + label,
+.LoginFormModal-group-password > input:focus + label,
+.LoginFormModal-group-password > input:valid + label {
+    color:#878787;
+    font-size: 8px;
+    top: -13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.LoginFormModal-group-credential > input:focus,
+.LoginFormModal-group-password > input:focus {
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.LoginFormModal-button-container {
+    margin: 20px 18px 0px 18px;
+}
+
+.LoginFormModal-submit {
+    height: 48px;
+    width: 100%;
+    background: #f0fae4;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.LoginFormModal-submit:hover {
+    background: #fff;
+    border: 1px solid #c4c4c4;
+}
+
+.LoginFormModal-demo {
+    margin-top: 8px;
+    height: 48px;
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.LoginFormModal-demo:hover {
+    height: 48px;
+    width: 100%;
+    background: #f0fae4;
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+    transition: 0.2s ease-in-out;
+}
+
+.Form-error-container {
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+}
+
+.Form-error {
+    padding: 4px 0px;
+    font-size: 12px;
+    color: #ed4245;
+}

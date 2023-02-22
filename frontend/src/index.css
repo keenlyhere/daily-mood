@@ -1,1 +1,19 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
+
+* {
+    color: #222222;
+}
+
+.App-container {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.clickable, button {
+    cursor: pointer;
+}
