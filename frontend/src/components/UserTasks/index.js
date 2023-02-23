@@ -76,47 +76,21 @@ export default function UserTasks() {
                 <h3 className="UserTasks-headers">
                     Habits
                 </h3>
-                {/* { Object.keys(allHabits).length ? (
-                    categoryTasksMapper(categoryHabits)
-                ) : (
-                    "No habits T_T prompt user to create a habit in this case!"
-                )} */}
 
                 { categoryTasksMapper(allHabits, categoryHabits)}
-
 
                 <h3 className="UserTasks-headers">
                     Unfinished To-Do's
                 </h3>
-                {/* { Object.keys(allUnfinishedTodo).length ? (
-                    categoryTasksMapper(categoryUnfinishedToDo)
-                ) : (
-                    "No to-do T_T prompt user to create a habit in this case!"
-                )} */}
+
                 { categoryTasksMapper(allUnfinishedTodo, categoryUnfinishedToDo) }
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
-                {/* { Object.keys(allToDoToday).length ? (
-                    categoryTasksMapper(categoryToDoToday)
-                ) : (
-                    "No to-do T_T prompt user to create a habit in this case!"
-                )} */}
-
                 { categoryTasksMapper(allToDoToday, categoryToDoToday) }
 
-
-                {/* <div className="UserTasks-habits-container">
-                    habits go here
-                </div>
-                <div className="UserTasks-unfinished-to-do-container">
-                    unfinished to-do go here
-                </div>
-                <div className="UserTasks-to-do-today-container">
-                    today's to-do goes here
-                </div> */}
             </div>
         )
     } else {
