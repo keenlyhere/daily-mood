@@ -72,6 +72,9 @@ export default function Navigation({ isLoaded }) {
                             <button onClick={() => history.push("/daily")} className="profile-dropdown-logout">Daily</button>
                         </li>
                         <li className="profile-dropdown-links">
+                            <button onClick={() => history.push("/tasks")} className="profile-dropdown-logout">Tasks</button>
+                        </li>
+                        <li className="profile-dropdown-links">
                             <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
                         </li>
                     </div>

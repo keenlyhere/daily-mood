@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import dayEntriesReducer from "./dayentries";
 import sessionReducer from "./session";
+import userTasksReducer from "./userTaskReducer";
 
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
-  day: dayEntriesReducer
+  day: dayEntriesReducer,
+  tasks: userTasksReducer
 });
 
 let enhancer;

@@ -10,6 +10,7 @@ const normalize = (tasks) => {
     const normalizedData = {};
     if (!tasks.length) return tasks;
     tasks.forEach(task => normalizedData[task.id] = task);
+    // console.log("NORMALIZED DATA ---", normalizedData)
     return normalizedData;
 }
 
@@ -58,8 +59,8 @@ export const loadCurrentDayTasks = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const userTasks = await res.json();
-        console.log("loadCurrentDay - userTasks:", userTasks.userTasks);
-        dispatch(actionLoadCurrentDayTasks(userId, userTasks.userTasks));
+        console.log("loadCurrentDay - userTasks:", userTasks);
+        dispatch(actionLoadCurrentDayTasks(userId, userTasks));
         return userTasks;
     }
 }
@@ -129,8 +130,22 @@ export default function userTasksReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_CURRENT_DAY_TASKS: {
             const userDayTasksState = { ...state };
-            userDayTasksState.userTasks = normalize(action.userTasks);
-            console.log("LOAD_CURRENT_DAY_TASKS - userDayTasksState", userDayTasksState);
+            // userDayTasksState.userTasks = normalize(action.userTasks);
+            userDayTasksState.userTasks = action.userTasks;
+
+            if (action.userTasks.habitsToday.length) {
+                userDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habitsToday);
+            }
+
+            if (action.userTasks.toDoToday.length) {
+                userDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDoToday);
+            }
+
+            if (action.userTasks.unfinishedToDo.length) {
+                userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
+            }
+
+            console.log("LOAD_CURRENT_DAY_TASKS - userDayTasksState", action.userTasks);
             return userDayTasksState;
         }
         case LOAD_SPECIFIC_DAY_TASKS: {

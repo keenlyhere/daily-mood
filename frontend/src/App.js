@@ -7,12 +7,11 @@ import LoginFormModal from "./components/LoginFormModal";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
+import UserTasks from "./components/UserTasks";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -68,6 +67,9 @@ function App() {
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <Daily />
+          </ProtectedRoute>
+          <ProtectedRoute path="/tasks" exact={true}>
+            <UserTasks />
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>
