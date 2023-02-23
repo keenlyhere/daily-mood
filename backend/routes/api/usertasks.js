@@ -355,8 +355,18 @@ router.get("/:day", requireAuth, async (req, res, next) => {
         }
     })
 
+    const habitsDayCategoriesSet = new Set();
+    queriedHabitsDay.forEach(habit => {
+        habit = habit.toJSON();
+        habitsDayCategoriesSet.add(habit.categoryName);
+    })
+
+    const habitsDayCategories = [...habitsDayCategoriesSet];
+
     const queriedDayData = {
-        queriedHabitsDay,
+        habits: queriedHabitsDay,
+        habitsDayCategories,
+        toDo: dayToDoArray,
         toDoDayCategories
     };
 
