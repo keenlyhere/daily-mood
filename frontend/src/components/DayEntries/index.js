@@ -224,7 +224,7 @@ export default function Daily() {
                             onClick={() => handleMoodChange("create", "Happy")}
                         />
                         <img
-                            src="https://cdn.icon-icons.com/icons2/860/PNG/512/happy_icon-icons.com_67810.png"
+                            src={cow_ecstatic}
                             alt="Ecstatic mood"
                             className={`Dailies-mood-image clickable ${mood === "Exstatic" ? "active-mood" : ""}`}
                             onClick={() => handleMoodChange("create", "Ecstatic")}
