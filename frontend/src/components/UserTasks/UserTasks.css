@@ -22,10 +22,11 @@
 }
 
 .UserTasks-icons-container {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
     gap: 8px;
 }
+
 
 .UserTasks-icon-container {
     height: 50px;
@@ -34,4 +35,9 @@
     background-color: white;
     overflow: hidden;
     object-fit: contain;
+    /* margin-right: auto; */
+}
+
+.UserTasks-incomplete {
+    filter: grayscale(1)
 }

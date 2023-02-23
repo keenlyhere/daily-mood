@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
 import UserTasks from "./components/UserTasks";
+import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,6 +71,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/tasks" exact={true}>
             <UserTasks />
+          </ProtectedRoute>
+          <ProtectedRoute path="/tasks/:date" exact={true}>
+            <SpecificDayTasks />
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>

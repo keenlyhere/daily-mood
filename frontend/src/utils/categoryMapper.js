@@ -10,7 +10,7 @@ export default function categoryTasksMapper(allTasks, categoryTasks) {
                         {
                             categoryTasks[category].map((task ,idx) => (
                                 <div key={idx} className="UserTasks-icon-container">
-                                    <img src={task.taskIcon} className="UserTasks-icon" alt="Task icon" />
+                                    <img src={task.taskIcon} className={`UserTasks-icon ${task.isComplete ? "" : "UserTasks-incomplete"}`} alt="Task icon" />
                                 </div>
                             ))
                         }

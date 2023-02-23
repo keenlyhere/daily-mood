@@ -150,7 +150,17 @@ export default function userTasksReducer(state = initialState, action) {
         }
         case LOAD_SPECIFIC_DAY_TASKS: {
             const specificDayTasksState = { ...state };
-            specificDayTasksState.tasks = normalize(action.tasks);
+            // specificDayTasksState.tasks = normalize(action.tasks);
+            specificDayTasksState.userTasks = action.userTasks;
+
+            if (action.userTasks.habits.length) {
+                specificDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habits);
+            }
+
+            if (action.userTasks.toDo.length) {
+                specificDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDo);
+            }
+
             return specificDayTasksState;
         }
         case ADD_TASK: {
