@@ -84,6 +84,8 @@ export const addDayEntry = (newEntry) => async (dispatch) => {
 
     if (entryType === "dayImage") {
         formData.append("image", entryData);
+    } else {
+        formData.append("entryData", entryData);
     }
 
     const res = await csrfFetch(`/api/day`, {
@@ -124,6 +126,8 @@ export const editDayEntry = (entryId, entry) => async (dispatch) => {
 
     if (entryType === "dayImage") {
         formData.append("image", entryData);
+    } else {
+        formData.append("entryData", entryData);
     }
 
     const res = await csrfFetch(`/api/day/${entryId}`, {
@@ -136,7 +140,7 @@ export const editDayEntry = (entryId, entry) => async (dispatch) => {
 
     if (res.ok) {
         const editedEntry = await res.json();
-        console.log("editEntry - editedEntry:", editedEntry);
+        // console.log("editEntry - editedEntry:", editedEntry);
         dispatch(actionEditDayEntry(entryId, editedEntry.dayEntry));
         return editedEntry;
     }
