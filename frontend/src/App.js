@@ -32,12 +32,32 @@ function App() {
         <Switch>
           <Route exact path="/">
             <h1>Splash page goes here!</h1>
-            <h2>Goals for Wednesday</h2>
+            <h2>Goals for Thursday</h2>
+            <ol>
+              <li>Finish routes for UserTasks (EDIT, DELETE)</li>
+              <li>Connect UserTasks to frontend + styling</li>
+              <li>Start routes for Pets redemption</li>
+              <li>Connect Pets to frontend + styling</li>
+            </ol>
+            <h2>Goals for Friday (tentative)</h2>
+            <ol>
+              <li>Finish routes for Pets redemption</li>
+              <li>Connect Pets to frontEnd + styling</li>
+              <li>Start routes for Background redemption</li>
+              <li>Connect Background to frontend + styling</li>
+            </ol>
+            <h2>Goals for Saturday (tentative)</h2>
+            <ol>
+              <li>Finish routes for Background redemption</li>
+              <li>Connect Background to frontend + styling</li>
+              <li>Style nav bar ---- profile dropdown button instead of logout button when user logged in?</li>
+              <li>Design splash page</li>
+            </ol>
+            <h2>Completed on Wednesday</h2>
             <ol>
               <li>Routes for DayEntries</li>
               <li>Connect DayEntries to frontend</li>
-              <li>Routes for UserTasks</li>
-              <li>Connect UserTasks to frontend</li>
+              <li>Routes for UserTasks (GET x2, POST)</li>
             </ol>
           </Route>
           <Route exact path="/login">
