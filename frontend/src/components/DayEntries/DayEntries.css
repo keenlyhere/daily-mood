@@ -30,7 +30,7 @@
     align-items: center;
     gap: 8px;
     width: min(100%, 600px);
-
+    flex-direction: row-reverse;
 }
 
 .Daily-moods-container {
@@ -40,8 +40,8 @@
 }
 
 .Dailies-mood-image {
-    width: 48px;
-    height: 48px;
+    width: 58px;
+    /* height: 58px; */
 }
 
 .Dailies-mood-image {
@@ -50,6 +50,10 @@
 
 .Dailies-mood-image:hover {
     filter: brightness(1)
+}
+
+.Dailies-mood-image.sad-icon:hover {
+    filter: brightness(1.5)
 }
 
 .active-mood {

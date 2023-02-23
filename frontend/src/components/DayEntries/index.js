@@ -4,6 +4,12 @@ import { useHistory } from "react-router-dom";
 import { actionAddDayEntry, addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../store/dayentries";
 import "./DayEntries.css";
 
+import cow_ecstatic from "../../assets/cow_ecstatic.png";
+import cow_happy from "../../assets/cow_happy.png";
+import cow_content from "../../assets/cow_content.png";
+import cow_meh from "../../assets/cow_meh.png";
+import cow_sad from "../../assets/cow_sad.png";
+
 export default function Daily() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -194,25 +200,25 @@ export default function Daily() {
                     </div>
                     <div className="Daily-mood-icon-container">
                         <img
-                            src="https://cdn.icon-icons.com/icons2/2000/PNG/512/crying_emoji_sad_icon_123390.png"
+                            src={cow_sad}
                             alt="Sad mood"
-                            className={`Dailies-mood-image clickable ${mood === "Sad" ? "active-mood" : ""}`}
+                            className={`Dailies-mood-image clickable ${mood === "Sad" ? "active-mood" : ""} sad-icon`}
                             onClick={() => handleMoodChange("create", "Sad")}
                         />
                         <img
-                            src="https://cdn.icon-icons.com/icons2/1465/PNG/512/023neutralface_100669.png"
+                            src={cow_meh}
                             alt="Meh mood"
                             className={`Dailies-mood-image clickable ${mood === "Meh" ? "active-mood" : ""}`}
                             onClick={() => handleMoodChange("create", "Meh")}
                         />
                         <img
-                            src="https://cdn.icon-icons.com/icons2/1808/PNG/512/emoji-smile_115244.png"
+                            src={cow_content}
                             alt="Content mood"
                             className={`Dailies-mood-image clickable ${mood === "Content" ? "active-mood" : ""}`}
                             onClick={() => handleMoodChange("create", "Content")}
                         />
                         <img
-                            src="https://cdn.icon-icons.com/icons2/1277/PNG/512/1497560833-smiley-18_85059.png"
+                            src={cow_happy}
                             alt="Happy mood"
                             className={`Dailies-mood-image clickable ${mood === "Happy" ? "active-mood" : ""}`}
                             onClick={() => handleMoodChange("create", "Happy")}
@@ -236,31 +242,31 @@ export default function Daily() {
                     <div className="Daily-moods-container">
                         <div className="Daily-mood-icon-container">
                             <img
-                                src="https://cdn.icon-icons.com/icons2/2000/PNG/512/crying_emoji_sad_icon_123390.png"
+                                src={cow_sad}
                                 alt="Sad mood"
-                                className={`Dailies-mood-image clickable ${currentMood.entryData === "Sad" ? "active-mood" : ""}`}
+                                className={`Dailies-mood-image clickable ${currentMood.entryData === "Sad" ? "active-mood" : ""} sad-icon`}
                                 onClick={() => handleMoodChange("edit", "Sad")}
                             />
                             <img
-                                src="https://cdn.icon-icons.com/icons2/1465/PNG/512/023neutralface_100669.png"
+                                src={cow_meh}
                                 alt="Meh mood"
                                 className={`Dailies-mood-image clickable ${currentMood.entryData === "Meh" ? "active-mood" : ""}`}
                                 onClick={() => handleMoodChange("edit", "Meh")}
                             />
                             <img
-                                src="https://cdn.icon-icons.com/icons2/1808/PNG/512/emoji-smile_115244.png"
+                                src={cow_content}
                                 alt="Content mood"
                                 className={`Dailies-mood-image clickable ${currentMood.entryData === "Content" ? "active-mood" : ""}`}
                                 onClick={() => handleMoodChange("edit", "Content")}
                             />
                             <img
-                                src="https://cdn.icon-icons.com/icons2/1277/PNG/512/1497560833-smiley-18_85059.png"
+                                src={cow_happy}
                                 alt="Happy mood"
                                 className={`Dailies-mood-image clickable ${currentMood.entryData === "Happy" ? "active-mood" : ""}`}
                                 onClick={() => handleMoodChange("edit", "Happy")}
                             />
                             <img
-                                src="https://cdn.icon-icons.com/icons2/860/PNG/512/happy_icon-icons.com_67810.png"
+                                src={cow_ecstatic}
                                 alt="Ecstatic mood"
                                 className={`Dailies-mood-image clickable ${currentMood.entryData === "Ecstatic" ? "active-mood" : ""}`}
                                 onClick={() => handleMoodChange("edit", "Ecstatic")}
