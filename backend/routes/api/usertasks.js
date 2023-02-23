@@ -12,7 +12,7 @@ const { moodParser } = require("../../utils/moods");
 
 const router = express.Router();
 
-// GET /api/day/current - get's current day
+// GET /api/tasks/current - get's current day
 router.get("/current", requireAuth, async (req, res, next) => {
     const { user } = req;
     // query for current day
@@ -22,8 +22,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     const today = await DayEntry.findAll({
         where: {
             [Op.and]: {
-                // day: formatDate(now),
-                day: now,
+                day: formatDate(now),
                 userId: user.id
             }
         }
