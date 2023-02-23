@@ -374,8 +374,8 @@ router.get("/:day", requireAuth, async (req, res, next) => {
 
 })
 
-// POST /api/day
-router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+// POST /api/tasks
+router.post("/", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
@@ -384,108 +384,104 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
         }
     });
 
-    const { entryType, entryData } = req.body;
-    let newDayImage;
+    const { categoryName, taskName, taskType, taskIcon } = req.body;
 
     const now = new Date();
 
-    const today = await DayEntry.findAll({
+    const err = {};
+    err.errors = [];
+    if (taskType !== "Habit" && taskType !== "To-Do") {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Invalid input"
+        err.message = "";
+        err.errors.push({ "taskType": "Task type must be 'Habit' or 'To-Do'."})
+        return next(err);
+    }
+
+    // if task type is a habit, then make sure it is not the same
+    // as one that already exists
+
+    const queriedHabitsDay = await UserTask.findAll({
         where: {
             [Op.and]: {
-                day: formatDate(now),
-                userId: user.id
+                userId: user.id,
+                day: now,
+                taskType: "Habit"
             }
         }
     })
 
+    const habitsDayCategoriesSet = new Set();
+    queriedHabitsDay.forEach(habit => {
+        habit = habit.toJSON();
+        habitsDayCategoriesSet.add(habit.categoryName);
+    })
 
-    const err = {};
-    err.errors = [];
-    if (today.length) {
-        for (let i = 0; i < today.length; i++) {
-            let entry = today[i];
+    const habitsDayCategories = [...habitsDayCategoriesSet];
 
-            if (entry.entryType === entryType) {
-                err.title = "Forbidden";
-                err.status = 403;
-                err.statusCode = 403;
-                err.message = "You have already created an entry for the day."
-                err.errors.push("You have already created an entry for the day.")
-                return next(err);
+    if (taskType === "Habit") {
+        if (habitsDayCategories.includes(categoryName)) {
+            for (let i = 0; i < queriedHabitsDay.length; i++) {
+                let habit = queriedHabitsDay[i];
+
+                if (taskName === habit.taskName) {
+                    err.title = "Forbidden";
+                    err.status = 403;
+                    err.statusCode = 403;
+                    err.message = "You have already created a habit in the category with the same name."
+                    err.errors.push("You have already created a habit in the category with the same name.")
+                    return next(err);
+                }
             }
         }
     }
 
-    if (req.file) {
-        newDayImage = await singlePublicFileUpload(req.file);
-    } else {
-        newDayImage = entryData;
-    }
-
-    switch (entryType) {
-        case "dayMood": {
-            let mood = await user.createDayEntry({
-                day: formatDate(now),
-                entryType,
-                entryData
+    switch (taskType) {
+        case "Habit": {
+            let newHabit = await user.createUserTask({
+                day: now,
+                categoryName,
+                taskName,
+                taskIcon,
+                taskType,
+                isCompleted: false,
+                pointsEarned: 0
             });
 
-            mood = mood.toJSON();
+            newHabit = newHabit.toJSON();
 
-            currentUser.moolah += 5;
-            currentUser.save();
-
-            mood.User = currentUser;
+            newHabit.User = currentUser;
             // console.log("USER MOOLAH>>>>", currentUser.moolah);
 
             res.status(201);
             return res.json({
-                dayEntry: mood
+                habit: newHabit
             });
         }
-        case "dayImage": {
-            let image = await user.createDayEntry({
-                day: formatDate(now),
-                entryType,
-                entryData: newDayImage
+        case "To-Do": {
+            let newToDo = await user.createUserTask({
+                day: now,
+                categoryName,
+                taskName,
+                taskIcon,
+                taskType,
+                isCompleted: false,
+                pointsEarned: 0
             })
 
-            image = image.toJSON();
-
-            currentUser.moolah += 5;
-            currentUser.save();
-            image.User = currentUser;
+            newToDo = newToDo.toJSON();
+            newToDo.User = currentUser;
 
             res.status(201);
             return res.json({
-                dayEntry: image
-            });
-        }
-        case "dayJournal": {
-            let journal = await user.createDayEntry({
-                day: formatDate(now),
-                entryType,
-                entryData
-            })
-
-            journal = journal.toJSON();
-
-            currentUser.moolah += 5;
-            currentUser.save();
-            journal.User = currentUser;
-
-            res.status(201);
-            return res.json({
-                dayEntry: journal
+                task: newToDo
             });
         }
         default:
             break;
     }
 
-    return res.json({
-        "error": "should not see this"
-    })
 })
 
 // EDIT /api/day/:entryId
