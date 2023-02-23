@@ -6,9 +6,7 @@ const { UserTask, User, sequelize } = require("../../db/models");
 const { validateQuery } = require("../../utils/validation");
 
 const { Op } = require("sequelize");
-const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
 const { formatDate } = require("../../utils/dateFormating");
-const { moodParser } = require("../../utils/moods");
 
 const router = express.Router();
 
