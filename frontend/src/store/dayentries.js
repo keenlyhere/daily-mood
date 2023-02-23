@@ -23,11 +23,11 @@ export const actionLoadCurrentDay = (userId, dayEntries) => {
     }
 }
 
-export const actionLoadSpotReviews = (spotId, reviews) => {
+export const actionLoadSpecificDay = (userId, dayEntries) => {
     return {
         type: LOAD_SPECIFIC_DAY,
-        spotId,
-        reviews
+        userId,
+        dayEntries
     }
 }
 
@@ -65,14 +65,14 @@ export const loadCurrentDay = (userId) => async (dispatch) => {
     }
 }
 
-export const loadSpotReviews = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+export const loadSpecificDay = (userId, date) => async (dispatch) => {
+    const res = await csrfFetch(`/api/day/${date}`);
 
     if (res.ok) {
-        const reviews = await res.json();
-        // console.log("loadSpotReviews - reviews:", reviews);
-        dispatch(actionLoadSpotReviews(spotId, reviews));
-        return reviews;
+        const entries = await res.json();
+        // console.log("loadSpecificDay - entries:", entries);
+        dispatch(actionLoadSpecificDay(userId, entries));
+        return entries;
     }
 }
 
@@ -158,15 +158,9 @@ export default function dayEntriesReducer(state = initialState, action) {
             return userDayEntriesState;
         }
         case LOAD_SPECIFIC_DAY: {
-            const spotReviewsState = { ...state };
-            // console.log("LOAD_SPOT_REVIEWS - action.reviews:", action.reviews)
-            if (action.reviews.Reviews) {
-                spotReviewsState.spot = normalize(action.reviews.Reviews);
-            } else {
-                return { ...state, spot: null };
-            }
-            // console.log("LOAD_SPOT_REVIEWS - spotReviewsState:", spotReviewsState)
-            return spotReviewsState;
+            const specificDayEntriesState = { ...state };
+            specificDayEntriesState.dayEntries = normalize(action.dayEntries);
+            return specificDayEntriesState;
         }
         case ADD_DAY_ENTRY: {
             const addDayEntryState = { ...state };
