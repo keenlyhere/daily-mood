@@ -26,67 +26,64 @@ router.get("/current", requireAuth, async (req, res, next) => {
         where: {
             userId: user.id,
             day: {
-                [Op.not]: now
-            }
-        }
-    })
+                [Op.not]: now,
+            },
+        },
+    });
 
     if (!allTasks.length > 0) {
         return res.json({
-            userTasks: []
-        })
+            userTasks: [],
+        });
     }
 
     const toDoArray = [];
 
-    allTasks.forEach(task => {
-
+    allTasks.forEach((task) => {
         if (task.taskType === "To-Do") {
             toDoArray.push(task);
         }
-    })
+    });
 
     const unfinishedToDoObj = {
-        unfinishedToDo: []
-    }
+        unfinishedToDo: [],
+    };
 
     const unFinishedToDoCategories = new Set();
-    toDoArray.forEach(task => {
+    toDoArray.forEach((task) => {
         task = task.toJSON();
 
         if (!task.isCompleted) {
             unfinishedToDoObj.unfinishedToDo.push(task);
             unFinishedToDoCategories.add(task.categoryName);
-
         }
-    })
+    });
 
-    unfinishedToDoObj.unfinishedToDoCategories = [...unFinishedToDoCategories]
+    unfinishedToDoObj.unfinishedToDoCategories = [...unFinishedToDoCategories];
 
     // ---> FIND ALL TASKS FOR TODAY
     const toDoToday = await UserTask.findAll({
         where: {
             [Op.and]: {
                 userId: user.id,
-                day: now
-            }
-        }
-    })
+                day: now,
+            },
+        },
+    });
 
     const dailyToDo = [];
 
-    toDoToday.forEach(task => {
-
+    toDoToday.forEach((task) => {
         if (task.taskType === "To-Do") {
             dailyToDo.push(task);
         }
-    })
+    });
 
     const toDoTodayCategoriesSet = new Set();
-    dailyToDo.forEach(task => {
+    dailyToDo.forEach((task) => {
         task = task.toJSON();
         toDoTodayCategoriesSet.add(task.categoryName);
-    })
+    });
 
     const toDoTodayCategories = [...toDoTodayCategoriesSet];
 
@@ -99,20 +96,20 @@ router.get("/current", requireAuth, async (req, res, next) => {
             [Op.and]: {
                 userId: user.id,
                 day: mostRecentDay,
-                taskType: "Habit"
-            }
+                taskType: "Habit",
+            },
         },
-    })
+    });
 
     const habitsToday = await UserTask.findAll({
         where: {
             [Op.and]: {
                 userId: user.id,
                 day: now,
-                taskType: "Habit"
-            }
-        }
-    })
+                taskType: "Habit",
+            },
+        },
+    });
 
     const dailyHabits = [];
     if (!habitsToday.length) {
@@ -127,8 +124,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
                 taskIcon: habit.taskIcon,
                 taskType: habit.taskType,
                 isCompleted: false,
-                pointsEarned: 0
-            })
+                pointsEarned: 0,
+            });
 
             dailyHabits.push(newHabit);
 
@@ -136,10 +133,10 @@ router.get("/current", requireAuth, async (req, res, next) => {
         }
 
         const habitsTodayCategoriesSet = new Set();
-        dailyHabits.forEach(habit => {
+        dailyHabits.forEach((habit) => {
             habit = habit.toJSON();
             habitsTodayCategoriesSet.add(habit.categoryName);
-        })
+        });
 
         const habitsTodayCategories = [...habitsTodayCategoriesSet];
 
@@ -148,17 +145,17 @@ router.get("/current", requireAuth, async (req, res, next) => {
             habitsTodayCategories,
             unfinishedToDoObj,
             toDoToday: dailyToDo,
-            toDoTodayCategories
+            toDoTodayCategories,
         };
 
-        return res.json(allTasksData)
+        return res.json(allTasksData);
     }
 
     const habitsTodayCategoriesSet = new Set();
-    habitsToday.forEach(habit => {
+    habitsToday.forEach((habit) => {
         habit = habit.toJSON();
         habitsTodayCategoriesSet.add(habit.categoryName);
-    })
+    });
 
     const habitsTodayCategories = [...habitsTodayCategoriesSet];
 
@@ -167,13 +164,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
         habitsTodayCategories,
         unfinishedToDoObj,
         toDoToday: dailyToDo,
-        toDoTodayCategories
+        toDoTodayCategories,
     };
 
     // console.log("allTasksData>>>>>\n", allTasksData)
-    return res.json(allTasksData)
-
-})
+    return res.json(allTasksData);
+});
 
 // router.get("/current", requireAuth, async (req, res, next) => {
 //     const { user } = req;
@@ -312,36 +308,34 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
 // })
 
-
 // GET /api/tasks/:day - get specific day
 router.get("/:day", requireAuth, async (req, res, next) => {
     const { user } = req;
 
-    const date = req.params.day
+    const date = req.params.day;
 
     const queriedToDoDay = await UserTask.findAll({
         where: {
             [Op.and]: {
                 userId: user.id,
-                day: date
-            }
-        }
-    })
+                day: date,
+            },
+        },
+    });
 
     const dayToDoArray = [];
 
-    queriedToDoDay.forEach(task => {
-
+    queriedToDoDay.forEach((task) => {
         if (task.taskType === "To-Do") {
             dayToDoArray.push(task);
         }
-    })
+    });
 
     const toDoDayCategoriesSet = new Set();
-    dayToDoArray.forEach(task => {
+    dayToDoArray.forEach((task) => {
         task = task.toJSON();
         toDoDayCategoriesSet.add(task.categoryName);
-    })
+    });
 
     const toDoDayCategories = [...toDoDayCategoriesSet];
 
@@ -350,16 +344,16 @@ router.get("/:day", requireAuth, async (req, res, next) => {
             [Op.and]: {
                 userId: user.id,
                 day: date,
-                taskType: "Habit"
-            }
-        }
-    })
+                taskType: "Habit",
+            },
+        },
+    });
 
     const habitsDayCategoriesSet = new Set();
-    queriedHabitsDay.forEach(habit => {
+    queriedHabitsDay.forEach((habit) => {
         habit = habit.toJSON();
         habitsDayCategoriesSet.add(habit.categoryName);
-    })
+    });
 
     const habitsDayCategories = [...habitsDayCategoriesSet];
 
@@ -367,12 +361,11 @@ router.get("/:day", requireAuth, async (req, res, next) => {
         habits: queriedHabitsDay,
         habitsDayCategories,
         toDo: dayToDoArray,
-        toDoDayCategories
+        toDoDayCategories,
     };
 
-    return res.json(queriedDayData)
-
-})
+    return res.json(queriedDayData);
+});
 
 // POST /api/tasks
 router.post("/", requireAuth, async (req, res, next) => {
@@ -380,8 +373,8 @@ router.post("/", requireAuth, async (req, res, next) => {
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
     const { categoryName, taskName, taskType, taskIcon } = req.body;
@@ -393,9 +386,9 @@ router.post("/", requireAuth, async (req, res, next) => {
     if (taskType !== "Habit" && taskType !== "To-Do") {
         err.status = 404;
         err.statusCode = 404;
-        err.title = "Invalid input"
+        err.title = "Invalid input";
         err.message = "";
-        err.errors.push({ "taskType": "Task type must be 'Habit' or 'To-Do'."})
+        err.errors.push({ taskType: "Task type must be 'Habit' or 'To-Do'." });
         return next(err);
     }
 
@@ -407,16 +400,16 @@ router.post("/", requireAuth, async (req, res, next) => {
             [Op.and]: {
                 userId: user.id,
                 day: now,
-                taskType: "Habit"
-            }
-        }
-    })
+                taskType: "Habit",
+            },
+        },
+    });
 
     const habitsDayCategoriesSet = new Set();
-    queriedHabitsDay.forEach(habit => {
+    queriedHabitsDay.forEach((habit) => {
         habit = habit.toJSON();
         habitsDayCategoriesSet.add(habit.categoryName);
-    })
+    });
 
     const habitsDayCategories = [...habitsDayCategoriesSet];
 
@@ -429,8 +422,8 @@ router.post("/", requireAuth, async (req, res, next) => {
                     err.title = "Forbidden";
                     err.status = 403;
                     err.statusCode = 403;
-                    err.message = "You have already created a habit in the category with the same name."
-                    err.errors.push("You have already created a habit in the category with the same name.")
+                    err.message = "You have already created a habit in the category with the same name.";
+                    err.errors.push("You have already created a habit in the category with the same name.");
                     return next(err);
                 }
             }
@@ -446,7 +439,7 @@ router.post("/", requireAuth, async (req, res, next) => {
                 taskIcon,
                 taskType,
                 isCompleted: false,
-                pointsEarned: 0
+                pointsEarned: 0,
             });
 
             newHabit = newHabit.toJSON();
@@ -456,7 +449,7 @@ router.post("/", requireAuth, async (req, res, next) => {
 
             res.status(201);
             return res.json({
-                habit: newHabit
+                habit: newHabit,
             });
         }
         case "To-Do": {
@@ -467,140 +460,163 @@ router.post("/", requireAuth, async (req, res, next) => {
                 taskIcon,
                 taskType,
                 isCompleted: false,
-                pointsEarned: 0
-            })
+                pointsEarned: 0,
+            });
 
             newToDo = newToDo.toJSON();
             newToDo.User = currentUser;
 
             res.status(201);
             return res.json({
-                task: newToDo
+                task: newToDo,
             });
         }
         default:
             break;
     }
+});
 
-})
-
-// EDIT /api/day/:entryId
-router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+// EDIT /api/day/:taskId
+router.put("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
-    const entryId = req.params.entryId;
+    const taskId = req.params.taskId;
 
-    const updateDay = await DayEntry.findByPk(entryId);
-    let updateDayImage;
+    const updateTask = await UserTask.findByPk(taskId);
 
     const err = {};
-    if (!updateDay) {
+    if (!updateTask) {
         err.status = 404;
         err.statusCode = 404;
-        err.title = "Not found"
-        err.message = "DayEntry could not be found";
+        err.title = "Not found";
+        err.message = "Task could not be found";
         return next(err);
     }
 
-    if (user.id !== updateDay.userId) {
+    if (user.id !== updateTask.userId) {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden: cannot edit a DayEntry that is not yours";
+        err.message = "Forbidden: cannot edit a Task that is not yours";
         return next(err);
     }
 
-    const { entryType, entryData } = req.body;
+    const { categoryName, taskName, taskType, taskIcon, isCompleted } = req.body;
 
-    if (req.file) {
-        // console.log("hit update image req file")
-        updateDayImage = await singlePublicFileUpload(req.file);
-    } else {
-        // console.log("hit not update image", entryData)
-        updateDayImage = entryData;
-    }
+    switch (taskType) {
+        case "Habit": {
+            updateTask.categoryName = categoryName;
+            updateTask.taskName = taskName;
+            updateTask.taskType = taskType;
+            updateTask.taskIcon = taskIcon;
 
-    switch (entryType) {
-        case "dayMood": {
-            updateDay.entryData = entryData;
-            // console.log("dayMood - UPDATED - mood:", updateDay.dataValues);
-            await updateDay.save();
+            if (isCompleted === true) {
+                updateTask.isCompleted = true;
 
-            // console.log("updateDay should show user", updateDay);
+                if (updateTask.pointsEarned === 0) {
+                    updateTask.pointsEarned = 1;
+                    currentUser.moolah += 1;
+                }
 
+                await currentUser.save();
+            }
+
+            if (isCompleted === false) {
+                updateTask.isCompleted = false;
+
+                if (updateTask.pointsEarned === 1) {
+                    updateTask.pointsEarned = 0;
+                    currentUser.moolah -= 1;
+                }
+
+                await currentUser.save();
+            }
+
+            await updateTask.save();
 
             res.status(201);
             return res.json({
-                dayEntry: updateDay
-            })
-
+                habit: updateTask,
+            });
         }
-        case "dayImage": {
-            updateDay.entryData = updateDayImage;
+        case "To-Do": {
+            updateTask.categoryName = categoryName;
+            updateTask.taskName = taskName;
+            updateTask.taskType = taskType;
+            updateTask.taskIcon = taskIcon;
 
-            // console.log("dayImage - UPDATED - image:", updateDay);
-            await updateDay.save();
+            if (isCompleted === true) {
+                updateTask.isCompleted = true;
+
+                if (updateTask.pointsEarned === 0) {
+                    updateTask.pointsEarned = 1;
+                    currentUser.moolah += 1;
+                }
+
+                await currentUser.save();
+            }
+
+            if (isCompleted === false) {
+                updateTask.isCompleted = false;
+
+                if (updateTask.pointsEarned === 1) {
+                    updateTask.pointsEarned = 0;
+                    currentUser.moolah -= 1;
+                }
+
+                await currentUser.save();
+            }
+
+            await updateTask.save();
 
             res.status(201);
             return res.json({
-                dayEntry: updateDay
-            })
-        }
-        case "dayJournal": {
-            updateDay.entryData = entryData;
-
-            console.log("dayJournal - UPDATED - journal:", updateDay);
-            await updateDay.save();
-
-            res.status(201);
-            return res.json({
-                dayEntry: updateDay
-            })
+                task: updateTask,
+            });
         }
         default:
             break;
     }
+});
 
-})
-
-router.delete("/:entryId", requireAuth, async (req, res, next) => {
+router.delete("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
-    const entryId = req.params.entryId;
+    const taskId = req.params.taskId;
 
     // const currentUser = await
-    let deleteEntry = await DayEntry.findByPk(entryId);
+    let deleteTask = await UserTask.findByPk(taskId);
 
     const err = {};
-    if (!deleteEntry) {
+    if (!deleteTask) {
         err.status = 404;
         err.statusCode = 404;
-        err.title = "Not found"
-        err.message = "DayEntry couldn't be found";
+        err.title = "Not found";
+        err.message = "Task couldn't be found";
         return next(err);
     }
 
-    if (user.id !== deleteEntry.userId) {
+    if (user.id !== deleteTask.userId) {
         err.title = "Forbidden";
         err.status = 403;
         err.statusCode = 403;
-        err.message = "Forbidden: cannot delete a DayEntry that is not yours";
+        err.message = "Forbidden: cannot delete a Task that is not yours";
         return next(err);
     }
 
-    await deleteEntry.destroy();
+    await deleteTask.destroy();
 
     // deduct points from user if they delete an entry
     currentUser.moolah -= 5;
@@ -608,9 +624,9 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
     // console.log("DELETED ENTRY - MOOLAH", currentUser.moolah);
 
     res.json({
-        "message": "Successfully deleted",
-        "statusCode": 200
-    })
-})
+        message: "Successfully deleted",
+        statusCode: 200,
+    });
+});
 
 module.exports = router;
