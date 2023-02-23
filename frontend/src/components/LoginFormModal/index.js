@@ -20,17 +20,14 @@ export default function LoginFormModal({ spotId }) {
     // )
 
     if (sessionUser) {
-        if (spotId) {
-            history.push(`/spots/${spotId}`)
-        } else {
-            history.push("/")
-        }
+        history.push("/daily")
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
+            .then(history.push("/daily"))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
@@ -42,7 +39,8 @@ export default function LoginFormModal({ spotId }) {
     const handleDemo = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+        return dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }))
+            .then(history.push("/daily"))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
