@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { requireAuth } = require("../../utils/auth");
-const { DayEntry, User, sequelize } = require("../../db/models");
+const { UserTask, User, sequelize } = require("../../db/models");
 
 const { validateQuery } = require("../../utils/validation");
 
@@ -15,50 +15,311 @@ const router = express.Router();
 // GET /api/tasks/current - get's current day
 router.get("/current", requireAuth, async (req, res, next) => {
     const { user } = req;
-    // query for current day
-    // if an entry does not exist yet i.e. arraylength 0?, then frontend should have forms?
-    // otherwise, should display the data for that day
+    // query for most recent day
+    // most recent day should have the most updated habits
+    // then can grab all the unique habits from that day and repeat them for the user;
     const now = new Date();
-    const today = await DayEntry.findAll({
+
+    // ---> SEARCH FOR ALL UNFINISHED TASKS
+
+    const allTasks = await UserTask.findAll({
         where: {
-            [Op.and]: {
-                day: formatDate(now),
-                userId: user.id
+            userId: user.id,
+            day: {
+                [Op.not]: now
             }
         }
     })
 
-
-    if (!today.length > 0) {
+    if (!allTasks.length > 0) {
         return res.json({
-            dayEntries: []
+            userTasks: []
         })
     }
 
-    const dayEntriesArray = [];
+    const toDoArray = [];
 
-    today.forEach(dayEntry => {
-        dayEntry = dayEntry.toJSON();
-        dayEntriesArray.push(dayEntry);
+    allTasks.forEach(task => {
 
+        if (task.taskType === "To-Do") {
+            toDoArray.push(task);
+        }
     })
 
-    const queriedDayData = {
-        dayEntries: dayEntriesArray
+    const unfinishedToDoObj = {
+        unfinishedToDo: []
+    }
+
+    const unFinishedToDoCategories = new Set();
+    toDoArray.forEach(task => {
+        task = task.toJSON();
+
+        if (!task.isCompleted) {
+            unfinishedToDoObj.unfinishedToDo.push(task);
+            unFinishedToDoCategories.add(task.categoryName);
+
+        }
+    })
+
+    unfinishedToDoObj.unfinishedToDoCategories = [...unFinishedToDoCategories]
+
+    // ---> FIND ALL TASKS FOR TODAY
+    const toDoToday = await UserTask.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: now
+            }
+        }
+    })
+
+    const dailyToDo = [];
+
+    toDoToday.forEach(task => {
+
+        if (task.taskType === "To-Do") {
+            dailyToDo.push(task);
+        }
+    })
+
+    const toDoTodayCategoriesSet = new Set();
+    dailyToDo.forEach(task => {
+        task = task.toJSON();
+        toDoTodayCategoriesSet.add(task.categoryName);
+    })
+
+    const toDoTodayCategories = [...toDoTodayCategoriesSet];
+
+    // ---> FIND ALL MOST RECENT HABITS
+    // ---> IF CURRENT DAY HAS NO HABITS, THEN CREATE HABITS FOR THE DAY BASED ON THE MOST RECENT HABITS
+
+    const mostRecentDay = await UserTask.max("day");
+    const habitsOnMostRecentDay = await UserTask.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: mostRecentDay,
+                taskType: "Habit"
+            }
+        },
+    })
+
+    const habitsToday = await UserTask.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: now,
+                taskType: "Habit"
+            }
+        }
+    })
+
+    const dailyHabits = [];
+    if (!habitsToday.length) {
+        console.log("no habits today\n\n\n\n\n\n");
+        for (let i = 0; i < habitsOnMostRecentDay.length; i++) {
+            let habit = habitsOnMostRecentDay[i];
+
+            const newHabit = await user.createUserTask({
+                day: now,
+                categoryName: habit.categoryName,
+                taskName: habit.taskName,
+                taskIcon: habit.taskIcon,
+                taskType: habit.taskType,
+                isCompleted: false,
+                pointsEarned: 0
+            })
+
+            dailyHabits.push(newHabit);
+
+            console.log("NEW HABIT", newHabit);
+        }
+
+        const habitsTodayCategoriesSet = new Set();
+        dailyHabits.forEach(habit => {
+            habit = habit.toJSON();
+            habitsTodayCategoriesSet.add(habit.categoryName);
+        })
+
+        const habitsTodayCategories = [...habitsTodayCategoriesSet];
+
+        const allTasksData = {
+            dailyHabits,
+            habitsTodayCategories,
+            unfinishedToDoObj,
+            toDoToday: dailyToDo,
+            toDoTodayCategories
+        };
+
+        return res.json(allTasksData)
+    }
+
+    const habitsTodayCategoriesSet = new Set();
+    habitsToday.forEach(habit => {
+        habit = habit.toJSON();
+        habitsTodayCategoriesSet.add(habit.categoryName);
+    })
+
+    const habitsTodayCategories = [...habitsTodayCategoriesSet];
+
+    const allTasksData = {
+        habitsToday,
+        habitsTodayCategories,
+        unfinishedToDoObj,
+        toDoToday: dailyToDo,
+        toDoTodayCategories
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData)
-    return res.json(queriedDayData)
+    // console.log("allTasksData>>>>>\n", allTasksData)
+    return res.json(allTasksData)
 
 })
 
-// GET /api/day/:day - get specific day
+// router.get("/current", requireAuth, async (req, res, next) => {
+//     const { user } = req;
+//     // query for current day
+//     // if an entry does not exist yet i.e. arraylength 0?, then frontend should have forms?
+//     // otherwise, should display the data for that day
+//     const now = new Date();
+//     const allTasks = await UserTask.findAll({
+//         where: {
+//             userId: user.id
+//         }
+//     })
+
+//     if (!allTasks.length > 0) {
+//         return res.json({
+//             userTasks: []
+//         })
+//     }
+
+//     const toDoArray = [];
+//     const habitArray = [];
+
+//     // const uniqueHabits = {};
+//     // get all the tasks that are habits
+//     // separate habits based on category name
+//     // from there remove the ones with same taskName
+
+//     allTasks.forEach(task => {
+
+//         if (task.taskType === "Habit") {
+//             habitArray.push(task);
+//         } else {
+//             toDoArray.push(task);
+//         }
+//     })
+
+//     const unfinishedToDoObj = {
+//         unfinishedToDo: []
+//     }
+
+//     const unFinishedToDoCategories = new Set();
+//     toDoArray.forEach(task => {
+//         task = task.toJSON();
+
+//         if (!task.isCompleted) {
+//             unfinishedToDoObj.unfinishedToDo.push(task);
+//             unFinishedToDoCategories.add(task.categoryName);
+
+//         }
+//     })
+
+//     unfinishedToDoObj.unfinishedToDoCategories = [...unFinishedToDoCategories]
+
+//     const toDoCategories = {};
+//     // unFinishedToDo.forEach(task => {
+//     //     if (!toDoCategories[task.categoryName]) {
+//     //         toDoCategories[task.categoryName] = [{
+//     //             taskName: task.taskName,
+//     //             taskIcon: task.taskIcon,
+//     //             categoryName: task.categoryName,
+//     //             isCompleted: task.isCompleted
+//     //         }];
+//     //     } else {
+//     //         toDoCategories[habit.categoryName].push({
+//     //             taskName: habit.taskName,
+//     //             taskIcon: habit.taskIcon,
+//     //             categoryName: habit.categoryName,
+//     //             isCompleted: habit.isCompleted
+//     //         });
+//     //     }
+//     // })
+
+//     const habitCategories = {};
+
+//     habitArray.forEach(habit => {
+//         if (!habitCategories[habit.categoryName]) {
+//             habitCategories[habit.categoryName] = [{
+//                 taskName: habit.taskName,
+//                 taskIcon: habit.taskIcon,
+//                 categoryName: habit.categoryName,
+//                 isCompleted: habit.isCompleted
+//             }];
+//         } else {
+//             habitCategories[habit.categoryName].push({
+//                 taskName: habit.taskName,
+//                 taskIcon: habit.taskIcon,
+//                 categoryName: habit.categoryName,
+//                 isCompleted: habit.isCompleted
+//             });
+//         }
+//     })
+
+//     const habitCategoryNames = Object.keys(habitCategories);
+
+//     // this returns:
+//     // "categoryToName": {
+//     //     "Dailies": [
+//     //         "Work out",
+//     //         "Breakfast",
+//     //         "Lunch",
+//     //         "Dinner"
+//     //     ]
+//     // }
+
+//     const categoryToName = {};
+//     habitArray.forEach((habit) => {
+//         if (!categoryToName[habit.categoryName]) {
+//             categoryToName[habit.categoryName] = [habit.taskName]
+//         } else {
+//             if (!categoryToName[habit.categoryName].includes(habit.taskName)) {
+//                 categoryToName[habit.categoryName].push(habit.taskName);
+//             }
+//         }
+//     })
+
+//     const userHabits = [];
+
+//     // habitCategoryNames.forEach(habitCategory => {
+//     //     if ()
+//     // })
+
+//     const allTasksData = {
+//         userTasks: {
+//             habits: habitArray,
+//             // toDo: unFinishedToDo,
+//             // toDo: unfinishedToDoObj,
+//             categoryToName,
+//             habitCategoryNames,
+//             habitCategories,
+//             // uniqueHabits
+//         }
+//     };
+
+//     console.log("allTasksData>>>>>\n", allTasksData)
+//     return res.json(allTasksData)
+
+// })
+
+
+// GET /api/tasks/:day - get specific day
 router.get("/:day", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const date = req.params.day
 
-    const queriedDay = await DayEntry.findAll({
+    const queriedToDoDay = await UserTask.findAll({
         where: {
             [Op.and]: {
                 userId: user.id,
@@ -67,22 +328,38 @@ router.get("/:day", requireAuth, async (req, res, next) => {
         }
     })
 
-    const queriedDayArray = [];
+    const dayToDoArray = [];
 
-    queriedDay.forEach(dayQuery => {
-        dayQuery = dayQuery.toJSON();
-        queriedDayArray.push(dayQuery);
-        // console.log(">>> DAY QUERY >>>\n", dayQuery.day === date)
-        // if (dayQuery.day === date) {
-        // }
+    queriedToDoDay.forEach(task => {
 
+        if (task.taskType === "To-Do") {
+            dayToDoArray.push(task);
+        }
+    })
+
+    const toDoDayCategoriesSet = new Set();
+    dayToDoArray.forEach(task => {
+        task = task.toJSON();
+        toDoDayCategoriesSet.add(task.categoryName);
+    })
+
+    const toDoDayCategories = [...toDoDayCategoriesSet];
+
+    const queriedHabitsDay = await UserTask.findAll({
+        where: {
+            [Op.and]: {
+                userId: user.id,
+                day: date,
+                taskType: "Habit"
+            }
+        }
     })
 
     const queriedDayData = {
-        DayEntries: queriedDayArray
+        queriedHabitsDay,
+        toDoDayCategories
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData)
     return res.json(queriedDayData)
 
 })
