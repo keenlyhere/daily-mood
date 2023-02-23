@@ -20,14 +20,16 @@ export default function Daily() {
         currentJournal = Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0];
     }
 
-    // console.log("CURRENTS >>>>> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
+    console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
 
     const [mood, setMood] = useState(currentMood ? currentMood : "");
     const [dailyImage, setDailyImage] = useState(null);
     const [dailyImageUrl, setDailyImageUrl] = useState(currentImage ? currentImage.entryData : "");
     const [ errors, setErrors ] = useState([]);
     const [imageChanged, setImageChanged] = useState(false);
-    const [dailyJournal, setDailyJournal] = useState(null);
+    const [dailyJournal, setDailyJournal] = useState(currentJournal ? currentJournal.entryData : "");
+
+    // console.log("current-daily", currentJournal.entryData, "blah", dailyJournal)
 
     useEffect(() => {
         dispatch(loadCurrentDay(user.id))
@@ -351,7 +353,7 @@ export default function Daily() {
                     <form className="Daily-journal-form">
                         <textarea
                             className="Daily-journal-input"
-                            value={currentJournal.entryData}
+                            value={dailyJournal ? dailyJournal : currentJournal.entryData }
                             onChange={(e) => setDailyJournal(e.target.value)}
                             placeholder="Describe your day!"
                         />
