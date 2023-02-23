@@ -7,12 +7,11 @@ import LoginFormModal from "./components/LoginFormModal";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
+import UserTasks from "./components/UserTasks";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -34,6 +33,7 @@ function App() {
             <h1>Splash page goes here!</h1>
             <h2>Goals for Thursday</h2>
             <ol>
+              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
               <li>Connect UserTasks to frontend + styling</li>
               <li>Start routes for Pets redemption</li>
               <li>Connect Pets to frontend + styling</li>
@@ -67,6 +67,9 @@ function App() {
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <Daily />
+          </ProtectedRoute>
+          <ProtectedRoute path="/tasks" exact={true}>
+            <UserTasks />
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>

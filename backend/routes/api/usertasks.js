@@ -43,21 +43,20 @@ router.get("/current", requireAuth, async (req, res, next) => {
         }
     });
 
-    const unfinishedToDoObj = {
-        unfinishedToDo: [],
-    };
+
+    const unfinishedToDo = [];
 
     const unFinishedToDoCategories = new Set();
     toDoArray.forEach((task) => {
         task = task.toJSON();
 
         if (!task.isCompleted) {
-            unfinishedToDoObj.unfinishedToDo.push(task);
+            unfinishedToDo.push(task);
             unFinishedToDoCategories.add(task.categoryName);
         }
     });
 
-    unfinishedToDoObj.unfinishedToDoCategories = [...unFinishedToDoCategories];
+    const unfinishedToDoCategories = [...unFinishedToDoCategories];
 
     // ---> FIND ALL TASKS FOR TODAY
     const toDoToday = await UserTask.findAll({
@@ -141,7 +140,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
         const allTasksData = {
             dailyHabits,
             habitsTodayCategories,
-            unfinishedToDoObj,
+            unfinishedToDo,
+            unfinishedToDoCategories,
             toDoToday: dailyToDo,
             toDoTodayCategories,
         };
@@ -160,7 +160,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
     const allTasksData = {
         habitsToday,
         habitsTodayCategories,
-        unfinishedToDoObj,
+        unfinishedToDo,
+        unfinishedToDoCategories,
         toDoToday: dailyToDo,
         toDoTodayCategories,
     };
