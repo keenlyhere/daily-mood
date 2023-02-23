@@ -197,7 +197,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 });
 
 // EDIT /api/day/:entryId
-router.put("/:taskId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
@@ -278,7 +278,7 @@ router.put("/:taskId", singleMulterUpload("image"), requireAuth, async (req, res
     }
 });
 
-router.delete("/:taskId", requireAuth, async (req, res, next) => {
+router.delete("/:entryId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {

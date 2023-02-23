@@ -34,6 +34,7 @@ function App() {
             <h1>Splash page goes here!</h1>
             <h2>Goals for Thursday</h2>
             <ol>
+              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
               <li>Connect UserTasks to frontend + styling</li>
               <li>Start routes for Pets redemption</li>
               <li>Connect Pets to frontend + styling</li>
