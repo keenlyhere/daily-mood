@@ -14,7 +14,7 @@ router.use("/users", usersRouter);
 
 router.use("/day", dayEntriesRouter);
 
-router.use("/task", userTasksRouter);
+router.use("/tasks", userTasksRouter);
 
 
 
