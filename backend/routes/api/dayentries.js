@@ -24,69 +24,64 @@ router.get("/current", requireAuth, async (req, res, next) => {
             [Op.and]: {
                 // day: formatDate(now),
                 day: now,
-                userId: user.id
-            }
-        }
-    })
-
+                userId: user.id,
+            },
+        },
+    });
 
     if (!today.length > 0) {
         return res.json({
-            dayEntries: []
-        })
+            dayEntries: [],
+        });
     }
 
     const dayEntriesArray = [];
 
-    today.forEach(dayEntry => {
+    today.forEach((dayEntry) => {
         dayEntry = dayEntry.toJSON();
         dayEntriesArray.push(dayEntry);
-
-    })
+    });
 
     const queriedDayData = {
-        dayEntries: dayEntriesArray
+        dayEntries: dayEntriesArray,
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData)
-    return res.json(queriedDayData)
-
-})
+    console.log("queriedDAY>>>>>\n", queriedDayData);
+    return res.json(queriedDayData);
+});
 
 // GET /api/day/:day - get specific day
 router.get("/:day", requireAuth, async (req, res, next) => {
     const { user } = req;
 
-    const date = req.params.day
+    const date = req.params.day;
 
     const queriedDay = await DayEntry.findAll({
         where: {
             [Op.and]: {
                 userId: user.id,
-                day: date
-            }
-        }
-    })
+                day: date,
+            },
+        },
+    });
 
     const queriedDayArray = [];
 
-    queriedDay.forEach(dayQuery => {
+    queriedDay.forEach((dayQuery) => {
         dayQuery = dayQuery.toJSON();
         queriedDayArray.push(dayQuery);
         // console.log(">>> DAY QUERY >>>\n", dayQuery.day === date)
         // if (dayQuery.day === date) {
         // }
-
-    })
+    });
 
     const queriedDayData = {
-        DayEntries: queriedDayArray
+        DayEntries: queriedDayArray,
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData)
-    return res.json(queriedDayData)
-
-})
+    console.log("queriedDAY>>>>>\n", queriedDayData);
+    return res.json(queriedDayData);
+});
 
 // POST /api/day
 router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
@@ -94,8 +89,8 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
     const { entryType, entryData } = req.body;
@@ -107,11 +102,10 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
         where: {
             [Op.and]: {
                 day: formatDate(now),
-                userId: user.id
-            }
-        }
-    })
-
+                userId: user.id,
+            },
+        },
+    });
 
     const err = {};
     err.errors = [];
@@ -123,8 +117,8 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
                 err.title = "Forbidden";
                 err.status = 403;
                 err.statusCode = 403;
-                err.message = "You have already created an entry for the day."
-                err.errors.push("You have already created an entry for the day.")
+                err.message = "You have already created an entry for the day.";
+                err.errors.push("You have already created an entry for the day.");
                 return next(err);
             }
         }
@@ -141,7 +135,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
             let mood = await user.createDayEntry({
                 day: formatDate(now),
                 entryType,
-                entryData
+                entryData,
             });
 
             mood = mood.toJSON();
@@ -154,15 +148,15 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             res.status(201);
             return res.json({
-                dayEntry: mood
+                dayEntry: mood,
             });
         }
         case "dayImage": {
             let image = await user.createDayEntry({
                 day: formatDate(now),
                 entryType,
-                entryData: newDayImage
-            })
+                entryData: newDayImage,
+            });
 
             image = image.toJSON();
 
@@ -172,15 +166,15 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             res.status(201);
             return res.json({
-                dayEntry: image
+                dayEntry: image,
             });
         }
         case "dayJournal": {
             let journal = await user.createDayEntry({
                 day: formatDate(now),
                 entryType,
-                entryData
-            })
+                entryData,
+            });
 
             journal = journal.toJSON();
 
@@ -190,7 +184,7 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             res.status(201);
             return res.json({
-                dayEntry: journal
+                dayEntry: journal,
             });
         }
         default:
@@ -198,18 +192,18 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
     }
 
     return res.json({
-        "error": "should not see this"
-    })
-})
+        error: "should not see this",
+    });
+});
 
 // EDIT /api/day/:entryId
-router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+router.put("/:taskId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
     const entryId = req.params.entryId;
@@ -221,7 +215,7 @@ router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, re
     if (!updateDay) {
         err.status = 404;
         err.statusCode = 404;
-        err.title = "Not found"
+        err.title = "Not found";
         err.message = "DayEntry could not be found";
         return next(err);
     }
@@ -252,12 +246,10 @@ router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, re
 
             // console.log("updateDay should show user", updateDay);
 
-
             res.status(201);
             return res.json({
-                dayEntry: updateDay
-            })
-
+                dayEntry: updateDay,
+            });
         }
         case "dayImage": {
             updateDay.entryData = updateDayImage;
@@ -267,8 +259,8 @@ router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, re
 
             res.status(201);
             return res.json({
-                dayEntry: updateDay
-            })
+                dayEntry: updateDay,
+            });
         }
         case "dayJournal": {
             updateDay.entryData = entryData;
@@ -278,22 +270,21 @@ router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, re
 
             res.status(201);
             return res.json({
-                dayEntry: updateDay
-            })
+                dayEntry: updateDay,
+            });
         }
         default:
             break;
     }
+});
 
-})
-
-router.delete("/:entryId", requireAuth, async (req, res, next) => {
+router.delete("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const currentUser = await User.findByPk(user.id, {
         attributes: {
-            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"]
-        }
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
     });
 
     const entryId = req.params.entryId;
@@ -305,7 +296,7 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
     if (!deleteEntry) {
         err.status = 404;
         err.statusCode = 404;
-        err.title = "Not found"
+        err.title = "Not found";
         err.message = "DayEntry couldn't be found";
         return next(err);
     }
@@ -326,9 +317,9 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
     // console.log("DELETED ENTRY - MOOLAH", currentUser.moolah);
 
     res.json({
-        "message": "Successfully deleted",
-        "statusCode": 200
-    })
-})
+        message: "Successfully deleted",
+        statusCode: 200,
+    });
+});
 
 module.exports = router;

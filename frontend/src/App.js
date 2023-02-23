@@ -34,7 +34,6 @@ function App() {
             <h1>Splash page goes here!</h1>
             <h2>Goals for Thursday</h2>
             <ol>
-              <li>Finish routes for UserTasks (EDIT, DELETE)</li>
               <li>Connect UserTasks to frontend + styling</li>
               <li>Start routes for Pets redemption</li>
               <li>Connect Pets to frontend + styling</li>
@@ -55,9 +54,9 @@ function App() {
             </ol>
             <h2>Completed on Wednesday</h2>
             <ol>
-              <li>Routes for DayEntries</li>
+              <li>Finished routes for DayEntries</li>
               <li>Connect DayEntries to frontend</li>
-              <li>Routes for UserTasks (GET x2, POST)</li>
+              <li>Finished routes for UserTasks (GET x2, POST, PUT, DELETE)</li>
             </ol>
           </Route>
           <Route exact path="/login">
