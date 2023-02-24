@@ -529,6 +529,7 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
     }
 
     const { categoryName, taskName, taskType, taskIcon, isCompleted } = req.body;
+    console.log("REQ_BODY\n", categoryName, "\n", taskName, "\n", taskType, "\n", isCompleted);
 
     switch (taskType) {
         case "Habit": {
@@ -563,7 +564,7 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
 
             res.status(201);
             return res.json({
-                habit: updateTask,
+                task: updateTask,
             });
         }
         case "To-Do": {
