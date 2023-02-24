@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom";
-import { loadCurrentDayTasks, loadSpecificDayTasks } from "../../store/userTaskReducer";
-import categoryTasksMapper from "../../utils/categoryMapper";
+import { loadSpecificDayTasks } from "../../store/userTaskReducer";
+import CategoryTasksMapper from "./CategoryMapper";
 import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
@@ -43,18 +43,6 @@ export default function SpecificDayTasks() {
         return categoryTasks;
     }
 
-    /* CREATE HABIT */
-    const handleCreateTask = () => {
-
-    }
-
-
-    /* CREATE TO-DO */
-    /* EDIT HABIT */
-    /* EDIT TO-DO */
-    /* DELETE HABIT */
-    /* DELETE TO-DO */
-
     if (isLoaded) {
 
         const allHabits = dayTasks.habitsToday;
@@ -73,13 +61,13 @@ export default function SpecificDayTasks() {
                     Habits
                 </h3>
 
-                { categoryTasksMapper(allHabits, categoryHabits, "Habit", date)}
+                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
-                { categoryTasksMapper(allToDoToday, categoryToDoToday, "To-Do", date) }
+                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
 
             </div>
         )

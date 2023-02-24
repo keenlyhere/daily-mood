@@ -61,10 +61,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
     // ---> FIND ALL TASKS FOR TODAY
     const toDoToday = await UserTask.findAll({
         where: {
-            [Op.and]: {
-                userId: user.id,
-                day: now,
-            },
+            userId: user.id,
+            day: now,
         },
     });
 
@@ -433,9 +431,7 @@ router.post("/", requireAuth, async (req, res, next) => {
         }
     }
 
-    switch (taskType) {
-        case "Habit": {
-            let newHabit = await user.createUserTask({
+    let newTask = await user.createUserTask({
                 day: now,
                 categoryName,
                 taskName,
@@ -443,40 +439,62 @@ router.post("/", requireAuth, async (req, res, next) => {
                 taskType,
                 isCompleted: false,
                 pointsEarned: 0,
-            });
+            })
 
-            newHabit = newHabit.toJSON();
+    newTask = newTask.toJSON();
 
-            newHabit.User = currentUser;
-            // console.log("USER MOOLAH>>>>", currentUser.moolah);
+    newTask.User = currentUser;
+    // console.log("USER MOOLAH>>>>", currentUser.moolah);
 
-            res.status(201);
-            return res.json({
-                habit: newHabit,
-            });
-        }
-        case "To-Do": {
-            let newToDo = await user.createUserTask({
-                day: now,
-                categoryName,
-                taskName,
-                taskIcon,
-                taskType,
-                isCompleted: false,
-                pointsEarned: 0,
-            });
+    res.status(201);
+    return res.json({
+        task: newTask,
+    });
 
-            newToDo = newToDo.toJSON();
-            newToDo.User = currentUser;
+    // switch (taskType) {
+    //     case "Habit": {
+    //         let newHabit = await user.createUserTask({
+    //             day: now,
+    //             categoryName,
+    //             taskName,
+    //             taskIcon,
+    //             taskType,
+    //             isCompleted: false,
+    //             pointsEarned: 0,
+    //         });
 
-            res.status(201);
-            return res.json({
-                task: newToDo,
-            });
-        }
-        default:
-            break;
-    }
+    //         newHabit = newHabit.toJSON();
+
+    //         newHabit.User = currentUser;
+    //         // console.log("USER MOOLAH>>>>", currentUser.moolah);
+
+    //         res.status(201);
+    //         return res.json({
+    //             task: newHabit,
+    //         });
+    //     }
+    //     case "To-Do": {
+    //         let newToDo = await user.createUserTask({
+    //             day: now,
+    //             categoryName,
+    //             taskName,
+    //             taskIcon,
+    //             taskType,
+    //             isCompleted: false,
+    //             pointsEarned: 0,
+    //         });
+
+    //         newToDo = newToDo.toJSON();
+    //         newToDo.User = currentUser;
+
+    //         res.status(201);
+    //         return res.json({
+    //             task: newToDo,
+    //         });
+    //     }
+    //     default:
+    //         break;
+    // }
 });
 
 // EDIT /api/task/:taskId
@@ -706,7 +724,7 @@ router.delete("/:taskType/:taskCategory/:date", requireAuth, async (req, res, ne
             categoryName: taskCategory
         }
     })
-    
+
     res.json({deletedTaskIds})
 
     // res.json({

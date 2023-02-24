@@ -32,10 +32,11 @@ export const actionLoadSpecificDayTasks = (userId, userTasks) => {
     }
 }
 
-export const actionAddTask = (task) => {
+export const actionAddTask = (task, taskType) => {
     return {
         type: ADD_TASK,
-        task
+        task,
+        taskType
     }
 }
 
@@ -85,7 +86,7 @@ export const loadSpecificDayTasks = (userId, date) => async (dispatch) => {
     }
 }
 
-export const addTask = (newEntry) => async (dispatch) => {
+export const addTask = (newEntry, taskType) => async (dispatch) => {
     const res = await csrfFetch(`/api/tasks`, {
         method: "POST",
         headers: {
@@ -96,7 +97,7 @@ export const addTask = (newEntry) => async (dispatch) => {
 
     if (res.ok) {
         const task = await res.json();
-        console.log("addTask - task:", task);
+        // console.log("addTask - taskType:", taskType);
         dispatch(actionAddTask(task.task));
         return task;
     }
@@ -187,8 +188,14 @@ export default function userTasksReducer(state = initialState, action) {
         }
         case ADD_TASK: {
             const addTaskState = { ...state };
-            addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }
-            // console.log("ADD_REVIEW - addReviewState:", addReviewState);
+            // console.log
+            if (action.task.taskType === "Habit") {
+                addTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
+                return addTaskState;
+            } else {
+                addTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+            }
+            // addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }
             return addTaskState;
         }
         case DELETE_TASK: {

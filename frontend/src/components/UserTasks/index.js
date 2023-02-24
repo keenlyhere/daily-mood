@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { loadCurrentDayTasks } from "../../store/userTaskReducer";
-import CategoryTasksMapper from "../../utils/categoryMapper";
+import CategoryTasksMapper from "./CategoryMapper";
 import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
@@ -21,7 +21,7 @@ export default function UserTasks() {
 
     useEffect(() => {
         dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true))
-    }, [])
+    }, [dispatch])
 
     const categoryTasksHelper = (tasks) => {
         const categoryTasks = {};
@@ -82,12 +82,20 @@ export default function UserTasks() {
 
                 <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
 
-                <h3 className="UserTasks-headers">
-                    Unfinished To-Do's
-                </h3>
+                {
+                    allUnfinishedTodo.length ? (
+                        <div>
+                            <h3 className="UserTasks-headers">
+                                Unfinished To-Do's
+                            </h3>
 
+                            <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
+                        </div>
+                    ) : (
+                        ""
+                    )
+                }
 
-                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's

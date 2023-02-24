@@ -1,0 +1,129 @@
+.CreateTaskModal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    max-height: 700px;
+}
+
+.CreateTaskModal-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #f0fae4;
+}
+
+.CreateTaskModal-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.CreateTaskModal-create {
+    position: absolute;
+    top: 15px;
+    left: 140px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.CreateTaskModal-form {
+    margin-top: 56px;
+    max-height: calc(100%-56px);
+    padding: 18px;
+}
+
+.CreateTaskModal-step-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+}
+
+.CreateTaskModal-icons-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 8px;
+    padding: 18px;
+    justify-items: center;
+}
+
+.CreateTaskModal-icon-container {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: lightgreen;
+    overflow: hidden;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(0.7)
+}
+
+.UserTasks-icon-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CreateTaskModal-icon-container > img,
+.UserTasks-icon-div > img {
+    height: 30px;
+}
+
+.CreateTaskModal-icon-container:hover,
+.CreateTaskModal-icon-container.selected {
+    filter: brightness(1)
+}
+
+.CreateTaskModal-next {
+    width: 300px;
+    height: 48px;
+    border-radius: 18px;
+    border: 0;
+    align-self: center;
+    background: lightgreen;
+}
+
+.CreateTaskModal-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.CreateTaskModal-taskName-input {
+    height: 32px;
+    border-radius: 18px;
+    border: 1px solid grey;
+    padding: 8px;
+}
+
+.CreateTaskModal-error-container {
+    height: 14px;
+}
+
+.CreateTaskModal-error-text {
+    color: red;
+    font-size: 14px;
+}
+
+.disabled {
+    background-color: lightgrey;
+    color: #fff;
+}
+
+.hidden {
+    visibility: hidden;
+}
