@@ -3,7 +3,6 @@
 const bcrypt = require('bcryptjs');
 
 const {  Model, Validator } = require('sequelize');
-const { UserItem, Pet, Background } = require("../models")
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -50,35 +49,6 @@ module.exports = (sequelize, DataTypes) => {
         birthday,
         displayPic
       });
-
-      // // comment in once schema is approved and pet, background, and useritem tables are created
-
-      // // add the pet and background into UserItems
-      // const petUserItem = await UserItem.create({
-      //   userId: user.id,
-      //   itemType: "pet"
-      // })
-
-      // const bgUserItem = await UserItem.create({
-      //   userId: user.id,
-      //   itemType: "background"
-      // })
-
-      // // create default pet
-      // // note to self: (remove later) - pet will have default values so can just create a new pet on user creation
-      // const pet = await Pet.create({
-      //   userItemId: petUserItem.id
-      // })
-
-      // // create default background
-      // const bg = await Background.create({
-      //   userItemId: bgUserItem.id
-      // })
-
-      // user.activePet = pet.id;
-      // user.activeBg = bg.id;
-
-      // await user.save();
 
       console.log("User model - new user:", user);
 
