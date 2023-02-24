@@ -32,19 +32,11 @@ function App() {
         <Switch>
           <Route exact path="/">
             <h1>Splash page goes here!</h1>
-            <h2>Goals for Thursday</h2>
+            <h2>Goals for Friday=</h2>
             <ol>
-              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
-              <li>Connect UserTasks to frontend + styling</li>
+              <li>Finish connecting UserTasks to frontend + styling (CREATE, DELETE)</li>
               <li>Start routes for Pets redemption</li>
-              <li>Connect Pets to frontend + styling</li>
-            </ol>
-            <h2>Goals for Friday (tentative)</h2>
-            <ol>
-              <li>Finish routes for Pets redemption</li>
               <li>Connect Pets to frontEnd + styling</li>
-              <li>Start routes for Background redemption</li>
-              <li>Connect Background to frontend + styling</li>
             </ol>
             <h2>Goals for Saturday (tentative)</h2>
             <ol>
@@ -58,6 +50,11 @@ function App() {
               <li>Finished routes for DayEntries</li>
               <li>Connect DayEntries to frontend</li>
               <li>Finished routes for UserTasks (GET x2, POST, PUT, DELETE)</li>
+            </ol>
+            <h2>Completed on Thursday</h2>
+            <ol>
+              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
+              <li>Connected UserTasks GET & DELETE to frontend + styling</li>
             </ol>
           </Route>
           <Route exact path="/login">

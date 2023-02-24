@@ -118,11 +118,11 @@ export default function CreateTaskModal({ category, taskType, user }) {
         console.log("NEW TASK >>>", newTask);
 
         const createTask = await dispatch(addTask(newTask))
-            .then(() => {
-                setTimeout(() => {
+            .then(() =>
+                // {setTimeout(() => {
                     dispatch(loadCurrentDayTasks(user.id))
-                }, 1000)
-            }
+            //     }, 1000)
+            // }
             )
             .then(closeModal)
             .catch(async (res) => {
