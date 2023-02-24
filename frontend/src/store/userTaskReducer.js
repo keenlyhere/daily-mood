@@ -187,12 +187,17 @@ export default function userTasksReducer(state = initialState, action) {
             return specificDayTasksState;
         }
         case ADD_TASK: {
-            const addTaskState = { ...state };
+            // const addTaskState = { ...state };
+            // deep copy because it is a nested object
+            let addTaskState = JSON.stringify(state);
+            addTaskState = JSON.parse(addTaskState);
             // console.log
             if (action.task.taskType === "Habit") {
+                // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
                 addTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
                 return addTaskState;
             } else {
+                // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
                 addTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
             }
             // addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }

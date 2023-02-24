@@ -9,6 +9,7 @@ import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
 import UserTasks from "./components/UserTasks";
 import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
+import Test from "./components/UserTasks/Test";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,9 @@ function App() {
           <Route exact path="/register">
             <SignupFormModal />
           </Route>
+          <ProtectedRoute path="/test" exact={true}>
+            <Test />
+          </ProtectedRoute>
           <ProtectedRoute path="/daily" exact={true}>
             <Daily />
           </ProtectedRoute>
@@ -80,6 +84,7 @@ function App() {
               Monthly stuff here
             </div>
           </ProtectedRoute>
+
           <Route>
             404: page not found
           </Route>
