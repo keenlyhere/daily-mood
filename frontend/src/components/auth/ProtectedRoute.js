@@ -7,7 +7,6 @@ const ProtectedRoute = props => {
   // console.log("ProtectedRoute - user logged in ? :", user)
   return (
     <Route {...props}>
-      {/* {(user)? props.children  : "" } */}
       {(user)? props.children  : <Redirect to='/login' />}
     </Route>
   )

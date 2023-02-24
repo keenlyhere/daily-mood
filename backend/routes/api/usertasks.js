@@ -61,10 +61,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
     // ---> FIND ALL TASKS FOR TODAY
     const toDoToday = await UserTask.findAll({
         where: {
-            [Op.and]: {
-                userId: user.id,
-                day: now,
-            },
+            userId: user.id,
+            day: now,
         },
     });
 
@@ -312,6 +310,10 @@ router.get("/:day", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const date = req.params.day;
+    const now = formatDate(new Date());
+    if (date > now) {
+        return res.redirect("/tasks/future")
+    }
 
     const queriedToDoDay = await UserTask.findAll({
         where: {
@@ -429,9 +431,7 @@ router.post("/", requireAuth, async (req, res, next) => {
         }
     }
 
-    switch (taskType) {
-        case "Habit": {
-            let newHabit = await user.createUserTask({
+    let newTask = await user.createUserTask({
                 day: now,
                 categoryName,
                 taskName,
@@ -439,43 +439,65 @@ router.post("/", requireAuth, async (req, res, next) => {
                 taskType,
                 isCompleted: false,
                 pointsEarned: 0,
-            });
+            })
 
-            newHabit = newHabit.toJSON();
+    newTask = newTask.toJSON();
 
-            newHabit.User = currentUser;
-            // console.log("USER MOOLAH>>>>", currentUser.moolah);
+    newTask.User = currentUser;
+    // console.log("USER MOOLAH>>>>", currentUser.moolah);
 
-            res.status(201);
-            return res.json({
-                habit: newHabit,
-            });
-        }
-        case "To-Do": {
-            let newToDo = await user.createUserTask({
-                day: now,
-                categoryName,
-                taskName,
-                taskIcon,
-                taskType,
-                isCompleted: false,
-                pointsEarned: 0,
-            });
+    res.status(201);
+    return res.json({
+        task: newTask,
+    });
 
-            newToDo = newToDo.toJSON();
-            newToDo.User = currentUser;
+    // switch (taskType) {
+    //     case "Habit": {
+    //         let newHabit = await user.createUserTask({
+    //             day: now,
+    //             categoryName,
+    //             taskName,
+    //             taskIcon,
+    //             taskType,
+    //             isCompleted: false,
+    //             pointsEarned: 0,
+    //         });
 
-            res.status(201);
-            return res.json({
-                task: newToDo,
-            });
-        }
-        default:
-            break;
-    }
+    //         newHabit = newHabit.toJSON();
+
+    //         newHabit.User = currentUser;
+    //         // console.log("USER MOOLAH>>>>", currentUser.moolah);
+
+    //         res.status(201);
+    //         return res.json({
+    //             task: newHabit,
+    //         });
+    //     }
+    //     case "To-Do": {
+    //         let newToDo = await user.createUserTask({
+    //             day: now,
+    //             categoryName,
+    //             taskName,
+    //             taskIcon,
+    //             taskType,
+    //             isCompleted: false,
+    //             pointsEarned: 0,
+    //         });
+
+    //         newToDo = newToDo.toJSON();
+    //         newToDo.User = currentUser;
+
+    //         res.status(201);
+    //         return res.json({
+    //             task: newToDo,
+    //         });
+    //     }
+    //     default:
+    //         break;
+    // }
 });
 
-// EDIT /api/day/:taskId
+// EDIT /api/task/:taskId
 router.put("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
@@ -584,6 +606,7 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
     }
 });
 
+// DELETE /api/tasks/:taskId - specific task
 router.delete("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
 
@@ -617,15 +640,97 @@ router.delete("/:taskId", requireAuth, async (req, res, next) => {
 
     await deleteTask.destroy();
 
-    // deduct points from user if they delete an entry
-    currentUser.moolah -= 5;
-    currentUser.save();
-    // console.log("DELETED ENTRY - MOOLAH", currentUser.moolah);
-
     res.json({
         message: "Successfully deleted",
         statusCode: 200,
     });
+});
+
+// DELETE /api/tasks/:taskType/:taskCategory - entire category of tasks
+router.delete("/:taskType/:taskCategory/:date", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const currentUser = await User.findByPk(user.id, {
+        attributes: {
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
+    });
+
+    const { taskType, taskCategory, date } = req.params;
+
+    if (taskType === "To-Do") {
+        const deleteToDoCategory = await UserTask.findAll({
+            where: {
+                userId: user.id,
+                taskType,
+                categoryName: taskCategory,
+                day: date
+            }
+        })
+
+        const err = {};
+        if (!deleteToDoCategory) {
+            err.status = 404;
+            err.statusCode = 404;
+            err.title = "Not found";
+            err.message = "To-Do category could not be found";
+            return next(err);
+        }
+
+        const deletedTaskIds = [];
+        deleteToDoCategory.forEach(task => deletedTaskIds.push(task.id));
+
+        const deleteCategoryTasks = await UserTask.destroy({
+            where: {
+                userId: user.id,
+                taskType,
+                categoryName: taskCategory,
+                day: date
+            }
+        })
+
+        return res.json({deletedTaskIds});
+
+    }
+
+    // const currentUser = await
+    let deleteTaskCategory = await UserTask.findAll({
+        where: {
+            userId: user.id,
+            taskType,
+            categoryName: taskCategory
+        }
+    });
+
+    const err = {};
+    if (!deleteTaskCategory) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Task category could not be found";
+        return next(err);
+    }
+
+    const deletedTaskIds = [];
+    deleteTaskCategory.forEach(task => deletedTaskIds.push(task.id));
+
+    // console.log("DELETE TASK CATEGORY - BACKEND ---> \n", deleteTaskCategory)
+
+
+    const deleteCategoryTasks = await UserTask.destroy({
+        where: {
+            userId: user.id,
+            taskType,
+            categoryName: taskCategory
+        }
+    })
+
+    res.json({deletedTaskIds})
+
+    // res.json({
+    //     message: "Successfully deleted",
+    //     statusCode: 200,
+    // });
 });
 
 module.exports = router;

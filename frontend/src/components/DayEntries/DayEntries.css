@@ -60,6 +60,10 @@
     filter: brightness(1)
 }
 
+.Dailies-mood-image.sad-icon.active-mood {
+    filter: brightness(1.5)
+}
+
 
 /* FOR DAILY IMAGE */
 

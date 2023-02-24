@@ -5,6 +5,7 @@ const LOAD_SPECIFIC_DAY_TASKS = "userTasks/LOAD_SPECIFIC_DAY_TASKS";
 const ADD_TASK = "userTasks/ADD_TASK";
 const EDIT_TASK = "userTasks/EDIT_TASK";
 const DELETE_TASK = "userTasks/DELETE_TASK";
+const DELETE_TASK_CATEGORY = "userTasks/DELETE_TASK_CATEGORY";
 
 const normalize = (tasks) => {
     const normalizedData = {};
@@ -31,10 +32,11 @@ export const actionLoadSpecificDayTasks = (userId, userTasks) => {
     }
 }
 
-export const actionAddTask = (task) => {
+export const actionAddTask = (task, taskType) => {
     return {
         type: ADD_TASK,
-        task
+        task,
+        taskType
     }
 }
 
@@ -42,6 +44,14 @@ export const actionDeleteTask = (taskId) => {
     return {
         type: DELETE_TASK,
         taskId
+    }
+}
+
+export const actionDeleteTaskCategory = (taskType, deletedTaskIds) => {
+    return {
+        type: DELETE_TASK,
+        taskType,
+        deletedTaskIds
     }
 }
 
@@ -76,7 +86,7 @@ export const loadSpecificDayTasks = (userId, date) => async (dispatch) => {
     }
 }
 
-export const addTask = (newEntry) => async (dispatch) => {
+export const addTask = (newEntry, taskType) => async (dispatch) => {
     const res = await csrfFetch(`/api/tasks`, {
         method: "POST",
         headers: {
@@ -87,7 +97,7 @@ export const addTask = (newEntry) => async (dispatch) => {
 
     if (res.ok) {
         const task = await res.json();
-        console.log("addTask - task:", task);
+        // console.log("addTask - taskType:", taskType);
         dispatch(actionAddTask(task.task));
         return task;
     }
@@ -103,6 +113,19 @@ export const deleteTask = (taskId) => async (dispatch) => {
         console.log("deletedTask - :", deletedTask);
         dispatch(actionDeleteTask(taskId));
         return deletedTask;
+    }
+}
+
+export const deleteTaskCategory = (taskType, taskCategory, date) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tasks/${taskType}/${taskCategory}/${date}`, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        const deletedTaskIds = await res.json();
+        console.log("deletedTask - :", deletedTaskIds);
+        dispatch(actionDeleteTaskCategory(taskType, deletedTaskIds));
+        return deletedTaskIds;
     }
 }
 
@@ -150,13 +173,29 @@ export default function userTasksReducer(state = initialState, action) {
         }
         case LOAD_SPECIFIC_DAY_TASKS: {
             const specificDayTasksState = { ...state };
-            specificDayTasksState.tasks = normalize(action.tasks);
+            // specificDayTasksState.tasks = normalize(action.tasks);
+            specificDayTasksState.userTasks = action.userTasks;
+
+            if (action.userTasks.habits.length) {
+                specificDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habits);
+            }
+
+            if (action.userTasks.toDo.length) {
+                specificDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDo);
+            }
+
             return specificDayTasksState;
         }
         case ADD_TASK: {
             const addTaskState = { ...state };
-            addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }
-            // console.log("ADD_REVIEW - addReviewState:", addReviewState);
+            // console.log
+            if (action.task.taskType === "Habit") {
+                addTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
+                return addTaskState;
+            } else {
+                addTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+            }
+            // addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }
             return addTaskState;
         }
         case DELETE_TASK: {
@@ -172,6 +211,29 @@ export default function userTasksReducer(state = initialState, action) {
             console.log("action.task", action.task)
             editTaskState.userTasks = { ...state.userTasks, [action.taskId]: action.task };
             return editTaskState;
+        }
+        case DELETE_TASK_CATEGORY: {
+            const deleteTaskCategoryState = { ...state };
+            // delete deleteTaskCategoryState.userTasks[action.taskId];
+
+            for (let i = 0; i < action.deletedTaskIds.length; i++) {
+                let iD = action.deletedTaskIds[i];
+
+                if (action.taskType === "Habit") {
+                    delete deleteTaskCategoryState.userTasks.habitsToday[iD];
+                } else {
+                    delete deleteTaskCategoryState.userTasks.toDoToday[iD];
+                }
+            }
+
+            // if (action.taskType === "Habit") {
+            //     for (let i = 0; i < action.deletedTaskIds.length; i++) {
+            //         let iD = action.deletedTaskIds[i];
+            //         delete deleteTaskCategoryState.userTasks.habitsToday[iD]
+            //     }
+            // }
+            console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskCategoryState);
+            return deleteTaskCategoryState;
         }
         default:
             return state;

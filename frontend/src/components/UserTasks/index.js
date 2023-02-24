@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { loadCurrentDayTasks } from "../../store/userTaskReducer";
-import categoryTasksMapper from "../../utils/categoryMapper";
+import CategoryTasksMapper from "./CategoryMapper";
+import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
+
 
 export default function UserTasks() {
     const dispatch = useDispatch();
@@ -15,9 +17,11 @@ export default function UserTasks() {
 
     const [isLoaded, setIsLoaded] = useState(false);
 
+    const now = formatDate(new Date());
+
     useEffect(() => {
         dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true))
-    }, [])
+    }, [dispatch])
 
     const categoryTasksHelper = (tasks) => {
         const categoryTasks = {};
@@ -51,7 +55,6 @@ export default function UserTasks() {
         const categoryUnfinishedToDo = categoryTasksHelper(allUnfinishedTodo);
         console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo);
 
-
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
             // console.log("category", category)
             <div key={category} className="UserTasks-habits-container">
@@ -76,47 +79,35 @@ export default function UserTasks() {
                 <h3 className="UserTasks-headers">
                     Habits
                 </h3>
-                {/* { Object.keys(allHabits).length ? (
-                    categoryTasksMapper(categoryHabits)
-                ) : (
-                    "No habits T_T prompt user to create a habit in this case!"
-                )} */}
 
-                { categoryTasksMapper(allHabits, categoryHabits)}
+                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
 
+                {
+                    allUnfinishedTodo.length ? (
+                        <div>
+                            <h3 className="UserTasks-headers">
+                                Unfinished To-Do's
+                            </h3>
 
-                <h3 className="UserTasks-headers">
-                    Unfinished To-Do's
-                </h3>
-                {/* { Object.keys(allUnfinishedTodo).length ? (
-                    categoryTasksMapper(categoryUnfinishedToDo)
-                ) : (
-                    "No to-do T_T prompt user to create a habit in this case!"
-                )} */}
-                { categoryTasksMapper(allUnfinishedTodo, categoryUnfinishedToDo) }
+                            <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
+                        </div>
+                    ) : (
+                        ""
+                    )
+                }
+
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
-                {/* { Object.keys(allToDoToday).length ? (
-                    categoryTasksMapper(categoryToDoToday)
-                ) : (
-                    "No to-do T_T prompt user to create a habit in this case!"
-                )} */}
 
-                { categoryTasksMapper(allToDoToday, categoryToDoToday) }
+                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
 
-
-                {/* <div className="UserTasks-habits-container">
-                    habits go here
+                <div className="UserTasks-new-category">
+                    Allow user to create a new block here
                 </div>
-                <div className="UserTasks-unfinished-to-do-container">
-                    unfinished to-do go here
-                </div>
-                <div className="UserTasks-to-do-today-container">
-                    today's to-do goes here
-                </div> */}
+
             </div>
         )
     } else {
