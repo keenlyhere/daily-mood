@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTaskCategory, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import { deleteTaskCategory, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import OpenModalButton from "../OpenModalButton";
 import CreateTaskModal from "./CreateTaskModal";
 import EditCategoryModal from "./EditCategoryModal";
@@ -8,6 +8,7 @@ import EditCategoryModal from "./EditCategoryModal";
 export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
+    const [tasksActive, setTasksActive] = useState([]);
     const closeMenu = () => setShowMenu(false);
 
     /* CREATE HABIT */
@@ -15,9 +16,19 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
     /* EDIT HABIT */
     /* EDIT TO-DO */
-    // const handleCheck = () => {
+    const handleCheck = async (task) => {
+        console.log("CHECKED", task)
+        const editedTask = {
+            categoryName: task.categoryName,
+            taskName: task.taskName,
+            taskType: task.taskType,
+            taskIcon: task.taskIcon,
+            isCompleted: !task.isCompleted
+        }
 
-    // }
+        console.log("CHECKED *", editedTask);
+        const completedTask = await dispatch(editTask(task.id, editedTask));
+    }
 
     /* DELETE HABIT */
     /* DELETE TO-DO */
@@ -52,12 +63,12 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                         <div key={idx} className="UserTasks-icon-container">
                             <div
                                 className="UserTasks-icon-div"
-                                // onClick={handleCheck}
+                                onClick={() => handleCheck(task)}
                             >
                                 <img
                                     src={task.taskIcon}
                                     className={`UserTasks-icon clickable ${
-                                        task.isComplete ? "" : "UserTasks-incomplete"
+                                        task.isCompleted ? "" : "UserTasks-incomplete"
                                     }`}
                                     alt="Task icon"
                                 />
