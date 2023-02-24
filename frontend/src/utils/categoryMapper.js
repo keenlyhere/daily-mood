@@ -1,9 +1,13 @@
 import { useDispatch } from "react-redux"
-import { deleteTaskCategory } from "../store/userTaskReducer";
+import { deleteTaskCategory, loadCurrentDayTasks } from "../store/userTaskReducer";
 
-export default function CategoryTasksMapper({allTasks, categoryTasks, taskType, date}) {
-    // console.log(Object.values(categoryTasks), categoryTasks)
-    console.log( "DATE", date)
+export default function CategoryTasksMapper({allTasks, categoryTasks, taskType, date, user}) {
+    const dispatch = useDispatch();
+
+    const handleCategoryDelete = async (category, taskType, date) => {
+        const deletedCategory = await dispatch(deleteTaskCategory(taskType, category, date))
+            .then(() => dispatch(loadCurrentDayTasks(user.id)))
+    }
 
     return (
         allTasks && Object.keys(allTasks).length ? (
@@ -13,7 +17,7 @@ export default function CategoryTasksMapper({allTasks, categoryTasks, taskType, 
                         <p className="UserTasks-header-text">{category}</p>
                         <div className="UserTasks-actions-container">
                             <i className="fa-solid fa-pen clickable"></i>
-                            {/* <i className="fa-solid fa-trash-can clickable" onClick={() => handleCategoryDelete(category, taskType, date)}></i> */}
+                            <i className="fa-solid fa-trash-can clickable" onClick={() => handleCategoryDelete(category, taskType, date)}></i>
                         </div>
                     </div>
                     <div className="UserTasks-icons-container">

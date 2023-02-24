@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
-import { deleteTaskCategory, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import { loadCurrentDayTasks } from "../../store/userTaskReducer";
 import CategoryTasksMapper from "../../utils/categoryMapper";
-import categoryTasksMapper from "../../utils/categoryMapper";
 import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
 
-// export const handleCategoryDelete = async (category, taskType, date) => {
-//     const deletedCategory = await dispatch(deleteTaskCategory(taskType, category, date));
-// }
 
 export default function UserTasks() {
     const dispatch = useDispatch();
@@ -84,21 +80,21 @@ export default function UserTasks() {
                     Habits
                 </h3>
 
-                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} />
+                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
 
                 <h3 className="UserTasks-headers">
                     Unfinished To-Do's
                 </h3>
 
 
-                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} />
+                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
 
-                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} />
+                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
 
                 <div className="UserTasks-new-category">
                     Allow user to create a new block here
