@@ -69,11 +69,14 @@ function App() {
           <ProtectedRoute path="/daily" exact={true}>
             <Daily />
           </ProtectedRoute>
-          <ProtectedRoute path="/tasks" exact={true}>
-            <UserTasks />
+          <ProtectedRoute path="/tasks/future" exact={true}>
+            <h1>You cannot record the future.</h1>
           </ProtectedRoute>
           <ProtectedRoute path="/tasks/:date" exact={true}>
             <SpecificDayTasks />
+          </ProtectedRoute>
+          <ProtectedRoute path="/tasks" exact={true}>
+            <UserTasks />
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>

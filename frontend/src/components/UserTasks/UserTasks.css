@@ -19,16 +19,29 @@
 
 .UserTasks-header {
     margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .UserTasks-icons-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+    gap: 8px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.UserTasks-icon-container {
+    height: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
-
-.UserTasks-icon-container {
+.UserTasks-icon-div,
+.UserTasks-create-task-button {
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -38,6 +51,33 @@
     /* margin-right: auto; */
 }
 
+.UserTasks-create-task-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: lightgreen;
+}
+
+.fa-plus {
+    -webkit-text-stroke: 2px;
+    color: lightgreen
+}
+
 .UserTasks-incomplete {
     filter: grayscale(1)
+}
+
+.UserTasks-incomplete:hover,
+.UserTasks-create-task-button:hover {
+    filter: grayscale(0)
+}
+
+.UserTasks-taskName {
+    font-size: 12px;
+    text-align: center;
+}
+
+.UserTasks-actions-container {
+    display: flex;
+    gap: 16px;
 }

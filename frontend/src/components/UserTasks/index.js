@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
-import { loadCurrentDayTasks } from "../../store/userTaskReducer";
+import { deleteTaskCategory, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import CategoryTasksMapper from "../../utils/categoryMapper";
 import categoryTasksMapper from "../../utils/categoryMapper";
+import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
+
+// export const handleCategoryDelete = async (category, taskType, date) => {
+//     const deletedCategory = await dispatch(deleteTaskCategory(taskType, category, date));
+// }
 
 export default function UserTasks() {
     const dispatch = useDispatch();
@@ -14,6 +20,8 @@ export default function UserTasks() {
     const allTasks = useSelector((state) => state.tasks.userTasks);
 
     const [isLoaded, setIsLoaded] = useState(false);
+
+    const now = formatDate(new Date());
 
     useEffect(() => {
         dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true))
@@ -51,7 +59,6 @@ export default function UserTasks() {
         const categoryUnfinishedToDo = categoryTasksHelper(allUnfinishedTodo);
         console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo);
 
-
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
             // console.log("category", category)
             <div key={category} className="UserTasks-habits-container">
@@ -77,19 +84,25 @@ export default function UserTasks() {
                     Habits
                 </h3>
 
-                { categoryTasksMapper(allHabits, categoryHabits)}
+                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} />
 
                 <h3 className="UserTasks-headers">
                     Unfinished To-Do's
                 </h3>
 
-                { categoryTasksMapper(allUnfinishedTodo, categoryUnfinishedToDo) }
+
+                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} />
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
-                { categoryTasksMapper(allToDoToday, categoryToDoToday) }
+
+                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} />
+
+                <div className="UserTasks-new-category">
+                    Allow user to create a new block here
+                </div>
 
             </div>
         )
