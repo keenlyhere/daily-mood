@@ -127,3 +127,7 @@
 .hidden {
     visibility: hidden;
 }
+
+.CreateTaskModal-button-container {
+    padding: 0px 18px;
+}

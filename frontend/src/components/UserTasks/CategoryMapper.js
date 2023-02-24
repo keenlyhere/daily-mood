@@ -15,6 +15,9 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
     /* EDIT HABIT */
     /* EDIT TO-DO */
+    const handleCheck = () => {
+        
+    }
 
     /* DELETE HABIT */
     /* DELETE TO-DO */
@@ -47,7 +50,10 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                 <div className="UserTasks-icons-container">
                     {categoryTasks[category].map((task, idx) => (
                         <div key={idx} className="UserTasks-icon-container">
-                            <div key={idx} className="UserTasks-icon-div">
+                            <div
+                                className="UserTasks-icon-div"
+                                onClick={handleCheck}
+                            >
                                 <img
                                     src={task.taskIcon}
                                     className={`UserTasks-icon clickable ${
