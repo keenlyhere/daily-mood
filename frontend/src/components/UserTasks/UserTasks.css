@@ -80,3 +80,60 @@
     display: flex;
     gap: 16px;
 }
+
+.UserTasks-header-text {
+    background-color: lightgreen;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    width: 13ch;
+}
+
+.UserTasks-category-name {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-hover {
+    cursor:default;
+}
+
+.edit-input {
+    border: 1px solid white;
+    background-color: white;
+}
+
+.edit-input:hover {
+    filter: brightness(1);
+}
+
+.UserTasks-category-save {
+    border-radius: 8px;
+    border: 0;
+    background-color: white;
+}
+
+.Task-edit {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.Task-edit > img {
+    height: 30px;
+}
+
+.UserTasks-save {
+    padding: 3px 8px;
+    border-radius: 8px;
+    border: 0;
+    background-color: white;
+}
+
+.UserTasks-create-new {
+    padding-bottom: 8px;
+}

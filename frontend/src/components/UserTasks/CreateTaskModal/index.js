@@ -128,6 +128,24 @@ export default function CreateTaskModal({ category, taskType, user }) {
         return;
     }
 
+    const onKeyDownCatName = (e) => {
+        console.log("e.key", e.key)
+        if (e.key === "Enter") {
+            if (e.target.value.length > 0 && e.target.value <= 12) {
+                setStep(1);
+            }
+        }
+    }
+
+    const onKeyDownTaskName = (e) => {
+        if (e.key === "Enter") {
+            console.log("HIT ON KEY DOWN TASK NAME ENTER")
+            if (taskName.length > 0 && taskName.length <= 12) {
+                handleSubmit(e);
+            }
+        }
+    }
+
     return (
         <div className="CreateTaskModal-container">
             <div className="CreateTaskModal-top">
@@ -142,7 +160,13 @@ export default function CreateTaskModal({ category, taskType, user }) {
                         <label className="CreateTaskModal-categoryName">
                             Category name
                         </label>
-                        <input className="CreateTaskModal-taskName-input" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} placeholder="Ex: School work" />
+                        <input
+                            className="CreateTaskModal-taskName-input"
+                            value={categoryName}
+                            onChange={(e) => setCategoryName(e.target.value)}
+                            placeholder="Ex: School work"
+                            onKeyDown={onKeyDownCatName}
+                        />
                         <div className="CreateTaskModal-error-container">
                             { categoryName.length > 12 && (
                                 <p className="CreateTaskModal-error-text">
@@ -181,7 +205,13 @@ export default function CreateTaskModal({ category, taskType, user }) {
                             <div className={`CreateTaskModal-icon-container selected`}>
                                 <img src={iconSelected} alt="Task icon" />
                             </div>
-                            <input className="CreateTaskModal-taskName-input" value={taskName} onChange={(e) => setTaskName(e.target.value)} placeholder="Enter a task name" />
+                            <input
+                                className="CreateTaskModal-taskName-input"
+                                value={taskName}
+                                onChange={(e) => setTaskName(e.target.value)}
+                                placeholder="Enter a task name"
+                                onKeyDown={onKeyDownTaskName}
+                            />
                             <div className="CreateTaskModal-error-container">
                                 { taskName.length > 12 && (
                                     <p className="CreateTaskModal-error-text">

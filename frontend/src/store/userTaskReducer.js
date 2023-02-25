@@ -6,6 +6,7 @@ const ADD_TASK = "userTasks/ADD_TASK";
 const EDIT_TASK = "userTasks/EDIT_TASK";
 const DELETE_TASK = "userTasks/DELETE_TASK";
 const DELETE_TASK_CATEGORY = "userTasks/DELETE_TASK_CATEGORY";
+const EDIT_TASK_CATEGORY = "userTasks/EDIT_TASK_CATEGORY";
 
 const normalize = (tasks) => {
     const normalizedData = {};
@@ -60,6 +61,14 @@ export const actionEditTask = (taskId, task) => {
         type: EDIT_TASK,
         taskId,
         task
+    }
+}
+
+export const actionChangeCatName = (task, taskType) => {
+    return {
+        type: EDIT_TASK_CATEGORY,
+        task,
+        taskType
     }
 }
 
@@ -146,6 +155,23 @@ export const editTask = (taskId, task) => async (dispatch) => {
     }
 }
 
+export const changeCatName = (oldCatName, newCatName, taskType) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tasks/${oldCatName}/${newCatName}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ oldCatName, newCatName, taskType })
+    })
+
+    if (res.ok) {
+        const editedCatName = await res.json();
+        console.log("editedCatName:", editedCatName);
+        dispatch(actionChangeCatName(editedCatName.task, taskType));
+        return editedCatName;
+    }
+}
+
 const initialState = {
     userTasks: {}
 }
@@ -156,15 +182,15 @@ export default function userTasksReducer(state = initialState, action) {
             // userDayTasksState.userTasks = normalize(action.userTasks);
             userDayTasksState.userTasks = action.userTasks;
 
-            if (action.userTasks.habitsToday.length) {
+            if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
                 userDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habitsToday);
             }
 
-            if (action.userTasks.toDoToday.length) {
+            if (action.userTasks.toDoToday && action.userTasks.toDoToday.length) {
                 userDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDoToday);
             }
 
-            if (action.userTasks.unfinishedToDo.length) {
+            if (action.userTasks.unfinishedToDo && action.userTasks.unfinishedToDo.length) {
                 userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
             }
 
@@ -223,6 +249,19 @@ export default function userTasksReducer(state = initialState, action) {
                 editTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
             }
             return editTaskState;
+        }
+        case EDIT_TASK_CATEGORY: {
+            let editTaskCategoryState = JSON.stringify(state);
+            editTaskCategoryState = JSON.parse(editTaskCategoryState);
+
+            if (action.taskType === "Habit") {
+                editTaskCategoryState.userTasks.habitsToday = { ...state.userTasks.habitsToday, ...action.task};
+                return editTaskCategoryState;
+            } else {
+                editTaskCategoryState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+            }
+
+            return editTaskCategoryState;
         }
         case DELETE_TASK_CATEGORY: {
             const deleteTaskCategoryState = { ...state };

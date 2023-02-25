@@ -161,6 +161,7 @@ export default function SignupFormModal() {
                         value={birthday}
                         onChange={(e) => setBirthday(e.target.value)}
                     />
+                    {/* datetime / local */}
                     <label htmlFor="birthday">
                         Birthday
                     </label>

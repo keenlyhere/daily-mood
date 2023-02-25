@@ -6,6 +6,8 @@ import CategoryTasksMapper from "./CategoryMapper";
 import { formatDate } from "../../utils/dateFormating";
 
 import "./UserTasks.css";
+import OpenModalButton from "../OpenModalButton";
+import CreateTaskModal from "./CreateTaskModal";
 
 
 export default function UserTasks() {
@@ -14,13 +16,15 @@ export default function UserTasks() {
 
     const user = useSelector((state) => state.session.user);
     const allTasks = useSelector((state) => state.tasks.userTasks);
+    const [showMenu, setShowMenu] = useState(false);
+    const closeMenu = () => setShowMenu(false);
 
     const [isLoaded, setIsLoaded] = useState(false);
 
     const now = formatDate(new Date());
 
     useEffect(() => {
-        dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true))
+        dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true)).catch((error) => console.log("errors", error))
     }, [dispatch])
 
     const categoryTasksHelper = (tasks) => {
@@ -82,6 +86,31 @@ export default function UserTasks() {
 
                 <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
 
+                <div className="UserTasks-category-container">
+                    { Object.keys(categoryHabits).length === 0 ? (
+                        <p className="UserTasks-create-new">
+                            Oh moo! You don't have any habits! Why don't you create one?
+                        </p>
+                    ) : (
+                        <p className="UserTasks-create-new">
+                            Create new habit block
+                        </p>
+                    )}
+                    <div className="UserTasks-icon-container">
+                        <OpenModalButton
+                            buttonText={
+                                <div className="UserTasks-create-task-button clickable">
+                                    <i className="fa-solid fa-plus"></i>
+                                </div>
+                            }
+                            onButtonClick={closeMenu}
+                            modalComponent={<CreateTaskModal taskType={"Habit"} user={user} />}
+                            buttonClass="Category-edit"
+                        />
+                        <p className="UserTasks-taskName">New block</p>
+                    </div>
+                </div>
+
                 {
                     allUnfinishedTodo.length ? (
                         <div>
@@ -104,8 +133,29 @@ export default function UserTasks() {
 
                 <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
 
-                <div className="UserTasks-new-category">
-                    Allow user to create a new block here
+                <div className="UserTasks-category-container">
+                    { Object.keys(categoryToDoToday).length === 0 ? (
+                        <p className="UserTasks-create-new">
+                            Oh moo! You don't have any to-do's! Why don't you create one?
+                        </p>
+                    ) : (
+                        <p className="UserTasks-create-new">
+                            Create new habit block
+                        </p>
+                    )}
+                    <div className="UserTasks-icon-container">
+                        <OpenModalButton
+                            buttonText={
+                                <div className="UserTasks-create-task-button clickable">
+                                    <i className="fa-solid fa-plus"></i>
+                                </div>
+                            }
+                            onButtonClick={closeMenu}
+                            modalComponent={<CreateTaskModal taskType={"Habit"} user={user} />}
+                            buttonClass="Category-edit"
+                        />
+                        <p className="UserTasks-taskName">New block</p>
+                    </div>
                 </div>
 
             </div>

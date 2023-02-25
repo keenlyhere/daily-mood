@@ -24,6 +24,16 @@
     border: 0;
 }
 
+.CreateTaskModal-delete {
+    position: relative;
+    top: 11px;
+    left: 300px;
+    background: lightpink;
+    border-radius: 8px;
+    padding: 3px 8px;
+    border: 0;
+}
+
 .CreateTaskModal-create {
     position: absolute;
     top: 15px;
@@ -130,4 +140,13 @@
 
 .CreateTaskModal-button-container {
     padding: 0px 18px;
+}
+
+.EditTask-create {
+    position: absolute;
+    top: 15px;
+    left: 140px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
 }
