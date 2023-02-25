@@ -1,9 +1,13 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { changeCatName, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import OpenModalButton from "../OpenModalButton";
+import EditTask from "./EditTask";
 
 export default function EditCategory( { allTasks, categoryTasks, category, taskType, date, user, endEditTasks } ) {
     const dispatch = useDispatch();
+    const [ showMenu, setShowMenu ] = useState(false);
+    const closeMenu = () => setShowMenu(false);
     const [ catName, setCatName ] = useState(category);
     const [ activeInput, setActiveInput ] = useState(false);
     const [ errors, setErrors ] = useState([]);
@@ -43,24 +47,6 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
         }
     }
 
-    // const onBlur = (e) => {
-    //     console.log("hitBlur")
-    //     if (e.target.value.trim() === "") {
-    //         setCatName(category);
-    //     } else {
-    //         setCatName(e.target.value);
-    //     }
-
-    //     dispatch(changeCatName(category, catName, taskType))
-    //         .catch(async (res) => {
-    //             const data = await res.json();
-    //             if (data && data.errors) setErrors(data.errors);
-    //         })
-
-    //     dispatch(loadCurrentDayTasks(user.id))
-    //     endActiveInput();
-    // }
-
     const startActiveInput = (e) => {
         setActiveInput(true);
     }
@@ -79,7 +65,6 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                         value={catName}
                                         onChange={(e) => setCatName(e.target.value)}
                                         onKeyDown={onKeyDown}
-                                        // onBlur={onBlur}
                                     />
                                     <button
                                         className="UserTasks-category-save"
@@ -104,10 +89,10 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
 
 
                                 <div className="UserTasks-actions-container">
-                                <i
-                                    className="fa-solid fa-trash-can clickable"
-                                    // onClick={() => handleCategoryDelete(category, taskType, date)}
-                                ></i>
+                                    <i
+                                        className="fa-solid fa-trash-can clickable"
+                                        // onClick={() => handleCategoryDelete(category, taskType, date)}
+                                    ></i>
                             </div>
                         </div>
                         <div className="UserTasks-icons-container">
@@ -117,41 +102,22 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                         className="UserTasks-icon-div"
                                         // onClick={() => handleCheck(task)}
                                     >
-                                        {/* <input
-                                        className="UserTasks-header-text no-hover"
-                                        value={catName ? catName : category}
-                                        onChange={(e) => setCatName(e.target.value)}
-                                    /> */}
-
-
-                                        {/* <button
-                                            className="UserTasks-category-name-save"
-                                            onClick={(e) => handleCatNameChange(category, catName)}
-                                        >Save</button> */}
-                                        <img
-                                            src={task.taskIcon}
-                                            className={`UserTasks-icon clickable ${
-                                                task.isCompleted ? "" : "UserTasks-incomplete"
-                                            }`}
-                                            alt="Task icon"
+                                        <OpenModalButton
+                                            buttonText={
+                                                <img
+                                                    src={task.taskIcon}
+                                                    className={`UserTasks-icon clickable`}
+                                                    alt="Task icon"
+                                                />
+                                            }
+                                            onButtonClick={closeMenu}
+                                            modalComponent={<EditTask taskId={task.id} category={category} taskName={task.taskName} taskType={taskType} icon={task.taskIcon} user={user} />}
+                                            buttonClass="Task-edit"
                                         />
                                     </div>
                                     <p className="UserTasks-taskName">{task.taskName}</p>
                                 </div>
                             ))}
-                            {/* <div className="UserTasks-icon-container">
-                                <OpenModalButton
-                                    buttonText={
-                                        <div className="UserTasks-create-task-button clickable">
-                                            <i className="fa-solid fa-plus"></i>
-                                        </div>
-                                    }
-                                    onButtonClick={closeMenu}
-                                    modalComponent={<CreateTaskModal category={category} taskType={taskType} user={user} />}
-                                    buttonClass="Category-edit"
-                                />
-                                <p className="UserTasks-taskName">New {category}</p>
-                            </div> */}
                         </div>
                     </div>
         </div>

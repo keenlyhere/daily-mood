@@ -131,3 +131,12 @@
 .CreateTaskModal-button-container {
     padding: 0px 18px;
 }
+
+.EditTask-create {
+    position: absolute;
+    top: 15px;
+    left: 140px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}

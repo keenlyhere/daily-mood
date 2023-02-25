@@ -182,15 +182,15 @@ export default function userTasksReducer(state = initialState, action) {
             // userDayTasksState.userTasks = normalize(action.userTasks);
             userDayTasksState.userTasks = action.userTasks;
 
-            if (action.userTasks.habitsToday.length) {
+            if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
                 userDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habitsToday);
             }
 
-            if (action.userTasks.toDoToday.length) {
+            if (action.userTasks.toDoToday && action.userTasks.toDoToday.length) {
                 userDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDoToday);
             }
 
-            if (action.userTasks.unfinishedToDo.length) {
+            if (action.userTasks.unfinishedToDo && action.userTasks.unfinishedToDo.length) {
                 userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
             }
 

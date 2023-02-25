@@ -112,3 +112,16 @@
     border: 0;
     background-color: white;
 }
+
+.Task-edit {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.Task-edit > img {
+    height: 30px;
+}

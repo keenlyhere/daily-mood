@@ -71,7 +71,6 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                     <div key={category} className={`UserTasks-category-container`}>
                         <div className="UserTasks-header">
                             <div className="UserTasks-category-name">
-
                                     <p className="UserTasks-header-text no-hover">{category}</p>
                             </div>
                             <div className="UserTasks-actions-container">
@@ -125,7 +124,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         ))
     ) : (
         <div className="UserTasks-category-container">
-            Oh moo! You don't have any task yet. Why don't you create one?
+            Oh moo! You don't have any {taskType.toLowerCase()}s yet. Why don't you create one?
             <div className="UserTasks-icon-container">
                 <OpenModalButton
                     buttonText={
