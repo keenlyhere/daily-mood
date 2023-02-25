@@ -70,7 +70,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
         "https://keenlychung.com/dailymood/27.png",
         "https://keenlychung.com/dailymood/28.png",
         "https://keenlychung.com/dailymood/29.png",
-        "https://keenlychung.com/dailymood/10.png",
+        "https://keenlychung.com/dailymood/30.png",
     ]
 
     const categoryProp = category ? category : "";

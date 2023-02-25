@@ -607,6 +607,67 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
     }
 });
 
+// EDIT /api/tasks/:oldCatName/:newCatName
+router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const currentUser = await User.findByPk(user.id, {
+        attributes: {
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
+    });
+
+    const { oldCatName, newCatName, taskType } = req.body;
+
+    const updateTaskCategory = await UserTask.findAll({
+        where: {
+            taskType,
+            categoryName: oldCatName
+        }
+    });
+
+    console.log("*** UPDATE TASK CATEGORY ***", updateTaskCategory);
+
+
+    const err = {};
+    if (!updateTaskCategory) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Task category could not be found";
+        return next(err);
+    }
+
+    switch (taskType) {
+        case "Habit": {
+
+            updateTaskCategory.forEach(task => {
+                task.categoryName = newCatName
+                task.save()
+            })
+
+            res.status(201);
+            return res.json({
+                task: updateTaskCategory,
+            });
+        }
+        case "To-Do": {
+            updateTaskCategory.forEach(task => (
+                task.categoryName = newCatName
+            ))
+
+            await updateTaskCategory.save();
+
+            res.status(201);
+            return res.json({
+                task: updateTaskCategory,
+            });
+        }
+        default:
+            break;
+    }
+})
+
 // DELETE /api/tasks/:taskId - specific task
 router.delete("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;

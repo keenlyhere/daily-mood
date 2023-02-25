@@ -80,3 +80,35 @@
     display: flex;
     gap: 16px;
 }
+
+.UserTasks-header-text {
+    background-color: lightgreen;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    width: 13ch;
+}
+
+.UserTasks-category-name {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-hover {
+    cursor:default;
+}
+
+.edit-input {
+    border: 1px solid white;
+}
+
+.edit-input:hover {
+    filter: brightness(1);
+}
+
+.UserTasks-category-save {
+    border-radius: 8px;
+    border: 0;
+    background-color: white;
+}

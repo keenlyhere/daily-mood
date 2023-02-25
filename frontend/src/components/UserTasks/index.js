@@ -20,7 +20,7 @@ export default function UserTasks() {
     const now = formatDate(new Date());
 
     useEffect(() => {
-        dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true))
+        dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true)).catch((error) => console.log("errors", error))
     }, [dispatch])
 
     const categoryTasksHelper = (tasks) => {
