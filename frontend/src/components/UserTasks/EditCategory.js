@@ -89,11 +89,13 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
 
 
                                 <div className="UserTasks-actions-container">
-                                    <i
-                                        className="fa-solid fa-trash-can clickable"
-                                        // onClick={() => handleCategoryDelete(category, taskType, date)}
-                                    ></i>
-                            </div>
+                                    <button
+                                        className="UserTasks-save"
+                                        onClick={endEditTasks}
+                                    >
+                                        Done editing
+                                    </button>
+                                </div>
                         </div>
                         <div className="UserTasks-icons-container">
                             {categoryTasks[category].map((task, idx) => (

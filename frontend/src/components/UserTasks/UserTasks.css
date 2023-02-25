@@ -101,6 +101,7 @@
 
 .edit-input {
     border: 1px solid white;
+    background-color: white;
 }
 
 .edit-input:hover {
@@ -124,4 +125,15 @@
 
 .Task-edit > img {
     height: 30px;
+}
+
+.UserTasks-save {
+    padding: 3px 8px;
+    border-radius: 8px;
+    border: 0;
+    background-color: white;
+}
+
+.UserTasks-create-new {
+    padding-bottom: 8px;
 }

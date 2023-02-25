@@ -123,21 +123,22 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
             </div>
         ))
     ) : (
-        <div className="UserTasks-category-container">
-            Oh moo! You don't have any {taskType.toLowerCase()}s yet. Why don't you create one?
-            <div className="UserTasks-icon-container">
-                <OpenModalButton
-                    buttonText={
-                        <div className="UserTasks-create-task-button clickable">
-                            <i className="fa-solid fa-plus"></i>
-                        </div>
-                    }
-                    onButtonClick={closeMenu}
-                    modalComponent={<CreateTaskModal taskType={taskType} user={user} />}
-                    buttonClass="Category-edit"
-                />
-                <p className="UserTasks-taskName">New {taskType}</p>
-            </div>
-        </div>
+        ""
+        // <div className="UserTasks-category-container">
+        //     Oh moo! You don't have any {taskType.toLowerCase()}s yet. Why don't you create one?
+        //     <div className="UserTasks-icon-container">
+        //         <OpenModalButton
+        //             buttonText={
+        //                 <div className="UserTasks-create-task-button clickable">
+        //                     <i className="fa-solid fa-plus"></i>
+        //                 </div>
+        //             }
+        //             onButtonClick={closeMenu}
+        //             modalComponent={<CreateTaskModal taskType={taskType} user={user} />}
+        //             buttonClass="Category-edit"
+        //         />
+        //         <p className="UserTasks-taskName">New {taskType}</p>
+        //     </div>
+        // </div>
     );
 }

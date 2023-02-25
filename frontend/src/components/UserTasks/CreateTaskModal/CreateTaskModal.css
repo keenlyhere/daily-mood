@@ -24,6 +24,16 @@
     border: 0;
 }
 
+.CreateTaskModal-delete {
+    position: relative;
+    top: 11px;
+    left: 300px;
+    background: lightpink;
+    border-radius: 8px;
+    padding: 3px 8px;
+    border: 0;
+}
+
 .CreateTaskModal-create {
     position: absolute;
     top: 15px;
