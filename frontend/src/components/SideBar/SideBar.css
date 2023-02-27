@@ -3,3 +3,17 @@
     background-color: lightgreen;
     padding: 18px;
 }
+
+.SideBar-pet-image-container {
+    position: relative;
+}
+
+.SideBar-pet-background {
+    position: relative;
+}
+
+.SideBar-pet {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

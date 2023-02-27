@@ -142,6 +142,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATEONLY
+    },
+    pointsEarnedToday: {
+      allowNull: false,
+      defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
+    pointsEarnedDailies: {
+      allowNull: false,
+      defaultValue: 0,
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

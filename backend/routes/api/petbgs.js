@@ -6,6 +6,7 @@ const { Pet, Background, UserItem } = require ("../../db/models");
 const { validateQuery } = require("../../utils/validation");
 const { petImageParser, bgImageParser } = require("../../utils/petBgImgParser");
 
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -94,7 +95,11 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         attributes: ["id"]
     });
 
-    const allBgIds = await Background.findAll({
+    console.log("ALL PET IDS >>>>>>>> \N", allPetIds);
+    const petUserItemIds = [];
+    allPetIds.forEach(item => petUserItemIds.push(item.id));
+
+    const allBgIds = await UserItem.findAll({
         where: {
             userId: user.id,
             itemType: "background"
@@ -102,15 +107,22 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         attributes: ["id"]
     });
 
+    const bgUserItemIds = [];
+    allPetIds.forEach(item => bgUserItemIds.push(item.id));
+
     const allPets = await Pet.findAll({
         where: {
-            [Op.in]: allPetIds
+            userItemId: {
+                [Op.in]: petUserItemIds
+            }
         }
     });
 
     const allBgs = await Background.findAll({
         where: {
-            [Op.in]: allBgIds
+            userItemId: {
+                [Op.in]: bgUserItemIds
+            }
         }
     });
 

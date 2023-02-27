@@ -137,3 +137,8 @@
 .UserTasks-create-new {
     padding-bottom: 8px;
 }
+
+.EditCategory-error-text {
+    color: red;
+    font-size: 14px;
+}

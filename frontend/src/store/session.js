@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const EDIT_USER = "session/EDIT_USER";
+const ADD_POINTS = "session/ADD_POINTS";
 
 export const actionSetUser = (user) => {
     return {
@@ -17,12 +17,14 @@ export const actionRemoveUser = () => {
     }
 }
 
-export const actionEditUser = (user) => {
+export const actionAddPoints = (user) => {
     return {
-        type: EDIT_USER,
+        type: ADD_POINTS,
         user
     }
 }
+
+
 
 // thunk action to login
 export const login = (user) => async (dispatch) => {
@@ -93,6 +95,22 @@ export const logout = () => async (dispatch) => {
     return res;
 }
 
+export const addPoints = (pointsEarned) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/points`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(pointsEarned)
+    })
+
+    if (res.ok) {
+        const editedUser = await res.json();
+        dispatch(actionAddPoints(editedUser));
+        return editedUser;
+    }
+}
+
 const initialState = { user: null }
 
 export default function sessionReducer(state = initialState, action) {
@@ -108,11 +126,11 @@ export default function sessionReducer(state = initialState, action) {
             removeUserState.user = null;
             return removeUserState;
         };
-        case EDIT_USER: {
-            const editUserState = { ...state }
-            editUserState.user = action.user;
-            // console.log("sessionReducer - editUserState:", editUserState);
-            return editUserState;
+        case ADD_POINTS: {
+            const addPointsState = { ...state }
+            addPointsState.user = action.user;
+            // console.log("sessionReducer - addPointsState:", editUserState);
+            return addPointsState;
         }
         default:
             return state;

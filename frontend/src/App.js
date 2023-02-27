@@ -31,22 +31,17 @@ function App() {
 
     return (
       <div className="App-container">
-        <Navigation />
         <Switch>
           <Route exact path="/">
+          <Navigation />
             <h1>Splash page goes here!</h1>
-            <h2>Goals for Friday=</h2>
+            <h2>Goals for Monday</h2>
             <ol>
-              <li>Finish connecting UserTasks to frontend + styling (CREATE, DELETE)</li>
-              <li>Start routes for Pets redemption</li>
-              <li>Connect Pets to frontEnd + styling</li>
-            </ol>
-            <h2>Goals for Saturday (tentative)</h2>
-            <ol>
-              <li>Finish routes for Background redemption</li>
-              <li>Connect Background to frontend + styling</li>
-              <li>Style nav bar ---- profile dropdown button instead of logout button when user logged in?</li>
-              <li>Design splash page</li>
+              <li>Finish connecting Pets + Backgrounds to frontend + styling</li>
+              <li>Revamp overall style:</li>
+              <li>Change main colors</li>
+              <li>Create logo</li>
+              <li>Create favicon</li>
             </ol>
             <h2>Completed on Wednesday</h2>
             <ol>
@@ -59,6 +54,23 @@ function App() {
               <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
               <li>Connected UserTasks GET & DELETE to frontend + styling</li>
             </ol>
+            <h2>Completed on Friday</h2>
+            <ol>
+              <li>Finish connecting UserTasks to frontend + styling (CREATE, EDIT, DELETE)</li>
+            </ol>
+            <h2>Completed on Saturday</h2>
+            <ol>
+              <li>Worked on art for pets</li>
+            </ol>
+            <h2>Completed on Sunday</h2>
+            <ol>
+              <li>Created CRUD routes for Pets</li>
+              <li>Created CRUD routes for Backgrounds</li>
+              <li>Connected Pets + Backgrounds to frontend + some styling</li>
+              <li>Created action, thunks, and reducers for Pets + Backgrounds</li>
+              <li>Created sidebar to house links and pet/bg when user is logged in</li>
+            </ol>
+
           </Route>
           <Route exact path="/login">
             <LoginFormModal />

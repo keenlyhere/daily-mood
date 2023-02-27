@@ -226,10 +226,11 @@ export default function petBgReducer(state = initialState, action) {
         case LOAD_ALL_USER_ITEMS: {
             let allUserItemsState = JSON.stringify(state);
             allUserItemsState = JSON.parse(allUserItemsState);
-            allUserItemsState.activePet = action.actives.activePet;
-            allUserItemsState.activeBg = action.actives.activeBg;
-            allUserItemsState.pets = normalize(action.actives.pets);
-            allUserItemsState.backgrounds = normalize(action.actives.bgs);
+            allUserItemsState.activePet = action.userItems.activePet;
+            allUserItemsState.activeBg = action.userItems.activeBg;
+            allUserItemsState.pets = normalize(action.userItems.pets);
+            allUserItemsState.backgrounds = normalize(action.userItems.bgs);
+            console.log("alluseritemsstate:::::", allUserItemsState);
             return allUserItemsState;
         }
         case ADD_PET: {
@@ -272,5 +273,7 @@ export default function petBgReducer(state = initialState, action) {
             delete deleteBgState.backgrounds[action.bgId];
             return deleteBgState;
         }
+        default:
+            return state;
     }
 }

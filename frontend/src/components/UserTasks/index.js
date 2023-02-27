@@ -151,7 +151,7 @@ export default function UserTasks() {
                                 </div>
                             }
                             onButtonClick={closeMenu}
-                            modalComponent={<CreateTaskModal taskType={"Habit"} user={user} />}
+                            modalComponent={<CreateTaskModal taskType={"To-Do"} user={user} />}
                             buttonClass="Category-edit"
                         />
                         <p className="UserTasks-taskName">New block</p>

@@ -140,9 +140,6 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             mood = mood.toJSON();
 
-            currentUser.moolah += 5;
-            currentUser.save();
-
             mood.User = currentUser;
             // console.log("USER MOOLAH>>>>", currentUser.moolah);
 
@@ -160,8 +157,6 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             image = image.toJSON();
 
-            currentUser.moolah += 5;
-            currentUser.save();
             image.User = currentUser;
 
             res.status(201);
@@ -178,8 +173,6 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
 
             journal = journal.toJSON();
 
-            currentUser.moolah += 5;
-            currentUser.save();
             journal.User = currentUser;
 
             res.status(201);
@@ -310,11 +303,6 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
     }
 
     await deleteEntry.destroy();
-
-    // deduct points from user if they delete an entry
-    currentUser.moolah -= 5;
-    currentUser.save();
-    // console.log("DELETED ENTRY - MOOLAH", currentUser.moolah);
 
     res.json({
         message: "Successfully deleted",
