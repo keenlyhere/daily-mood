@@ -49,15 +49,15 @@ export default function UserTasks() {
         const allHabits = allTasks.habitsToday;
         // all habits in their respective categories
         const categoryHabits = categoryTasksHelper(allHabits)
-        console.log("*** CATEGORY HABITS ***", categoryHabits);
+        // console.log("*** CATEGORY HABITS ***", categoryHabits);
 
         const allToDoToday = allTasks.toDoToday;
         const categoryToDoToday = categoryTasksHelper(allToDoToday);
-        console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday);
+        // console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday);
 
         const allUnfinishedTodo = allTasks.unfinishedToDo;
         const categoryUnfinishedToDo = categoryTasksHelper(allUnfinishedTodo);
-        console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo);
+        console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo, "\n", allUnfinishedTodo);
 
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
             // console.log("category", category)
@@ -112,7 +112,7 @@ export default function UserTasks() {
                 </div>
 
                 {
-                    allUnfinishedTodo.length ? (
+                    Object.keys(allUnfinishedTodo).length ? (
                         <div>
                             <h3 className="UserTasks-headers">
                                 Unfinished To-Do's
