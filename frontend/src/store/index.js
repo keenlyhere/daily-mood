@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import dayEntriesReducer from "./dayentries";
+import petBgReducer from "./petBgReducer";
 import sessionReducer from "./session";
 import userTasksReducer from "./userTaskReducer";
 
@@ -8,7 +9,8 @@ const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
   day: dayEntriesReducer,
-  tasks: userTasksReducer
+  tasks: userTasksReducer,
+  items: petBgReducer
 });
 
 let enhancer;

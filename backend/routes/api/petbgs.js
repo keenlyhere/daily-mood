@@ -6,6 +6,7 @@ const { Pet, Background, UserItem } = require ("../../db/models");
 const { validateQuery } = require("../../utils/validation");
 const { petImageParser, bgImageParser } = require("../../utils/petBgImgParser");
 
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -48,6 +49,205 @@ router.get("/current", requireAuth, async (req, res, next) => {
         user,
         activePet,
         activeBg
+    })
+})
+
+// GET /api/petbg/current/all - get all users pets and bgs
+router.get("/current/all", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const err = {};
+    if (!user) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "User could not be found";
+        return next(err);
+    }
+
+    const activePetId = user.activePet;
+    const activeBgId = user.activeBg;
+
+    const activePet = await Pet.findByPk(activePetId);
+    const activeBg = await Background.findByPk(activeBgId);
+
+    if (!activePet) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Pet could not be found";
+        return next(err);
+    }
+
+    const randomNum = Math.floor(Math.random() * 10) + 1;
+    if (activePet.health > 80) {
+
+        if (activePet.friendliness >= 80) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
+        } else if (activePet.friendliness >= 60) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "normal")
+            })
+        } else if (activePet.friendliness >= 30) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+            })
+        } else {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                })
+            }
+        }
+    } else if (activePet.health > 60) {
+        if (activePet.friendliness >= 80) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else if (activePet.friendliness >= 30) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                })
+            }
+        }
+    } else if (activePet.health > 30) {
+        if (activePet.friendliness >= 80) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "happy")
+                })
+            }
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "angry")
+            })
+        }
+    } else {
+        if (activePet.friendliness >= 80) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "angry")
+            })
+        }
+    }
+
+    if (!activeBg) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Background could not be found";
+        return next(err);
+    }
+
+    const allPetIds = await UserItem.findAll({
+        where: {
+            userId: user.id,
+            itemType: "pet"
+        },
+        attributes: ["id"]
+    });
+
+    console.log("ALL PET IDS >>>>>>>> \N", allPetIds);
+    const petUserItemIds = [];
+    allPetIds.forEach(item => petUserItemIds.push(item.id));
+
+    const allBgIds = await UserItem.findAll({
+        where: {
+            userId: user.id,
+            itemType: "background"
+        },
+        attributes: ["id"]
+    });
+
+    const bgUserItemIds = [];
+    allPetIds.forEach(item => bgUserItemIds.push(item.id));
+
+    const allPets = await Pet.findAll({
+        where: {
+            userItemId: {
+                [Op.in]: petUserItemIds
+            }
+        }
+    });
+
+    const allBgs = await Background.findAll({
+        where: {
+            userItemId: {
+                [Op.in]: bgUserItemIds
+            }
+        }
+    });
+
+    res.json({
+        user,
+        activePet,
+        activeBg,
+        pets: allPets,
+        bgs: allBgs
     })
 })
 
@@ -172,7 +372,7 @@ router.put("/pet/:petId", requireAuth, async (req, res, next) => {
 
 });
 
-// PUT /api/petbg/pet/:userId/petId - change active pet for user
+// PUT /api/petbg/pet/:userId/:petId - change active pet for user
 router.put("/pet/:userId/:petId", requireAuth, async (req, res, next) => {
     const { user } = req;
     const { userId, petId } = req.params;

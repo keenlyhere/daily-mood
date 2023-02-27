@@ -43,7 +43,7 @@ router.post("/", validateLogin, async (req, res, next) => {
 
     const activePetId = user.activePet;
     const userActivePet = await Pet.findByPk(activePetId);
-    
+
     if (formatDate(now) !== user.lastLogin) {
         console.log("activePet", userActivePet)
         const newHealth  = userActivePet.health - 5;
@@ -52,7 +52,8 @@ router.post("/", validateLogin, async (req, res, next) => {
         })
 
         await user.update({
-            lastLogin: now
+            lastLogin: now,
+            pointsEarnedToday: 0
         })
     }
 
@@ -75,9 +76,21 @@ router.get("/", restoreUser, async (req, res) => {
     if (user) {
         const now = new Date();
 
-        await user.update({
-            lastLogin: now
-        })
+        const activePetId = user.activePet;
+        const userActivePet = await Pet.findByPk(activePetId);
+
+        if (formatDate(now) !== user.lastLogin) {
+            console.log("activePet", userActivePet)
+            const newHealth  = userActivePet.health - 5;
+            await userActivePet.update({
+                health: newHealth
+            })
+
+            await user.update({
+                lastLogin: now,
+                pointsEarnedToday: 0
+            })
+        }
 
         return res.json({
             user: user.toSafeObject()

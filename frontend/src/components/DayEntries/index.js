@@ -9,6 +9,7 @@ import cow_happy from "../../assets/cow_happy.png";
 import cow_content from "../../assets/cow_content.png";
 import cow_meh from "../../assets/cow_meh.png";
 import cow_sad from "../../assets/cow_sad.png";
+import { addPoints } from "../../store/session";
 
 export default function Daily() {
     const dispatch = useDispatch();
@@ -66,7 +67,7 @@ export default function Daily() {
 
         if (action === "create") {
             const addMood = await dispatch(addDayEntry({ entryType: "dayMood", entryData: val }))
-                // .then(() => history.push("/daily"))
+                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
@@ -133,11 +134,12 @@ export default function Daily() {
 
             console.log("hit add pls dispatch")
             return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
-            .then(dispatch(loadCurrentDay(user.id)))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            })
+                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+                .then(dispatch(loadCurrentDay(user.id)))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                })
         }
 
     }
@@ -146,6 +148,7 @@ export default function Daily() {
 
         if (type === "dayImage") {
             const deletedEntry = await dispatch(deleteDayEntry(entryId))
+                .then(() => dispatch(addPoints({ "pointsEarned": -5 })))
                 .then(() => {
                     setDailyImageUrl("https://cdn.icon-icons.com/icons2/1863/PNG/512/add-photo-alternate_119464.png")
                     // dispatch(loadCurrentDay(user.id))
@@ -153,11 +156,13 @@ export default function Daily() {
                 })
         } else if (type === "dayJournal") {
             const deletedEntry = await dispatch(deleteDayEntry(entryId))
+                .then(() => dispatch(addPoints({ "pointsEarned": -5 })))
                 .then(() => {
                     setDailyJournal("");
                 })
         } else {
             const deletedEntry = await dispatch(deleteDayEntry(entryId))
+                .then(() => dispatch(addPoints({ "pointsEarned": -5 })))
                 .then(() => {
                     setMood("");
                 })
@@ -171,7 +176,7 @@ export default function Daily() {
 
         if (action === "create") {
             const addJournal = await dispatch(addDayEntry({ entryType: "dayJournal", entryData: val }))
-                // .then(() => history.push("/daily"))
+                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);

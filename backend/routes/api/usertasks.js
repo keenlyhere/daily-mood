@@ -529,7 +529,7 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
     }
 
     const { categoryName, taskName, taskType, taskIcon, isCompleted } = req.body;
-    console.log("REQ_BODY\n", categoryName, "\n", taskName, "\n", taskType, "\n", isCompleted);
+    // console.log("REQ_BODY\n", categoryName, "\n", taskName, "\n", taskType, "\n", isCompleted);
 
     switch (taskType) {
         case "Habit": {
@@ -543,10 +543,8 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
 
                 if (updateTask.pointsEarned === 0) {
                     updateTask.pointsEarned = 1;
-                    currentUser.moolah += 1;
                 }
 
-                await currentUser.save();
             }
 
             if (isCompleted === false) {
@@ -554,10 +552,8 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
 
                 if (updateTask.pointsEarned === 1) {
                     updateTask.pointsEarned = 0;
-                    currentUser.moolah -= 1;
                 }
 
-                await currentUser.save();
             }
 
             await updateTask.save();
@@ -578,10 +574,8 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
 
                 if (updateTask.pointsEarned === 0) {
                     updateTask.pointsEarned = 1;
-                    currentUser.moolah += 1;
                 }
 
-                await currentUser.save();
             }
 
             if (isCompleted === false) {
@@ -589,10 +583,8 @@ router.put("/:taskId", requireAuth, async (req, res, next) => {
 
                 if (updateTask.pointsEarned === 1) {
                     updateTask.pointsEarned = 0;
-                    currentUser.moolah -= 1;
                 }
 
-                await currentUser.save();
             }
 
             await updateTask.save();

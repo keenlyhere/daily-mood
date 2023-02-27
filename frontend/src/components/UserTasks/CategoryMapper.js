@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { addPoints } from "../../store/session";
 import { changeCatName, deleteTaskCategory, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import OpenModalButton from "../OpenModalButton";
 import CreateTaskModal from "./CreateTaskModal";
@@ -30,6 +31,12 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
         console.log("CHECKED *", editedTask);
         const completedTask = await dispatch(editTask(task.id, editedTask));
+
+        if (editedTask.isCompleted === true) {
+            const addMoolah = await dispatch(addPoints({ "pointsEarned": 1 }));
+        } else {
+            const minusMoolah = await dispatch(addPoints({ "pointsEarned": -1 }));
+        }
     }
 
     const handleCatNameChange = async (oldCatName, newCatName) => {

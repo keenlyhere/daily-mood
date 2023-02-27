@@ -143,4 +143,34 @@ router.put("/", singleMulterUpload("image"), async (req, res, next) => {
     res.json(updateUser);
 })
 
+// PUT /api/users/points
+router.put("/points", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { pointsEarned } = req.body;
+    const updatedMoolah = user.moolah + pointsEarned;
+    console.log("pointsEarned", pointsEarned, typeof pointsEarned);
+
+    if (pointsEarned === 5) {
+        if (user.pointsEarnedDailies < 15) {
+            const updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
+            await user.update({
+                moolah: updatedMoolah,
+                pointsEarnedDailies: updatedPointsEarnedDailies
+            });
+        }
+    } else {
+        if (user.pointsEarnedToday < 10) {
+            console.log("user", user.pointsEarnedToday)
+            const updatedPointsEarned = user.pointsEarnedToday + pointsEarned;
+            console.log("updatedPointsEarned", updatedPointsEarned);
+            await user.update({
+                moolah: updatedMoolah,
+                pointsEarnedToday: updatedPointsEarned
+            });
+        }
+    }
+
+
+    res.json(user)
+})
 module.exports = router;

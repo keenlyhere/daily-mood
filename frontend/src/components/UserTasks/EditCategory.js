@@ -14,9 +14,8 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
 
 
     const inputWidth = {
-        width: `${category.length}ch`
+        width: `${category.length + 1}ch`
     }
-
     const handleCatNameChange = (e) => {
         e.preventDefault();
         dispatch(changeCatName(category, catName, taskType))
@@ -69,7 +68,13 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                     <button
                                         className="UserTasks-category-save"
                                         onClick={handleCatNameChange}
-                                    >Save</button>
+                                        disabled={catName.length > 12 || catName.length < 1 ? true : false}
+                                    >
+                                        Save
+                                    </button>
+                                    <div className="EditCategory-error-text">
+                                        {catName.length > 12 ? "Max. 12 characters" : ""}
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="UserTasks-category-name">
