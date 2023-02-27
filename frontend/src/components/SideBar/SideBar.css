@@ -14,6 +14,8 @@
     object-fit: cover;
     overflow: hidden;
     box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 1;
 }
 
 .SideBar-pet-stats-container {
@@ -26,7 +28,7 @@
 
 .SideBar-pet {
     position: absolute;
-    top: 0;
+    top: 25px;
     left: 0;
 }
 

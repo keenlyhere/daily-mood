@@ -89,7 +89,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                console.log("HIT ERRORS IN EDIT TASK\n", res);
+                // console.log("HIT ERRORS IN EDIT TASK\n", res);
                 if (res && res.errors) setErrors(res.errors);
             })
 
@@ -101,13 +101,13 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                console.log("HIT ERRORS IN DELETE INDIVIDUAL TASK\n", res);
+                // console.log("HIT ERRORS IN DELETE INDIVIDUAL TASK\n", res);
                 if (res && res.errors) setErrors(res.errors);
 
             })
     }
 
-    console.log("ICON SELECTED", iconSelected);
+    // console.log("ICON SELECTED", iconSelected);
 
     return (
         <div className="CreateTaskModal-container">

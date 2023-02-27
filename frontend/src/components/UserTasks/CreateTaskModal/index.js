@@ -55,7 +55,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
     const [ iconSelected, setIconSelected ] = useState(null);
     const [ taskName, setTaskName ] = useState("");
     const [ categoryName, setCategoryName ] = useState(category ? category : "");
-    console.log("categoryName", categoryName)
+    // console.log("categoryName", categoryName)
     const [ disabled, setIsDisabled ] = useState(true);
     const [ errors, setErrors ] = useState({});
 
@@ -85,23 +85,23 @@ export default function CreateTaskModal({ category, taskType, user }) {
             taskType
         };
 
-        console.log("NEW TASK >>>", newTask);
+        // console.log("NEW TASK >>>", newTask);
 
         const createTask = await dispatch(addTask(newTask))
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                console.log("RESSSSS>>>>>>", res)
+                // console.log("RESSSSS>>>>>>", res)
                 const error = {};
                 if (res) error.taskName = "Habits of the same category can't share the same task name."
                 setErrors(error);
             })
 
     }
-                console.log("ERRORS", errors);
+                // console.log("ERRORS", errors);
 
     const onKeyDownCatName = (e) => {
-        console.log("e.key", e.key)
+        // console.log("e.key", e.key)
         if (e.key === "Enter") {
             if (e.target.value.length > 0 && e.target.value <= 12) {
                 setStep(1);
@@ -111,7 +111,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
 
     const onKeyDownTaskName = (e) => {
         if (e.key === "Enter") {
-            console.log("HIT ON KEY DOWN TASK NAME ENTER")
+            // console.log("HIT ON KEY DOWN TASK NAME ENTER")
             if (taskName.length > 0 && taskName.length <= 12) {
                 handleSubmit(e);
             }

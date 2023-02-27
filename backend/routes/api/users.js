@@ -96,14 +96,14 @@ router.post("/", singleMulterUpload("image"), validateSignup, async (req, res, n
         userItemId: bgUserItem.id
     })
 
-    user.activePet = petUserItem.id;
-    user.activeBg = bgUserItem.id;
+    user.activePet = pet.id;
+    user.activeBg = bg.id;
 
     await user.save();
 
     await setTokenCookie(res, user);
 
-    console.log("User signup backend - user:", user);
+    // console.log("User signup backend - user:", user);
 
     return res.json(user);
 });
@@ -116,8 +116,8 @@ router.put("/", singleMulterUpload("image"), async (req, res, next) => {
 
     const updateUser = await User.findByPk(userId);
 
-    console.log("updateUser:", updateUser);
-    console.log("userId:", userId);
+    // console.log("updateUser:", updateUser);
+    // console.log("userId:", userId);
 
     if (!updateUser) {
         err.status = 404;
@@ -148,7 +148,7 @@ router.put("/points", requireAuth, async (req, res, next) => {
     const { user } = req;
     const { pointsEarned } = req.body;
     const updatedMoolah = user.moolah + pointsEarned;
-    console.log("pointsEarned", pointsEarned, typeof pointsEarned);
+    // console.log("pointsEarned", pointsEarned, typeof pointsEarned);
 
     if (pointsEarned === 5) {
         if (user.pointsEarnedDailies < 15) {
@@ -160,9 +160,9 @@ router.put("/points", requireAuth, async (req, res, next) => {
         }
     } else {
         if (user.pointsEarnedToday < 10) {
-            console.log("user", user.pointsEarnedToday)
+            // console.log("user", user.pointsEarnedToday)
             const updatedPointsEarned = user.pointsEarnedToday + pointsEarned;
-            console.log("updatedPointsEarned", updatedPointsEarned);
+            // console.log("updatedPointsEarned", updatedPointsEarned);
             await user.update({
                 moolah: updatedMoolah,
                 pointsEarnedToday: updatedPointsEarned

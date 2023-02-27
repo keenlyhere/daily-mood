@@ -211,7 +211,7 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         attributes: ["id"]
     });
 
-    console.log("ALL PET IDS >>>>>>>> \N", allPetIds);
+    // console.log("ALL PET IDS >>>>>>>> \N", allPetIds);
     const petUserItemIds = [];
     allPetIds.forEach(item => petUserItemIds.push(item.id));
 
@@ -314,7 +314,7 @@ router.post("/bg", requireAuth, async (req, res, next) => {
         bgImageUrl: bgImageParser(bgName)
     })
 
-    console.log("newBg", newBg)
+    // console.log("newBg", newBg)
 
     if (setActive === true) {
         user.activeBg = newBg.id;

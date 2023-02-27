@@ -9,7 +9,9 @@ import cow_happy from "../../assets/cow_happy.png";
 import cow_content from "../../assets/cow_content.png";
 import cow_meh from "../../assets/cow_meh.png";
 import cow_sad from "../../assets/cow_sad.png";
+import add_photo from "../../assets/add_photo.png"
 import { addPoints } from "../../store/session";
+import { formatDateHeader } from "../../utils/dateFormating";
 
 export default function Daily() {
     const dispatch = useDispatch();
@@ -21,18 +23,21 @@ export default function Daily() {
     let currentImage;
     let currentJournal;
 
+    const today = new Date();
+    const dateObj = formatDateHeader(today);
+
     if (currentDay) {
         currentMood = Object.values(currentDay).filter((entry) => entry.entryType === "dayMood")[0];
         currentImage = Object.values(currentDay).filter((entry) => entry.entryType === "dayImage")[0];
         currentJournal = Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0];
     }
 
-    console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
+    // console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
 
     const [mood, setMood] = useState(currentMood ? currentMood : "");
     const [dailyImage, setDailyImage] = useState(null);
     const [dailyImageUrl, setDailyImageUrl] = useState(currentImage ? currentImage.entryData : "");
-    const [ errors, setErrors ] = useState([]);
+    const [ errors, setErrors ] = useState({});
     const [imageChanged, setImageChanged] = useState(false);
     const [dailyJournal, setDailyJournal] = useState(currentJournal ? currentJournal.entryData : "");
 
@@ -62,8 +67,8 @@ export default function Daily() {
     const handleMoodChange = async (action, val) => {
         setMood(val);
 
-        console.log("************action", action)
-        console.log("************val", val)
+        // console.log("************action", action)
+        // console.log("************val", val)
 
         if (action === "create") {
             const addMood = await dispatch(addDayEntry({ entryType: "dayMood", entryData: val }))
@@ -114,7 +119,7 @@ export default function Daily() {
     const updateFile = async (e, action) => {
         const file = e.target.files[0];
 
-        console.log("action", action);
+        // console.log("action", action);
 
         if (file) {
             setImageChanged(true);
@@ -132,7 +137,7 @@ export default function Daily() {
             })
         } else {
 
-            console.log("hit add pls dispatch")
+            // console.log("hit add pls dispatch")
             return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
                 .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                 .then(dispatch(loadCurrentDay(user.id)))
@@ -150,7 +155,7 @@ export default function Daily() {
             const deletedEntry = await dispatch(deleteDayEntry(entryId))
                 .then(() => dispatch(addPoints({ "pointsEarned": -5 })))
                 .then(() => {
-                    setDailyImageUrl("https://cdn.icon-icons.com/icons2/1863/PNG/512/add-photo-alternate_119464.png")
+                    setDailyImageUrl({add_photo})
                     // dispatch(loadCurrentDay(user.id))
                     // history.push("/daily");
                 })
@@ -170,11 +175,18 @@ export default function Daily() {
     }
 
     const handleJournalSave = async (action, val) => {
-
-        console.log("************action", action)
-        console.log("************val", val)
+        setErrors({});
 
         if (action === "create") {
+            const error = {}
+            if (val.length < 5) {
+                error.journalLength = "Please enter a minimum of 5 characters."
+            }
+
+            if (Object.keys(error).length > 0) {
+                return setErrors(error);
+            }
+
             const addJournal = await dispatch(addDayEntry({ entryType: "dayJournal", entryData: val }))
                 .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                 .catch(async (res) => {
@@ -193,11 +205,14 @@ export default function Daily() {
 
     }
 
-    console.log("dailyJournal", dailyJournal)
+    // console.log("dailyJournal", dailyJournal)
 
 
     return (
         <div className="Daily-container">
+            <div className="Daily-header">
+                <h1>{dateObj.month} {dateObj.date}</h1>
+            </div>
             { currentMood === undefined ? (
                 <div className="Daily-mood-container">
                     <div className="Daily-header">
@@ -287,7 +302,7 @@ export default function Daily() {
                     <div className="Daily-image-input-container">
                         <label htmlFor="Daily-image-upload" className="Daily-image-upload clickable">
                             <img
-                                src={ dailyImageUrl ? dailyImageUrl : "https://cdn.icon-icons.com/icons2/1863/PNG/512/add-photo-alternate_119464.png"}
+                                src={ dailyImageUrl ? dailyImageUrl : `${add_photo}`}
                                 alt="Add photo"
                                 className="Daily-image-upload-icon"
                             />
@@ -330,9 +345,15 @@ export default function Daily() {
                 <div className="Daily-journal-container">
                     <div className="Daily-header">
                         <p className="Daily-text">Today's journal</p>
+                        { errors && errors.journalLength ? (
+                            <p className="CreateTaskModal-error-text">
+                                    {errors.journalLength}
+                                </p>
+                        ) : ("")}
                         <button
-                            className="Daily-journal-save clickable"
+                            className={ `Daily-journal-save clickable ${dailyJournal.length < 5 ? "isDisabled" : ""}`}
                             onClick={() => handleJournalSave("create", dailyJournal)}
+                            disabled={dailyJournal.length < 5 ? true : false}
                         >
                             Save
                         </button>

@@ -46,7 +46,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         dayEntries: dayEntriesArray,
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData);
+    // console.log("queriedDAY>>>>>\n", queriedDayData);
     return res.json(queriedDayData);
 });
 
@@ -79,7 +79,7 @@ router.get("/:day", requireAuth, async (req, res, next) => {
         DayEntries: queriedDayArray,
     };
 
-    console.log("queriedDAY>>>>>\n", queriedDayData);
+    // console.log("queriedDAY>>>>>\n", queriedDayData);
     return res.json(queriedDayData);
 });
 
@@ -258,7 +258,7 @@ router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, re
         case "dayJournal": {
             updateDay.entryData = entryData;
 
-            console.log("dayJournal - UPDATED - journal:", updateDay);
+            // console.log("dayJournal - UPDATED - journal:", updateDay);
             await updateDay.save();
 
             res.status(201);

@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     petImageUrl: {
       allowNull: false,
-      defaultValue: "https://keenlychung.com/images/cow_temp.png",
+      defaultValue: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       type: DataTypes.STRING
     },
     userItemId: {

@@ -31,7 +31,7 @@ export default function LoginFormModal({ spotId }) {
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                console.log("data - errors:", data.errors);
+                // console.log("data - errors:", data.errors);
                 if (data && data.errors) setErrors(data.errors);
             });
     }

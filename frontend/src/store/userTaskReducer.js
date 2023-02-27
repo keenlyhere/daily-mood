@@ -119,7 +119,7 @@ export const deleteTask = (taskId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedTask = await res.json();
-        console.log("deletedTask - :", deletedTask);
+        // console.log("deletedTask - :", deletedTask);
         dispatch(actionDeleteTask(taskId));
         return deletedTask;
     }
@@ -132,7 +132,7 @@ export const deleteTaskCategory = (taskType, taskCategory, date) => async (dispa
 
     if (res.ok) {
         const deletedTaskIds = await res.json();
-        console.log("deletedTask - :", deletedTaskIds);
+        // console.log("deletedTask - :", deletedTaskIds);
         dispatch(actionDeleteTaskCategory(taskType, deletedTaskIds));
         return deletedTaskIds;
     }
@@ -149,7 +149,7 @@ export const editTask = (taskId, task) => async (dispatch) => {
 
     if (res.ok) {
         const editedTask = await res.json();
-        console.log("editTask - editedTask:", editedTask);
+        // console.log("editTask - editedTask:", editedTask);
         dispatch(actionEditTask(taskId, editedTask.task));
         return editedTask;
     }
@@ -166,7 +166,7 @@ export const changeCatName = (oldCatName, newCatName, taskType) => async (dispat
 
     if (res.ok) {
         const editedCatName = await res.json();
-        console.log("editedCatName:", editedCatName);
+        // console.log("editedCatName:", editedCatName);
         dispatch(actionChangeCatName(editedCatName.task, taskType));
         return editedCatName;
     }
@@ -231,16 +231,16 @@ export default function userTasksReducer(state = initialState, action) {
         }
         case DELETE_TASK: {
             const deleteTaskState = { ...state };
-            console.log("action.taskId", action.taskId, typeof action.taskId)
+            // console.log("action.taskId", action.taskId, typeof action.taskId)
             delete deleteTaskState.userTasks[action.taskId];
-            console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskState);
+            // console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskState);
             return deleteTaskState;
         }
         case EDIT_TASK: {
             let editTaskState = JSON.stringify(state);
             editTaskState = JSON.parse(editTaskState);
-            console.log("action.taskId", action.taskId)
-            console.log("action.task", action.task)
+            // console.log("action.taskId", action.taskId)
+            // console.log("action.task", action.task)
 
             if (action.task.taskType === "Habit") {
                 editTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
@@ -283,7 +283,7 @@ export default function userTasksReducer(state = initialState, action) {
             //         delete deleteTaskCategoryState.userTasks.habitsToday[iD]
             //     }
             // }
-            console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskCategoryState);
+            // console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskCategoryState);
             return deleteTaskCategoryState;
         }
         default:

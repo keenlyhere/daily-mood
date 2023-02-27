@@ -7,13 +7,13 @@ export default function Test() {
     const dispatch = useDispatch();
     // const user = useSelector(state => state.)
     const customEqual = (oldValue, newValue) => {
-        console.log("oldVal >>>", oldValue);
-        console.log("newVal >>>", newValue);
-        console.log("result >>>", oldValue === newValue)
+        // console.log("oldVal >>>", oldValue);
+        // console.log("newVal >>>", newValue);
+        // console.log("result >>>", oldValue === newValue)
         return oldValue === newValue;
     }
     const allTasks = useSelector(state => state.tasks.userTasks, customEqual);
-    console.log("allTasks", allTasks)
+    // console.log("allTasks", allTasks)
 
     const [isLoaded, setIsLoaded] = useState(false);
 

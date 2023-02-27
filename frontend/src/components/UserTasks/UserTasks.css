@@ -1,9 +1,10 @@
 .UserTasks-container {
-    padding: 18px;
+    padding: 18px 26px 0;
     width: calc(100% - 320px);
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 18px;
 }
 
@@ -15,6 +16,10 @@
     border-radius: 18px;
     display: flex;
     flex-direction: column;
+}
+
+.UserTasks-cat-container {
+    width: 100%;
 }
 
 .UserTasks-header {

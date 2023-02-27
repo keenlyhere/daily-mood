@@ -22,11 +22,11 @@ module.exports = {
 
    return queryInterface.bulkInsert(options, [
     {
-      name: "Moo-Moo",
-      flavor: "Sesame",
+      name: "Moohouse",
+      flavor: "Moohouse",
       health: 80,
       friendliness: 12,
-      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_moohouse_normal.PNG",
       userItemId: 1
     },
     {

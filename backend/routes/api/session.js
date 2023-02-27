@@ -45,7 +45,7 @@ router.post("/", validateLogin, async (req, res, next) => {
     const userActivePet = await Pet.findByPk(activePetId);
 
     if (formatDate(now) !== user.lastLogin) {
-        console.log("activePet", userActivePet)
+        // console.log("activePet", userActivePet)
         const newHealth  = userActivePet.health - 5;
         await userActivePet.update({
             health: newHealth
@@ -80,7 +80,7 @@ router.get("/", restoreUser, async (req, res) => {
         const userActivePet = await Pet.findByPk(activePetId);
 
         if (formatDate(now) !== user.lastLogin) {
-            console.log("activePet", userActivePet)
+            // console.log("activePet", userActivePet)
             const newHealth  = userActivePet.health - 5;
             await userActivePet.update({
                 health: newHealth

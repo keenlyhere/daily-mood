@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
       if (user && user.validatePassword(password)) {
-        console.log("User model - login:", user)
+        // console.log("User model - login:", user)
         return await User.scope('currentUser').findByPk(user.id);
       }
     }
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         displayPic
       });
 
-      console.log("User model - new user:", user);
+      // console.log("User model - new user:", user);
 
       return await User.scope('currentUser').findByPk(user.id);
     }

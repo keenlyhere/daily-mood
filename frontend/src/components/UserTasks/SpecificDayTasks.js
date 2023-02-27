@@ -48,11 +48,12 @@ export default function SpecificDayTasks() {
         const allHabits = dayTasks.habitsToday;
         // all habits in their respective categories
         const categoryHabits = categoryTasksHelper(allHabits)
+        console.log("*** ALL HABITS ***", allHabits);
         console.log("*** CATEGORY HABITS ***", categoryHabits);
 
         const allToDoToday = dayTasks.toDoToday;
         const categoryToDoToday = categoryTasksHelper(allToDoToday);
-        console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday);
+        // console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday);
 
         return (
             <div className="UserTasks-container">
