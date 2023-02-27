@@ -9,8 +9,8 @@ import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
 import UserTasks from "./components/UserTasks";
 import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
-import Test from "./components/UserTasks/Test";
 import SideBar from "./components/SideBar";
+import Store from "./components/Store";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,12 +22,9 @@ function App() {
   }, [dispatch]);
 
   if (!isLoaded) return null;
-  // console.log("THEME FROM APP.JS --------->", user);
 
   if (isLoaded) {
-    // console.log("USER THEME ---------->", user.theme);
-    let theme = "dark";
-    // if (user) theme = user.theme
+    let theme = "cows";
 
     return (
       <div className="App-container">
@@ -97,6 +94,12 @@ function App() {
             <div className="Page-container">
               <SideBar user={user} />
               <UserTasks />
+            </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/store" exact={true}>
+            <div className="Page-container">
+              <SideBar user={user} />
+              <Store />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
