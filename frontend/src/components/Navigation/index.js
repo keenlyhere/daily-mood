@@ -85,6 +85,7 @@ export default function Navigation({ isLoaded }) {
                                 buttonText="Log In"
                                 onButtonClick={closeMenu}
                                 modalComponent={<LoginFormModal />}
+                                buttonClass="LogIn"
                             />
                         </li>
                         <li className="profile-dropdown-links">
@@ -92,6 +93,7 @@ export default function Navigation({ isLoaded }) {
                                 buttonText="Sign Up"
                                 onButtonClick={closeMenu}
                                 modalComponent={<SignupFormModal />}
+                                buttonClass="SignUp"
                             />
                         </li>
                     </div>

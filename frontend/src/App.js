@@ -11,6 +11,7 @@ import UserTasks from "./components/UserTasks";
 import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
 import SideBar from "./components/SideBar";
 import Store from "./components/Store";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,44 +31,10 @@ function App() {
       <div className="App-container">
         <Switch>
           <Route exact path="/">
-          <Navigation />
-            <h1>Splash page goes here!</h1>
-            <h2>Goals for Monday</h2>
-            <ol>
-              <li>Finish connecting Pets + Backgrounds to frontend + styling</li>
-              <li>Revamp overall style:</li>
-              <li>Change main colors</li>
-              <li>Create logo</li>
-              <li>Create favicon</li>
-            </ol>
-            <h2>Completed on Wednesday</h2>
-            <ol>
-              <li>Finished routes for DayEntries</li>
-              <li>Connect DayEntries to frontend</li>
-              <li>Finished routes for UserTasks (GET x2, POST, PUT, DELETE)</li>
-            </ol>
-            <h2>Completed on Thursday</h2>
-            <ol>
-              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
-              <li>Connected UserTasks GET & DELETE to frontend + styling</li>
-            </ol>
-            <h2>Completed on Friday</h2>
-            <ol>
-              <li>Finish connecting UserTasks to frontend + styling (CREATE, EDIT, DELETE)</li>
-            </ol>
-            <h2>Completed on Saturday</h2>
-            <ol>
-              <li>Worked on art for pets</li>
-            </ol>
-            <h2>Completed on Sunday</h2>
-            <ol>
-              <li>Created CRUD routes for Pets</li>
-              <li>Created CRUD routes for Backgrounds</li>
-              <li>Connected Pets + Backgrounds to frontend + some styling</li>
-              <li>Created action, thunks, and reducers for Pets + Backgrounds</li>
-              <li>Created sidebar to house links and pet/bg when user is logged in</li>
-            </ol>
-
+            <div className="Splash-container">
+              <Navigation />
+              <SplashPage />
+            </div>
           </Route>
           <Route exact path="/login">
             <LoginFormModal />
@@ -107,7 +74,44 @@ function App() {
               Monthly stuff here
             </div>
           </ProtectedRoute>
-
+          <Route path="to-do">
+            <h1>Splash page goes here!</h1>
+            <h2>Goals for Monday</h2>
+            <ol>
+              <li>Finish connecting Pets + Backgrounds to frontend + styling</li>
+              <li>Revamp overall style:</li>
+              <li>Change main colors</li>
+              <li>Create logo</li>
+              <li>Create favicon</li>
+            </ol>
+            <h2>Completed on Wednesday</h2>
+            <ol>
+              <li>Finished routes for DayEntries</li>
+              <li>Connect DayEntries to frontend</li>
+              <li>Finished routes for UserTasks (GET x2, POST, PUT, DELETE)</li>
+            </ol>
+            <h2>Completed on Thursday</h2>
+            <ol>
+              <li>Fixed first feature CRUD - accidentally worked on wrong file and changed variable names T_T</li>
+              <li>Connected UserTasks GET & DELETE to frontend + styling</li>
+            </ol>
+            <h2>Completed on Friday</h2>
+            <ol>
+              <li>Finish connecting UserTasks to frontend + styling (CREATE, EDIT, DELETE)</li>
+            </ol>
+            <h2>Completed on Saturday</h2>
+            <ol>
+              <li>Worked on art for pets</li>
+            </ol>
+            <h2>Completed on Sunday</h2>
+            <ol>
+              <li>Created CRUD routes for Pets</li>
+              <li>Created CRUD routes for Backgrounds</li>
+              <li>Connected Pets + Backgrounds to frontend + some styling</li>
+              <li>Created action, thunks, and reducers for Pets + Backgrounds</li>
+              <li>Created sidebar to house links and pet/bg when user is logged in</li>
+            </ol>
+          </Route>
           <Route>
             404: page not found
           </Route>
