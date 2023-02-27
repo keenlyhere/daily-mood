@@ -22,27 +22,27 @@ module.exports = {
    return queryInterface.bulkInsert(options, [
     {
       bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       userItemId: 2
     },
     {
       bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       userItemId: 4
     },
     {
       bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       userItemId: 6
     },
     {
       bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       userItemId: 8
     },
     {
       bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/images/farm_temp.png",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       userItemId: 10
     },
    ], {})
