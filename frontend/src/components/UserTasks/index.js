@@ -113,13 +113,13 @@ export default function UserTasks() {
 
                 {
                     Object.keys(allUnfinishedTodo).length ? (
-                        <div>
+                        <>
                             <h3 className="UserTasks-headers">
                                 Unfinished To-Do's
                             </h3>
 
                             <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
-                        </div>
+                        </>
                     ) : (
                         ""
                     )
