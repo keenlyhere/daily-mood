@@ -9,6 +9,7 @@ import SignupFormModal from "./components/SignupFormModal";
 import Daily from "./components/DayEntries";
 import UserTasks from "./components/UserTasks";
 import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
+import Test from "./components/UserTasks/Test";
 import SideBar from "./components/SideBar";
 import Store from "./components/Store";
 import SplashPage from "./components/SplashPage";
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <SignupFormModal />
+          </Route>
+          <Route exact path="/test">
+            <Test />
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <div className="Page-container">
