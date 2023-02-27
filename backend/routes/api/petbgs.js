@@ -79,6 +79,122 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
+    const randomNum = Math.floor(Math.random() * 10) + 1;
+    if (activePet.health > 80) {
+
+        if (activePet.friendliness >= 80) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
+        } else if (activePet.friendliness >= 60) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "normal")
+            })
+        } else if (activePet.friendliness >= 30) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+            })
+        } else {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                })
+            }
+        }
+    } else if (activePet.health > 60) {
+        if (activePet.friendliness >= 80) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else if (activePet.friendliness >= 30) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                })
+            }
+        }
+    } else if (activePet.health > 30) {
+        if (activePet.friendliness >= 80) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "happy")
+                })
+            }
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "angry")
+            })
+        }
+    } else {
+        if (activePet.friendliness >= 80) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+                })
+            }
+        } else {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "angry")
+            })
+        }
+    }
+
     if (!activeBg) {
         err.status = 404;
         err.statusCode = 404;
