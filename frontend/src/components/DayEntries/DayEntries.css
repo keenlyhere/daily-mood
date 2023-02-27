@@ -1,6 +1,6 @@
 .Daily-container {
     margin-top: 18px;
-    width: 100%;
+    width: calc(100% - 320px);
     display: flex;
     flex-direction: column;
     justify-content: center;

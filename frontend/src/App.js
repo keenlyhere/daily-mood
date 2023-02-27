@@ -10,9 +10,11 @@ import Daily from "./components/DayEntries";
 import UserTasks from "./components/UserTasks";
 import SpecificDayTasks from "./components/UserTasks/SpecificDayTasks";
 import Test from "./components/UserTasks/Test";
+import SideBar from "./components/SideBar";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -64,20 +66,26 @@ function App() {
           <Route exact path="/register">
             <SignupFormModal />
           </Route>
-          <ProtectedRoute path="/test" exact={true}>
-            <Test />
-          </ProtectedRoute>
           <ProtectedRoute path="/daily" exact={true}>
-            <Daily />
+            <div className="Page-container">
+              <SideBar user={user} />
+              <Daily />
+            </div>
           </ProtectedRoute>
           <ProtectedRoute path="/tasks/future" exact={true}>
             <h1>You cannot record the future.</h1>
           </ProtectedRoute>
           <ProtectedRoute path="/tasks/:date" exact={true}>
-            <SpecificDayTasks />
+            <div className="Page-container">
+              <SideBar user={user} />
+              <SpecificDayTasks />
+            </div>
           </ProtectedRoute>
           <ProtectedRoute path="/tasks" exact={true}>
-            <UserTasks />
+            <div className="Page-container">
+              <SideBar user={user} />
+              <UserTasks />
+            </div>
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
             <div className="MainPage-container" id={theme}>
