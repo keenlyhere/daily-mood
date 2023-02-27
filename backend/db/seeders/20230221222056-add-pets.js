@@ -26,7 +26,7 @@ module.exports = {
       flavor: "Sesame",
       health: 80,
       friendliness: 12,
-      petImageUrl: "https://keenlychung.com/images/cow_temp.png",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       userItemId: 1
     },
     {
@@ -34,7 +34,7 @@ module.exports = {
       flavor: "Sesame",
       health: 100,
       friendliness: 88,
-      petImageUrl: "https://keenlychung.com/images/cow_temp.png",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       userItemId: 3
     },
     {
@@ -42,7 +42,7 @@ module.exports = {
       flavor: "Sesame",
       health: 100,
       friendliness: 100,
-      petImageUrl: "https://keenlychung.com/images/cow_temp.png",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       userItemId: 5
     },
     {
@@ -50,7 +50,7 @@ module.exports = {
       flavor: "Sesame",
       health: 100,
       friendliness: 37,
-      petImageUrl: "https://keenlychung.com/images/cow_temp.png",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       userItemId: 7
     },
     {
@@ -58,7 +58,7 @@ module.exports = {
       flavor: "Sesame",
       health: 100,
       friendliness: 10,
-      petImageUrl: "https://keenlychung.com/images/cow_temp.png",
+      petImageUrl: "https://keenlychung.com/dailymood/cows/cow_sesame_normal.PNG",
       userItemId: 9
     },
    ], {})

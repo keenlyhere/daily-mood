@@ -1,10 +1,11 @@
 const express = require("express");
 
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, Pet } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { formatDate } = require("../../utils/dateFormating");
 
 const router = express.Router();
 
@@ -38,8 +39,26 @@ router.post("/", validateLogin, async (req, res, next) => {
 
     await setTokenCookie(res, user);
 
+    const now = new Date();
+
+    const activePetId = user.activePet;
+    const userActivePet = await Pet.findByPk(activePetId);
+    
+    if (formatDate(now) !== user.lastLogin) {
+        console.log("activePet", userActivePet)
+        const newHealth  = userActivePet.health - 5;
+        await userActivePet.update({
+            health: newHealth
+        })
+
+        await user.update({
+            lastLogin: now
+        })
+    }
+
     return res.json({
-        user: user
+        user: user,
+        activePet: userActivePet
     })
 })
 
@@ -51,9 +70,15 @@ router.delete("/", (_req, res) => {
 
 // GET /api/session to restore session user
 // uses restoreUser middleware to get the token from cookies
-router.get("/", restoreUser, (req, res) => {
+router.get("/", restoreUser, async (req, res) => {
     const { user } = req;
     if (user) {
+        const now = new Date();
+
+        await user.update({
+            lastLogin: now
+        })
+
         return res.json({
             user: user.toSafeObject()
         })
