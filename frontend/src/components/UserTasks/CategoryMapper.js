@@ -20,7 +20,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
     /* EDIT HABIT */
     /* EDIT TO-DO */
     const handleCheck = async (task) => {
-        console.log("CHECKED", task)
+        // console.log("CHECKED", task)
         const editedTask = {
             categoryName: task.categoryName,
             taskName: task.taskName,
@@ -29,7 +29,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
             isCompleted: !task.isCompleted
         }
 
-        console.log("CHECKED *", editedTask);
+        // console.log("CHECKED *", editedTask);
         const completedTask = await dispatch(editTask(task.id, editedTask));
 
         if (editedTask.isCompleted === true) {

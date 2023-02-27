@@ -62,12 +62,12 @@ module.exports = {
       itemType: "background",
     },
    ], {})
-   .then(() => {
-      console.log('Pet seed data inserted successfully!');
-    })
-    .catch(error => {
-      console.error(error);
-    });
+  //  .then(() => {
+  //     console.log('Pet seed data inserted successfully!');
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //   });
   },
 
   async down (queryInterface, Sequelize) {

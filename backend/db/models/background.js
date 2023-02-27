@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     bgImageUrl: {
       allowNull: false,
-      defaultValue: "https://keenlychung.com/images/farm_temp.png",
+      defaultValue: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
       type: DataTypes.STRING
     },
     userItemId: {

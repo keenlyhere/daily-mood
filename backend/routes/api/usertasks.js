@@ -108,7 +108,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const dailyHabits = [];
     if (!habitsToday.length) {
-        console.log("no habits today\n\n\n\n\n\n");
+        // console.log("no habits today\n\n\n\n\n\n");
         for (let i = 0; i < habitsOnMostRecentDay.length; i++) {
             let habit = habitsOnMostRecentDay[i];
 
@@ -124,7 +124,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
             dailyHabits.push(newHabit);
 
-            console.log("NEW HABIT", newHabit);
+            // console.log("NEW HABIT", newHabit);
         }
 
         const habitsTodayCategoriesSet = new Set();
@@ -136,7 +136,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         const habitsTodayCategories = [...habitsTodayCategoriesSet];
 
         const allTasksData = {
-            dailyHabits,
+            habitsToday: dailyHabits,
             habitsTodayCategories,
             unfinishedToDo,
             unfinishedToDoCategories,
@@ -618,7 +618,7 @@ router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
         }
     });
 
-    console.log("*** UPDATE TASK CATEGORY ***", updateTaskCategory);
+    // console.log("*** UPDATE TASK CATEGORY ***", updateTaskCategory);
 
 
     const err = {};

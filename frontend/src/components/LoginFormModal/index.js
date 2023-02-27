@@ -27,11 +27,11 @@ export default function LoginFormModal({ spotId }) {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
-            // .then(history.push("/daily"))
+            .then(history.push("/daily"))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                console.log("data - errors:", data.errors);
+                // console.log("data - errors:", data.errors);
                 if (data && data.errors) setErrors(data.errors);
             });
     }

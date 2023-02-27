@@ -10,7 +10,7 @@ const normalize = (entries) => {
     const normalizedData = {};
     if (!entries.length) return entries;
     entries.forEach(entry => normalizedData[entry.id] = entry);
-    console.log("normalize - normalizedData:", normalizedData);
+    // console.log("normalize - normalizedData:", normalizedData);
     return normalizedData;
 }
 
@@ -59,7 +59,7 @@ export const loadCurrentDay = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const dayEntries = await res.json();
-        console.log("loadCurrentDay - dayEntries:", dayEntries.dayEntries);
+        // console.log("loadCurrentDay - dayEntries:", dayEntries.dayEntries);
         dispatch(actionLoadCurrentDay(userId, dayEntries.dayEntries));
         return dayEntries;
     }
@@ -98,7 +98,7 @@ export const addDayEntry = (newEntry) => async (dispatch) => {
 
     if (res.ok) {
         const entry = await res.json();
-        console.log("addDayEntry - entry:", entry);
+        // console.log("addDayEntry - entry:", entry);
         dispatch(actionAddDayEntry(entry.dayEntry));
         return entry;
     }
@@ -111,7 +111,7 @@ export const deleteDayEntry = (entryId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedDayEntry = await res.json();
-        console.log("deletedDayEntry - :", deletedDayEntry);
+        // console.log("deletedDayEntry - :", deletedDayEntry);
         dispatch(actionDeleteDayEntry(entryId));
         return deletedDayEntry;
     }
@@ -154,7 +154,7 @@ export default function dayEntriesReducer(state = initialState, action) {
         case LOAD_CURRENT_DAY: {
             const userDayEntriesState = { ...state };
             userDayEntriesState.dayEntries = normalize(action.dayEntries);
-            console.log("LOAD_CURRENT_DAY - userDayEntriesState", userDayEntriesState);
+            // console.log("LOAD_CURRENT_DAY - userDayEntriesState", userDayEntriesState);
             return userDayEntriesState;
         }
         case LOAD_SPECIFIC_DAY: {
@@ -170,16 +170,16 @@ export default function dayEntriesReducer(state = initialState, action) {
         }
         case DELETE_DAY_ENTRY: {
             const deleteDayEntryState = { ...state };
-            console.log("action.entryId", action.entryId, typeof action.entryId)
-            console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
+            // console.log("action.entryId", action.entryId, typeof action.entryId)
+            // console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
             delete deleteDayEntryState.dayEntries[+action.entryId];
-            console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
+            // console.log("DELETE DAY ENTRY STATE >>>>>>>\n", deleteDayEntryState);
             return deleteDayEntryState;
         }
         case EDIT_DAY_ENTRY: {
             const editEntryState = { ...state };
-            console.log("action.entryId", action.entryId)
-            console.log("action.dayEntry", action.dayEntry)
+            // console.log("action.entryId", action.entryId)
+            // console.log("action.dayEntry", action.dayEntry)
             editEntryState.dayEntries = { ...state.dayEntries, [action.entryId]: action.dayEntry };
             return editEntryState;
         }

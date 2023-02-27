@@ -1,0 +1,72 @@
+.SplashPage-container {
+    padding-top: 80px;
+    width: 100%;
+    height: calc(100vh - 80px);
+}
+
+.SplashPage-main-banner {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    background: rgb(100,134,74);
+    background: linear-gradient(180deg, rgba(100,134,74,1) 0%, rgba(201,226,187,1) 100%);
+}
+
+.SplashPage-main-banner-div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.SplashPage-main-banner-div > img {
+    height: 100%;
+}
+
+.custom-shape-divider-bottom-1677527040 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    color: white;
+    fill: white;
+}
+
+.SplashPage-main-banner-text {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 38px;
+}
+
+.SplashPage-placeholder {
+    height: 80px;
+}
+
+.SplashPage-signup {
+    width: 180px;
+    align-self: center;
+    margin: 8px;
+    height: 48px;
+    border-radius: 8px;
+    border: 0;
+    background-color: #d6e8d9;
+    color: #035f1d;
+    font-weight: 800;
+}
+
+.SplashPage-info-container {
+    display: flex;
+    align-items: center;
+    padding-top: 36px;
+}
+
+.SplashPage-info-container:nth-child(odd) {
+    background-color: #c9e2bb;
+}
+
+.SplashPage-cow-image-info {
+    width: 460px;
+}

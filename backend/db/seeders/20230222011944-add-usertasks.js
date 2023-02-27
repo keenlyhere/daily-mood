@@ -26,7 +26,7 @@ module.exports = {
       categoryName: "Dailies",
       taskName: "Work out",
       taskType: "Habit",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3675/PNG/512/faity_dumbbell_gym_sportswear_athlete_sport_hehy_workout_fitness_icon_228905.png",
+      taskIcon: "https://keenlychung.com/dailymood/01.png",
       isCompleted: true,
       pointsEarned: 1
     },
@@ -36,7 +36,7 @@ module.exports = {
       categoryName: "Dailies",
       taskName: "Breakfast",
       taskType: "Habit",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3384/PNG/512/turkey_chicken_breakfast_egg_fried_icon_212590.png",
+      taskIcon: "https://keenlychung.com/dailymood/02.png",
       isCompleted: true,
       pointsEarned: 1
     },
@@ -46,7 +46,7 @@ module.exports = {
       categoryName: "Dailies",
       taskName: "Lunch",
       taskType: "Habit",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3356/PNG/512/eat_egg_symbol_emoj_food_dish_lunch_rice_curry_icon_210583.png",
+      taskIcon: "https://keenlychung.com/dailymood/03.png",
       isCompleted: true,
       pointsEarned: 1
     },
@@ -56,7 +56,7 @@ module.exports = {
       categoryName: "Dailies",
       taskName: "Dinner",
       taskType: "Habit",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3384/PNG/512/meal_lunch_dinner_eat_food_noodle_icon_212595.png",
+      taskIcon: "https://keenlychung.com/dailymood/04.png",
       isCompleted: true,
       pointsEarned: 1
     },
@@ -66,7 +66,7 @@ module.exports = {
       categoryName: "To-Do",
       taskName: "Groceries",
       taskType: "To-Do",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3560/PNG/512/grocery_bag_shopping_bag_marketplace_icon_225198.png",
+      taskIcon: "https://keenlychung.com/dailymood/05.png",
       isCompleted: true,
       pointsEarned: 1
     },
@@ -76,7 +76,7 @@ module.exports = {
       categoryName: "To-Do",
       taskName: "Taxes",
       taskType: "To-Do",
-      taskIcon: "https://cdn.icon-icons.com/icons2/3560/PNG/512/grocery_bag_shopping_bag_marketplace_icon_225198.png",
+      taskIcon: "https://keenlychung.com/dailymood/06.png",
       isCompleted: false,
       pointsEarned: 0
     },

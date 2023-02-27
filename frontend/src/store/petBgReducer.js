@@ -87,7 +87,7 @@ export const loadUserActives = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const userActives = await res.json();
-        console.log("loadUserUserActives - userActives:", userActives);
+        // console.log("loadUserUserActives - userActives:", userActives);
         dispatch(actionLoadUserActives(userId, userActives));
         return userActives;
     }
@@ -188,7 +188,7 @@ export const deletePet = (petId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedPet = await res.json();
-        console.log("deletedPet:", deletedPet);
+        // console.log("deletedPet:", deletedPet);
         dispatch(actionDeletePet(petId));
         return deletedPet;
     }
@@ -201,7 +201,7 @@ export const deleteBg = (bgId) => async (dispatch) => {
 
     if (res.ok) {
         const deletedBg = await res.json();
-        console.log("deletedBg:", deletedBg);
+        // console.log("deletedBg:", deletedBg);
         dispatch(actionDeleteBg(bgId));
         return deletedBg;
     }
@@ -230,7 +230,7 @@ export default function petBgReducer(state = initialState, action) {
             allUserItemsState.activeBg = action.userItems.activeBg;
             allUserItemsState.pets = normalize(action.userItems.pets);
             allUserItemsState.backgrounds = normalize(action.userItems.bgs);
-            console.log("alluseritemsstate:::::", allUserItemsState);
+            // console.log("alluseritemsstate:::::", allUserItemsState);
             return allUserItemsState;
         }
         case ADD_PET: {

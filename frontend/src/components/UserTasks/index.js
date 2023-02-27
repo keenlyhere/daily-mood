@@ -49,15 +49,16 @@ export default function UserTasks() {
         const allHabits = allTasks.habitsToday;
         // all habits in their respective categories
         const categoryHabits = categoryTasksHelper(allHabits)
-        console.log("*** CATEGORY HABITS ***", categoryHabits);
+        // console.log("*** ALL HABITS ***", allHabits);
+        console.log("*** CATEGORY HABITS ***", categoryHabits, Object.keys(categoryHabits));
 
         const allToDoToday = allTasks.toDoToday;
         const categoryToDoToday = categoryTasksHelper(allToDoToday);
-        console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday);
+        console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday, "\n", allToDoToday);
 
         const allUnfinishedTodo = allTasks.unfinishedToDo;
         const categoryUnfinishedToDo = categoryTasksHelper(allUnfinishedTodo);
-        console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo);
+        console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo, "\n", allUnfinishedTodo);
 
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
             // console.log("category", category)
@@ -84,10 +85,12 @@ export default function UserTasks() {
                     Habits
                 </h3>
 
-                <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
+                <div className="UserTasks-cat-container">
+                    <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
+                </div>
 
                 <div className="UserTasks-category-container">
-                    { Object.keys(categoryHabits).length === 0 ? (
+                    { allHabits === undefined || Object.keys(categoryHabits).length === 0 ? (
                         <p className="UserTasks-create-new">
                             Oh moo! You don't have any habits! Why don't you create one?
                         </p>
@@ -112,29 +115,32 @@ export default function UserTasks() {
                 </div>
 
                 {
-                    allUnfinishedTodo.length ? (
-                        <div>
+                    allUnfinishedTodo !== undefined && Object.keys(allUnfinishedTodo).length ? (
+                        <>
                             <h3 className="UserTasks-headers">
                                 Unfinished To-Do's
                             </h3>
 
-                            <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
-                        </div>
+                            <div className="UserTasks-cat-container">
+                                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
+                            </div>
+                        </>
                     ) : (
                         ""
                     )
                 }
-
 
                 <h3 className="UserTasks-headers">
                     Today's To-Do's
                 </h3>
 
 
-                <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
+                <div className="UserTasks-cat-container">
+                    <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
+                </div>
 
                 <div className="UserTasks-category-container">
-                    { Object.keys(categoryToDoToday).length === 0 ? (
+                    { allToDoToday === undefined || Object.keys(categoryToDoToday).length === 0 ? (
                         <p className="UserTasks-create-new">
                             Oh moo! You don't have any to-do's! Why don't you create one?
                         </p>
@@ -168,3 +174,19 @@ export default function UserTasks() {
         )
     }
 }
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+ */

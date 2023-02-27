@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 // import "./SignupForm.css";
@@ -8,6 +8,7 @@ import "./SignUpForm2.css";
 
 export default function SignupFormModal() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [ email, setEmail ] = useState("");
     const [ firstName, setFirstName ] = useState("");
@@ -24,13 +25,14 @@ export default function SignupFormModal() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors({});
-            console.log("displayPicUrl", displayPic)
+            // console.log("displayPicUrl", displayPic)
             return dispatch(sessionActions.signup({ email, firstName, lastName, password, birthday, displayPic }))
-                .then(console.log("req went through"))
+                // .then(console.log("req went through"))
+                .then(() => history.push("/daily"))
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
-                    console.log("data, errors:", data, data.errors)
+                    // console.log("data, errors:", data, data.errors)
                     const signUpErrors = {};
                     if (data && data.errors) {
                         for (let i = 0; i < data.errors.length; i++) {
@@ -63,7 +65,7 @@ export default function SignupFormModal() {
                             }
                         }
 
-                        console.log(signUpErrors);
+                        // console.log(signUpErrors);
                         setErrors(signUpErrors);
                     };
                 });

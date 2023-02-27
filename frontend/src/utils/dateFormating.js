@@ -6,3 +6,12 @@ export const formatDate = (day) => {
     // console.log("YYYY-MM-DD",`${year}-${month}-${date}`);
     return `${year}-${month}-${date}`;
 }
+
+export const formatDateHeader = (day) => {
+    const today = {};
+    today.date = `0${day.getDate()}`.slice(-2);
+    today.month = day.toLocaleDateString("default", { month: "long" });
+    today.year = day.getFullYear();
+
+    return today;
+}

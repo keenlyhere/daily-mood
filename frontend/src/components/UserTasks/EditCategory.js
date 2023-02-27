@@ -28,7 +28,7 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
     }
 
     const onKeyDown = (e) => {
-        console.log("e.key", e.key)
+        // console.log("e.key", e.key)
         if (e.key === "Enter") {
             if (e.target.value.trim() === "") {
                 setCatName(category);

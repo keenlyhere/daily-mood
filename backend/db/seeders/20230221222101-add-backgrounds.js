@@ -21,8 +21,8 @@ module.exports = {
     */
    return queryInterface.bulkInsert(options, [
     {
-      bgName: "Farm",
-      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
+      bgName: "Castle",
+      bgImageUrl: "https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG",
       userItemId: 2
     },
     {

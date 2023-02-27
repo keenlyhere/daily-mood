@@ -2,36 +2,6 @@ import { useState } from "react";
 import { useModal } from "../../../context/Modal";
 import "./CreateTaskModal.css"
 
-import one from "../../../assets/icons/01.png";
-import two from "../../../assets/icons/02.png";
-import three from "../../../assets/icons/03.png";
-import four from "../../../assets/icons/04.png";
-import five from "../../../assets/icons/05.png";
-import six from "../../../assets/icons/06.png";
-import seven from "../../../assets/icons/07.png";
-import eight from "../../../assets/icons/08.png";
-import nine from "../../../assets/icons/09.png";
-import ten from "../../../assets/icons/10.png";
-import eleven from "../../../assets/icons/11.png";
-import twelve from "../../../assets/icons/12.png";
-import thirteen from "../../../assets/icons/13.png";
-import fourteen from "../../../assets/icons/14.png";
-import fifteen from "../../../assets/icons/15.png";
-import sixteen from "../../../assets/icons/16.png";
-import seventeen from "../../../assets/icons/17.png";
-import eighteen from "../../../assets/icons/18.png";
-import nineteen from "../../../assets/icons/19.png";
-import twenty from "../../../assets/icons/20.png";
-import twentyOne from "../../../assets/icons/21.png";
-import twentyTwo from "../../../assets/icons/22.png";
-import twentyThree from "../../../assets/icons/23.png";
-import twentyFour from "../../../assets/icons/24.png";
-import twentyFive from "../../../assets/icons/25.png";
-import twentySix from "../../../assets/icons/26.png";
-import twentySeven from "../../../assets/icons/27.png";
-import twentyEight from "../../../assets/icons/28.png";
-import twentyNine from "../../../assets/icons/29.png";
-import thirty from "../../../assets/icons/30.png";
 import { useDispatch } from "react-redux";
 import { addTask, loadCurrentDayTasks } from "../../../store/userTaskReducer";
 import { useHistory } from "react-router-dom";
@@ -85,7 +55,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
     const [ iconSelected, setIconSelected ] = useState(null);
     const [ taskName, setTaskName ] = useState("");
     const [ categoryName, setCategoryName ] = useState(category ? category : "");
-    console.log("categoryName", categoryName)
+    // console.log("categoryName", categoryName)
     const [ disabled, setIsDisabled ] = useState(true);
     const [ errors, setErrors ] = useState({});
 
@@ -115,21 +85,23 @@ export default function CreateTaskModal({ category, taskType, user }) {
             taskType
         };
 
-        console.log("NEW TASK >>>", newTask);
+        // console.log("NEW TASK >>>", newTask);
 
         const createTask = await dispatch(addTask(newTask))
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                if (res && res.errors);
-                setErrors(res.errors);
+                // console.log("RESSSSS>>>>>>", res)
+                const error = {};
+                if (res) error.taskName = "Habits of the same category can't share the same task name."
+                setErrors(error);
             })
 
-        return;
     }
+                // console.log("ERRORS", errors);
 
     const onKeyDownCatName = (e) => {
-        console.log("e.key", e.key)
+        // console.log("e.key", e.key)
         if (e.key === "Enter") {
             if (e.target.value.length > 0 && e.target.value <= 12) {
                 setStep(1);
@@ -139,7 +111,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
 
     const onKeyDownTaskName = (e) => {
         if (e.key === "Enter") {
-            console.log("HIT ON KEY DOWN TASK NAME ENTER")
+            // console.log("HIT ON KEY DOWN TASK NAME ENTER")
             if (taskName.length > 0 && taskName.length <= 12) {
                 handleSubmit(e);
             }
@@ -218,6 +190,11 @@ export default function CreateTaskModal({ category, taskType, user }) {
                                         Max. 12 characters
                                     </p>
                                 ) }
+                                { errors && errors.taskName ? (
+                                <p className="CreateTaskModal-error-text">
+                                    {errors.taskName}
+                                </p>
+                            ) : ("")}
                             </div>
                             <div className="CreateTaskModal-button-container">
                                 <button className="CreateTaskModal-next" onClick={() => setStep(1) }>Back</button>
