@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
 import "./Navigation.css";
 
-// import logo from "../../assets/dejamoo_logo_full.png";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
