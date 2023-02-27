@@ -51,6 +51,78 @@ router.get("/current", requireAuth, async (req, res, next) => {
     })
 })
 
+// GET /api/petbg/current/all - get all users pets and bgs
+router.get("/current/all", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const err = {};
+    if (!user) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "User could not be found";
+        return next(err);
+    }
+
+    const activePetId = user.activePet;
+    const activeBgId = user.activeBg;
+
+    const activePet = await Pet.findByPk(activePetId);
+    const activeBg = await Background.findByPk(activeBgId);
+
+    if (!activePet) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Pet could not be found";
+        return next(err);
+    }
+
+    if (!activeBg) {
+        err.status = 404;
+        err.statusCode = 404;
+        err.title = "Not found";
+        err.message = "Background could not be found";
+        return next(err);
+    }
+
+    const allPetIds = await UserItem.findAll({
+        where: {
+            userId: user.id,
+            itemType: "pet"
+        },
+        attributes: ["id"]
+    });
+
+    const allBgIds = await Background.findAll({
+        where: {
+            userId: user.id,
+            itemType: "background"
+        },
+        attributes: ["id"]
+    });
+
+    const allPets = await Pet.findAll({
+        where: {
+            [Op.in]: allPetIds
+        }
+    });
+
+    const allBgs = await Background.findAll({
+        where: {
+            [Op.in]: allBgIds
+        }
+    });
+
+    res.json({
+        user,
+        activePet,
+        activeBg,
+        pets: allPets,
+        bgs: allBgs
+    })
+})
+
 // POST /api/petbg/pet - create pet for user
 router.post("/pet", requireAuth, async (req, res, next) => {
     const { user } = req;
@@ -172,7 +244,7 @@ router.put("/pet/:petId", requireAuth, async (req, res, next) => {
 
 });
 
-// PUT /api/petbg/pet/:userId/petId - change active pet for user
+// PUT /api/petbg/pet/:userId/:petId - change active pet for user
 router.put("/pet/:userId/:petId", requireAuth, async (req, res, next) => {
     const { user } = req;
     const { userId, petId } = req.params;
