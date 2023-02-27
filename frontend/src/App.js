@@ -78,7 +78,7 @@ function App() {
               Monthly stuff here
             </div>
           </ProtectedRoute>
-          <Route path="to-do">
+          <Route path="/to-do">
             <h1>Splash page goes here!</h1>
             <h2>Goals for Monday</h2>
             <ol>

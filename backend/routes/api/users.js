@@ -150,7 +150,7 @@ router.put("/points", requireAuth, async (req, res, next) => {
     const updatedMoolah = user.moolah + pointsEarned;
     // console.log("pointsEarned", pointsEarned, typeof pointsEarned);
 
-    if (pointsEarned === 5) {
+    if (pointsEarned === 5 || pointsEarned === -5) {
         if (user.pointsEarnedDailies < 15) {
             const updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
             await user.update({
