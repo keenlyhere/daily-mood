@@ -147,7 +147,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
                             ) }
                         </div>
                         <div className="CreateTaskModal-button-container">
-                            <button className={`CreateTaskModal-next ${categoryName.length === 0 || categoryName.length > 12 ? "disabled" : ""}`} disabled={categoryName.length > 12 ? true : false} onClick={() => setStep(1)}>Next</button>
+                            <button className={`CreateTaskModal-next ${categoryName.length === 0 || categoryName.length > 12 ? "disabled" : ""}`} disabled={categoryName.length < 1 || categoryName.length > 12 ? true : false} onClick={() => setStep(1)}>Next</button>
                         </div>
                     </div>
                 )}

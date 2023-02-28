@@ -67,7 +67,6 @@ export default function PetGachapon({ userFlavors, user }) {
             return setErrors(error);
         }
 
-        const usePoints = await dispatch(spendPoints({ "pointsSpent": 50 }));
         let randomNum = Math.random();
         const totalRarity = petFlavors.reduce((sum, add) => sum + add.rarity, 0);
 
@@ -96,6 +95,7 @@ export default function PetGachapon({ userFlavors, user }) {
         if (wonPet !== null && userFlavors.includes(wonPet.flavor)) {
             playGachapon();
         } else {
+            const usePoints = await dispatch(spendPoints({ "pointsSpent": 50 }));
             setObtainedPet(wonPet)
             setStep(1)
         }
