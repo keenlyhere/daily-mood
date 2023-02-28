@@ -13,6 +13,7 @@ import add_photo from "../../assets/add_photo.png"
 import { addPoints } from "../../store/session";
 import { formatDateHeader } from "../../utils/dateFormating";
 import DailyMood from "./DailyMood";
+import DailyImage from "./DailyImage";
 
 export default function Daily() {
     const dispatch = useDispatch();
@@ -177,53 +178,10 @@ export default function Daily() {
                 <div className="Daily-header">
                     <h1>{dateObj.month} {dateObj.date}</h1>
                 </div>
-                
+
                 <DailyMood currentMood={currentMood} />
 
-                { currentImage === undefined ? (
-                    <div className="Daily-image-container">
-                        <p className="Daily-text">Today's photo</p>
-                        <div className="Daily-image-input-container">
-                            <label htmlFor="Daily-image-upload" className="Daily-image-upload clickable">
-                                <img
-                                    src={ dailyImageUrl ? dailyImageUrl : `${add_photo}`}
-                                    alt="Add photo"
-                                    className="Daily-image-upload-icon"
-                                />
-                            </label>
-                            <input id="Daily-image-upload" type="file" onChange={(e) => updateFile(e, "add")} />
-
-                                <p className="Daily-text">
-                                    Upload a photo that represents your day
-                                </p>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="Daily-image-container">
-                        <div className="Daily-header">
-                            <p className="Daily-text">Today's photo</p>
-                            <div className="Daily-action-buttons-container">
-                                <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayImage", currentImage.id)}></i>
-                            </div>
-                        </div>
-                        <div className="Daily-image-input-container">
-                            <label htmlFor="Daily-image-upload" className="Daily-image-upload clickable">
-                                <img
-                                    src={ dailyImageUrl ? dailyImageUrl : currentImage.entryData }
-                                    alt="Add photo"
-                                    className="Daily-image-upload-icon"
-                                />
-                                <div className="Daily-image-text-container">
-                                    <p className="Daily-image-text">
-                                        Click to update photo
-                                    </p>
-                                </div>
-                            </label>
-                            <input id="Daily-image-upload" type="file" onChange={(e) => updateFile(e, "edit")} />
-                        </div>
-                    </div>
-
-                )}
+                <DailyImage currentImage={currentImage} />
 
                 { currentJournal === undefined ? (
                     <div className="Daily-journal-container">
