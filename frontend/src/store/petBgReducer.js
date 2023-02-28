@@ -165,6 +165,7 @@ export const editActivePet = (userId, petId) => async (dispatch) => {
 
     if (res.ok) {
         const editedActivePet = await res.json();
+        console.log("editedActivePet ===>", editedActivePet);
         dispatch(actionEditActivePet(editedActivePet));
         return editedActivePet;
     }
