@@ -171,7 +171,7 @@ export default function PetGachapon({ userFlavors, user }) {
                     <img src={petImageParser(obtainedPet.flavor, "happy")} alt="New pet image" />
                     <form className="PetGachapon-new-pet-form">
                         <div className="PetGachapon-group">
-                            <label htmlFor="pet-name">Name your new moo!</label>
+                            <label htmlFor="pet-name" className="PetGachapon-pet-name-label">Name your new moo!</label>
                             <input
                                 id="pet-name"
                                 type="text"
@@ -182,8 +182,8 @@ export default function PetGachapon({ userFlavors, user }) {
                             />
                         </div>
                         <div className="PetGachapon-group">
+                            <p className="PetGachapon-pet-name-label">Set as your active pet?</p>
                             <div className="PetGachapon-active-switch">
-                                Set as your active pet?
                                 <label
                                     htmlFor="pet-active"
                                     className="PetGachapon-active-label"

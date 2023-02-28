@@ -15,13 +15,16 @@
 
 .SplashPage-main-banner-div {
     display: flex;
+    flex-direction: column;
     align-items: center;
     height: 100%;
     width: 100%;
 }
 
 .SplashPage-main-banner-div > img {
-    height: 100%;
+    /* width: 100%; */
+    height: 50%;
+    aspect-ratio: 1;
 }
 
 .custom-shape-divider-bottom-1677527040 {
@@ -36,6 +39,8 @@
 }
 
 .SplashPage-main-banner-text {
+    /* width: 100%; */
+    height: 50%;
     display: flex;
     flex-direction: column;
     padding: 0px 38px;
@@ -69,4 +74,25 @@
 
 .SplashPage-cow-image-info {
     width: 460px;
+}
+
+@media (min-width: 768px) {
+    .SplashPage-main-banner-div {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .SplashPage-main-banner-div > img {
+        /* width: 50%; */
+        aspect-ratio: 1;
+    }
+
+    .SplashPage-main-banner-text {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0px 38px;
+    }
 }

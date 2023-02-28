@@ -32,13 +32,17 @@ export default function SignupFormModal() {
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
-                    // console.log("data, errors:", data, data.errors)
+                    console.log("data, errors:", data, data.errors)
                     const signUpErrors = {};
                     if (data && data.errors) {
                         for (let i = 0; i < data.errors.length; i++) {
                             const currError = data.errors[i];
+                            console.log("currError", currError)
 
                             switch (currError) {
+                                case "User with that email already exists":
+                                    signUpErrors.emailExists = "User with that email already exists.";
+                                    break;
                                 case "Email is required.":
                                     signUpErrors.emailRequired = "Email is required.";
                                     break;
@@ -120,6 +124,7 @@ export default function SignupFormModal() {
                         Email
                     </label>
                     <div className="Form-error-container">
+                        {errors && errors.emailExists && <p className="Form-error">{errors.emailExists}</p>}
                         {errors && errors.emailRequired && <p className="Form-error">{errors.emailRequired}</p>}
                         {errors && errors.validEmail && <p className="Form-error">{errors.validEmail}</p>}
                     </div>

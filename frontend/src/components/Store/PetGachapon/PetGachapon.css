@@ -50,23 +50,30 @@
 }
 
 .PetGachapon-group {
+    padding-top: 8px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PetGachapon-pet-name-label {
+    text-align: center;
 }
 
 .PetGachapon-pet-name {
+    height: 32px;
+    border-radius: 18px;
+    border: 1px solid grey;
     padding: 8px;
-    border-radius: 8px;
-    border: 0;
-    background-color: lightgreen;
-    height: 36px;
+    margin-top: 8px;
 }
 
 .PetGachapon-active-switch {
-    padding-top: 18px;
     display: flex;
     align-items: center;
     gap: 18px;
+    padding-top: 8px;
 }
 
 .PetGachapon-active-label {

@@ -23,8 +23,6 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if (!isLoaded) return null;
-
   if (isLoaded) {
     let theme = "cows";
 
@@ -36,12 +34,6 @@ function App() {
               <Navigation />
               <SplashPage />
             </div>
-          </Route>
-          <Route exact path="/login">
-            <LoginFormModal />
-          </Route>
-          <Route exact path="/register">
-            <SignupFormModal />
           </Route>
           <Route exact path="/test">
             <Test />
@@ -122,6 +114,10 @@ function App() {
         </Switch>
       </div>
     );
+  } else {
+    return (
+      "Loading..."
+    )
   }
 }
 

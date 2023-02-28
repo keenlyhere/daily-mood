@@ -6,7 +6,7 @@ import { useModal } from "../../context/Modal";
 
 import './LoginForm.css';
 
-export default function LoginFormModal({ spotId }) {
+export default function LoginFormModal() {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);

@@ -177,7 +177,12 @@
 
 .Daily-journal-input-disabled {
     background: transparent;
+    width: inherit;
+    height: inherit;
+    border-radius: 18px;
     border: 0;
+    padding: 18px;
+    resize: none;
 }
 
 .Daily-journal-input {
