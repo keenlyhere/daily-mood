@@ -4,12 +4,11 @@ import { useModal } from "../../../context/Modal";
 import { addBg, loadAllUserItems } from "../../../store/petBgReducer";
 import { spendPoints } from "../../../store/session";
 import gachapon from "../../../assets/gacha2.png";
+import { bgImageParser } from "../../../utils/bgImageParser";
 
-// https://keenlychung.com/dailymood/backgrounds/bg_default.PNG
-// https://keenlychung.com/dailymood/backgrounds/bg_flower_fields.PNG
-// https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG
+import "./BgGachapon.css";
 
-export default function BgGachapon({ userBgs, user }) {
+export default function BgGachapon({ userBgNames, user }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [ step, setStep ] = useState(0);
@@ -46,7 +45,7 @@ export default function BgGachapon({ userBgs, user }) {
         let randomNum = Math.random();
         const totalRarity = backgrounds.reduce((sum, add) => sum + add.rarity, 0);
 
-        const wonBg = null;
+        let wonBg = null;
         for (let i = 0; i < backgrounds.length; i++) {
             const bg = backgrounds[i];
             const odds = bg.rarity / totalRarity;
@@ -59,7 +58,9 @@ export default function BgGachapon({ userBgs, user }) {
             randomNum -= odds;
         }
 
-        if (wonBg !== null && userBgs.includes(wonBg.bgName)) {
+        console.log("userBgNames", userBgNames);
+        console.log("wonBgName", wonBg.bgName);
+        if (wonBg !== null && userBgNames.includes(wonBg.bgName)) {
             playGachapon();
         } else {
             const usePoints = await dispatch(spendPoints({ "pointsSpent": 30 }));
@@ -73,7 +74,7 @@ export default function BgGachapon({ userBgs, user }) {
         e.preventDefault();
 
         const newBg = {
-            "bgName": wonBg.bgName,
+            "bgName": obtainedBg.bgName,
             "setActive": active
         };
 
@@ -91,19 +92,19 @@ export default function BgGachapon({ userBgs, user }) {
                 >
                     <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
-                <h2 className="LoginFormModal-Login">Background Gachapon</h2>
+                <h2 className="BgGachapon-header">Background Gachapon</h2>
             </div>
             { step === 0 && (
                 <div className="PetGachapon-main-container">
                     <img
                         src={gachapon}
-                        alt="Pet gachapon"
-                        className="clickable"
+                        alt="Bg gachapon"
+                        className="BgGachapon-gachapon clickable"
                         onClick={playGachapon}
                     />
                     <div className="PetGachapon-text-container">
                         <p>
-                            Each play costs 50 moolah
+                            Each play costs 30 moolah
                         </p>
                         { errors && errors.moolah && (
                             <p className="CreateTaskModal-error-text">
@@ -117,27 +118,17 @@ export default function BgGachapon({ userBgs, user }) {
             { step === 1 && (
                 <div className="PetGachapon-main-container">
                     <div className="PetGachapon-new-pet-header">
-                        { ["a", "e", "i", "o", "u"].includes(obtainedPet.flavor.charAt(0).toLowerCase()) ? (
-                            `You got an ${obtainedPet.flavor} cow!`
+                        { ["a", "e", "i", "o", "u"].includes(obtainedBg.bgName.charAt(0).toLowerCase()) ? (
+                            `You got an ${obtainedBg.bgName} background!`
                         ) : (
-                            `You got a ${obtainedPet.flavor} cow!`
+                            `You got a ${obtainedBg.bgName} background!`
                         )}
                     </div>
-                    <img src={petImageParser(obtainedPet.flavor, "happy")} alt="New pet image" />
+                    <img src={bgImageParser(obtainedBg.bgName)} alt="New background image" />
                     <form className="PetGachapon-new-pet-form">
+
                         <div className="PetGachapon-group">
-                            <label htmlFor="pet-name" className="PetGachapon-pet-name-label">Name your new moo!</label>
-                            <input
-                                id="pet-name"
-                                type="text"
-                                value={petName}
-                                onChange={(e) => setPetName(e.target.value)}
-                                className="PetGachapon-pet-name"
-                                required
-                            />
-                        </div>
-                        <div className="PetGachapon-group">
-                            <p className="PetGachapon-pet-name-label">Set as your active pet?</p>
+                            <p className="PetGachapon-pet-name-label">Set as your active background?</p>
                             <div className="PetGachapon-active-switch">
                                 <label
                                     htmlFor="pet-active"
@@ -158,8 +149,7 @@ export default function BgGachapon({ userBgs, user }) {
                         </div>
                         <div className="PetGachapon-group">
                             <button
-                                className={`PetGachapon-submit ${petName.length < 3 ? "isDisabled" : ""}`}
-                                disabled={petName.length < 3 ? true : false}
+                                className={`PetGachapon-submit`}
                                 onClick={addToCollection}
                             >
                                 Adopt this moo into your herd

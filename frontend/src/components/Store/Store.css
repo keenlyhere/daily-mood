@@ -10,6 +10,10 @@
     background: transparent;
 }
 
+.Gachapon > img {
+    height: 200px;
+}
+
 .Pet-gachapon-prizes {
     display: grid;
     width: 100%;

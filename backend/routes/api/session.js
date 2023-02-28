@@ -53,7 +53,8 @@ router.post("/", validateLogin, async (req, res, next) => {
 
         await user.update({
             lastLogin: now,
-            pointsEarnedToday: 0
+            pointsEarnedToday: 0,
+            pointsEarnedDailies: 0
         })
     }
 
@@ -88,7 +89,8 @@ router.get("/", restoreUser, async (req, res) => {
 
             await user.update({
                 lastLogin: now,
-                pointsEarnedToday: 0
+                pointsEarnedToday: 0,
+                pointsEarnedDailies: 0
             })
         }
 
