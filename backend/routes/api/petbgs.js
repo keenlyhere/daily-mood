@@ -224,7 +224,7 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
     });
 
     const bgUserItemIds = [];
-    allPetIds.forEach(item => bgUserItemIds.push(item.id));
+    allBgIds.forEach(item => bgUserItemIds.push(item.id));
 
     const allPets = await Pet.findAll({
         where: {
@@ -242,6 +242,8 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         }
     });
 
+    console.log("ALL PETS", allPets)
+
     res.json({
         user,
         activePet,
@@ -256,6 +258,7 @@ router.post("/pet", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const { name, flavor, setActive } = req.body;
+    console.log(name, "\n", flavor, "\n", setActive, "\n\n\n");
 
     const err = {};
     if (!user) {

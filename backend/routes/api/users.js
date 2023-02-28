@@ -150,7 +150,7 @@ router.put("/points", requireAuth, async (req, res, next) => {
     const updatedMoolah = user.moolah + pointsEarned;
     // console.log("pointsEarned", pointsEarned, typeof pointsEarned);
 
-    if (pointsEarned === 5) {
+    if (pointsEarned === 5 || pointsEarned === -5) {
         if (user.pointsEarnedDailies < 15) {
             const updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
             await user.update({
@@ -170,6 +170,20 @@ router.put("/points", requireAuth, async (req, res, next) => {
         }
     }
 
+
+    res.json(user)
+})
+
+// PUT /api/users/spend
+router.put("/spend", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { pointsSpent } = req.body;
+    console.log("points spent", pointsSpent);
+    const updatedMoolah = user.moolah - pointsSpent;
+
+    await user.update({
+        moolah: updatedMoolah
+    });
 
     res.json(user)
 })

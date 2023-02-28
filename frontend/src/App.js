@@ -23,8 +23,6 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if (!isLoaded) return null;
-
   if (isLoaded) {
     let theme = "cows";
 
@@ -36,15 +34,6 @@ function App() {
               <Navigation />
               <SplashPage />
             </div>
-          </Route>
-          <Route exact path="/login">
-            <LoginFormModal />
-          </Route>
-          <Route exact path="/register">
-            <SignupFormModal />
-          </Route>
-          <Route exact path="/test">
-            <Test />
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <div className="Page-container">
@@ -70,7 +59,7 @@ function App() {
           <ProtectedRoute path="/store" exact={true}>
             <div className="Page-container">
               <SideBar user={user} />
-              <Store />
+              <Store user={user} />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
@@ -78,7 +67,7 @@ function App() {
               Monthly stuff here
             </div>
           </ProtectedRoute>
-          <Route path="to-do">
+          <Route path="/to-do">
             <h1>Splash page goes here!</h1>
             <h2>Goals for Monday</h2>
             <ol>
@@ -122,6 +111,10 @@ function App() {
         </Switch>
       </div>
     );
+  } else {
+    return (
+      "Loading..."
+    )
   }
 }
 

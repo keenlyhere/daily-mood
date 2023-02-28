@@ -221,12 +221,12 @@ export default function userTasksReducer(state = initialState, action) {
             if (action.task.taskType === "Habit") {
                 // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
                 addTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
+                console.log("ADD TASK STATE ===> ", addTaskState)
                 return addTaskState;
             } else {
                 // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
                 addTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
             }
-            // addTaskState.userTasks = { ...state.userTasks, [action.task.id]: action.task }
             return addTaskState;
         }
         case DELETE_TASK: {
