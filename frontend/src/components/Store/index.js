@@ -150,7 +150,7 @@ export default function Store({ user }) {
                         { bgs.bgImages.map((bg, idx) => (
                             <div key={idx} className="Pet-gachapon-card">
                                 <div className="Bg-gachapon-card-image">
-                                    <img src={bg} className={`${userBgNames.includes(bgs.bgNames[idx]) ? "" : "notOwned"}`} alt="Gachapon background prize" />
+                                    <img src={bg} className={`Bg-gachapon-bg ${userBgNames.includes(bgs.bgNames[idx]) ? "" : "notOwned"}`} alt="Gachapon background prize" />
                                 </div>
                                 <div className="Pet-gachapon-description">
                                     <h2 className="Pet-gachapon-flavor">
