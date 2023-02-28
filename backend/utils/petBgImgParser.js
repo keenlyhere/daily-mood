@@ -98,8 +98,9 @@ const petImageParser = (flavor, emotion) => {
 const bgImageParser = (bgName) => {
     const backgrounds = {
         "default": "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
-        "flowerFields": "https://keenlychung.com/dailymood/backgrounds/bg_flower_fields.PNG",
-        "castle": "https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG"
+        "Farm": "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
+        "FlowerFields": "https://keenlychung.com/dailymood/backgrounds/bg_flower_fields.PNG",
+        "Castle": "https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG"
     }
 
     return backgrounds[bgName];
