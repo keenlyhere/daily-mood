@@ -6,6 +6,10 @@
     background-color: rgb(245, 245, 245);
 }
 
+.Gachapon {
+    background: transparent;
+}
+
 .Pet-gachapon-prizes {
     display: grid;
     width: 100%;

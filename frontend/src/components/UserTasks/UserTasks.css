@@ -1,7 +1,8 @@
 .UserTasks-container {
-    padding: 18px 26px 0;
+    padding: 18px 26px;
     width: calc(100% - 320px);
     height: 100vh;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
