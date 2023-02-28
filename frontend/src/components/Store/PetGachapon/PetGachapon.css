@@ -1,0 +1,178 @@
+.PetGachapon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    max-height: 720px;
+}
+
+.LoginFormModal-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #f0fae4;
+}
+
+.LoginFormModal-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.LoginFormModal-Login {
+    position: absolute;
+    top: 15px;
+    left: 160px;
+    font-size: 16px;
+    font-weight: 900;
+    background: none;
+}
+
+.PetGachapon-main-container {
+    /* height: calc(100% - 48px); */
+    padding: 68px 18px 0 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PetGachapon-new-pet-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PetGachapon-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.PetGachapon-pet-name {
+    padding: 8px;
+    border-radius: 8px;
+    border: 0;
+    background-color: lightgreen;
+    height: 36px;
+}
+
+.PetGachapon-active-switch {
+    padding-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.PetGachapon-active-label {
+    display: block;
+    width: 75px;
+    height: 25px;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.PetGachapon-active-label input[type="checkbox"] {
+    display: none;
+}
+
+.PetGachapon-active-label input[type="checkbox"]:checked+.PetGachapon-slider {
+    background-color: #44cc66;
+}
+
+.PetGachapon-active-label .PetGachapon-slider {
+  background-color: #ccc;
+  position: absolute;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.PetGachapon-active-label .PetGachapon-knob {
+  position: absolute;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.PetGachapon-active-label input[type="checkbox"]:checked+.PetGachapon-slider .PetGachapon-knob {
+  background-color: #44cc66;
+}
+
+.PetGachapon-active-label input[type="checkbox"]:checked+.PetGachapon-slider .PetGachapon-knob:before {
+  opacity: 0.4;
+}
+
+.PetGachapon-active-label input[type="checkbox"]:checked+.PetGachapon-slider .PetGachapon-knob:after {
+  opacity: 1;
+}
+
+.PetGachapon-active-label .PetGachapon-slider {
+  background-color: #eb4f37;
+}
+
+.PetGachapon-active-label .PetGachapon-knob {
+  position: relative;
+  height: 100%;
+  background-color: #eb4f37;
+  width: 8px;
+  display: inline-block;
+  left: -2px;
+}
+
+.PetGachapon-active-label .PetGachapon-knob:before {
+  content: 'No';
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 75%;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+}
+
+.PetGachapon-active-label .PetGachapon-knob:after {
+  content: 'Yes';
+  position: absolute;
+  top: 50%;
+  right: -23px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 75%;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+  opacity: 0.4;
+}
+
+.PetGachapon-submit {
+    margin-top: 16px;
+    height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 0;
+    background-color: lightgreen;
+    width: max-content;
+    align-self: center;
+}
+
+.isDisabled {
+    background-color: lightgrey;
+}
+
+.PetGachapon-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

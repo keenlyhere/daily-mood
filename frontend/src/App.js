@@ -70,7 +70,7 @@ function App() {
           <ProtectedRoute path="/store" exact={true}>
             <div className="Page-container">
               <SideBar user={user} />
-              <Store />
+              <Store user={user} />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>

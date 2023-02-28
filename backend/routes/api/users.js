@@ -173,4 +173,18 @@ router.put("/points", requireAuth, async (req, res, next) => {
 
     res.json(user)
 })
+
+// PUT /api/users/spend
+router.put("/spend", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { pointsSpent } = req.body;
+    console.log("points spent", pointsSpent);
+    const updatedMoolah = user.moolah - pointsSpent;
+
+    await user.update({
+        moolah: updatedMoolah
+    });
+
+    res.json(user)
+})
 module.exports = router;

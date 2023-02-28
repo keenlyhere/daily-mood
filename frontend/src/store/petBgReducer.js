@@ -12,7 +12,9 @@ const DELETE_BG = "petBg/DELETE_BG";
 
 const normalize = (petBgs) => {
     const normalizedData = {};
-    petBgs.forEach(petBg => normalizedData[petBg.id] - petBg);
+    console.log("petBgs ---", petBgs)
+    petBgs.forEach(petBg => normalizedData[petBg.id] = petBg);
+    console.log("normalized --->", normalizedData);
     return normalizedData;
 }
 
@@ -93,7 +95,7 @@ export const loadUserActives = (userId) => async (dispatch) => {
     }
 }
 
-export const loadAllUserItems = (userId) => async (dispatch) => {
+export const loadAllUserItems = () => async (dispatch) => {
     const res = await csrfFetch("/api/petbg/current/all");
 
     if (res.ok) {
@@ -104,6 +106,7 @@ export const loadAllUserItems = (userId) => async (dispatch) => {
 }
 
 export const addPet = (newPet) => async (dispatch) => {
+    console.log("NEW PET ___", newPet)
     const res = await csrfFetch(`/api/petbg/pet`, {
         method: "POST",
         headers: {
@@ -114,6 +117,7 @@ export const addPet = (newPet) => async (dispatch) => {
 
     if (res.ok) {
         const pet = await res.json();
+        console.log("pet___", pet)
         dispatch(actionAddPet(pet));
         return pet;
     }

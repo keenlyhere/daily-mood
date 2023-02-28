@@ -111,6 +111,22 @@ export const addPoints = (pointsEarned) => async (dispatch) => {
     }
 }
 
+export const spendPoints = (pointsSpent) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/spend`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(pointsSpent)
+    })
+
+    if (res.ok) {
+        const editedUser = await res.json();
+        dispatch(actionAddPoints(editedUser));
+        return editedUser;
+    }
+}
+
 const initialState = { user: null }
 
 export default function sessionReducer(state = initialState, action) {
