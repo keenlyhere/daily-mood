@@ -35,9 +35,6 @@ function App() {
               <SplashPage />
             </div>
           </Route>
-          <Route exact path="/test">
-            <Test />
-          </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <div className="Page-container">
               <SideBar user={user} />

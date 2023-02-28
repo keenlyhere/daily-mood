@@ -15,10 +15,6 @@ export default function LoginFormModal() {
     const [ errors, setErrors ] = useState([]);
     const { closeModal } = useModal();
 
-    // if (sessionUser) return (
-    //     <Redirect to="/" />
-    // )
-
     if (sessionUser) {
         history.push("/daily")
     }
@@ -27,11 +23,9 @@ export default function LoginFormModal() {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
-            .then(history.push("/daily"))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                // console.log("data - errors:", data.errors);
                 if (data && data.errors) setErrors(data.errors);
             });
     }
@@ -40,7 +34,6 @@ export default function LoginFormModal() {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }))
-            .then(history.push("/daily"))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
