@@ -426,10 +426,8 @@ router.put("/bg/:userId/:bgId", requireAuth, async (req, res, next) => {
         activeBg: bgId
     });
 
-    res.json({
-        user,
-        background: bg
-    });
+
+    res.json(bg);
 
 })
 

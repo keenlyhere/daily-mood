@@ -12,9 +12,9 @@ const DELETE_BG = "petBg/DELETE_BG";
 
 const normalize = (petBgs) => {
     const normalizedData = {};
-    console.log("petBgs ---", petBgs)
+    // console.log("petBgs ---", petBgs)
     petBgs.forEach(petBg => normalizedData[petBg.id] = petBg);
-    console.log("normalized --->", normalizedData);
+    // console.log("normalized --->", normalizedData);
     return normalizedData;
 }
 
@@ -181,6 +181,7 @@ export const editActiveBg = (userId, bgId) => async (dispatch) => {
 
     if (res.ok) {
         const editedActiveBg = await res.json();
+        console.log("editedActivePet ===>", editedActiveBg);
         dispatch(actionEditActiveBg(editedActiveBg));
         return editedActiveBg;
     }
@@ -266,6 +267,7 @@ export default function petBgReducer(state = initialState, action) {
             let editActiveBgState = JSON.stringify(state);
             editActiveBgState = JSON.parse(editActiveBgState);
             editActiveBgState.activeBg = action.bg;
+            console.log("EDIT ACTIVE BG STATE", editActiveBgState);
             return editActiveBgState;
         }
         case DELETE_PET: {

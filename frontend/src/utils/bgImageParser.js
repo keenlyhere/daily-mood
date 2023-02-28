@@ -24,7 +24,7 @@ export const bgImages = () => {
 export const userPetImages = (userBgs) => {
     const userBgImages = [];
     const userBgNames = [];
-    const bgs = { userCowImages: userBgImages, userCowFlavors: userBgNames };
+    const bgs = { userBgImages, userBgNames };
 
     for (let key in backgrounds) {
         if (userBgs.includes(key)) {

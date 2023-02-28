@@ -1,7 +1,3 @@
-img.BgGachapon-gachapon {
-    height: 280px;
-}
-
 .BgGachapon-header {
     position: absolute;
     top: 15px;
@@ -9,4 +5,8 @@ img.BgGachapon-gachapon {
     font-size: 16px;
     font-weight: 900;
     background: none;
+}
+
+img.BgGachapon-gachapon {
+    height: 280px;
 }
