@@ -1,6 +1,7 @@
 .Daily-container {
-    padding: 18px 26px 0;
+    padding: 18px 26px;
     width: calc(100% - 320px);
+    overflow-y: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;

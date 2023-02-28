@@ -1,64 +1,41 @@
-import { useModal } from "../../../context/Modal";
-import gachapon from "../../../assets/gachapon.png";
-import "./PetGachapon.css";
-import { useDispatch, useSelector } from "react-redux";
-import { addPet, loadAllUserItems } from "../../../store/petBgReducer";
 import { useState } from "react";
-import { petImageParser } from "../../../utils/petImageParser";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../../context/Modal";
+import { addBg, loadAllUserItems } from "../../../store/petBgReducer";
 import { spendPoints } from "../../../store/session";
+import gachapon from "../../../assets/gacha2.png";
 
-export default function PetGachapon({ userFlavors, user }) {
-    const { closeModal } = useModal();
+// https://keenlychung.com/dailymood/backgrounds/bg_default.PNG
+// https://keenlychung.com/dailymood/backgrounds/bg_flower_fields.PNG
+// https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG
+
+export default function BgGachapon({ userBgs, user }) {
     const dispatch = useDispatch();
+    const { closeModal } = useModal();
     const [ step, setStep ] = useState(0);
-    const [ obtainedPet, setObtainedPet ] = useState(null);
-    const [ petName, setPetName ] = useState("");
+    const [ obtainedBg, setObtainedBg ] = useState(null);
     const [ active, setActive ] = useState(false);
     const [ errors, setErrors ] = useState({});
 
-    const petFlavors = [
+    const backgrounds = [
         {
-            "flavor": "Sesame",
-            "rarity": 3
+            "bgName": "Farm",
+            "rarity": 7
         },
         {
-            "flavor": "Taro",
-            "rarity": 2
+            "bgName": "FlowerFields",
+            "rarity": 2.5
         },
         {
-            "flavor": "Blueberry",
-            "rarity": 2
-        },
-        {
-            "flavor": "Mango",
-            "rarity": 2
-        },
-        {
-            "flavor": "Strawberry",
-            "rarity": 1
-        },
-        {
-            "flavor": "MilkTea",
-            "rarity": 1
-        },
-        {
-            "flavor": "Chocolate",
-            "rarity": 1
-        },
-        {
-            "flavor": "Matcha",
-            "rarity": 1
-        },
-        {
-            "flavor": "Moohouse",
-            "rarity": 0.3
+            "bgName": "Castle",
+            "rarity": 0.5
         }
     ]
 
     const playGachapon = async () => {
         const error = {};
 
-        if (user.moolah < 50) {
+        if (user.moolah < 30) {
             error.moolah = "You do not have enough moolah to play.";
         }
 
@@ -67,63 +44,42 @@ export default function PetGachapon({ userFlavors, user }) {
         }
 
         let randomNum = Math.random();
-        const totalRarity = petFlavors.reduce((sum, add) => sum + add.rarity, 0);
+        const totalRarity = backgrounds.reduce((sum, add) => sum + add.rarity, 0);
 
-        console.log("TOTAL RARITY =>", totalRarity);
-        // user should only be able to get a flavor that they do not already own
-        // get all flavors that the user owns
-
-        let wonPet = null;
-        for (let i = 0; i < petFlavors.length; i++) {
-            const flavor = petFlavors[i];
-            const odds = flavor.rarity / totalRarity;
-            console.log("FLAVORRRR", flavor);
-            console.log("RANDOM", randomNum);
-            console.log("ODDS", odds);
+        const wonBg = null;
+        for (let i = 0; i < backgrounds.length; i++) {
+            const bg = backgrounds[i];
+            const odds = bg.rarity / totalRarity;
 
             if (randomNum < odds) {
-                wonPet = flavor;
+                wonBg = bg;
                 break;
             }
 
             randomNum -= odds;
         }
 
-
-        console.log("OBTAINED PET", wonPet);
-        if (wonPet !== null && userFlavors.includes(wonPet.flavor)) {
+        if (wonBg !== null && userBgs.includes(wonBg.bgName)) {
             playGachapon();
         } else {
-            const usePoints = await dispatch(spendPoints({ "pointsSpent": 50 }));
-            setObtainedPet(wonPet)
-            setStep(1)
+            const usePoints = await dispatch(spendPoints({ "pointsSpent": 30 }));
+            setObtainedBg(wonBg);
+            setStep(1);
         }
 
     }
 
     const addToCollection = async (e) => {
         e.preventDefault();
-        setErrors({});
 
-        const error = {};
-        if (petName.length < 3) {
-            error.petName = "Pet name should be min. 3 characters long."
-        }
-
-        if (Object.keys(error).length > 0) {
-            return setErrors(error);
-        }
-
-        const newMoo = {
-            "name": petName,
-            "flavor": obtainedPet.flavor,
+        const newBg = {
+            "bgName": wonBg.bgName,
             "setActive": active
         };
 
-        const createPet = await dispatch(addPet(newMoo))
+        const createBg = await dispatch(addBg(newBg))
             .then(() => dispatch(loadAllUserItems()))
             .then(closeModal);
-
     }
 
     return (
@@ -135,7 +91,7 @@ export default function PetGachapon({ userFlavors, user }) {
                 >
                     <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
-                <h2 className="LoginFormModal-Login">Pet Gachapon</h2>
+                <h2 className="LoginFormModal-Login">Background Gachapon</h2>
             </div>
             { step === 0 && (
                 <div className="PetGachapon-main-container">
@@ -214,4 +170,5 @@ export default function PetGachapon({ userFlavors, user }) {
             )}
         </div>
     )
+
 }
