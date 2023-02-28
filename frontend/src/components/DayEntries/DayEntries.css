@@ -186,6 +186,7 @@
     border-radius: 18px;
     border: 0;
     padding: 18px;
+    resize: none;
 }
 
 .Daily-journal-save {

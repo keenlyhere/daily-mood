@@ -14,6 +14,7 @@ import { addPoints } from "../../store/session";
 import { formatDateHeader } from "../../utils/dateFormating";
 import DailyMood from "./DailyMood";
 import DailyImage from "./DailyImage";
+import DailyJournal from "./DailyJournal";
 
 export default function Daily() {
     const dispatch = useDispatch();
@@ -53,17 +54,17 @@ export default function Daily() {
         currentJournal = Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0];
     }
 
-    // console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
+    console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
 
 
     useEffect(() => {
-        dispatch(loadCurrentDay(user.id)).then(() => setIsLoaded(true)).then(() => setDailyJournal(Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0].entryData))
+        dispatch(loadCurrentDay(user.id)).then(() => setIsLoaded(true))
     }, [dispatch])
 
     if (isLoaded) {
 
         // console.log("===> currentJournal ==>", currentJournal.entryData);
-        console.log("===> dailyJournal ==>", dailyJournal);
+        // console.log("===> dailyJournal ==>", dailyJournal);
         const handleMoodChange = async (action, val) => {
             setMood(val);
 
@@ -183,68 +184,9 @@ export default function Daily() {
 
                 <DailyImage currentImage={currentImage} />
 
-                { currentJournal === undefined ? (
-                    <div className="Daily-journal-container">
-                        <div className="Daily-header">
-                            <p className="Daily-text">Today's journal</p>
-                            { errors && errors.journalLength ? (
-                                <p className="CreateTaskModal-error-text">
-                                        {errors.journalLength}
-                                    </p>
-                            ) : ("")}
-                            <button
-                                className={ `Daily-journal-save clickable ${dailyJournal.length < 5 ? "isDisabled" : ""}`}
-                                onClick={() => handleJournalSave("create", dailyJournal)}
-                                disabled={dailyJournal.length < 5 ? true : false}
-                            >
-                                Save
-                            </button>
+                <DailyJournal currentJournal={currentJournal} />
 
-                        </div>
-                        <form className="Daily-journal-form">
-                            <textarea
-                                className="Daily-journal-input"
-                                value={dailyJournal}
-                                onChange={(e) => setDailyJournal(e.target.value)}
-                                placeholder="Describe your day!"
-                            />
-                        </form>
-                    </div>
-                ) : (
-                    <div className="Daily-journal-container">
-                            <div className="Daily-header">
-                            <p className="Daily-text">Today's journal</p>
-                            <div className="Daily-action-buttons-container">
-                                <button
-                                    className="Daily-journal-save clickable"
-                                    onClick={startEditJournal}
-                                >
-                                    Edit
-                                </button>
-                                <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i>
-                            </div>
-                        </div>
-                        <form className="Daily-journal-form">
-                            { editJournal ? (
-
-                                <textarea
-                                    className="Daily-journal-input"
-                                    value={dailyJournal}
-                                    onChange={(e) => setDailyJournal(e.target.value)}
-                                    placeholder="Describe your day!"
-                                />
-                            ) : (
-                                <textarea
-                                    className="Daily-journal-input-disabled"
-                                    value={dailyJournal}
-                                    onChange={(e) => setDailyJournal(e.target.value)}
-                                    placeholder="Describe your day!"
-                                    disabled={true}
-                                />
-                            )}
-                        </form>
-                    </div>
-                )}
+               
             </div>
         );
     } else {
