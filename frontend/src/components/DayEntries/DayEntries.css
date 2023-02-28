@@ -175,6 +175,11 @@
     height: 100%;
 }
 
+.Daily-journal-input-disabled {
+    background: transparent;
+    border: 0;
+}
+
 .Daily-journal-input {
     width: inherit;
     height: inherit;
