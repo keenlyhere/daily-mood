@@ -100,9 +100,12 @@ export default function Store({ user }) {
                                                 <h3 className="Pet-gachapon-want">
                                                     Want this cow?
                                                 </h3>
-                                                <button className="Pet-gachapon-play">
-                                                    Play now
-                                                </button>
+                                                <OpenModalButton
+                                                    buttonText="Play now"
+                                                    onButtonClick={closeMenu}
+                                                    modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
+                                                    buttonClass="Pet-gachapon-play"
+                                                />
                                             </>
                                         )
                                     }

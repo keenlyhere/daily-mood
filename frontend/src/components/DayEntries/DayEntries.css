@@ -1,5 +1,6 @@
 .Daily-container {
-    padding: 18px 26px 0;
+    padding: 18px 26px;
+    overflow-y: scroll;
     width: calc(100% - 320px);
     height: 100vh;
     display: flex;

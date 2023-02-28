@@ -6,6 +6,10 @@
     background-color: rgb(245, 245, 245);
 }
 
+.Gachapon {
+    background: transparent;
+}
+
 .Pet-gachapon-prizes {
     display: grid;
     width: 100%;
@@ -92,7 +96,7 @@ img.notOwned {
     height: 50px;
     text-align: center;
     transition: 1s;
-    z-index: 10;
+    z-index: 1;
 }
 
 .Pet-gachapon-card:hover .Pet-gachapon-description {
@@ -132,8 +136,7 @@ img.notOwned {
 }
 
 .Pet-gachapon-play {
-    align-self: center;
-    justify-self: center;
+    margin: auto;
     width: 60%;
     height: 32px;
     border-radius: 18px;

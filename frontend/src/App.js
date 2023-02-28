@@ -76,13 +76,12 @@ function App() {
           </ProtectedRoute>
           <Route path="/to-do">
             <h1>Splash page goes here!</h1>
-            <h2>Goals for Monday</h2>
+            <h2>Goals for Tuesday</h2>
             <ol>
-              <li>Finish connecting Pets + Backgrounds to frontend + styling</li>
-              <li>Revamp overall style:</li>
-              <li>Change main colors</li>
-              <li>Create logo</li>
-              <li>Create favicon</li>
+              <li>Connect backgrounds to frontend + styling</li>
+              <li>Allow user to purchase one-time use for pet toys + food</li>
+              <li>Art for gachapon T_T</li>
+              <li>Create logo, favicon</li>
             </ol>
             <h2>Completed on Wednesday</h2>
             <ol>
@@ -110,6 +109,16 @@ function App() {
               <li>Connected Pets + Backgrounds to frontend + some styling</li>
               <li>Created action, thunks, and reducers for Pets + Backgrounds</li>
               <li>Created sidebar to house links and pet/bg when user is logged in</li>
+            </ol>
+            <h2>Goals for Monday</h2>
+            <ol>
+              <li>Finish connecting Pets to frontend + styling</li>
+              <li>Fix login modal delay (on localhost)</li>
+              <li>fix journal entries save/edit</li>
+              <li>journal entries text clears properly</li>
+              <li>journal entries now has a max char count</li>
+              <li>can no longer create blank entry in habit block (disabled button)</li>
+              <li>newly created user can create blocks</li>
             </ol>
           </Route>
           <Route>

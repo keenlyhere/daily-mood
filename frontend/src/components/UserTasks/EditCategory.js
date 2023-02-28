@@ -4,13 +4,14 @@ import { changeCatName, loadCurrentDayTasks } from "../../store/userTaskReducer"
 import OpenModalButton from "../OpenModalButton";
 import EditTask from "./EditTask";
 
-export default function EditCategory( { allTasks, categoryTasks, category, taskType, date, user, endEditTasks } ) {
+export default function EditCategory( { allTasks, categoryTasks, category, taskType, date, user, categoryToEdit, endEditTasks } ) {
     const dispatch = useDispatch();
     const [ showMenu, setShowMenu ] = useState(false);
     const closeMenu = () => setShowMenu(false);
     const [ catName, setCatName ] = useState(category);
     const [ activeInput, setActiveInput ] = useState(false);
     const [ errors, setErrors ] = useState([]);
+    // const [ categoryEdit, setCategoryEdit ] = useState(categoryEdit);
 
 
     const inputWidth = {
@@ -19,12 +20,14 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
     const handleCatNameChange = (e) => {
         e.preventDefault();
         dispatch(changeCatName(category, catName, taskType))
+            .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
-        dispatch(loadCurrentDayTasks(user.id))
+
         endActiveInput();
+        endEditTasks();
     }
 
     const onKeyDown = (e) => {
@@ -41,7 +44,7 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 })
-            dispatch(loadCurrentDayTasks(user.id));
+            // dispatch(loadCurrentDayTasks(user.id));
             endActiveInput();
         }
     }
@@ -67,7 +70,7 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                     />
                                     <button
                                         className="UserTasks-category-save"
-                                        onClick={handleCatNameChange}
+                                        onClick={endActiveInput}
                                         disabled={catName.length > 12 || catName.length < 1 ? true : false}
                                     >
                                         Save
@@ -96,7 +99,8 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                 <div className="UserTasks-actions-container">
                                     <button
                                         className="UserTasks-save"
-                                        onClick={endEditTasks}
+                                        onClick={handleCatNameChange}
+                                        // onClick={endEditTasks}
                                     >
                                         Done editing
                                     </button>
