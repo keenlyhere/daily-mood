@@ -59,6 +59,12 @@ export default function SideBar({ user }) {
                 >
                     Store
                 </NavLink>
+                <NavLink
+                    to="/cowlection"
+                    className="SideBar-link"
+                >
+                    Cowlection
+                </NavLink>
                 <div
                     className="SideBar-link clickable"
                     onClick={logout}

@@ -612,9 +612,6 @@ router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
         }
     });
 
-    // console.log("*** UPDATE TASK CATEGORY ***", updateTaskCategory);
-
-
     const err = {};
     if (!updateTaskCategory) {
         err.status = 404;
@@ -628,8 +625,8 @@ router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
         case "Habit": {
 
             updateTaskCategory.forEach(task => {
-                task.categoryName = newCatName
-                task.save()
+                task.categoryName = newCatName;
+                task.save();
             })
 
             res.status(201);
@@ -638,11 +635,10 @@ router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
             });
         }
         case "To-Do": {
-            updateTaskCategory.forEach(task => (
-                task.categoryName = newCatName
-            ))
-
-            await updateTaskCategory.save();
+            updateTaskCategory.forEach(task => {
+                task.categoryName = newCatName;
+                task.save();
+        })
 
             res.status(201);
             return res.json({

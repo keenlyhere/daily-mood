@@ -12,6 +12,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
     const [tasksActive, setTasksActive] = useState([]);
     const [ editTasks, setEditTasks ] = useState(false);
     const [ catName, setCatName ] = useState(null);
+    const [ categoryToEdit, setCategoryToEdit ] = useState(null);
     const closeMenu = () => setShowMenu(false);
 
     /* CREATE HABIT */
@@ -44,12 +45,14 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
             .then(endEditTasks)
     }
 
-    const startEditTasks = (e) => {
+    const startEditTasks = (category) => {
         setEditTasks(true);
+        setCategoryToEdit(category);
     }
 
     const endEditTasks = (e) => {
         setEditTasks(false)
+        dispatch(loadCurrentDayTasks());
     }
 
     /* DELETE HABIT */
@@ -60,10 +63,12 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         );
     };
 
+    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
+
     return allTasks && Object.keys(allTasks).length ? (
         Object.keys(categoryTasks).map((category, idx) => (
             <div key={idx}>
-                { editTasks ? (
+                { editTasks && idx === categoryToEdit ? (
                     <EditCategory
                         allTasks={allTasks}
                         categoryTasks={categoryTasks}
@@ -71,6 +76,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                         taskType={taskType}
                         date={date}
                         user={user}
+                        categoryToEdit={categoryToEdit}
                         endEditTasks={endEditTasks}
                     />
 
@@ -84,7 +90,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
                                     <i
                                         className="fa-solid fa-pen clickable"
-                                        onClick={startEditTasks}
+                                        onClick={() => startEditTasks(idx)}
                                     ></i>
 
                                 <i

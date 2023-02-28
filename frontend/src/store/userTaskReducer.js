@@ -253,15 +253,16 @@ export default function userTasksReducer(state = initialState, action) {
         case EDIT_TASK_CATEGORY: {
             let editTaskCategoryState = JSON.stringify(state);
             editTaskCategoryState = JSON.parse(editTaskCategoryState);
-
+            console.log("action.taskId", action.taskType)
+            console.log("action.task", action.task)
             if (action.taskType === "Habit") {
                 editTaskCategoryState.userTasks.habitsToday = { ...state.userTasks.habitsToday, ...action.task};
                 return editTaskCategoryState;
             } else {
-                editTaskCategoryState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+                editTaskCategoryState.userTasks.toDoToday = { ...state.userTasks.toDoToday, ...action.task };
+                return editTaskCategoryState;
             }
 
-            return editTaskCategoryState;
         }
         case DELETE_TASK_CATEGORY: {
             const deleteTaskCategoryState = { ...state };
