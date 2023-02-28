@@ -2,6 +2,7 @@
     padding: 18px 26px;
     overflow-y: scroll;
     width: calc(100% - 320px);
+    overflow-y: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;

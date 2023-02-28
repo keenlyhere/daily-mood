@@ -57,10 +57,9 @@ export default function PetGachapon({ userFlavors, user }) {
 
     const playGachapon = async () => {
         const error = {};
-        console.log("USERRRR", user)
 
         if (user.moolah < 50) {
-            error.moolah = "You do not have enough moolah to play."
+            error.moolah = "You do not have enough moolah to play.";
         }
 
         if (Object.keys(error).length > 0) {

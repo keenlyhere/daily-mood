@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import gachapon from "../../assets/gachapon.png";
+import gachapon2 from "../../assets/gacha2.png";
 import { editActivePet, loadAllUserItems, loadUserActives } from "../../store/petBgReducer";
 import OpenModalButton from "../OpenModalButton";
 import PetGachapon from "./PetGachapon";
 import { petImages } from "../../utils/petImageParser";
 import "./Store.css";
+import BgGachapon from "./BgGachapon";
 
 export default function Store({ user }) {
     const dispatch = useDispatch();
@@ -14,8 +16,9 @@ export default function Store({ user }) {
     const closeMenu = () => setShowMenu(false);
     const activePet = useSelector(state => state.items.activePet);
     const userPets = useSelector(state => state.items.pets);
-    // console.log("userPets ===>", userPets)
+    const userBgs = useSelector(state => state.items.backgrounds);
     const userFlavors = [];
+    const userBgNames = [];
 
     const cows = petImages();
     console.log("petImages", cows);
@@ -28,9 +31,11 @@ export default function Store({ user }) {
         Object.values(userPets).forEach(pet => userFlavors.push(pet.flavor));
         const wantedPet = (desiredFlavor) => {
             const foundPet = Object.values(userPets).filter(pet => pet.flavor === desiredFlavor);
-            console.log("foundPet ===>", foundPet[0]);
+            // console.log("foundPet ===>", foundPet[0]);
             return foundPet[0];
         }
+
+        Object.values(userBgs).forEach(bg => userBgNames.push(bg.bgName));
         // console.log("userPets flavors ===>", wantedPet)
         // console.log("userPets flavors ===>", cows.cowFlavors[8])
         // console.log("userPets includes ===>", userFlavors.includes(cows.cowFlavors[8]))
@@ -113,6 +118,15 @@ export default function Store({ user }) {
                             </div>
                         ))}
                     </div>
+                </div>
+                <div className="Store-bg-gachapon">
+                    <h2>Background gachapon</h2>
+                    <OpenModalButton
+                        buttonText={<img src={gachapon2} alt="Pet gachapon" />}
+                        onButtonClick={closeMenu}
+                        modalComponent={<BgGachapon userBgNames={userBgNames} user={user} />}
+                        buttonClass="Gachapon"
+                    />
                 </div>
             </div>
         )

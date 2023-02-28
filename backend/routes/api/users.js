@@ -6,6 +6,7 @@ const { User, UserItem, Pet, Background } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
+const { formatDate } = require("../../utils/dateFormating");
 
 const router = express.Router();
 
@@ -149,6 +150,14 @@ router.put("/points", requireAuth, async (req, res, next) => {
     const { pointsEarned } = req.body;
     const updatedMoolah = user.moolah + pointsEarned;
     // console.log("pointsEarned", pointsEarned, typeof pointsEarned);
+    const now = new Date();
+
+    if (user.lastLogin !== formatDate(now)) {
+        await user.update({
+            pointsEarnedDailies: 0,
+            pointsEarnedToday: 0
+        })
+    }
 
     if (pointsEarned === 5 || pointsEarned === -5) {
         if (user.pointsEarnedDailies < 15) {
