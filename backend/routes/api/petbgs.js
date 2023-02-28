@@ -396,10 +396,12 @@ router.put("/pet/:userId/:petId", requireAuth, async (req, res, next) => {
         activePet: petId
     });
 
-    res.json({
-        user,
-        pet
-    });
+    res.json(pet);
+
+    // res.json({
+    //     user,
+    //     pet
+    // });
 
 })
 

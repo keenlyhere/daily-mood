@@ -22,13 +22,13 @@ const petImageParser = (flavor, emotion) => {
         },
         "Matcha": {
             "normal": "https://keenlychung.com/dailymood/cows/cow_matcha_normal.PNG",
-            "happy": "https://keenlychung.com/dailymood/cows/cow_strawberry_happy.PNG",
-            "sleepy": "https://keenlychung.com/dailymood/cows/cow_strawberry_sleepy.PNG",
-            "sad": "https://keenlychung.com/dailymood/cows/cow_strawberry_sad.PNG",
-            "angry": "https://keenlychung.com/dailymood/cows/cow_strawberry_angry.PNG",
-            "unimpressed": "https://keenlychung.com/dailymood/cows/cow_strawberry_unimpressed.PNG",
-            "scared": "https://keenlychung.com/dailymood/cows/cow_strawberry_scared.PNG",
-            "moohouse": "https://keenlychung.com/dailymood/cows/cow_strawberry_moohouse.PNG"
+            "happy": "https://keenlychung.com/dailymood/cows/cow_matcha_happy.PNG",
+            "sleepy": "https://keenlychung.com/dailymood/cows/cow_matcha_sleepy.PNG",
+            "sad": "https://keenlychung.com/dailymood/cows/cow_matcha_sad.PNG",
+            "angry": "https://keenlychung.com/dailymood/cows/cow_matcha_angry.PNG",
+            "unimpressed": "https://keenlychung.com/dailymood/cows/cow_matcha_unimpressed.PNG",
+            "scared": "https://keenlychung.com/dailymood/cows/cow_matcha_scared.PNG",
+            "moohouse": "https://keenlychung.com/dailymood/cows/cow_matcha_moohouse.PNG"
         },
         "Taro": {
             "normal": "https://keenlychung.com/dailymood/cows/cow_taro_normal.PNG",

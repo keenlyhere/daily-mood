@@ -13,6 +13,7 @@ import Test from "./components/UserTasks/Test";
 import SideBar from "./components/SideBar";
 import Store from "./components/Store";
 import SplashPage from "./components/SplashPage";
+import Cowlection from "./components/Cowlection";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,12 @@ function App() {
             <div className="Page-container">
               <SideBar user={user} />
               <Store user={user} />
+            </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/cowlection" exact={true}>
+            <div className="Page-container">
+              <SideBar user={user} />
+              <Cowlection user={user} />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/monthly" exact={true}>
