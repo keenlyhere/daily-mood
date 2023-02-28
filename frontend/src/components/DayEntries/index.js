@@ -180,7 +180,11 @@ export default function Daily() {
         if (action === "create") {
             const error = {}
             if (val.length < 5) {
-                error.journalLength = "Please enter a minimum of 5 characters."
+                error.journalLength = "Please enter a minimum of 5 characters.";
+            }
+
+            if (val.length > 200) {
+                error.journalLength = "Please enter a maximum of 200 characters.";
             }
 
             if (Object.keys(error).length > 0) {

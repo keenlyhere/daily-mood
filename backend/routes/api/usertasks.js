@@ -18,46 +18,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
     // then can grab all the unique habits from that day and repeat them for the user;
     const now = new Date();
 
-    // ---> SEARCH FOR ALL UNFINISHED TASKS
-
-    const allTasks = await UserTask.findAll({
-        where: {
-            userId: user.id,
-            day: {
-                [Op.not]: now,
-            },
-        },
-    });
-
-    if (!allTasks.length > 0) {
-        return res.json({
-            userTasks: [],
-        });
-    }
-
-    const toDoArray = [];
-
-    allTasks.forEach((task) => {
-        if (task.taskType === "To-Do") {
-            toDoArray.push(task);
-        }
-    });
-
-
-    const unfinishedToDo = [];
-
-    const unFinishedToDoCategories = new Set();
-    toDoArray.forEach((task) => {
-        task = task.toJSON();
-
-        if (!task.isCompleted) {
-            unfinishedToDo.push(task);
-            unFinishedToDoCategories.add(task.categoryName);
-        }
-    });
-
-    const unfinishedToDoCategories = [...unFinishedToDoCategories];
-
     // ---> FIND ALL TASKS FOR TODAY
     const toDoToday = await UserTask.findAll({
         where: {
@@ -81,6 +41,40 @@ router.get("/current", requireAuth, async (req, res, next) => {
     });
 
     const toDoTodayCategories = [...toDoTodayCategoriesSet];
+
+    // ---> SEARCH FOR ALL UNFINISHED TASKS
+
+    const allTasks = await UserTask.findAll({
+        where: {
+            userId: user.id,
+            day: {
+                [Op.not]: now,
+            },
+        },
+    });
+
+    const toDoArray = [];
+
+    allTasks.forEach((task) => {
+        if (task.taskType === "To-Do") {
+            toDoArray.push(task);
+        }
+    });
+
+
+    const unfinishedToDo = [];
+
+    const unFinishedToDoCategories = new Set();
+    toDoArray.forEach((task) => {
+        task = task.toJSON();
+
+        if (!task.isCompleted) {
+            unfinishedToDo.push(task);
+            unFinishedToDoCategories.add(task.categoryName);
+        }
+    });
+
+    const unfinishedToDoCategories = [...unFinishedToDoCategories];
 
     // ---> FIND ALL MOST RECENT HABITS
     // ---> IF CURRENT DAY HAS NO HABITS, THEN CREATE HABITS FOR THE DAY BASED ON THE MOST RECENT HABITS
