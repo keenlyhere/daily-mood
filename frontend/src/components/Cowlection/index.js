@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editActivePet, loadAllUserItems, loadUserActives } from "../../store/petBgReducer";
+import { editActiveBg, editActivePet, loadAllUserItems, loadUserActives } from "../../store/petBgReducer";
+import { userBgImages } from "../../utils/bgImageParser";
 import { userPetImages } from "../../utils/petImageParser";
 
 import "./Cowlection.css";
@@ -10,26 +11,81 @@ export default function Cowlection({ user }) {
     const [ isLoaded, setIsLoaded ] = useState(false);
     const [ page, setPage ] = useState("cows");
     const activePet = useSelector(state => state.items.activePet);
+    const activeBg = useSelector(state => state.items.activeBg);
     const userPets = useSelector(state => state.items.pets);
-    // console.log("userPets ===>", userPets)
+    const userBgs = useSelector(state => state.items.backgrounds);
     const userFlavors = [];
+    const userBgNames = [];
 
 
     useEffect(() => {
         dispatch(loadAllUserItems()).then(() => setIsLoaded(true));
     }, [dispatch])
 
+    const healthBarWidth = (pet) => {
+        let backgroundColor;
+
+        if (pet.health > 80) {
+            backgroundColor = "green";
+        } else if (pet.health > 60) {
+            backgroundColor = "orange";
+        } else if (pet.health > 35) {
+            backgroundColor = "yellow";
+        } else {
+            backgroundColor = "red";
+        }
+
+        console.log("backgroundColor", pet, backgroundColor);
+
+        return {
+            "width": `${pet.health}%`,
+            "backgroundColor": backgroundColor
+        };
+    }
+
+    const friendlinessBarWidth = (pet) => {
+        let backgroundColor;
+
+        if (pet.friendliness > 80) {
+            backgroundColor = "green";
+        } else if (pet.friendliness > 60) {
+            backgroundColor = "orange";
+        } else if (pet.friendliness > 35) {
+            backgroundColor = "yellow";
+        } else {
+            backgroundColor = "red";
+        }
+
+        console.log("backgroundColor", pet, backgroundColor);
+
+        return {
+            "width": `${pet.friendliness}%`,
+            "backgroundColor": backgroundColor
+        };
+    }
+
     if (isLoaded) {
 
 
+        const allUserPets = Object.values(userPets);
+        console.log("userPets ===>", allUserPets)
         Object.values(userPets).forEach(pet => userFlavors.push(pet.flavor));
-        console.log("userFlavors", userFlavors);
+        // console.log("userFlavors", userFlavors);
         const cows = userPetImages(userFlavors);
-        console.log("petImages", cows);
+        // console.log("petImages", cows);
         const wantedPet = (desiredFlavor) => {
             const foundPet = Object.values(userPets).filter(pet => pet.flavor === desiredFlavor);
-            console.log("foundPet ===>", foundPet[0]);
+            // console.log("foundPet ===>", foundPet[0]);
             return foundPet[0];
+        }
+
+        Object.values(userBgs).forEach(bg => userBgNames.push(bg.bgName));
+        console.log("userBgNames", userBgNames);
+        const bgs = userBgImages(userBgNames);
+        const wantedBg = (desiredBg) => {
+            const foundBg = Object.values(userBgs).filter(bg => bg.bgName === desiredBg);
+            // console.log("foundBg ===>", foundBg[0]);
+            return foundBg[0];
         }
 
         const changeActivePet = async (flavor) => {
@@ -40,6 +96,16 @@ export default function Cowlection({ user }) {
                 .then(dispatch(loadUserActives()));
 
             return setActivePet;
+        }
+
+        const changeActiveBg = async (bg) => {
+            const desiredActive = wantedBg(bg);
+            console.log("desiredActive ===>", desiredActive)
+
+            const setActiveBg = await dispatch(editActiveBg(user.id, desiredActive.id))
+                .then(dispatch(loadUserActives()));
+
+            return setActiveBg;
         }
 
         return (
@@ -73,12 +139,57 @@ export default function Cowlection({ user }) {
                     >
                         Backgrounds
                     </label>
-                    <span class="slider"></span>
+                    <span className="slider"></span>
                 </div>
                 { page === "cows" && (
                     <>
                         <h1>Your udderly adorable herd</h1>
                         <div className="Cowlection-cows">
+                            { allUserPets.map((pet, idx) => (
+                                <div key={idx} className="Pet-gachapon-card">
+                                    <div className="Pet-gachapon-card-image">
+                                        <img src={pet.petImageUrl} alt="User pet" />
+                                    </div>
+                                    <div className="Pet-gachapon-description">
+                                        <h2 className="Pet-gachapon-flavor">
+                                            {pet.name}
+                                        </h2>
+
+                                        <div className="Pet-stats">
+                                            <div className="stats-hp">
+                                                <p className="stats-hp-header">
+                                                    HP:
+                                                </p>
+                                                <div className="SideBar-pet-stats-hp-bar-container">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled" style={healthBarWidth(pet)}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="Pet-stats">
+                                            <div className="stats-hp">
+                                                <p className="stats-hp-header">
+                                                    Friendliness:
+                                                </p>
+                                                <div className="SideBar-pet-stats-hp-bar-container">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled" style={friendlinessBarWidth(pet)}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {
+                                            activePet.id !== pet.id && (
+                                                <button
+                                                    className="Pet-gachapon-play"
+                                                    onClick={() => changeActivePet(cows.userCowFlavors[idx])}
+                                                >
+                                                    Set active
+                                                </button>
+                                            )
+                                        }
+
+                                    </div>
+                                </div>
+                            ))}
                             { cows.userCowImages.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
                                     <div className="Pet-gachapon-card-image">
@@ -87,6 +198,7 @@ export default function Cowlection({ user }) {
                                     <div className="Pet-gachapon-description">
                                         <h2 className="Pet-gachapon-flavor">
                                             {cows.userCowFlavors[idx]}
+                                            {/* {allUserPets[idx]} */}
                                         </h2>
 
                                         {
@@ -116,7 +228,40 @@ export default function Cowlection({ user }) {
                 {
                     page === "backgrounds" && (
                         <>
-                            <h1>Your backgrounds here</h1>
+                            <h1>Your bovine backdrops</h1>
+                            <div className="Cowlection-cows">
+                            { bgs.userBgImages.map((pet, idx) => (
+                                <div key={idx} className="Pet-gachapon-card">
+                                    <div className="Bg-gachapon-card-image">
+                                        <img src={pet} className={`Bg-gachapon-bg ${userFlavors.includes(cows.userCowFlavors[idx]) ? "" : "notOwned"}`} alt="Gachapon pet prize" />
+                                    </div>
+                                    <div className="Pet-gachapon-description">
+                                        <h2 className="Pet-gachapon-flavor">
+                                            {bgs.userBgNames[idx]}
+                                        </h2>
+
+                                        {
+                                            activeBg.bgName === bgs.userBgNames[idx] ? (
+                                                <button
+                                                    className="Pet-gachapon-play disabled"
+                                                    disabled={true}
+                                                >
+                                                    Active
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    className="Pet-gachapon-play"
+                                                    onClick={() => changeActivePet(bgs.userBgImages[idx])}
+                                                >
+                                                    Set active
+                                                </button>
+                                            )
+                                        }
+
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                         </>
                     )
                 }

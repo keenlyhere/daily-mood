@@ -9,6 +9,7 @@ import { petImages } from "../../utils/petImageParser";
 import "./Store.css";
 import BgGachapon from "./BgGachapon";
 import { bgImages } from "../../utils/bgImageParser";
+import PetCare from "./PetCare";
 
 export default function Store({ user }) {
     const dispatch = useDispatch();
@@ -198,6 +199,8 @@ export default function Store({ user }) {
                         ))}
                     </div>
                 </div>
+
+                <PetCare activePet={activePet} user={user} />
             </div>
         )
     } else {

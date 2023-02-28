@@ -368,10 +368,7 @@ router.put("/pet/:petId", requireAuth, async (req, res, next) => {
         friendliness: friendliness
     })
 
-    res.json({
-        user,
-        pet: updatePet
-    })
+    res.json(updatePet)
 
 });
 

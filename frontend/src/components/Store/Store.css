@@ -1,6 +1,6 @@
 .Store-container {
     width: calc(100% - 320px);
-    padding: 18px 0px 0px 18px;
+    padding: 18px 0px 0px 8px;
     height: 100%;
     overflow-y: scroll;
     background-color: rgb(245, 245, 245);
@@ -134,7 +134,8 @@ img.notOwned {
 }
 
 .Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-want,
-.Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-play {
+.Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-play,
+.Pet-gachapon-card .Pet-gachapon-description .Pet-stats {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,7 +163,8 @@ img.notOwned {
     background-color: lightgreen;
 }
 
-.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-gachapon-play {
+.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-gachapon-play,
+.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-stats {
     opacity: 1;
     visibility: visible;
     transition-delay: 0.65s;

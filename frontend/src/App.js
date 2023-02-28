@@ -14,6 +14,8 @@ import SideBar from "./components/SideBar";
 import Store from "./components/Store";
 import SplashPage from "./components/SplashPage";
 import Cowlection from "./components/Cowlection";
+import Heart from "./components/HeartBar/Heart";
+import PetCare from "./components/Store/PetCare";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,9 @@ function App() {
               <Navigation />
               <SplashPage />
             </div>
+          </Route>
+          <Route exact path="/petcare">
+            <PetCare />
           </Route>
           <ProtectedRoute path="/daily" exact={true}>
             <div className="Page-container">

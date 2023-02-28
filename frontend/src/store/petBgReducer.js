@@ -254,7 +254,10 @@ export default function petBgReducer(state = initialState, action) {
         case EDIT_PET_INFO: {
             let editPetInfoState = JSON.stringify(state);
             editPetInfoState = JSON.parse(editPetInfoState);
+            console.log("action *** ==>", action)
+            editPetInfoState.activePet = action.pet;
             editPetInfoState.pets = { ...state.pets, [action.pet.id]: action.pet };
+            console.log("EDIT PET INFO STATE ===>", editPetInfoState)
             return editPetInfoState;
         }
         case EDIT_ACTIVE_PET: {

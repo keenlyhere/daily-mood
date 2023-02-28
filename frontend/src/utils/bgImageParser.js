@@ -21,7 +21,7 @@ export const bgImages = () => {
     return bgs;
 }
 
-export const userPetImages = (userBgs) => {
+export const userBgImages = (userBgs) => {
     const userBgImages = [];
     const userBgNames = [];
     const bgs = { userBgImages, userBgNames };

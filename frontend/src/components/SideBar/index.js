@@ -23,8 +23,46 @@ export default function SideBar({ user }) {
         history.push("/");
     }
 
-    const healthBarWidth = {
-        width: `${userItems.activePet.health}%`
+    // const healthBarWidth = {
+    //     width: `${userItems.activePet.health}%`
+    // }
+
+    const healthBarWidth = () => {
+        let backgroundColor;
+
+        if (userItems.activePet.health > 80) {
+            backgroundColor = "green";
+        } else if (userItems.activePet.health > 60) {
+            backgroundColor = "orange";
+        } else if (userItems.activePet.health > 35) {
+            backgroundColor = "yellow";
+        } else {
+            backgroundColor = "red";
+        }
+
+        return {
+            "width": `${userItems.activePet.health}%`,
+            "backgroundColor": backgroundColor
+        };
+    }
+
+    const friendlinessBarWidth = () => {
+        let backgroundColor;
+
+        if (userItems.activePet.friendliness > 80) {
+            backgroundColor = "green";
+        } else if (userItems.activePet.friendliness > 60) {
+            backgroundColor = "orange";
+        } else if (userItems.activePet.friendliness > 35) {
+            backgroundColor = "yellow";
+        } else {
+            backgroundColor = "red";
+        }
+
+        return {
+            "width": `${userItems.activePet.friendliness}%`,
+            "backgroundColor": backgroundColor
+        };
     }
 
     return isLoaded ? (
@@ -92,7 +130,7 @@ export default function SideBar({ user }) {
                             HP:
                         </p>
                         <div className="SideBar-pet-stats-hp-bar-container">
-                            <div className="SideBar-pet-stats-hp-bar-filled" style={healthBarWidth}>
+                            <div className="SideBar-pet-stats-hp-bar-filled" style={healthBarWidth()}>
 
                             </div>
                             <span className="SideBar-pet-stats-hp-text">
@@ -100,8 +138,18 @@ export default function SideBar({ user }) {
                             </span>
                         </div>
                     </div>
-                    <div className="SideBar-pet-stats-friendliness">
-                        Friendliness: {userItems.activePet.friendliness}/100
+                    <div className="SideBar-pet-stats-hp">
+                        <p className="SideBar-pet-stats-hp-header">
+                            Friendliness:
+                        </p>
+                        <div className="SideBar-pet-stats-hp-bar-container">
+                            <div className="SideBar-pet-stats-hp-bar-filled" style={friendlinessBarWidth()}>
+
+                            </div>
+                            <span className="SideBar-pet-stats-hp-text">
+                                {userItems.activePet.friendliness}/100
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
