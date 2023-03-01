@@ -28,9 +28,9 @@ export default function Cowlection({ user }) {
         if (pet.health > 80) {
             backgroundColor = "#5AA13E";
         } else if (pet.health > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (pet.health > 35) {
             backgroundColor = "#FDFD96";
+        } else if (pet.health > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }
@@ -49,9 +49,9 @@ export default function Cowlection({ user }) {
         if (pet.friendliness > 80) {
             backgroundColor = "#5AA13E";
         } else if (pet.friendliness > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (pet.friendliness > 35) {
             backgroundColor = "#FDFD96";
+        } else if (pet.friendliness > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }

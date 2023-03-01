@@ -35,9 +35,9 @@ export default function SideBar({ user }) {
         if (userItems.activePet.health > 80) {
             backgroundColor = "#5AA13E";
         } else if (userItems.activePet.health > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (userItems.activePet.health > 35) {
             backgroundColor = "#FDFD96";
+        } else if (userItems.activePet.health > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }
@@ -54,9 +54,9 @@ export default function SideBar({ user }) {
         if (userItems.activePet.friendliness > 80) {
             backgroundColor = "#5AA13E";
         } else if (userItems.activePet.friendliness > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (userItems.activePet.friendliness > 35) {
             backgroundColor = "#FDFD96";
+        } else if (userItems.activePet.friendliness > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }
