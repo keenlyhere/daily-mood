@@ -1,6 +1,7 @@
 .SideBar-container {
     width: 320px;
     background-color: #c9e2bb;
+    overflow-y: auto;
     /* padding: 18px; */
 }
 
@@ -91,6 +92,7 @@
     padding: 8px 18px;
     border-radius: 18px;
     border: none;
+    background-color: #F5FBF2;
 }
 
 .SideBar-pet-stats-hp {

@@ -9,22 +9,35 @@
     width: 100%;
     height: calc(100vh - 80px);
     overflow: hidden;
-    background: rgb(100,134,74);
-    background: linear-gradient(180deg, rgba(100,134,74,1) 0%, rgba(201,226,187,1) 100%);
+    background-image: url("https://keenlychung.com/dailymood/landingpage.png");
+    background-size: cover;
+    background-position: 100% 20%;
+    /* background: rgb(100,134,74);
+    background: linear-gradient(180deg, rgba(100,134,74,1) 0%, rgba(201,226,187,1) 100%); */
 }
 
 .SplashPage-main-banner-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     height: 100%;
     width: 100%;
+}
+
+.SplashPage-placeholder {
+    width: 20%;
+    height: 20%;
+    display: none;
 }
 
 .SplashPage-main-banner-div > img {
     /* width: 100%; */
     height: 50%;
     aspect-ratio: 1;
+}
+
+.SplashPage-welcome {
+    font-size: 60px;
 }
 
 .custom-shape-divider-bottom-1677527040 {
@@ -44,6 +57,10 @@
     display: flex;
     flex-direction: column;
     padding: 0px 38px;
+    width: 80%;
+    background-color: white;
+    height: max-content;
+    border-radius: 18px;
 }
 
 .SplashPage-placeholder {
@@ -88,11 +105,19 @@
         aspect-ratio: 1;
     }
 
+    .SplashPage-placeholder {
+        display: block;
+        width: 60%;
+    }
+
     .SplashPage-main-banner-text {
-        width: 50%;
+        width: 35%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 0px 38px;
+        padding: 38px;
+        background-color: rgba(255, 255, 255, 0.855);
+        height: max-content;
+        border-radius: 18px;
     }
 }
