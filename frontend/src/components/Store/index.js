@@ -73,12 +73,6 @@ export default function Store({ user }) {
 
         return (
             <div className="Store-container">
-                <h1>Store stuff here</h1>
-                <ul>
-                    <li>Pets</li>
-                    <li>Backgrounds</li>
-                    <li>One-use pet items (ie toys, food)</li>
-                </ul>
                 <div className="Store-pet-gachapon">
                     <h2>Pet Gachapon</h2>
                     <OpenModalButton

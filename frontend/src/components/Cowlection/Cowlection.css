@@ -3,7 +3,7 @@
     padding: 18px 0px 0px 18px;
     height: 100%;
     overflow-y: scroll;
-    background-color: rgb(245, 245, 245);
+    background-color: white;
 }
 
 .Cowlection-cows {
@@ -72,7 +72,7 @@ input[id=backgrounds]:checked ~ .slider {
     display: flex;
     height: 28px;
     width: 120px;
-    background-color: lightgreen;
+    background-color: #c9e2bb;
     border-radius: 88px;
     transition: 0.2s ease-out;
 }

@@ -31,13 +31,13 @@ export default function SideBar({ user }) {
         let backgroundColor;
 
         if (userItems.activePet.health > 80) {
-            backgroundColor = "green";
+            backgroundColor = "#5AA13E";
         } else if (userItems.activePet.health > 60) {
-            backgroundColor = "orange";
+            backgroundColor = "#F9AD8E";
         } else if (userItems.activePet.health > 35) {
-            backgroundColor = "yellow";
+            backgroundColor = "#FDFD96";
         } else {
-            backgroundColor = "red";
+            backgroundColor = "#FF7276";
         }
 
         return {
@@ -50,13 +50,13 @@ export default function SideBar({ user }) {
         let backgroundColor;
 
         if (userItems.activePet.friendliness > 80) {
-            backgroundColor = "green";
+            backgroundColor = "#5AA13E";
         } else if (userItems.activePet.friendliness > 60) {
-            backgroundColor = "orange";
+            backgroundColor = "#F9AD8E";
         } else if (userItems.activePet.friendliness > 35) {
-            backgroundColor = "yellow";
+            backgroundColor = "#FDFD96";
         } else {
-            backgroundColor = "red";
+            backgroundColor = "#FF7276";
         }
 
         return {
@@ -70,6 +70,14 @@ export default function SideBar({ user }) {
             <div className="SideBar-logo-container">
                 <h1>Daily Moo'd Logo</h1>
             </div>
+            <div className="SideBar-logout-container">
+                <button
+                    className="SideBar-logout clickable"
+                    onClick={logout}
+                >
+                    Logout
+                </button>
+            </div>
             <div className="SideBar-user-container">
                 <p className="SideBar-username">
                     Welcome, {user.firstName}
@@ -78,39 +86,8 @@ export default function SideBar({ user }) {
                     Moolah: {user.moolah}
                 </p>
             </div>
-            <div className="SideBar-links-container">
-                <NavLink
-                    to="/daily"
-                    className="SideBar-link"
-                >
-                    Daily
-                </NavLink>
-                <NavLink
-                    to="/tasks"
-                    className="SideBar-link"
-                >
-                    Tasks
-                </NavLink>
-                <NavLink
-                    to="/store"
-                    className="SideBar-link"
-                >
-                    Store
-                </NavLink>
-                <NavLink
-                    to="/cowlection"
-                    className="SideBar-link"
-                >
-                    Cowlection
-                </NavLink>
-                <div
-                    className="SideBar-link clickable"
-                    onClick={logout}
-                >
-                    Logout
-                </div>
-            </div>
-            <div className="SideBar-pet-container">
+
+                        <div className="SideBar-pet-container">
                 <div className="SideBar-pet-image-container">
                     <img
                         src={userItems.activeBg.bgImageUrl}
@@ -124,7 +101,9 @@ export default function SideBar({ user }) {
                     />
                 </div>
                 <div className="SideBar-pet-stats-container">
-                    <p className="SideBar-pet-stats-name">{userItems.activePet.name}</p>
+                    <p className="SideBar-pet-stats-name">
+                        {userItems.activePet.name}
+                    </p>
                     <div className="SideBar-pet-stats-hp">
                         <p className="SideBar-pet-stats-hp-header">
                             HP:
@@ -153,6 +132,35 @@ export default function SideBar({ user }) {
                     </div>
                 </div>
             </div>
+
+            <div className="SideBar-links-container">
+                <NavLink
+                    to="/daily"
+                    className="SideBar-link"
+                >
+                    Daily
+                </NavLink>
+                <NavLink
+                    to="/tasks"
+                    className="SideBar-link"
+                >
+                    Tasks
+                </NavLink>
+                <NavLink
+                    to="/store"
+                    className="SideBar-link"
+                >
+                    Store
+                </NavLink>
+                <NavLink
+                    to="/cowlection"
+                    className="SideBar-link"
+                >
+                    Cowlection
+                </NavLink>
+
+            </div>
+
         </div>
     ) : (
         "Loading..."

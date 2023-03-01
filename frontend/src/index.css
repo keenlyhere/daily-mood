@@ -1,8 +1,8 @@
 /* TODO Add site wide styles */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=Roboto:wght@400;700&family=Ubuntu:wght@700&display=swap');
 
 * {
-    color: #222222;
+    color: #1B3012;
 }
 
 .App-container {

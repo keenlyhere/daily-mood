@@ -1,6 +1,6 @@
 .SideBar-container {
     width: 320px;
-    background-color: lightgreen;
+    background-color: #c9e2bb;
     /* padding: 18px; */
 }
 
@@ -74,10 +74,30 @@
 .SideBar-pet-stats-hp-bar-filled {
     border-radius: 8px;
     height: 16px;
-    background-color: red;
+    background-color: #FF7276;
 }
 
 .SideBar-pet-stats-hp-text {
     font-size: 12px;
     text-align: right;
+}
+
+.SideBar-logout-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.SideBar-logout {
+    padding: 8px 18px;
+    border-radius: 18px;
+    border: none;
+}
+
+.SideBar-pet-stats-hp {
+    padding-bottom: 12px;
+}
+
+.SideBar-pet-stats-name {
+    padding-bottom: 12px;
 }

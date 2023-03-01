@@ -26,13 +26,13 @@ export default function Cowlection({ user }) {
         let backgroundColor;
 
         if (pet.health > 80) {
-            backgroundColor = "green";
+            backgroundColor = "#5AA13E";
         } else if (pet.health > 60) {
-            backgroundColor = "orange";
+            backgroundColor = "#F9AD8E";
         } else if (pet.health > 35) {
-            backgroundColor = "yellow";
+            backgroundColor = "#FDFD96";
         } else {
-            backgroundColor = "red";
+            backgroundColor = "#FF7276";
         }
 
         console.log("backgroundColor", pet, backgroundColor);
@@ -47,13 +47,13 @@ export default function Cowlection({ user }) {
         let backgroundColor;
 
         if (pet.friendliness > 80) {
-            backgroundColor = "pink";
+            backgroundColor = "#5AA13E";
         } else if (pet.friendliness > 60) {
-            backgroundColor = "orange";
+            backgroundColor = "#F9AD8E";
         } else if (pet.friendliness > 35) {
-            backgroundColor = "yellow";
+            backgroundColor = "#FDFD96";
         } else {
-            backgroundColor = "red";
+            backgroundColor = "#FF7276";
         }
 
         console.log("backgroundColor", pet, backgroundColor);
@@ -168,7 +168,7 @@ export default function Cowlection({ user }) {
                                         <div className="Pet-stats">
                                             <div className="stats-hp">
                                                 <p className="stats-hp-header">
-                                                    Love:
+                                                    Friendliness:
                                                 </p>
                                                 <div className="SideBar-pet-stats-hp-bar-container">
                                                     <div className="SideBar-pet-stats-hp-bar-filled" style={friendlinessBarWidth(pet)}></div>
