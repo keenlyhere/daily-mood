@@ -89,7 +89,7 @@ export default function SideBar({ user }) {
                     Welcome, {user.firstName}
                 </p>
                 <p className="SideBar-moolah">
-                    Moolah: {user.moolah}
+                    Moolah: <span className="SideBar-moolah-value">{user.moolah}</span>
                 </p>
             </div>
 

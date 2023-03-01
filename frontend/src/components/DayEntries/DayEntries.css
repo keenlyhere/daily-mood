@@ -23,6 +23,13 @@
     z-index: -1;
 }
 
+.Daily-header-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 880px;
+}
+
 /* FOR DAILY MOOD */
 
 .Daily-mood-container {
@@ -255,6 +262,7 @@
 
 .Daily-header-text {
     font-weight: 600;
+    align-self: center;
 }
 
 .Daily-footer {
