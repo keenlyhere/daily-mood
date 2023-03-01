@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux"
 import { editPetInfo, loadUserActives } from "../../../store/petBgReducer";
 import { spendPoints } from "../../../store/session";
@@ -6,8 +7,19 @@ import "./PetCare.css"
 
 export default function PetCare({ activePet, user }) {
     const dispatch = useDispatch();
+    const [ errors, setErrors ] = useState({});
 
     const buyFoodHandler = async (price) => {
+        const error = {};
+
+        if (user.moolah < price) {
+            error.moolah = "You do not have enough moolah to purchase this item.";
+        }
+
+        if (Object.keys(error).length > 0) {
+            return setErrors(error);
+        }
+
         let newHealth = activePet.health + 5;
 
         if (newHealth > 100) {
@@ -28,6 +40,16 @@ export default function PetCare({ activePet, user }) {
     }
 
     const buyToyHandler = async (price) => {
+        const error = {};
+
+        if (user.moolah < price) {
+            error.moolah = "You do not have enough moolah to purchase this item.";
+        }
+
+        if (Object.keys(error).length > 0) {
+            return setErrors(error);
+        }
+
         let newFriendliness = activePet.friendliness + 5;
 
         if (newFriendliness > 100) {
@@ -122,23 +144,35 @@ export default function PetCare({ activePet, user }) {
                             <h3 className="Pet-gachapon-want">
                                 Cost: {toy.price} moolah
                             </h3>
-                            {
-                                activePet.friendliness >= 100 ? (
-                                    <button
-                                        className="Pet-gachapon-play disabled"
-                                        disabled={true}
-                                    >
-                                        Pet is full
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="Pet-gachapon-play"
-                                        onClick={() => buyToyHandler(toy.price)}
-                                    >
-                                        Buy
-                                    </button>
-                                )
-                            }
+
+                             { user.moolah < toy.price ? (
+                                <button
+                                    className="Pet-gachapon-play disabled notEnough"
+                                    disabled={true}
+                                >
+                                    Not enough moolah
+                                </button>
+                            ) : (
+                                    <>
+                                {
+                                    activePet.friendliness >= 100 ? (
+                                        <button
+                                            className="Pet-gachapon-play disabled"
+                                            disabled={true}
+                                        >
+                                            {activePet.name} is tired
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="Pet-gachapon-play"
+                                            onClick={() => buyToyHandler(toy.price)}
+                                        >
+                                            Buy
+                                        </button>
+                                    )
+                                }
+                                </>
+                            )}
 
                         </div>
                     </div>

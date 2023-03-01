@@ -259,3 +259,16 @@
 .CreateTaskModal-error-text {
   height: 16px;
 }
+
+.PetGachapon-pet-container {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PetGachapon-pet-container > img {
+  width: 300px;
+}
