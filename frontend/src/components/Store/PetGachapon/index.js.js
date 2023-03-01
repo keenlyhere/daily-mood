@@ -51,13 +51,11 @@ export default function PetGachapon({ userFlavors, user }) {
         setTimeout(() => {
             setPrizeActive(true);
         }, 2000);
-        // prizeCapsule.classList.toggle("active");
     }
 
     const handlePrizeClick = (e) => {
         playGachapon();
         setPrizeActive(false);
-        // prizeActive.classList.remove("active");
     }
 
     const petFlavors = [
@@ -152,6 +150,10 @@ export default function PetGachapon({ userFlavors, user }) {
         const error = {};
         if (petName.length < 3) {
             error.petName = "Pet name should be min. 3 characters long."
+        }
+
+        if (petName.length > 12) {
+            error.petName = "Pet name should be max. 12 characters long."
         }
 
         if (Object.keys(error).length > 0) {
@@ -258,6 +260,13 @@ export default function PetGachapon({ userFlavors, user }) {
                                 className="PetGachapon-pet-name"
                                 required
                             />
+                            <p className="CreateTaskModal-error-text">
+                                {
+                                    petName.length > 12 ? (
+                                        "Pet name should be max. 12 characters long."
+                                    ) : ("")
+                                }
+                            </p>
                         </div>
                         <div className="PetGachapon-group">
                             <p className="PetGachapon-pet-name-label">Set as your active pet?</p>
@@ -281,8 +290,8 @@ export default function PetGachapon({ userFlavors, user }) {
                         </div>
                         <div className="PetGachapon-group">
                             <button
-                                className={`PetGachapon-submit ${petName.length < 3 ? "isDisabled" : ""}`}
-                                disabled={petName.length < 3 ? true : false}
+                                className={`PetGachapon-submit ${petName.length < 3 || petName.length > 12 ? "isDisabled" : ""}`}
+                                disabled={petName.length < 3 || petName.length > 12 ? true : false}
                                 onClick={addToCollection}
                             >
                                 Adopt this moo into your herd
