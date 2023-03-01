@@ -8,6 +8,8 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
+import logo from "../../assets/dailymoodlogo.png";
+
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
@@ -56,8 +58,7 @@ export default function Navigation({ isLoaded }) {
                         // onClick={() => handleClick()}
                     >
                         <div className="Navigation-logo-container">
-                            Daily Moo'd
-                            {/* <img src={logo} className="Navigation-logo" alt="Deja-Moo logo" /> */}
+                            <img src={logo} className="Navigation-logo" alt="Daily Moo'd logo" />
                         </div>
                     </NavLink>
                 </li>
@@ -71,10 +72,7 @@ export default function Navigation({ isLoaded }) {
                             <button onClick={() => history.push("/daily")} className="profile-dropdown-logout">Daily</button>
                         </li>
                         <li className="profile-dropdown-links">
-                            <button onClick={() => history.push("/tasks")} className="profile-dropdown-logout">Tasks</button>
-                        </li>
-                        <li className="profile-dropdown-links">
-                            <button onClick={logout} className="profile-dropdown-logout">Log Out</button>
+                            <button onClick={logout} className="profile-dropdown-logout LogIn">Log Out</button>
                         </li>
                     </div>
                 ) : (
