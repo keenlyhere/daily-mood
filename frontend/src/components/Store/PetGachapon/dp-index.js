@@ -146,7 +146,7 @@ export default function DPPetGachapon({ userFlavors, user }) {
                         onClick={playGachapon}
                     />
                     <div className="PetGachapon-text-container">
-                        <p>
+                        <p className="PetGachapon-text">
                             Each play costs 50 moolah
                         </p>
                         { errors && errors.moolah && (

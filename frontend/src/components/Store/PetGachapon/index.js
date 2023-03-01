@@ -24,13 +24,15 @@ export default function PetGachapon({ userFlavors, user }) {
     const [ errors, setErrors ] = useState({});
 
     const [ shuffleActive, setShuffleActive ] = useState(false);
+    const [ shuffleActiveText, setShuffleActiveText ] = useState(false);
     const [ prizeActive, setPrizeActive ] = useState(false);
+    const [ prizeActiveText, setPrizeActiveText ] = useState(false);
     // const [ startGacha, setStartGacha ] = useState(false);
 
     const prizeCapsule = document.querySelector(".Gachapon-prize");
     console.log("prizeCapsule:", prizeCapsule);
 
-    const startGacha = (e) => {
+    const startGacha = async (e) => {
         const error = {};
 
         if (user.moolah < 50) {
@@ -43,11 +45,20 @@ export default function PetGachapon({ userFlavors, user }) {
 
         setPrizeActive(false);
         setShuffleActive(true);
+
+        const usePoints = await dispatch(spendPoints({ "pointsSpent": 50 }));
+
         setTimeout(() => {
             setPrizeActive(true);
+            setShuffleActiveText(true);
             setShuffleActive(false);
             console.log("shuffleActive after true ? :", shuffleActive);
         }, 3000);
+
+        setTimeout(() => {
+            setPrizeActiveText(true);
+        }, 3500)
+
         setTimeout(() => {
             setPrizeActive(true);
         }, 2000);
@@ -136,7 +147,6 @@ export default function PetGachapon({ userFlavors, user }) {
         if (wonPet !== null && userFlavors.includes(wonPet.flavor)) {
             playGachapon();
         } else {
-            const usePoints = await dispatch(spendPoints({ "pointsSpent": 50 }));
             setObtainedPet(wonPet)
             setStep(1)
         }
@@ -227,9 +237,25 @@ export default function PetGachapon({ userFlavors, user }) {
                         />
                     </div>
                     <div className="PetGachapon-text-container">
-                        <p>
+                        <p className="PetGachapon-text">
                             Each play costs 50 moolah
                         </p>
+                        <div className="PetGachapon-instructions-container">
+                            {
+                                shuffleActiveText === false ? (
+                                    <p className="PetGachapon-instructions">
+                                        Click on the dial to start playing!
+                                    </p>
+                                ) : (
+                                    prizeActiveText && (
+                                        <p className="PetGachapon-instructions">
+                                            Click on the capsule to see your moo!
+                                        </p>
+                                    )
+                                )
+                            }
+                        </div>
+
                             <p className="CreateTaskModal-error-text">
                                 { errors && errors.moolah && (
                                         errors.moolah
@@ -248,7 +274,9 @@ export default function PetGachapon({ userFlavors, user }) {
                             `You got a ${obtainedPet.flavor} cow!`
                         )}
                     </div>
-                    <img src={petImageParser(obtainedPet.flavor, "happy")} alt="New pet image" />
+                    <div className="PetGachapon-pet-container">
+                        <img src={petImageParser(obtainedPet.flavor, "happy")} alt="New pet image" />
+                    </div>
                     <form className="PetGachapon-new-pet-form">
                         <div className="PetGachapon-group">
                             <label htmlFor="pet-name" className="PetGachapon-pet-name-label">Name your new moo!</label>

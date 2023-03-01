@@ -192,3 +192,20 @@ img.notOwned {
     border-radius: 50%;
     width: 70%;
 }
+
+.notEnough {
+    font-size: 11px;
+}
+
+p.PetGachapon-text {
+    font-size: 14px;
+}
+
+.PetGachapon-instructions-container {
+    height: 14px;
+}
+
+.PetGachapon-instructions {
+    font-size: 14px;
+    font-weight: 600;
+}
