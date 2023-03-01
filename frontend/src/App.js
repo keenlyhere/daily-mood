@@ -18,6 +18,7 @@ import Heart from "./components/HeartBar/Heart";
 import PetCare from "./components/Store/PetCare";
 import Splash from "./components/SplashPage/Splash";
 import Footer from "./components/Footer";
+import YearPicker from "./components/SignupFormModal/DatePicker/YearPicker";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,11 @@ function App() {
             <div className="Splash-container">
               <Navigation />
               <Splash />
+            </div>
+          </Route>
+          <Route exact path="/testing">
+            <div className="Splash-container">
+              <YearPicker />
             </div>
           </Route>
           <Route exact path="/petcare">

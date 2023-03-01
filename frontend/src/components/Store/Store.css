@@ -107,6 +107,24 @@ img.notOwned {
     filter: grayscale(1);
 }
 
+.Pet-gachapon-card:hover .Pet-gachapon-card-image {
+    top: 0%;
+    transform: translateY(0%);
+}
+
+.Pet-gachapon-card:hover .Pet-gachapon-card-image .notOwned {
+    filter: grayscale(0);
+}
+
+.Pet-gachapon-card:hover .Bg-gachapon-card-image {
+    top: 10%;
+    transform: translateY(0%);
+}
+
+.Pet-gachapon-card:hover .Bg-gachapon-card-image .notOwned {
+    filter: grayscale(0);
+}
+
 .Pet-gachapon-card .Pet-gachapon-description {
     position: absolute;
     bottom: 0;
@@ -119,7 +137,6 @@ img.notOwned {
 
 .Pet-gachapon-card:hover .Pet-gachapon-description {
     height: calc(50% - 18px);
-
 }
 
 .Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-flavor {
