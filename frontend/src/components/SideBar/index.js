@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { loadAllUserItems } from "../../store/petBgReducer";
 import * as sessionActions from "../../store/session";
 
+import logo from "../../assets/dailymoodlogo.png";
+
 export default function SideBar({ user }) {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -33,9 +35,9 @@ export default function SideBar({ user }) {
         if (userItems.activePet.health > 80) {
             backgroundColor = "#5AA13E";
         } else if (userItems.activePet.health > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (userItems.activePet.health > 35) {
             backgroundColor = "#FDFD96";
+        } else if (userItems.activePet.health > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }
@@ -52,9 +54,9 @@ export default function SideBar({ user }) {
         if (userItems.activePet.friendliness > 80) {
             backgroundColor = "#5AA13E";
         } else if (userItems.activePet.friendliness > 60) {
-            backgroundColor = "#F9AD8E";
-        } else if (userItems.activePet.friendliness > 35) {
             backgroundColor = "#FDFD96";
+        } else if (userItems.activePet.friendliness > 35) {
+            backgroundColor = "#F9AD8E";
         } else {
             backgroundColor = "#FF7276";
         }
@@ -68,7 +70,11 @@ export default function SideBar({ user }) {
     return isLoaded ? (
         <div className="SideBar-container">
             <div className="SideBar-logo-container">
-                <h1>Daily Moo'd Logo</h1>
+                <NavLink exact to="/" className="Navigation-links">
+                    <div className="Navigation-logo-container">
+                        <img src={logo} className="Navigation-logo" alt="Daily Moo'd logo" />
+                    </div>
+                </NavLink>
             </div>
             <div className="SideBar-logout-container">
                 <button
@@ -87,7 +93,7 @@ export default function SideBar({ user }) {
                 </p>
             </div>
 
-                        <div className="SideBar-pet-container">
+            <div className="SideBar-pet-container">
                 <div className="SideBar-pet-image-container">
                     <img
                         src={userItems.activeBg.bgImageUrl}

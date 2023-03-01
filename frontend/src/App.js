@@ -17,6 +17,7 @@ import Cowlection from "./components/Cowlection";
 import Heart from "./components/HeartBar/Heart";
 import PetCare from "./components/Store/PetCare";
 import Splash from "./components/SplashPage/Splash";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,12 +83,15 @@ function App() {
           </ProtectedRoute>
           <Route path="/todo">
             <h1>Splash page goes here!</h1>
-            <h2>Goals for Tuesday</h2>
+            <h2>Goals for Wednesday</h2>
             <ol>
-              <li>Connect backgrounds to frontend + styling</li>
-              <li>Allow user to purchase one-time use for pet toys + food</li>
-              <li>Art for gachapon T_T</li>
-              <li>Create logo, favicon</li>
+              <li>Add footer</li>
+              <li>Work on readme</li>
+              <li>Finish re-styling</li>
+              <li>Work on monthly view calendar</li>
+              <li>Filter by moods???</li>
+              <li>Display stats for moods and habit completion???</li>
+              <li>After class -- Art for store page (banners for gachapon)</li>
             </ol>
             <h2>Completed on Wednesday</h2>
             <ol>
@@ -125,6 +129,14 @@ function App() {
               <li>journal entries now has a max char count</li>
               <li>can no longer create blank entry in habit block (disabled button)</li>
               <li>newly created user can create blocks</li>
+            </ol>
+            <h2>Goals for Tuesday</h2>
+            <ol>
+              <li>Connect backgrounds to frontend + styling</li>
+              <li>Allow user to purchase one-time use for pet toys + food</li>
+              <li>Art for gachapon dispenser and animated</li>
+              <li>Create logo, favicon</li>
+              <li>CSS overhaul on splash, sidebar</li>
             </ol>
           </Route>
           <Route>

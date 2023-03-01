@@ -1,0 +1,13 @@
+.Footer-container {
+    height: 80px;
+    background-color: #C9E2BB;
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.fa-github, .fa-linkedin {
+    font-size: 26px;
+}

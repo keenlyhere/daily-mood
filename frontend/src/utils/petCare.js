@@ -14,7 +14,7 @@ export const petToys = [
     },
     {
         "name": "Tire Swing",
-        "description": "Your moo will have hours of fun with this!",
+        "description": "WEEEEE!",
         "price": 8,
         "imageUrl": tireswing
     },
@@ -29,7 +29,7 @@ export const petToys = [
 export const petFood = [
     {
         "name": "Wheat",
-        "description": "Cows like wheat...right?",
+        "description": "Cows like wheat...?",
         "price": 3,
         "imageUrl": wheat
     },
@@ -41,7 +41,7 @@ export const petFood = [
     },
     {
         "name": "Kale",
-        "description": "Cows like grass...kale tastes like grass...",
+        "description": "Tastes like grass!",
         "price": 3,
         "imageUrl": kale
     },

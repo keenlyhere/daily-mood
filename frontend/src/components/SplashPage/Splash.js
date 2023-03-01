@@ -1,5 +1,6 @@
 import "./SplashPage.css"
 import banner from "../../assets/landingpage.png";
+import Footer from "../Footer";
 
 export default function Splash(){
     return (
@@ -60,6 +61,7 @@ export default function Splash(){
                     className="SplashPage-cow-image-info"
                 />
             </div>
+            <Footer />
         </div>
     )
 }

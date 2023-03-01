@@ -16,7 +16,12 @@
 }
 
 .disabled {
-    background-color: lightgrey;
+    background-color: #A4AE9E;
+    cursor: not-allowed;
+}
+
+.Pet-gachapon-play.disabled {
+    background-color: #A4AE9E;
     cursor: not-allowed;
 }
 
@@ -64,6 +69,10 @@ input[id=cows]:checked ~ .slider {
 
 input[id=backgrounds]:checked ~ .slider {
     transform: translateX(100%);
+}
+
+input[id=petcare]:checked ~ .slider {
+    transform: translateX(200%);
 }
 
 .slider {
