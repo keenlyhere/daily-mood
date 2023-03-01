@@ -58,8 +58,8 @@ export default function BgGachapon({ userBgNames, user }) {
             randomNum -= odds;
         }
 
-        console.log("userBgNames", userBgNames);
-        console.log("wonBgName", wonBg.bgName);
+        // console.log("userBgNames", userBgNames);
+        // console.log("wonBgName", wonBg.bgName);
         if (wonBg !== null && userBgNames.includes(wonBg.bgName)) {
             playGachapon();
         } else {

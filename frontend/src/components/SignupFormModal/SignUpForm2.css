@@ -15,7 +15,7 @@
     padding: 0px;
     position: absolute;
     top: 0px;
-    background-color: #f0fae4;
+    background-color: #c9e2bb;
 }
 
 .SignUpForm-close {
@@ -92,7 +92,7 @@
 
 .SignUpForm-group > input,
 .SignUpForm-group-half > input {
-    /* background-color: #f0fae4; */
+    /* background-color: #c9e2bb; */
     border: 1px solid #878787;
     /* border: 2px solid #fff; */
     /* box-shadow: 0px 0px 0px 1px rgb(157, 164, 149); */
@@ -176,7 +176,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .SignUpForm-submit {
-    background: #f0fae4;
+    background: #c9e2bb;
     border: 1px solid #c4c4c4;
     border-radius: 8px;
     height: 48px;

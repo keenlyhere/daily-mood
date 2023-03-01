@@ -3,7 +3,7 @@
     padding: 18px 0px 0px 18px;
     height: 100%;
     overflow-y: scroll;
-    background-color: rgb(245, 245, 245);
+    background-color: white;
 }
 
 .Cowlection-cows {
@@ -18,4 +18,167 @@
 .disabled {
     background-color: lightgrey;
     cursor: not-allowed;
+}
+
+/* Page tabs */
+input[type=radio] {
+    display: none;
+}
+
+.Cowlection-tabs {
+    margin: auto;
+    margin-bottom: 18px;
+    display: flex;
+    position: relative;
+    width: max-content;
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 12px;
+    border-radius: 88px;
+    transform: scale(0.8);
+    transition: 0.2s ease-in;
+}
+
+.Cowlection-tabs * {
+    z-index: 2;
+}
+
+.Cowlection-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 120px;
+    font-size: 16px;
+    border-radius: 88px;
+    transition: color 0.2s ease-in;
+}
+
+input[type=radio]:checked + label {
+    color: black;
+}
+
+input[id=cows]:checked ~ .slider {
+    transform: translateX(0);
+}
+
+input[id=backgrounds]:checked ~ .slider {
+    transform: translateX(100%);
+}
+
+.slider {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    height: 28px;
+    width: 120px;
+    background-color: #c9e2bb;
+    border-radius: 88px;
+    transition: 0.2s ease-out;
+}
+
+@media (min-width: 768px) {
+    .Cowlection-tabs {
+        transform: scale(1);
+        transition: 0.2s ease-out;
+    }
+}
+
+
+.stats-hp {
+    width: 100%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+}
+
+.stats-hp-header {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* friendliness bar */
+.stats-friendliness {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.grey-heart {
+    position: relative;
+    background-color: lightgrey;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    width: 100%;
+}
+
+.grey-heart::before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    width: 100%;
+    animation: fill 290ms cubic-bezier(0.79, 0.01, 0.38, 0.99) 500ms forwards;
+}
+
+.hearts {
+    --width-rating: 0.5;
+}
+
+.heart {
+    height: 12px;
+    mask-image: url("https://keenlychung.com/dailymood/heart.png");
+    -webkit-mask-image: url("https://keenlychung.com/dailymood/heart.png");
+    width: 100%;
+}
+
+.heart::before {
+    background-color: red;
+}
+
+.SideBar-pet-stats-heart-bar-container {
+    width: 100%;
+    height: 16px;
+    border-radius: 8px;
+    background-color: lightgray;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+    -webkit-clip-path: url("https://keenlychung.com/dailymood/heart.png");
+    clip-path: url("https://keenlychung.com/dailymood/heart.png");
+}
+
+.SideBar-pet-stats-heart-bar-filled {
+    border-radius: 8px;
+    height: 16px;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-clip-path: url("https://keenlychung.com/dailymood/heart.png");
+    clip-path: url("https://keenlychung.com/dailymood/heart.png");
+}
+
+.mask {
+    width: 100%;
+    height: 100%;
+    background-color: lightgrey;
+    /* background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; */
+    -webkit-mask-image: url("https://keenlychung.com/dailymood/heart.png");
+    mask-image: url("https://keenlychung.com/dailymood/heart.png");
+}
+
+.SideBar-pet-stats-heart-text {
+    font-size: 12px;
+    text-align: right;
+}
+
+#heartClip {
+    clip-path: url("https://keenlychung.com/dailymood/heart.png")
 }

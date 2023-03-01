@@ -21,7 +21,7 @@ export default function Daily() {
     const history = useHistory();
     const user = useSelector((state) => state.session.user);
     const currentDay = useSelector((state) => state.day.dayEntries);
-    console.log("DAILY USER >>>>>:", currentDay);
+    // console.log("DAILY USER >>>>>:", currentDay);
     let currentMood;
     let currentImage;
     let currentJournal;
@@ -54,7 +54,7 @@ export default function Daily() {
         currentJournal = Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0];
     }
 
-    console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
+    // console.log("CURRENTS >>>>x> \n currentMood", currentMood, "\n currentImage", currentImage, "\n currentJournal", currentJournal);
 
 
     useEffect(() => {
@@ -177,7 +177,7 @@ export default function Daily() {
         return (
             <div className="Daily-container">
                 <div className="Daily-header">
-                    <h1>{dateObj.month} {dateObj.date}</h1>
+                    <h1 className="Daily-header-text">{dateObj.month} {dateObj.date}</h1>
                 </div>
 
                 <DailyMood currentMood={currentMood} />
@@ -186,7 +186,7 @@ export default function Daily() {
 
                 <DailyJournal currentJournal={currentJournal} />
 
-               
+
             </div>
         );
     } else {

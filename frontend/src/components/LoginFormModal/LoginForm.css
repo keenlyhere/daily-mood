@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Ubuntu:wght@700&display=swap');
 
 * {
-    font-family: Roboto, sans-serif;
+    font-family: Golos Text, sans-serif;
     box-sizing: border-box;
 }
 
@@ -19,7 +19,7 @@
     padding: 0px;
     position: absolute;
     top: 0px;
-    background-color: #f0fae4;
+    background-color: #c9e2bb;
 }
 
 .LoginFormModal-close {
@@ -148,7 +148,7 @@
 .LoginFormModal-submit {
     height: 48px;
     width: 100%;
-    background: #f0fae4;
+    background: #c9e2bb;
     border-radius: 8px;
     border: 1px solid #c4c4c4;
     font-weight: 500;
@@ -176,7 +176,7 @@
 .LoginFormModal-demo:hover {
     height: 48px;
     width: 100%;
-    background: #f0fae4;
+    background: #c9e2bb;
     border-radius: 8px;
     border: 1px solid #c4c4c4;
     font-weight: 500;

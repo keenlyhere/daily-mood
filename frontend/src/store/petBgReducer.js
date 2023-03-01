@@ -12,9 +12,9 @@ const DELETE_BG = "petBg/DELETE_BG";
 
 const normalize = (petBgs) => {
     const normalizedData = {};
-    console.log("petBgs ---", petBgs)
+    // console.log("petBgs ---", petBgs)
     petBgs.forEach(petBg => normalizedData[petBg.id] = petBg);
-    console.log("normalized --->", normalizedData);
+    // console.log("normalized --->", normalizedData);
     return normalizedData;
 }
 
@@ -106,7 +106,7 @@ export const loadAllUserItems = () => async (dispatch) => {
 }
 
 export const addPet = (newPet) => async (dispatch) => {
-    console.log("NEW PET ___", newPet)
+    // console.log("NEW PET ___", newPet)
     const res = await csrfFetch(`/api/petbg/pet`, {
         method: "POST",
         headers: {
@@ -117,7 +117,7 @@ export const addPet = (newPet) => async (dispatch) => {
 
     if (res.ok) {
         const pet = await res.json();
-        console.log("pet___", pet)
+        // console.log("pet___", pet)
         dispatch(actionAddPet(pet));
         return pet;
     }
@@ -165,7 +165,7 @@ export const editActivePet = (userId, petId) => async (dispatch) => {
 
     if (res.ok) {
         const editedActivePet = await res.json();
-        console.log("editedActivePet ===>", editedActivePet);
+        // console.log("editedActivePet ===>", editedActivePet);
         dispatch(actionEditActivePet(editedActivePet));
         return editedActivePet;
     }
@@ -181,6 +181,7 @@ export const editActiveBg = (userId, bgId) => async (dispatch) => {
 
     if (res.ok) {
         const editedActiveBg = await res.json();
+        // console.log("editedActivePet ===>", editedActiveBg);
         dispatch(actionEditActiveBg(editedActiveBg));
         return editedActiveBg;
     }
@@ -253,7 +254,10 @@ export default function petBgReducer(state = initialState, action) {
         case EDIT_PET_INFO: {
             let editPetInfoState = JSON.stringify(state);
             editPetInfoState = JSON.parse(editPetInfoState);
+            // console.log("action *** ==>", action)
+            editPetInfoState.activePet = action.pet;
             editPetInfoState.pets = { ...state.pets, [action.pet.id]: action.pet };
+            // console.log("EDIT PET INFO STATE ===>", editPetInfoState)
             return editPetInfoState;
         }
         case EDIT_ACTIVE_PET: {
@@ -266,6 +270,7 @@ export default function petBgReducer(state = initialState, action) {
             let editActiveBgState = JSON.stringify(state);
             editActiveBgState = JSON.parse(editActiveBgState);
             editActiveBgState.activeBg = action.bg;
+            // console.log("EDIT ACTIVE BG STATE", editActiveBgState);
             return editActiveBgState;
         }
         case DELETE_PET: {

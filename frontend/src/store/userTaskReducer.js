@@ -78,7 +78,7 @@ export const loadCurrentDayTasks = (userId) => async (dispatch) => {
 
     if (res.ok) {
         const userTasks = await res.json();
-        console.log("loadCurrentDay - userTasks:", userTasks);
+        // console.log("loadCurrentDay - userTasks:", userTasks);
         dispatch(actionLoadCurrentDayTasks(userId, userTasks));
         return userTasks;
     }
@@ -194,7 +194,7 @@ export default function userTasksReducer(state = initialState, action) {
                 userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
             }
 
-            console.log("LOAD_CURRENT_DAY_TASKS - userDayTasksState", action.userTasks);
+            // console.log("LOAD_CURRENT_DAY_TASKS - userDayTasksState", action.userTasks);
             return userDayTasksState;
         }
         case LOAD_SPECIFIC_DAY_TASKS: {
@@ -221,7 +221,7 @@ export default function userTasksReducer(state = initialState, action) {
             if (action.task.taskType === "Habit") {
                 // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
                 addTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
-                console.log("ADD TASK STATE ===> ", addTaskState)
+                // console.log("ADD TASK STATE ===> ", addTaskState)
                 return addTaskState;
             } else {
                 // addTaskState.userTasks = {...state, ...state.addTaskState.userTasks}
@@ -253,8 +253,8 @@ export default function userTasksReducer(state = initialState, action) {
         case EDIT_TASK_CATEGORY: {
             let editTaskCategoryState = JSON.stringify(state);
             editTaskCategoryState = JSON.parse(editTaskCategoryState);
-            console.log("action.taskId", action.taskType)
-            console.log("action.task", action.task)
+            // console.log("action.taskId", action.taskType)
+            // console.log("action.task", action.task)
             if (action.taskType === "Habit") {
                 editTaskCategoryState.userTasks.habitsToday = { ...state.userTasks.habitsToday, ...action.task};
                 return editTaskCategoryState;

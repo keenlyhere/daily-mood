@@ -31,6 +31,10 @@
     gap: 8px;
 }
 
+.Navigation-user {
+    padding-right: 25px;
+}
+
 .Navigation-links:link, .Navigation-links:visited {
     color: #000000;
     text-decoration: none;
@@ -46,7 +50,7 @@
 .Navigation-list-right {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 8px;
 }
 
 .Navigation-list-modal {
@@ -128,7 +132,7 @@
 }
 
 .profile-dropdown-logout {
-    background: #f0fae4;
+    background: #c9e2bb;
     border: 1px solid #c4c4c4;
     border-radius: 50px;
     height: 48px;

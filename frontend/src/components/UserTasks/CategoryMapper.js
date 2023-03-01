@@ -63,7 +63,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         );
     };
 
-    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
+    // console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
 
     return allTasks && Object.keys(allTasks).length ? (
         Object.keys(categoryTasks).map((category, idx) => (

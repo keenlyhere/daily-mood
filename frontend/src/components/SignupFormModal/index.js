@@ -32,12 +32,12 @@ export default function SignupFormModal() {
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
-                    console.log("data, errors:", data, data.errors)
+                    // console.log("data, errors:", data, data.errors)
                     const signUpErrors = {};
                     if (data && data.errors) {
                         for (let i = 0; i < data.errors.length; i++) {
                             const currError = data.errors[i];
-                            console.log("currError", currError)
+                            // console.log("currError", currError)
 
                             switch (currError) {
                                 case "User with that email already exists":

@@ -1,9 +1,9 @@
 .Store-container {
     width: calc(100% - 320px);
-    padding: 18px 0px 0px 18px;
+    padding: 25px;
     height: 100%;
     overflow-y: scroll;
-    background-color: rgb(245, 245, 245);
+    background-color: white;
 }
 
 .Gachapon {
@@ -46,7 +46,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: lightgreen;
+    background: #c9e2bb;
     clip-path: circle(120px at 78% 10%);
     transition: 0.5s ease-in-out;
 }
@@ -67,7 +67,8 @@
 }
 
 
-.Pet-gachapon-card .Pet-gachapon-card-image {
+.Pet-gachapon-card .Pet-gachapon-card-image,
+.Pet-gachapon-card .Bg-gachapon-card-image {
     position: absolute;
     top: 70%;
     transform: translateY(-50%);
@@ -82,9 +83,21 @@
     transform: translateY(0%);
 }
 
+.Pet-gachapon-card:hover .Bg-gachapon-card-image {
+    top: 10%;
+    transform: translateY(0%);
+}
+
 .Pet-gachapon-card .Pet-gachapon-card-image img {
     position: absolute;
     top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Pet-gachapon-card .Bg-gachapon-card-image img {
+    position: absolute;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -112,7 +125,7 @@ img.notOwned {
     position: relative;
     font-weight: 600;
     letter-spacing: 1px;
-    color: green;
+    color: #1B3012;
     margin: 0;
 }
 
@@ -121,7 +134,8 @@ img.notOwned {
 }
 
 .Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-want,
-.Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-play {
+.Pet-gachapon-card .Pet-gachapon-description .Pet-gachapon-play,
+.Pet-gachapon-card .Pet-gachapon-description .Pet-stats {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,11 +160,17 @@ img.notOwned {
     border-radius: 18px;
     border: 0;
     margin-top: 8px;
-    background-color: lightgreen;
+    background-color: #c9e2bb;
 }
 
-.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-gachapon-play {
+.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-gachapon-play,
+.Pet-gachapon-card:hover .Pet-gachapon-description .Pet-stats {
     opacity: 1;
     visibility: visible;
     transition-delay: 0.65s;
+}
+
+.Bg-gachapon-bg {
+    border-radius: 50%;
+    width: 70%;
 }

@@ -7,7 +7,7 @@ export default function DailyJournal({ currentJournal }) {
     const dispatch = useDispatch();
     const [dailyJournal, setDailyJournal] = useState(currentJournal ? currentJournal.entryData : "");
     const [ editJournal, setEditJournal ] = useState(false);
-    console.log("editJournalEntry", currentJournal);
+    // console.log("editJournalEntry", currentJournal);
     const [ errors, setErrors ] = useState({});
 
     const startEditJournal = (e) => {
@@ -64,7 +64,7 @@ export default function DailyJournal({ currentJournal }) {
         }
 
         const currentJournalId = currentJournal.id;
-        console.log("e.target.value >>>>>> \n", e.target.value);
+        // console.log("e.target.value >>>>>> \n", e.target.value);
         const editJournal = await dispatch(editDayEntry(currentJournalId, { entryType: "dayJournal", entryData: dailyJournal}))
             .then(endEditJournal)
             .catch(async (res) => {
@@ -86,16 +86,21 @@ export default function DailyJournal({ currentJournal }) {
             <div className="Daily-journal-container">
                         <div className="Daily-header">
                         <p className="Daily-text">Today's journal</p>
-                        { errors && errors.journalLength ? (
+                        {dailyJournal.length > 200 && (
                             <p className="CreateTaskModal-error-text">
-                                    {errors.journalLength}
-                                </p>
-                        ) : ("")}
+                                Please enter a maximum of 200 characters.
+                            </p>
+                        )}
+                        {/* { errors && errors.journalLength ? (
+                            <p className="CreateTaskModal-error-text">
+                                {errors.journalLength}
+                            </p>
+                        ) : ("")} */}
                         <div className="Daily-action-buttons-container">
                             <button
-                                className={ `Daily-journal-save clickable ${dailyJournal.length < 5 ? "isDisabled" : ""}`}
+                                className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
                                 onClick={handleJournalEdit}
-                                disabled={dailyJournal.length < 5 ? true : false}
+                                disabled={dailyJournal.length < 5 || dailyJournal.length > 200 ? true : false}
                             >
                                 Save
                             </button>
@@ -110,6 +115,9 @@ export default function DailyJournal({ currentJournal }) {
                                 placeholder="Describe your day!"
                             />
                     </form>
+                    <div className="Daily-journal-char-count-container">
+                        Character count: {dailyJournal.length}
+                    </div>
                 </div>
         )
     }
@@ -120,15 +128,20 @@ export default function DailyJournal({ currentJournal }) {
                 <div className="Daily-journal-container">
                     <div className="Daily-header">
                         <p className="Daily-text">Today's journal</p>
-                        { errors && errors.journalLength ? (
+                            {dailyJournal.length > 200 && (
+                                <p className="CreateTaskModal-error-text">
+                                    Please enter a maximum of 200 characters.
+                                </p>
+                            )}
+                        {/* { errors && errors.journalLength ? (
                             <p className="CreateTaskModal-error-text">
                                     {errors.journalLength}
                                 </p>
-                        ) : ("")}
+                        ) : ("")} */}
                         <button
-                            className={ `Daily-journal-save clickable ${dailyJournal.length < 5 ? "isDisabled" : ""}`}
+                            className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
                             onClick={() => handleJournalSave("create", dailyJournal)}
-                            disabled={dailyJournal.length < 5 ? true : false}
+                            disabled={dailyJournal.length < 5 || dailyJournal.length > 200 ? true : false}
                         >
                             Save
                         </button>
@@ -142,6 +155,9 @@ export default function DailyJournal({ currentJournal }) {
                             placeholder="Describe your day!"
                         />
                     </form>
+                    <div className="Daily-journal-char-count-container">
+                        Character count: {dailyJournal.length}
+                    </div>
                 </div>
             ) : (
                 <div className="Daily-journal-container">
@@ -181,6 +197,9 @@ export default function DailyJournal({ currentJournal }) {
                             />
                         )}
                     </form>
+                    <div className="Daily-journal-char-count-container">
+                        Character count: {dailyJournal.length}
+                    </div>
                 </div>
             )}
         </>

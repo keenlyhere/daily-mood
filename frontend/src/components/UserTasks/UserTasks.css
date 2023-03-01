@@ -13,7 +13,7 @@
 .UserTasks-category-container {
     width: 100%;
     padding: 18px;
-    background: lightgreen;
+    background: #c9e2bb;
     border-radius: 18px;
     display: flex;
     flex-direction: column;
@@ -63,12 +63,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: lightgreen;
+    color: #c9e2bb;
 }
 
 .fa-plus {
     -webkit-text-stroke: 2px;
-    color: lightgreen
+    color: #c9e2bb
 }
 
 .UserTasks-incomplete {
@@ -91,7 +91,7 @@
 }
 
 .UserTasks-header-text {
-    background-color: lightgreen;
+    background-color: #c9e2bb;
     border: 1px solid transparent;
     border-radius: 8px;
     width: 13ch;
