@@ -35,7 +35,7 @@ export default function Cowlection({ user }) {
             backgroundColor = "#FF7276";
         }
 
-        console.log("backgroundColor", pet, backgroundColor);
+        // console.log("backgroundColor", pet, backgroundColor);
 
         return {
             "width": `${pet.health}%`,
@@ -56,7 +56,7 @@ export default function Cowlection({ user }) {
             backgroundColor = "#FF7276";
         }
 
-        console.log("backgroundColor", pet, backgroundColor);
+        // console.log("backgroundColor", pet, backgroundColor);
 
         return {
             "width": `${pet.friendliness}%`,
@@ -68,7 +68,7 @@ export default function Cowlection({ user }) {
 
 
         const allUserPets = Object.values(userPets);
-        console.log("userPets ===>", allUserPets)
+        // console.log("userPets ===>", allUserPets)
         Object.values(userPets).forEach(pet => userFlavors.push(pet.flavor));
         // console.log("userFlavors", userFlavors);
         const cows = userPetImages(userFlavors);
@@ -80,7 +80,7 @@ export default function Cowlection({ user }) {
         }
 
         Object.values(userBgs).forEach(bg => userBgNames.push(bg.bgName));
-        console.log("userBgNames", userBgNames);
+        // console.log("userBgNames", userBgNames);
         const bgs = userBgImages(userBgNames);
         const wantedBg = (desiredBg) => {
             const foundBg = Object.values(userBgs).filter(bg => bg.bgName === desiredBg);
@@ -90,7 +90,7 @@ export default function Cowlection({ user }) {
 
         const changeActivePet = async (flavor) => {
             const desiredActive = wantedPet(flavor);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActivePet = await dispatch(editActivePet(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -100,7 +100,7 @@ export default function Cowlection({ user }) {
 
         const changeActiveBg = async (bg) => {
             const desiredActive = wantedBg(bg);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActiveBg = await dispatch(editActiveBg(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));

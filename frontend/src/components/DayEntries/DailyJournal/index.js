@@ -64,7 +64,7 @@ export default function DailyJournal({ currentJournal }) {
         }
 
         const currentJournalId = currentJournal.id;
-        console.log("e.target.value >>>>>> \n", e.target.value);
+        // console.log("e.target.value >>>>>> \n", e.target.value);
         const editJournal = await dispatch(editDayEntry(currentJournalId, { entryType: "dayJournal", entryData: dailyJournal}))
             .then(endEditJournal)
             .catch(async (res) => {

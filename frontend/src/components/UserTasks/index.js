@@ -50,15 +50,15 @@ export default function UserTasks() {
         // all habits in their respective categories
         const categoryHabits = categoryTasksHelper(allHabits)
         // console.log("*** ALL HABITS ***", allHabits);
-        console.log("*** CATEGORY HABITS ***", categoryHabits, Object.keys(categoryHabits));
+        // console.log("*** CATEGORY HABITS ***", categoryHabits, Object.keys(categoryHabits));
 
         const allToDoToday = allTasks.toDoToday;
         const categoryToDoToday = categoryTasksHelper(allToDoToday);
-        console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday, "\n", allToDoToday);
+        // console.log("*** CATEGORY TODAY'S TO-DO ***", categoryToDoToday, "\n", allToDoToday);
 
         const allUnfinishedTodo = allTasks.unfinishedToDo;
         const categoryUnfinishedToDo = categoryTasksHelper(allUnfinishedTodo);
-        console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo, "\n", allUnfinishedTodo);
+        // console.log("*** CATEGORY PAST UNFINISHED TO-DO'S ***", categoryUnfinishedToDo, "\n", allUnfinishedTodo);
 
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
             // console.log("category", category)

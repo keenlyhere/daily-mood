@@ -9,7 +9,7 @@ export default function SideBar({ user }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const userItems = useSelector(state => state.items);
-    console.log("userItems", userItems);
+    // console.log("userItems", userItems);
     const [ isLoaded, setIsLoaded ] = useState(false);
 
     useEffect(() => {

@@ -51,10 +51,9 @@
 }
 
 .SideBar-link:hover {
-    background-color: white;
+    background-color: #E1F8D4;
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
-
 }
 
 .SideBar-link.active {
@@ -100,4 +99,6 @@
 
 .SideBar-pet-stats-name {
     padding-bottom: 12px;
+    text-align: center;
+    font-weight: 600;
 }

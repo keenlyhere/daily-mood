@@ -4,12 +4,15 @@ import gachapon from "../../assets/gachapon.png";
 import gachapon2 from "../../assets/gacha2.png";
 import { editActiveBg, editActivePet, loadAllUserItems, loadUserActives } from "../../store/petBgReducer";
 import OpenModalButton from "../OpenModalButton";
-import PetGachapon from "./PetGachapon";
+import PetGachapon from "./PetGachapon/index.js";
 import { petImages } from "../../utils/petImageParser";
 import "./Store.css";
 import BgGachapon from "./BgGachapon";
 import { bgImages } from "../../utils/bgImageParser";
 import PetCare from "./PetCare";
+
+// test starts here
+import gachaBase from "../../assets/gacha/gachaBase.png";
 
 export default function Store({ user }) {
     const dispatch = useDispatch();
@@ -25,7 +28,7 @@ export default function Store({ user }) {
 
     const cows = petImages();
     const bgs = bgImages();
-    console.log("bgImages", bgs);
+    // console.log("bgImages", bgs);
 
     useEffect(() => {
         dispatch(loadAllUserItems()).then(() => setIsLoaded(true));
@@ -52,7 +55,7 @@ export default function Store({ user }) {
 
         const changeActivePet = async (flavor) => {
             const desiredActive = wantedPet(flavor);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActivePet = await dispatch(editActivePet(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -62,7 +65,7 @@ export default function Store({ user }) {
 
         const changeActiveBg = async (bg) => {
             const desiredActive = wantedBg(bg);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActiveBg = await dispatch(editActiveBg(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -76,11 +79,17 @@ export default function Store({ user }) {
                 <div className="Store-pet-gachapon">
                     <h2>Pet Gachapon</h2>
                     <OpenModalButton
-                        buttonText={<img src={gachapon} alt="Pet gachapon" />}
+                        buttonText={<img src={gachaBase} alt="Pet gachapon" />}
                         onButtonClick={closeMenu}
                         modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
                         buttonClass="Gachapon"
                     />
+                    {/* <OpenModalButton
+                        buttonText={<img src={gachapon} alt="Pet gachapon" />}
+                        onButtonClick={closeMenu}
+                        modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
+                        buttonClass="Gachapon"
+                    /> */}
                     <div className="Pet-gachapon-prizes">
                         { cows.cowImages.map((pet, idx) => (
                             <div key={idx} className="Pet-gachapon-card">

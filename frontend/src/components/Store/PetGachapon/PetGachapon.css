@@ -183,3 +183,60 @@
     flex-direction: column;
     align-items: center;
 }
+
+
+/* TESTING STARTS HERE */
+.Gachapon-container {
+  position: relative;
+  height: max-content;
+}
+
+.Gachapon-bg {
+  position: relative;
+}
+
+.Gachapon-mg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Gachapon-fg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Gachapon-dial {
+  position: absolute;
+  top: 62.5%;
+  left: 43.5%;
+  width: 50px;
+}
+
+.Gachapon-dial:hover {
+  transform: rotate(-90deg);
+}
+
+.Gachapon-prize {
+  position: absolute;
+  top: 62.5%;
+  left: 45.5%;
+  width: 50px;
+  opacity: 0;
+  transform: translate(0, 48px);
+  transition: transform .4s 3.5s linear, opacity 3.5s 3.5s linear;
+  transition: transform 0s 0s linear, opacity 0s 0s linear;
+  z-index: 1;
+}
+
+.Gachapon-prize.active{
+  opacity: 100;
+  transform: translate(0, 88px);
+  transition: transform .2s 1.5s linear, opacity .1s 1.5s linear;
+  z-index: 2;
+}
+
+.CreateTaskModal-error-text {
+  height: 16px;
+}

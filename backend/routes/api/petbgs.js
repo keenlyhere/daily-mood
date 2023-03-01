@@ -242,7 +242,7 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
         }
     });
 
-    console.log("ALL PETS", allPets)
+    // console.log("ALL PETS", allPets)
 
     res.json({
         user,
@@ -258,7 +258,7 @@ router.post("/pet", requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const { name, flavor, setActive } = req.body;
-    console.log(name, "\n", flavor, "\n", setActive, "\n\n\n");
+    // console.log(name, "\n", flavor, "\n", setActive, "\n\n\n");
 
     const err = {};
     if (!user) {

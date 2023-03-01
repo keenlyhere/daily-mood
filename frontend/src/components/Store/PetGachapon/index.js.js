@@ -7,6 +7,13 @@ import { useState } from "react";
 import { petImageParser } from "../../../utils/petImageParser";
 import { spendPoints } from "../../../store/session";
 
+import bg from "../../../assets/gacha/bg.gif";
+import fg from "../../../assets/gacha/fg.gif";
+import fg_static from "../../../assets/gacha/fg_static.gif";
+import mg from "../../../assets/gacha/mg.gif";
+import prize from "../../../assets/gacha/prize.png";
+import dial from "../../../assets/gacha/dial.png";
+
 export default function PetGachapon({ userFlavors, user }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
@@ -15,6 +22,43 @@ export default function PetGachapon({ userFlavors, user }) {
     const [ petName, setPetName ] = useState("");
     const [ active, setActive ] = useState(false);
     const [ errors, setErrors ] = useState({});
+
+    const [ shuffleActive, setShuffleActive ] = useState(false);
+    const [ prizeActive, setPrizeActive ] = useState(false);
+    // const [ startGacha, setStartGacha ] = useState(false);
+
+    const prizeCapsule = document.querySelector(".Gachapon-prize");
+    console.log("prizeCapsule:", prizeCapsule);
+
+    const startGacha = (e) => {
+        const error = {};
+
+        if (user.moolah < 50) {
+            error.moolah = "You do not have enough moolah to play.";
+        }
+
+        if (Object.keys(error).length > 0) {
+            return setErrors(error);
+        }
+
+        setPrizeActive(false);
+        setShuffleActive(true);
+        setTimeout(() => {
+            setPrizeActive(true);
+            setShuffleActive(false);
+            console.log("shuffleActive after true ? :", shuffleActive);
+        }, 3000);
+        setTimeout(() => {
+            setPrizeActive(true);
+        }, 2000);
+        // prizeCapsule.classList.toggle("active");
+    }
+
+    const handlePrizeClick = (e) => {
+        playGachapon();
+        setPrizeActive(false);
+        // prizeActive.classList.remove("active");
+    }
 
     const petFlavors = [
         {
@@ -69,7 +113,7 @@ export default function PetGachapon({ userFlavors, user }) {
         let randomNum = Math.random();
         const totalRarity = petFlavors.reduce((sum, add) => sum + add.rarity, 0);
 
-        console.log("TOTAL RARITY =>", totalRarity);
+        // console.log("TOTAL RARITY =>", totalRarity);
         // user should only be able to get a flavor that they do not already own
         // get all flavors that the user owns
 
@@ -77,9 +121,9 @@ export default function PetGachapon({ userFlavors, user }) {
         for (let i = 0; i < petFlavors.length; i++) {
             const flavor = petFlavors[i];
             const odds = flavor.rarity / totalRarity;
-            console.log("FLAVORRRR", flavor);
-            console.log("RANDOM", randomNum);
-            console.log("ODDS", odds);
+            // console.log("FLAVORRRR", flavor);
+            // console.log("RANDOM", randomNum);
+            // console.log("ODDS", odds);
 
             if (randomNum < odds) {
                 wonPet = flavor;
@@ -90,7 +134,7 @@ export default function PetGachapon({ userFlavors, user }) {
         }
 
 
-        console.log("OBTAINED PET", wonPet);
+        // console.log("OBTAINED PET", wonPet);
         if (wonPet !== null && userFlavors.includes(wonPet.flavor)) {
             playGachapon();
         } else {
@@ -126,6 +170,8 @@ export default function PetGachapon({ userFlavors, user }) {
 
     }
 
+    console.log("shuffleActive ? :", shuffleActive)
+
     return (
         <div className="PetGachapon-container">
             <div className="LoginFormModal-top">
@@ -139,21 +185,54 @@ export default function PetGachapon({ userFlavors, user }) {
             </div>
             { step === 0 && (
                 <div className="PetGachapon-main-container">
-                    <img
-                        src={gachapon}
-                        alt="Pet gachapon"
-                        className="clickable"
-                        onClick={playGachapon}
-                    />
+                    <div className="Gachapon-container">
+                        <img
+                            src={bg}
+                            alt="Pet gachapon"
+                            className="Gachapon-bg"
+                        />
+                        <img
+                            src={mg}
+                            alt="Pet gachapon"
+                            className="Gachapon-mg"
+                        />
+                        <img
+                            src={prize}
+                            alt="Pet gachapon"
+                            className={`Gachapon-prize ${prizeActive ? "active clickable" : ""}`}
+                            onClick={(e) => handlePrizeClick(e)}
+                        />
+                        {
+                            shuffleActive === false ? (
+                                <img
+                                    src={fg_static}
+                                    alt="Pet gachapon"
+                                    className="Gachapon-fg"
+                                />
+                            ) : (
+                                <img
+                                    src={fg}
+                                    alt="Pet gachapon"
+                                    className="Gachapon-fg"
+                                />
+                            )
+                        }
+                        <img
+                            src={dial}
+                            alt="Pet gachapon"
+                            className="Gachapon-dial clickable"
+                            onClick={() => startGacha(true)}
+                        />
+                    </div>
                     <div className="PetGachapon-text-container">
                         <p>
                             Each play costs 50 moolah
                         </p>
-                        { errors && errors.moolah && (
                             <p className="CreateTaskModal-error-text">
-                                {errors.moolah}
+                                { errors && errors.moolah && (
+                                        errors.moolah
+                                )}
                             </p>
-                        )}
                     </div>
                 </div>
             )}
