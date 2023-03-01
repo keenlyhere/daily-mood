@@ -152,7 +152,7 @@ export default function Store({ user }) {
                                                 userFlavors.includes(cows.cowFlavors[idx]) ? (
                                                     <>
                                                         { activePet.flavor === cows.cowFlavors[idx] ? (
-                                                            <h3 className="Pet-gachapon PetCare-description">
+                                                            <h3 className="Pet-gachapon-want PetCare-description">
                                                                 You own this cow!
                                                             </h3>
                                                         ) : (
