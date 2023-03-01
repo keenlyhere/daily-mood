@@ -47,7 +47,7 @@ export default function Cowlection({ user }) {
         let backgroundColor;
 
         if (pet.friendliness > 80) {
-            backgroundColor = "green";
+            backgroundColor = "pink";
         } else if (pet.friendliness > 60) {
             backgroundColor = "orange";
         } else if (pet.friendliness > 35) {
@@ -168,7 +168,7 @@ export default function Cowlection({ user }) {
                                         <div className="Pet-stats">
                                             <div className="stats-hp">
                                                 <p className="stats-hp-header">
-                                                    Friendliness:
+                                                    Love:
                                                 </p>
                                                 <div className="SideBar-pet-stats-hp-bar-container">
                                                     <div className="SideBar-pet-stats-hp-bar-filled" style={friendlinessBarWidth(pet)}></div>
@@ -178,38 +178,6 @@ export default function Cowlection({ user }) {
 
                                         {
                                             activePet.id !== pet.id && (
-                                                <button
-                                                    className="Pet-gachapon-play"
-                                                    onClick={() => changeActivePet(cows.userCowFlavors[idx])}
-                                                >
-                                                    Set active
-                                                </button>
-                                            )
-                                        }
-
-                                    </div>
-                                </div>
-                            ))}
-                            { cows.userCowImages.map((pet, idx) => (
-                                <div key={idx} className="Pet-gachapon-card">
-                                    <div className="Pet-gachapon-card-image">
-                                        <img src={pet} className={`${userFlavors.includes(cows.userCowFlavors[idx]) ? "" : "notOwned"}`} alt="Gachapon pet prize" />
-                                    </div>
-                                    <div className="Pet-gachapon-description">
-                                        <h2 className="Pet-gachapon-flavor">
-                                            {cows.userCowFlavors[idx]}
-                                            {/* {allUserPets[idx]} */}
-                                        </h2>
-
-                                        {
-                                            activePet.flavor === cows.userCowFlavors[idx] ? (
-                                                <button
-                                                    className="Pet-gachapon-play disabled"
-                                                    disabled={true}
-                                                >
-                                                    Active
-                                                </button>
-                                            ) : (
                                                 <button
                                                     className="Pet-gachapon-play"
                                                     onClick={() => changeActivePet(cows.userCowFlavors[idx])}

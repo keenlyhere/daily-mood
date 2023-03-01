@@ -1,8 +1,8 @@
 .OpenModalButton-button {
-    background: #f0fae4;
+    background: #c9e2bb;
     border: 0;
     font-size: 14px;
-    margin-left: 8px;
+    /* margin-left: 8px; */
     cursor: pointer;
 }
 
@@ -15,7 +15,7 @@
 
 .SignUp,
 .LogIn {
-    background: #f0fae4;
+    background: #c9e2bb;
     border: 1px solid #c4c4c4;
     border-radius: 50px;
     height: 48px;
@@ -33,5 +33,5 @@
 }
 
 .LogIn:hover {
-    background: #f0fae4;
+    background: #c9e2bb;
 }
