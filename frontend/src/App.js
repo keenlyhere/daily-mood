@@ -17,6 +17,7 @@ import Cowlection from "./components/Cowlection";
 import Heart from "./components/HeartBar/Heart";
 import PetCare from "./components/Store/PetCare";
 import Splash from "./components/SplashPage/Splash";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
