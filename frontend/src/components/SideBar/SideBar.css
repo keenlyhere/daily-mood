@@ -6,7 +6,7 @@
 }
 
 .SideBar-pet-container {
-    padding: 16px;
+    padding: 28px;
 }
 
 .SideBar-pet-image-container {
@@ -34,9 +34,18 @@
 }
 
 .SideBar-logo-container,
-.SideBar-user-container,
 .SideBar-moolah-container {
-    padding: 16px;
+    padding: 16px 28px;
+}
+
+.SideBar-user-container {
+    padding: 16px 28px 0px;
+}
+
+.SideBar-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .SideBar-links-container {

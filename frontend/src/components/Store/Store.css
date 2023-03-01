@@ -32,6 +32,7 @@
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    border: 1px solid #9AB28C;
 }
 
 .Pet-gachapon-description {
@@ -58,12 +59,12 @@
 .Pet-gachapon-card:after {
     content: 'moo';
     position: absolute;
-    top: 30%;
-    left: -20%;
-    font-size: 12em;
+    top: 67%;
+    left: 5%;
+    font-size: 5em;
     font-weight: 800;
     font-style: italic;
-    color: rgba(25, 255, 90, 0.05)
+    color: #F5FBF2;
 }
 
 
