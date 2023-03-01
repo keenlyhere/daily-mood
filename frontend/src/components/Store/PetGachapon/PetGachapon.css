@@ -212,10 +212,29 @@
   top: 62.5%;
   left: 43.5%;
   width: 50px;
+  transition: transform 0.3s ease-in-out;
 }
 
-.Gachapon-dial:hover {
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .Gachapon-dial:hover {
   transform: rotate(-90deg);
+} */
+
+.Gachapon-dial:hover {
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform: rotate(360deg)
 }
 
 .Gachapon-prize {
