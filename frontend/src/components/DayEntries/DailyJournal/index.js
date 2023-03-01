@@ -84,18 +84,28 @@ export default function DailyJournal({ currentJournal }) {
     if (editJournal) {
         return (
             <div className="Daily-journal-container">
-                        <div className="Daily-header">
+                    <div className="Daily-header">
                         <p className="Daily-text">Today's journal</p>
                         {dailyJournal.length > 200 && (
                             <p className="CreateTaskModal-error-text">
                                 Please enter a maximum of 200 characters.
                             </p>
                         )}
-                        {/* { errors && errors.journalLength ? (
-                            <p className="CreateTaskModal-error-text">
-                                {errors.journalLength}
-                            </p>
-                        ) : ("")} */}
+
+                    </div>
+                    <form className="Daily-journal-form">
+                            <textarea
+                                className="Daily-journal-input"
+                                value={dailyJournal}
+                                onChange={(e) => setDailyJournal(e.target.value)}
+                                placeholder="Describe your day!"
+                            />
+                    </form>
+                    <div className="Daily-footer">
+                        <div className="Daily-journal-char-count-container">
+                            Character count: {dailyJournal.length}
+                        </div>
+
                         <div className="Daily-action-buttons-container">
                             <button
                                 className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
@@ -106,17 +116,7 @@ export default function DailyJournal({ currentJournal }) {
                             </button>
                             <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i>
                         </div>
-                    </div>
-                    <form className="Daily-journal-form">
-                            <textarea
-                                className="Daily-journal-input"
-                                value={dailyJournal}
-                                onChange={(e) => setDailyJournal(e.target.value)}
-                                placeholder="Describe your day!"
-                            />
-                    </form>
-                    <div className="Daily-journal-char-count-container">
-                        Character count: {dailyJournal.length}
+
                     </div>
                 </div>
         )
@@ -133,19 +133,6 @@ export default function DailyJournal({ currentJournal }) {
                                     Please enter a maximum of 200 characters.
                                 </p>
                             )}
-                        {/* { errors && errors.journalLength ? (
-                            <p className="CreateTaskModal-error-text">
-                                    {errors.journalLength}
-                                </p>
-                        ) : ("")} */}
-                        <button
-                            className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
-                            onClick={() => handleJournalSave("create", dailyJournal)}
-                            disabled={dailyJournal.length < 5 || dailyJournal.length > 200 ? true : false}
-                        >
-                            Save
-                        </button>
-
                     </div>
                     <form className="Daily-journal-form">
                         <textarea
@@ -155,8 +142,20 @@ export default function DailyJournal({ currentJournal }) {
                             placeholder="Describe your day!"
                         />
                     </form>
-                    <div className="Daily-journal-char-count-container">
-                        Character count: {dailyJournal.length}
+                    <div className="Daily-footer">
+                        <div className="Daily-journal-char-count-container">
+                            Character count: {dailyJournal.length}
+                        </div>
+                        <div className="Daily-action-buttons-container">
+
+                            <button
+                                className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
+                                onClick={() => handleJournalSave("create", dailyJournal)}
+                                disabled={dailyJournal.length < 5 || dailyJournal.length > 200 ? true : false}
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
             ) : (
@@ -168,15 +167,7 @@ export default function DailyJournal({ currentJournal }) {
                                     {errors.journalLength}
                                 </p>
                         ) : ("")}
-                        <div className="Daily-action-buttons-container">
-                            <button
-                                className="Daily-journal-save clickable"
-                                onClick={startEditJournal}
-                            >
-                                Edit
-                            </button>
-                            <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i>
-                        </div>
+
                     </div>
                     <form className="Daily-journal-form">
                         { editJournal ? (
@@ -197,8 +188,19 @@ export default function DailyJournal({ currentJournal }) {
                             />
                         )}
                     </form>
-                    <div className="Daily-journal-char-count-container">
-                        Character count: {dailyJournal.length}
+                    <div className="Daily-footer">
+                        <div className="Daily-journal-char-count-container">
+                            Character count: {dailyJournal.length}
+                        </div>
+                        <div className="Daily-action-buttons-container">
+                            <button
+                                className="Daily-journal-save clickable"
+                                onClick={startEditJournal}
+                            >
+                                Edit
+                            </button>
+                            <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i>
+                        </div>
                     </div>
                 </div>
             )}

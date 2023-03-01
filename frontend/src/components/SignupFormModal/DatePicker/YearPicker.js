@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Birthday.css";
 
 export default function YearPicker() {
     const startYear = 1900;
@@ -19,22 +20,25 @@ export default function YearPicker() {
     }
 
     return (
-        <select
-            className="Birthday-dropdown"
-            required={true}
-            onClick={handleSelection}
-        >
-            {
-                allYears.reverse().map((year, idx) => (
-                    <option
-                        key={idx}
-                        value={year}
-                        className="Birthday-dropdown-options"
-                    >
-                        {year}
-                    </option>
-                ))
-            }
-        </select>
+        <div className="Birthday-year">
+            <select
+                className="Birthday-dropdown"
+                onChange={handleSelection}
+                // onFocus={this.size="12"}
+                required
+            >
+                {
+                    allYears.reverse().map((year, idx) => (
+                        <option
+                            key={idx}
+                            value={year}
+                            className="Birthday-dropdown-options"
+                        >
+                            {year}
+                        </option>
+                    ))
+                }
+            </select>
+        </div>
     )
 }
