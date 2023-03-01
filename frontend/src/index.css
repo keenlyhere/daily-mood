@@ -28,3 +28,15 @@
     width: 100%;
     height: 100vh;
 }
+
+.Page-whitespace-filler {
+    display: none;
+    width: calc(100% - 1120px);
+    background-image: url(https://keenlychung.com/dailymood/cowbg.png);
+}
+
+@media (min-width: 1200px) {
+    .Page-whitespace-filler {
+        display:block
+    }
+}

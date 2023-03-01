@@ -2,6 +2,7 @@
     width: 320px;
     background-color: #c9e2bb;
     overflow-y: auto;
+    flex-shrink: 0;
     /* padding: 18px; */
 }
 
@@ -40,6 +41,26 @@
 
 .SideBar-user-container {
     padding: 16px 28px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.SideBar-username {
+    font-weight: 600;
+}
+
+.SideBar-moolah {
+    background-color: #f5fbf2;
+    border-radius: 18px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.SideBar-moolah-value {
+    font-weight: 500;
 }
 
 .SideBar-logo-container {

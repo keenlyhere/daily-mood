@@ -80,7 +80,7 @@ export default function UserTasks() {
 
         return (
             <div className="UserTasks-container">
-
+                <>
                 <h3 className="UserTasks-headers">
                     Habits
                 </h3>
@@ -163,6 +163,7 @@ export default function UserTasks() {
                         <p className="UserTasks-taskName">New block</p>
                     </div>
                 </div>
+                </>
 
             </div>
         )

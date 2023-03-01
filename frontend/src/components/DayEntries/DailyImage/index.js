@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
 import add_photo from "../../../assets/add_photo.png"
+import uploadImage from "../../../assets/cloud-arrow-up-solid.svg";
 
 export default function DailyImage({ currentImage }) {
     const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export default function DailyImage({ currentImage }) {
         const deletedEntry = await dispatch(deleteDayEntry(entryId))
             .then(() => dispatch(addPoints({ "pointsEarned": -5 })))
             .then(() => {
-                setDailyImageUrl(add_photo)
+                setDailyImageUrl(null)
             })
     }
 
@@ -55,17 +56,26 @@ export default function DailyImage({ currentImage }) {
                     <p className="Daily-text">Today's photo</p>
                     <div className="Daily-image-input-container">
                         <label htmlFor="Daily-image-upload" className="Daily-image-upload clickable">
-                            <img
-                                src={ dailyImageUrl ? dailyImageUrl : `${add_photo}`}
-                                alt="Add photo"
-                                className="Daily-image-upload-icon"
-                            />
+                            { dailyImageUrl ? (
+                                <img
+                                    src={dailyImageUrl}
+                                    alt="Add photo"
+                                    className="Daily-image-upload-icon"
+                                />
+                            ) : (
+                                <div className="Daily-image-upload-default-container">
+                                    <img
+                                        src={uploadImage}
+                                        alt="Add photo"
+                                        className="Daily-image-upload-default"
+                                    />
+                                    <p className="Daily-journal-char-count-container">
+                                        Upload a photo that represents your day
+                                    </p>
+                                </div>
+                            )}
                         </label>
                         <input id="Daily-image-upload" type="file" onChange={(e) => updateFile(e, "add")} />
-
-                            <p className="Daily-text">
-                                Upload a photo that represents your day
-                            </p>
                     </div>
                 </div>
             ) : (

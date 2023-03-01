@@ -18,6 +18,8 @@ import Heart from "./components/HeartBar/Heart";
 import PetCare from "./components/Store/PetCare";
 import Splash from "./components/SplashPage/Splash";
 import Footer from "./components/Footer";
+import YearPicker from "./components/SignupFormModal/DatePicker/YearPicker";
+import MonthPicker from "./components/SignupFormModal/DatePicker/MonthPicker";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +40,12 @@ function App() {
             <div className="Splash-container">
               <Navigation />
               <Splash />
+            </div>
+          </Route>
+          <Route exact path="/testing">
+            <div className="Splash-container">
+              <YearPicker />
+              <MonthPicker />
             </div>
           </Route>
           <Route exact path="/petcare">
@@ -62,6 +70,7 @@ function App() {
             <div className="Page-container">
               <SideBar user={user} />
               <UserTasks />
+
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/store" exact={true}>

@@ -176,7 +176,7 @@ export default function Daily() {
 
         return (
             <div className="Daily-container">
-                <div className="Daily-header">
+                <div className="Daily-header-date">
                     <h1 className="Daily-header-text">{dateObj.month} {dateObj.date}</h1>
                 </div>
 

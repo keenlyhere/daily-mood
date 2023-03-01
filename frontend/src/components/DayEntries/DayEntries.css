@@ -1,12 +1,33 @@
 .Daily-container {
-    padding: 18px 26px;
-    width: calc(100% - 320px);
+    padding: 18px 44px;
+    /* width: calc(100% - 320px); */
+    width: 100%;
     overflow-y: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 18px;
+}
+
+.Daily-container::after {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0) url("https://keenlychung.com/dailymood/cowbg.png") repeat-y right center;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.Daily-header-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 880px;
 }
 
 /* FOR DAILY MOOD */
@@ -120,6 +141,26 @@
     object-fit: contain;
 }
 
+.Daily-image-upload-default-container {
+    background-color: transparent;
+    border: 2px dashed #5aa13e;
+    border-radius: 18px;
+    padding: 18px 28px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.Daily-image-upload-default {
+    height: 38%;
+    width: 38%;
+}
+
 .Daily-image-text-container {
     position: absolute;
     top: 0;
@@ -216,11 +257,42 @@
 
 .Daily-journal-char-count-container {
     display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: flex-end;
+    font-size: 14px;
 }
 
 .Daily-header-text {
     font-weight: 600;
+    align-self: center;
+}
+
+.Daily-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Daily-text {
+    font-weight: 600;
+}
+
+@media (min-width: 1288px) {
+    .Daily-mood-container,
+    .Daily-image-container,
+    .Daily-journal-container {
+        max-width: 880px;
+    }
+
+    .Daily-container::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0) url("https://keenlychung.com/dailymood/cowbg.png") repeat-y right center;
+        opacity: 0.3;
+        z-index: -1;
+    }
 }
