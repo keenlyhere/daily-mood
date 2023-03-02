@@ -198,7 +198,7 @@ export default function Store({ user }) {
                         <div className="Store-bg-gachapon">
                             <h2>Background gachapon</h2>
                             <OpenModalButton
-                                buttonText={<img src={gachapon2} alt="Pet gachapon" />}
+                                buttonText={<img src={gachaBase} alt="Pet gachapon" />}
                                 onButtonClick={closeMenu}
                                 modalComponent={<BgGachapon userBgNames={userBgNames} user={user} />}
                                 buttonClass="Gachapon"
