@@ -37,7 +37,8 @@
 }
 
 .SplashPage-welcome {
-    font-size: clamp(24px, 5vw, 33px);
+    /* font-size: clamp(24px, 5vw, 33px); */
+    font-size: 3rem;
     padding-bottom: 16px;
     /* white-space: nowrap; */
 }
@@ -84,7 +85,9 @@
 .SplashPage-info-container {
     display: flex;
     align-items: center;
-    padding-top: 36px;
+    padding: 36px;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .SplashPage-info-container:nth-child(odd) {
@@ -122,4 +125,13 @@
         height: max-content;
         border-radius: 18px;
     }
+}
+
+.Splash-text {
+    font-size: 1.3rem;
+}
+
+.SplashPage-main-banner-text.info {
+    width: 60%;
+
 }

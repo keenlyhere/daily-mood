@@ -14,7 +14,7 @@ export default function Splash(){
                 <div className="SplashPage-main-banner-div">
                     <div className="SplashPage-main-banner-text">
                         <h1 className="SplashPage-welcome">Welcome to Daily Moo'd,</h1>
-                        <p>
+                        <p className="Splash-text">
                             the cow-themed mood tracking app that makes self-care fun! With our app, you can track your moods, complete tasks, and earn points to unlock adorable cows that you can feed, play with, and take care of.
                         </p>
                         {/* <button className="SplashPage-signup">
@@ -26,8 +26,8 @@ export default function Splash(){
                 </div>
             </div>
             <div className="SplashPage-info-container">
-                <div className="SplashPage-main-banner-text">
-                    <p>
+                <div className="SplashPage-main-banner-text info">
+                    <p className="Splash-text">
                         Daily Moo'd is designed to help you prioritize your mental health while making it a fun and interactive experience. Whether you're feeling happy, sad, stressed, or anything in between, our app will help you keep track of your emotions.
                     </p>
                 </div>
@@ -43,15 +43,15 @@ export default function Splash(){
                     alt="SplashPage cow"
                     className="SplashPage-cow-image-info"
                 />
-                <div className="SplashPage-main-banner-text">
-                    <p>
+                <div className="SplashPage-main-banner-text info">
+                    <p className="Splash-text">
                         And with our unique cow-themed rewards system, you'll never get bored of tracking your moods! As you complete tasks and record your emotions, you'll earn points that you can use to purchase cute and quirky cows. Feed them, play with them, and watch as they grow and thrive – all while you take care of your own mental health.
                     </p>
                 </div>
             </div>
             <div className="SplashPage-info-container">
-                <div className="SplashPage-main-banner-text">
-                    <p>
+                <div className="SplashPage-main-banner-text info">
+                    <p className="Splash-text">
                         So why wait? Sign up today and start tracking your moods in a fun and engaging way!
                     </p>
                 </div>
