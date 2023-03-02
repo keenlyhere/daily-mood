@@ -81,216 +81,111 @@ router.get("/current/all", requireAuth, async (req, res, next) => {
 
     const randomNum = Math.floor(Math.random() * 10) + 1;
     if (activePet.health > 80) {
+
         if (activePet.friendliness >= 80) {
-            if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "happy")
-                })
-            } else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "moohouse")
-                })
-            }
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
         } else if (activePet.friendliness >= 60) {
-            if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "happy")
-                })
-            } else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
-                })
-            }
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "normal")
+            })
         } else if (activePet.friendliness >= 30) {
-            if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
-                })
-            } else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
-            }
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "unimpressed")
+            })
         } else {
-            if (randomNum > 6) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "angry")
                 })
-            } else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
             } else {
                 await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
                 })
             }
         }
     } else if (activePet.health > 60) {
         if (activePet.friendliness >= 80) {
-            if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "happy")
-                })
-            } else if (randomNum > 3) {
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "happy")
+            })
+        } else if (activePet.friendliness >= 50) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "normal")
                 })
             } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
-            }
-        } else if (activePet.friendliness >= 50) {
-            if (randomNum > 6) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "unimpressed")
-                })
-            } else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
                 })
             }
         } else if (activePet.friendliness >= 30) {
-            if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
-            } else if (randomNum > 3) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "angry")
                 })
             } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            }
-        } else {
-            if (randomNum > 7) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
-            } else if (randomNum > 5) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else if (randomNum > 2) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "unimpressed")
                 })
-            } else {
+            }
+        } else {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "angry")
+                })
+            } else {
+                await activePet.update({
+                    petImageUrl: petImageParser(activePet.flavor, "sad")
                 })
             }
         }
     } else if (activePet.health > 30) {
         if (activePet.friendliness >= 80) {
-            if (randomNum > 7) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "normal")
                 })
-            } else if (randomNum > 5) {
+            } else {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "happy")
                 })
-            }  else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "angry")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
             }
         } else if (activePet.friendliness >= 50) {
-            if (randomNum > 7) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "normal")
                 })
-            } else if (randomNum > 5) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
-                })
-            }  else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "angry")
-                })
             } else {
                 await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
                 })
             }
         } else {
-            if (randomNum > 7) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
-            } else if (randomNum > 5) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
-                })
-            }  else if (randomNum > 3) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "angry")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
-            }
+            await activePet.update({
+                petImageUrl: petImageParser(activePet.flavor, "angry")
+            })
         }
     } else {
         if (activePet.friendliness >= 80) {
-            if (randomNum > 8) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "normal")
                 })
-            } else if (randomNum > 6) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "happy")
-                })
-            } else if (randomNum > 4) {
+            } else {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "unimpressed")
                 })
-            } else if (randomNum > 2) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "angry")
-                })
-            } else {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
-                })
             }
         } else if (activePet.friendliness >= 50) {
-            if (randomNum > 7) {
+            if (randomNum > 5) {
                 await activePet.update({
                     petImageUrl: petImageParser(activePet.flavor, "angry")
                 })
-            } else if (randomNum > 4) {
-                await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "normal")
-                })
             } else {
                 await activePet.update({
-                    petImageUrl: petImageParser(activePet.flavor, "sad")
+                    petImageUrl: petImageParser(activePet.flavor, "unimpressed")
                 })
             }
         } else {

@@ -5,6 +5,7 @@ import { userBgImages } from "../../utils/bgImageParser";
 import { userPetImages } from "../../utils/petImageParser";
 
 import "./Cowlection.css";
+import EditPet from "./EditPet";
 
 export default function Cowlection({ user }) {
     const dispatch = useDispatch();
@@ -17,6 +18,19 @@ export default function Cowlection({ user }) {
     const userFlavors = [];
     const userBgNames = [];
 
+    const [ editPetName, setEditPetName ] = useState(false);
+    const [ petName, setPetName ] = useState(null);
+    const [ petToEdit, setPetToEdit ] = useState(null);
+
+    const startEditPet = (category) => {
+        setEditPetName(true);
+        setPetToEdit(category);
+    }
+
+    const endEditPet = (e) => {
+        setEditPetName(false)
+        // dispatch(loadCurrentDayTasks());
+    }
 
     useEffect(() => {
         dispatch(loadAllUserItems()).then(() => setIsLoaded(true));
@@ -89,8 +103,10 @@ export default function Cowlection({ user }) {
         }
 
         const changeActivePet = async (flavor) => {
+            console.log("flavor", flavor)
+            console.log("allpets", allUserPets)
             const desiredActive = wantedPet(flavor);
-            // console.log("desiredActive ===>", desiredActive)
+            console.log("desiredActive ===>", desiredActive)
 
             const setActivePet = await dispatch(editActivePet(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -143,25 +159,63 @@ export default function Cowlection({ user }) {
                 </div>
                 { page === "cows" && (
                     <>
-                        <h1 className="Page-headers">Your udderly adorable herd</h1>
+                        <h1>Your udderly adorable herd</h1>
                         <div className="Cowlection-cows">
                             { allUserPets.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
+                                    {
+                                        activePet.id !== pet.id && (
+                                            <button
+                                                // className="Pet-gachapon-play setActive cowlectionPage"
+                                                className="Pet-set-active"
+                                                onClick={() => changeActivePet(pet.flavor)}
+                                            >
+                                                Set active
+                                            </button>
+                                        )
+                                    }
                                     <div className="Pet-gachapon-card-image">
-                                        <img src={pet.petImageUrl} alt="User pet" />
+                                        <img
+                                            src={pet.petImageUrl}
+                                            className="Cowlection-hover-set-active"
+                                            alt="User pet"
+                                        />
                                     </div>
-                                    <div className="Pet-gachapon-description">
-                                        <h2 className="Pet-gachapon-flavor">
-                                            {pet.name}
-                                        </h2>
+                                    <div className="Pet-gachapon-description cowlectionPage">
+                                        {
+                                            editPetName && idx === petToEdit ? (
+                                                <EditPet
+                                                    user={user}
+                                                    pet={pet}
+                                                    petToEdit={petToEdit}
+                                                    endEditPet={endEditPet}
+                                                />
+                                            ) : (
+                                                <div className="PetName-header">
+                                                    <div className="PetName-container">
+                                                        <h2 className="Pet-gachapon-flavor">
+                                                            {pet.name}
+                                                        </h2>
+                                                        <i
+                                                            className="fa-solid fa-pen Pet-edit clickable"
+                                                            onClick={() => startEditPet(idx)}
+                                                        ></i>
+                                                    </div>
+                                                    <div className="Pet-edit-error-text">
+                                                    </div>
+
+                                                </div>
+
+                                            )
+                                        }
 
                                         <div className="Pet-stats">
                                             <div className="stats-hp">
                                                 <p className="stats-hp-header">
                                                     HP:
                                                 </p>
-                                                <div className="SideBar-pet-stats-hp-bar-container inCowlection">
-                                                    <div className="SideBar-pet-stats-hp-bar-filled inCowlection" style={healthBarWidth(pet)}></div>
+                                                <div className="SideBar-pet-stats-hp-bar-container cowlectionPage">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled cowlectionPage" style={healthBarWidth(pet)}></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,8 +224,8 @@ export default function Cowlection({ user }) {
                                                 <p className="stats-hp-header">
                                                     Friendliness:
                                                 </p>
-                                                <div className="SideBar-pet-stats-hp-bar-container inCowlection">
-                                                    <div className="SideBar-pet-stats-hp-bar-filled inCowlection" style={friendlinessBarWidth(pet)}></div>
+                                                <div className="SideBar-pet-stats-hp-bar-container cowlectionPage">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled cowlectionPage" style={friendlinessBarWidth(pet)}></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +233,7 @@ export default function Cowlection({ user }) {
                                         {
                                             activePet.id !== pet.id && (
                                                 <button
-                                                    className="Pet-gachapon-play setActive"
+                                                    className="Pet-gachapon-play setActive cowlectionPage"
                                                     onClick={() => changeActivePet(cows.userCowFlavors[idx])}
                                                 >
                                                     Set active
@@ -196,7 +250,7 @@ export default function Cowlection({ user }) {
                 {
                     page === "backgrounds" && (
                         <>
-                            <h1 className="Page-headers">Your bovine backdrops</h1>
+                            <h1>Your bovine backdrops</h1>
                             <div className="Cowlection-cows">
                             { bgs.userBgImages.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
@@ -219,7 +273,7 @@ export default function Cowlection({ user }) {
                                             ) : (
                                                 <button
                                                     className="Pet-gachapon-play setActive"
-                                                    onClick={() => changeActivePet(bgs.userBgImages[idx])}
+                                                    onClick={() => changeActiveBg(bgs.userBgImages[idx])}
                                                 >
                                                     Set active
                                                 </button>
