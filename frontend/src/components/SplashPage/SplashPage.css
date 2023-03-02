@@ -37,7 +37,9 @@
 }
 
 .SplashPage-welcome {
-    font-size: 60px;
+    font-size: clamp(24px, 5vw, 33px);
+    padding-bottom: 16px;
+    /* white-space: nowrap; */
 }
 
 .custom-shape-divider-bottom-1677527040 {

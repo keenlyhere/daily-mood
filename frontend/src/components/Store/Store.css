@@ -19,7 +19,7 @@
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 18px;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
 }
 
@@ -208,4 +208,8 @@ p.PetGachapon-text {
 .PetGachapon-instructions {
     font-size: 14px;
     font-weight: 600;
+}
+
+.setActive {
+    font-size: 14px;
 }
