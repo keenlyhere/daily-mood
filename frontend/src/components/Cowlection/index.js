@@ -143,7 +143,7 @@ export default function Cowlection({ user }) {
                 </div>
                 { page === "cows" && (
                     <>
-                        <h1 className="Page-headers">Your udderly adorable herd</h1>
+                        <h1>Your udderly adorable herd</h1>
                         <div className="Cowlection-cows">
                             { allUserPets.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
@@ -160,8 +160,8 @@ export default function Cowlection({ user }) {
                                                 <p className="stats-hp-header">
                                                     HP:
                                                 </p>
-                                                <div className="SideBar-pet-stats-hp-bar-container inCowlection">
-                                                    <div className="SideBar-pet-stats-hp-bar-filled inCowlection" style={healthBarWidth(pet)}></div>
+                                                <div className="SideBar-pet-stats-hp-bar-container">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled" style={healthBarWidth(pet)}></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,8 +170,8 @@ export default function Cowlection({ user }) {
                                                 <p className="stats-hp-header">
                                                     Friendliness:
                                                 </p>
-                                                <div className="SideBar-pet-stats-hp-bar-container inCowlection">
-                                                    <div className="SideBar-pet-stats-hp-bar-filled inCowlection" style={friendlinessBarWidth(pet)}></div>
+                                                <div className="SideBar-pet-stats-hp-bar-container">
+                                                    <div className="SideBar-pet-stats-hp-bar-filled" style={friendlinessBarWidth(pet)}></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +196,7 @@ export default function Cowlection({ user }) {
                 {
                     page === "backgrounds" && (
                         <>
-                            <h1 className="Page-headers">Your bovine backdrops</h1>
+                            <h1>Your bovine backdrops</h1>
                             <div className="Cowlection-cows">
                             { bgs.userBgImages.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">

@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    /* gap: 18px; */
+    gap: 18px;
 }
 
 .Daily-container::after {
@@ -44,7 +44,6 @@
     border-radius: 18px;
     box-sizing: border-box;
     padding: 18px;
-    margin-bottom: 44px;
 }
 
 .Daily-mood-icon-container {
@@ -100,7 +99,6 @@
     border-radius: 18px;
     box-sizing: border-box;
     padding: 18px;
-    margin-bottom: 44px;
 }
 
 .Daily-image-input-container {
@@ -213,7 +211,6 @@
     border-radius: 18px;
     box-sizing: border-box;
     padding: 18px;
-    margin-bottom: 44px;
 }
 
 .Daily-journal-form {
@@ -256,11 +253,6 @@
 .isDisabled {
     background: lightgray;
     color: white;
-    cursor: not-allowed;
-}
-
-.Daily-journal-save.isDisabled {
-    cursor: not-allowed;
 }
 
 .Daily-journal-char-count-container {
