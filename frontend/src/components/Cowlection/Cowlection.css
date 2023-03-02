@@ -191,3 +191,8 @@ input[id=petcare]:checked ~ .slider {
 #heartClip {
     clip-path: url("https://keenlychung.com/dailymood/heart.png")
 }
+
+.SideBar-pet-stats-hp-bar-container.inCowlection,
+.SideBar-pet-stats-hp-bar-filled.inCowlection {
+    height: 12px;
+}
