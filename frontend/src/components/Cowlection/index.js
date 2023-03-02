@@ -273,7 +273,7 @@ export default function Cowlection({ user }) {
                                             ) : (
                                                 <button
                                                     className="Pet-gachapon-play setActive"
-                                                    onClick={() => changeActivePet(bgs.userBgImages[idx])}
+                                                    onClick={() => changeActiveBg(bgs.userBgImages[idx])}
                                                 >
                                                     Set active
                                                 </button>

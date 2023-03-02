@@ -8,6 +8,13 @@ import { bgImageParser } from "../../../utils/bgImageParser";
 
 import "./BgGachapon.css";
 
+import bg from "../../../assets/gacha/bg.gif";
+import fg from "../../../assets/gacha/fg.gif";
+import fg_static from "../../../assets/gacha/fg_static.gif";
+import mg from "../../../assets/gacha/mg.gif";
+import prize from "../../../assets/gacha/prize.png";
+import dial from "../../../assets/gacha/dial.png";
+
 export default function BgGachapon({ userBgNames, user }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -15,6 +22,13 @@ export default function BgGachapon({ userBgNames, user }) {
     const [ obtainedBg, setObtainedBg ] = useState(null);
     const [ active, setActive ] = useState(false);
     const [ errors, setErrors ] = useState({});
+
+    const [ shuffleActive, setShuffleActive ] = useState(false);
+    const [ shuffleActiveText, setShuffleActiveText ] = useState(false);
+    const [ prizeActive, setPrizeActive ] = useState(false);
+    const [ prizeActiveText, setPrizeActiveText ] = useState(false);
+
+    const prizeCapsule = document.querySelector(".Gachapon-prize");
 
     const backgrounds = [
         {
@@ -30,6 +44,43 @@ export default function BgGachapon({ userBgNames, user }) {
             "rarity": 0.5
         }
     ]
+
+    const startGacha = async (e) => {
+        const error = {};
+
+        if (user.moolah < 30) {
+            error.moolah = "You do not have enough moolah to play.";
+        }
+
+        if (Object.keys(error).length > 0) {
+            return setErrors(error);
+        }
+
+        setPrizeActive(false);
+        setShuffleActive(true);
+
+        const usePoints = await dispatch(spendPoints({ "pointsSpent": 30 }));
+
+        setTimeout(() => {
+            setPrizeActive(true);
+            setShuffleActiveText(true);
+            setShuffleActive(false);
+            console.log("shuffleActive after true ? :", shuffleActive);
+        }, 3000);
+
+        setTimeout(() => {
+            setPrizeActiveText(true);
+        }, 3500)
+
+        setTimeout(() => {
+            setPrizeActive(true);
+        }, 2000);
+    }
+
+    const handlePrizeClick = (e) => {
+        playGachapon();
+        setPrizeActive(false);
+    }
 
     const playGachapon = async () => {
         const error = {};
@@ -63,7 +114,6 @@ export default function BgGachapon({ userBgNames, user }) {
         if (wonBg !== null && userBgNames.includes(wonBg.bgName)) {
             playGachapon();
         } else {
-            const usePoints = await dispatch(spendPoints({ "pointsSpent": 30 }));
             setObtainedBg(wonBg);
             setStep(1);
         }
@@ -96,12 +146,45 @@ export default function BgGachapon({ userBgNames, user }) {
             </div>
             { step === 0 && (
                 <div className="PetGachapon-main-container">
-                    <img
-                        src={gachapon}
-                        alt="Bg gachapon"
-                        className="BgGachapon-gachapon clickable"
-                        onClick={playGachapon}
-                    />
+                    <div className="Gachapon-container">
+                        <img
+                            src={bg}
+                            alt="Pet gachapon"
+                            className="Gachapon-bg"
+                        />
+                        <img
+                            src={mg}
+                            alt="Pet gachapon"
+                            className="Gachapon-mg"
+                        />
+                        <img
+                            src={prize}
+                            alt="Pet gachapon"
+                            className={`Gachapon-prize ${prizeActive ? "active clickable" : ""}`}
+                            onClick={(e) => handlePrizeClick(e)}
+                        />
+                        {
+                            shuffleActive === false ? (
+                                <img
+                                    src={fg_static}
+                                    alt="Pet gachapon"
+                                    className="Gachapon-fg"
+                                />
+                            ) : (
+                                <img
+                                    src={fg}
+                                    alt="Pet gachapon"
+                                    className="Gachapon-fg"
+                                />
+                            )
+                        }
+                        <img
+                            src={dial}
+                            alt="Pet gachapon"
+                            className="Gachapon-dial clickable"
+                            onClick={() => startGacha(true)}
+                        />
+                    </div>
                     <div className="PetGachapon-text-container">
                         <p>
                             Each play costs 30 moolah
@@ -152,7 +235,7 @@ export default function BgGachapon({ userBgNames, user }) {
                                 className={`PetGachapon-submit`}
                                 onClick={addToCollection}
                             >
-                                Adopt this moo into your herd
+                                Save to cowlection
                             </button>
                         </div>
                     </form>
