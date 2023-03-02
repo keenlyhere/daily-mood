@@ -4,7 +4,7 @@ describe('Daily Mood', () => {
     cy.contains("Keenly")
   })
 
-  it('clicks the link "login"', () => {
+  it('is able to login', () => {
     cy.visit('/')
 
     cy.contains('Log In').click()
@@ -24,5 +24,27 @@ describe('Daily Mood', () => {
     cy.get(".LoginFormModal-submit").click()
 
     cy.contains("Moolah")
+  })
+
+  it('is able to login to demo user', () => {
+    cy.visit('/')
+
+    cy.contains('Log In').click()
+
+    cy.get(".LoginFormModal-demo").click()
+
+    cy.contains("Moolah")
+  })
+
+  it('is able to logout', () => {
+    cy.visit('/')
+
+    cy.contains('Log In').click()
+
+    cy.get(".LoginFormModal-demo").click()
+
+    cy.contains("Moolah")
+
+    cy.contains('Logout').click()
   })
 })
