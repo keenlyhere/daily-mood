@@ -162,6 +162,11 @@
     border-radius: 8px;
 }
 
+.SignUpForm-group-birthday {
+    color: #878787;
+    padding-left: 8px;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     top: 0;
@@ -181,4 +186,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 8px;
     height: 48px;
     width: 100%;
+    margin-top: 8px;
 }

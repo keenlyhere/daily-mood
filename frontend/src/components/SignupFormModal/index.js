@@ -47,10 +47,48 @@ export default function SignupFormModal() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (password === confirmPassword) {
-            setErrors({});
+        setErrors({});
+        const submitErrors = {};
+
+        // if (password !== confirmPassword) {
+        //     submitErrors.passwordMismatch = "Password mismatch.";
+
+        //     if (Object.keys(submitErrors).length > 0) {
+        //         return setErrors(submitErrors);
+        //     }
+        // }
+
+            // setErrors({});
             const birthday = new Date(year, monthToNum[month] - 1, day);
-            // setBirthday(new Date(year, monthToNum[month] - 1, day));
+
+            if (!email) {
+                submitErrors.emailRequired = "Email is required.";
+            }
+
+            if (!email.includes("@")) {
+                submitErrors.validEmail = "Please enter a valid email";
+            }
+
+            if (password.length < 6 || password.length > 50) {
+                submitErrors.passwordLength = "Please enter a password between 6 and 50 characters";
+            }
+
+            if (password !== confirmPassword) {
+                submitErrors.passwordMismatch = "Password mismatch";
+            }
+
+            if (!firstName) {
+                submitErrors.firstName = "First name is required.";
+            }
+
+            if (!lastName) {
+                submitErrors.lastName = "First name is required.";
+            }
+
+            if (Object.keys(submitErrors).length > 0) {
+                return setErrors(submitErrors);
+            }
+
             console.log("BIRTHDAY ===>", birthday);
             return dispatch(sessionActions.signup({ email, firstName, lastName, password, birthday, displayPic }))
                 // .then(console.log("req went through"))
@@ -58,12 +96,12 @@ export default function SignupFormModal() {
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
-                    // console.log("data, errors:", data, data.errors)
+                    console.log("data, errors:", data, data.errors)
                     const signUpErrors = {};
                     if (data && data.errors) {
                         for (let i = 0; i < data.errors.length; i++) {
                             const currError = data.errors[i];
-                            // console.log("currError", currError)
+                            console.log("currError", currError)
 
                             switch (currError) {
                                 case "User with that email already exists":
@@ -99,7 +137,7 @@ export default function SignupFormModal() {
                         setErrors(signUpErrors);
                     };
                 });
-        }
+
     }
 
     const updateFile = (e) => {
@@ -187,6 +225,9 @@ export default function SignupFormModal() {
                         </div>
                     </div>
                 </div>
+                <label htmlFor="birthday" className="SignUpForm-group-birthday">
+                    Birthday
+                </label>
                 <div className="SignUpForm-group birthday">
                     {/* <input
                         id="birthday"
@@ -229,6 +270,7 @@ export default function SignupFormModal() {
                 </div>
                     <div className="Form-error-container">
                         {errors && errors.passwordLength && <p className="Form-error">{errors.passwordLength}</p>}
+                        {errors && errors.passwordMismatch && <p className="Form-error">{errors.passwordMismatch}</p>}
                     </div>
             </div>
             <div className="SignUpForm-button-container">
