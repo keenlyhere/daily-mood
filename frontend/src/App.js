@@ -20,6 +20,8 @@ import Splash from "./components/SplashPage/Splash";
 import Footer from "./components/Footer";
 import YearPicker from "./components/SignupFormModal/DatePicker/YearPicker";
 import MonthPicker from "./components/SignupFormModal/DatePicker/MonthPicker";
+import DayPicker from "./components/SignupFormModal/DatePicker/DayPicker";
+import Testing from "./testing";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,8 +46,7 @@ function App() {
           </Route>
           <Route exact path="/testing">
             <div className="Splash-container">
-              <YearPicker />
-              <MonthPicker />
+              <Testing />
             </div>
           </Route>
           <Route exact path="/petcare">
