@@ -1,3 +1,16 @@
-.Birthday-dropdown-options {
-    size: 6;
+.SignUpForm-group.birthday {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.Birthday-dropdown {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border: 1px solid #c4c4c4;
+    border-radius: 8px;
+    outline: none;
+    padding: 8px;
+    color: #878787;
 }

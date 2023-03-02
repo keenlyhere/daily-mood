@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { monthsObj } from "../../../utils/dateFormating";
 
-export default function MonthPicker({ chosenYear }) {
+export default function MonthPicker({ chosenYear, onChange }) {
     const [ monthSelected, setMonthSelected ] = useState(null);
     const today = new Date();
     const currentYear = new Date().getFullYear();
@@ -13,9 +13,10 @@ export default function MonthPicker({ chosenYear }) {
 
     const handleSelection = (e) => {
         setMonthSelected(e.target.value);
+        onChange(e.target.value);
     }
 
-    console.log("monthSelected ===>", monthSelected);
+    // console.log("monthSelected ===>", monthSelected);
 
     return (
         <select
@@ -23,12 +24,12 @@ export default function MonthPicker({ chosenYear }) {
             onChange={handleSelection}
             placeholder="Month"
             required
+            defaultValue="Month"
         >
             <option
-                value=""
+                value="Month"
                 className="Birthday-dropdown-options"
                 disabled
-                selected
                 hidden
             >
                 Month

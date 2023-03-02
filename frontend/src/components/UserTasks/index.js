@@ -81,9 +81,9 @@ export default function UserTasks() {
         return (
             <div className="UserTasks-container">
                 <>
-                <h3 className="UserTasks-headers">
+                <h1 className="Page-headers">
                     Habits
-                </h3>
+                </h1>
 
                 <div className="UserTasks-cat-container">
                     <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
@@ -117,9 +117,9 @@ export default function UserTasks() {
                 {
                     allUnfinishedTodo !== undefined && Object.keys(allUnfinishedTodo).length ? (
                         <>
-                            <h3 className="UserTasks-headers">
+                            <h1 className="Page-headers">
                                 Unfinished To-Do's
-                            </h3>
+                            </h1>
 
                             <div className="UserTasks-cat-container">
                                 <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
@@ -130,9 +130,9 @@ export default function UserTasks() {
                     )
                 }
 
-                <h3 className="UserTasks-headers">
+                <h1 className="Page-headers">
                     Today's To-Do's
-                </h3>
+                </h1>
 
 
                 <div className="UserTasks-cat-container">

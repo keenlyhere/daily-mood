@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
+import { monthToNum } from "../../utils/dateFormating";
+import DayPicker from "./DatePicker/DayPicker";
+import MonthPicker from "./DatePicker/MonthPicker";
+import YearPicker from "./DatePicker/YearPicker";
 // import "./SignupForm.css";
 import "./SignUpForm2.css";
 
@@ -13,7 +17,7 @@ export default function SignupFormModal() {
     const [ email, setEmail ] = useState("");
     const [ firstName, setFirstName ] = useState("");
     const [ lastName, setLastName ] = useState("");
-    const [ birthday, setBirthday ] = useState(new Date());
+    // const [ birthday, setBirthday ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
     const [ displayPic, setDisplayPic ] = useState(null);
@@ -21,11 +25,33 @@ export default function SignupFormModal() {
     const [ errors, setErrors ] = useState({});
     const { closeModal } = useModal();
 
+    const [ year, setYear ] = useState("");
+    const [ month, setMonth ] = useState("");
+    const [ day, setDay ] = useState("");
+
+    const handleYearChange = (selectedYear) => {
+        setYear(selectedYear);
+        // setChosenYear(selectedYear);
+    };
+
+    const handleMonthChange = (selectedMonth) => {
+        setMonth(selectedMonth);
+        // setChosenMonth(selectedMonth);
+    };
+
+    const handleDayChange = (selectedDay) => {
+        setDay(selectedDay);
+        // setChosenDay(selectedDay);
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors({});
-            // console.log("displayPicUrl", displayPic)
+            const birthday = new Date(year, monthToNum[month] - 1, day);
+            // setBirthday(new Date(year, monthToNum[month] - 1, day));
+            console.log("BIRTHDAY ===>", birthday);
             return dispatch(sessionActions.signup({ email, firstName, lastName, password, birthday, displayPic }))
                 // .then(console.log("req went through"))
                 .then(() => history.push("/daily"))
@@ -162,20 +188,19 @@ export default function SignupFormModal() {
                     </div>
                 </div>
                 <div className="SignUpForm-group birthday">
-                    <input
+                    {/* <input
                         id="birthday"
                         type="date"
                         value={birthday}
                         onChange={(e) => setBirthday(e.target.value)}
-                    />
-                    {/* datetime / local */}
-                    <label htmlFor="birthday">
-                        Birthday
-                    </label>
+                    /> */}
+                    <YearPicker chosenYear={year} onChange={handleYearChange} />
+                    <MonthPicker chosenMonth={month} chosenYear={year} onChange={handleMonthChange} />
+                    <DayPicker chosenDay={day} chosenYear={year} chosenMonth={month} onChange={handleDayChange} />
+                </div>
                     <div className="Form-error-container">
                         {errors && errors.birthday && <p className="Form-error">{errors.birthday}</p>}
                     </div>
-                </div>
                 <div className="SignUpForm-group-split">
                     <div className="SignUpForm-group-half password">
                         <input

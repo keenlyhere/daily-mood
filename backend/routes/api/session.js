@@ -47,8 +47,11 @@ router.post("/", validateLogin, async (req, res, next) => {
     if (formatDate(now) !== user.lastLogin) {
         // console.log("activePet", userActivePet)
         const newHealth  = userActivePet.health - 5;
+        const newFriendliness  = userActivePet.newFriendliness - 1;
+        
         await userActivePet.update({
-            health: newHealth
+            health: newHealth,
+            friendliness: newFriendliness
         })
 
         await user.update({
