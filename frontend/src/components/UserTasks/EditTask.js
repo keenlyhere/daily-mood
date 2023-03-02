@@ -51,26 +51,20 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
         e.preventDefault();
         const err = {};
 
-        const newTask = {
-            taskIcon: iconSelected,
-            taskName: newTaskName,
-            categoryName,
-            taskType
-        };
 
-        if (taskName.length > 12) {
+        if (newTaskName.length > 12) {
             err.nameLength = "Max. 12 characters";
         }
 
-        if (taskName.length === 0) {
+        if (newTaskName.length === 0) {
             err.nameLength2 = "Please enter a task name";
         }
 
-        if (!newTask.taskIcon) {
+        if (!newTaskName.taskIcon) {
             err.taskIcon = "Please select an icon";
         }
 
-        if (!newTask.categoryName) {
+        if (!newTaskName.categoryName) {
             err.categoryName = "Please enter a category name";
         }
 
@@ -82,6 +76,12 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             return setErrors(err);
         }
 
+        const newTask = {
+            taskIcon: iconSelected,
+            taskName: newTaskName,
+            categoryName,
+            taskType
+        };
 
         // console.log("NEW TASK >>>", newTask);
 
@@ -108,6 +108,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
     }
 
     // console.log("ICON SELECTED", iconSelected);
+    console.log("NEW TASK NAME ===>", newTaskName);
 
     return (
         <div className="CreateTaskModal-container">
@@ -162,7 +163,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
                         </div>
                         <div className="CreateTaskModal-button-container">
                             <button className="CreateTaskModal-next" onClick={() => setStep(1) }>Back</button>
-                            <button className={`CreateTaskModal-next ${taskName.length === 0 || taskName.length > 12 ? "disabled" : ""}`} disabled={taskName.length > 12 ? true : false} onClick={handleSubmit}>Submit</button>
+                            <button className={`CreateTaskModal-next ${newTaskName.length === 0 || newTaskName.length > 12 ? "disabled" : ""}`} disabled={newTaskName.length > 12 ? true : false} onClick={handleSubmit}>Submit</button>
                         </div>
                     </div>
                 )

@@ -24,11 +24,21 @@
 }
 
 .Daily-header-date {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     max-width: 880px;
 }
+
+span.highlighted {
+    content: "";
+    background-image: url("https://keenlychung.com/dailymood/highlight.svg");
+    background-repeat: no-repeat;
+    background-position: 0 2rem;
+    background-size: 110% auto;
+}
+
 
 /* FOR DAILY MOOD */
 

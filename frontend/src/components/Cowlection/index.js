@@ -116,7 +116,7 @@ export default function Cowlection({ user }) {
 
         const changeActiveBg = async (bg) => {
             const desiredActive = wantedBg(bg);
-            // console.log("desiredActive ===>", desiredActive)
+            console.log("desiredActive ===>", desiredActive)
 
             const setActiveBg = await dispatch(editActiveBg(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -273,7 +273,7 @@ export default function Cowlection({ user }) {
                                             ) : (
                                                 <button
                                                     className="Pet-gachapon-play setActive"
-                                                    onClick={() => changeActiveBg(bgs.userBgImages[idx])}
+                                                    onClick={() => changeActiveBg(bgs.userBgNames[idx])}
                                                 >
                                                     Set active
                                                 </button>
