@@ -161,7 +161,7 @@ export default function Store({ user }) {
                                                                     You own this cow!
                                                                 </h3>
                                                                 <button
-                                                                    className="Pet-gachapon-play"
+                                                                    className="Pet-gachapon-play setActive"
                                                                     onClick={() => changeActivePet(cows.cowFlavors[idx])}
                                                                 >
                                                                     Set active
@@ -226,7 +226,7 @@ export default function Store({ user }) {
                                                                     You own this background!
                                                                 </h3>
                                                                 <button
-                                                                    className="Pet-gachapon-play"
+                                                                    className="Pet-gachapon-play setActive"
                                                                     onClick={() => changeActiveBg(bgs.bgNames[idx])}
                                                                 >
                                                                     Set active

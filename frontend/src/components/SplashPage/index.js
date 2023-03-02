@@ -16,7 +16,7 @@ export default function SplashPage(){
                         className="SplashPage-cow-image"
                     />
                     <div className="SplashPage-main-banner-text">
-                        <h1>Welcome to Daily Moo'd,</h1>
+                        <h1 className="SplashPage-main-header">Welcome to Daily Moo'd,</h1>
                         <p>
                             the cow-themed mood tracking app that makes self-care fun! With our app, you can track your moods, complete tasks, and earn points to unlock adorable cows that you can feed, play with, and take care of.
                         </p>

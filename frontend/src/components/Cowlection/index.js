@@ -179,7 +179,7 @@ export default function Cowlection({ user }) {
                                         {
                                             activePet.id !== pet.id && (
                                                 <button
-                                                    className="Pet-gachapon-play"
+                                                    className="Pet-gachapon-play setActive"
                                                     onClick={() => changeActivePet(cows.userCowFlavors[idx])}
                                                 >
                                                     Set active
@@ -218,7 +218,7 @@ export default function Cowlection({ user }) {
                                                 </button>
                                             ) : (
                                                 <button
-                                                    className="Pet-gachapon-play"
+                                                    className="Pet-gachapon-play setActive"
                                                     onClick={() => changeActivePet(bgs.userBgImages[idx])}
                                                 >
                                                     Set active
