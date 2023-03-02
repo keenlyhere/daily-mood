@@ -126,12 +126,16 @@ export default function Store({ user }) {
                     page === "cows" && (
                         <div className="Store-pet-gachapon">
                             <h2>Pet Gachapon</h2>
-                            <OpenModalButton
-                                buttonText={<img src={gachaBase} alt="Pet gachapon" />}
-                                onButtonClick={closeMenu}
-                                modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
-                                buttonClass="Gachapon"
-                            />
+                            { userFlavors.length >= 9 ? (
+                                "You've collected all the cows!"
+                            ) : (
+                                <OpenModalButton
+                                    buttonText={<img src={gachaBase} alt="Pet gachapon" />}
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
+                                    buttonClass="Gachapon"
+                                />
+                            )}
                             {/* <OpenModalButton
                                 buttonText={<img src={gachapon} alt="Pet gachapon" />}
                                 onButtonClick={closeMenu}
@@ -197,12 +201,18 @@ export default function Store({ user }) {
                     page === "backgrounds" && (
                         <div className="Store-bg-gachapon">
                             <h2>Background gachapon</h2>
-                            <OpenModalButton
-                                buttonText={<img src={gachaBase} alt="Pet gachapon" />}
-                                onButtonClick={closeMenu}
-                                modalComponent={<BgGachapon userBgNames={userBgNames} user={user} />}
-                                buttonClass="Gachapon"
-                            />
+                            {
+                                userBgNames.length >= 3 ? (
+                                    "You've collected all the backgrounds!"
+                                ) : (
+                                    <OpenModalButton
+                                        buttonText={<img src={gachaBase} alt="Pet gachapon" />}
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<BgGachapon userBgNames={userBgNames} user={user} />}
+                                        buttonClass="Gachapon"
+                                    />
+                                )
+                            }
                             <div className="Pet-gachapon-prizes">
                                 { bgs.bgImages.map((bg, idx) => (
                                     <div key={idx} className="Pet-gachapon-card">

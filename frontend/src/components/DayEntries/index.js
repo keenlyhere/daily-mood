@@ -177,7 +177,7 @@ export default function Daily() {
         return (
             <div className="Daily-container">
                 <div className="Daily-header-date">
-                    <h1 className="Daily-header-text">{dateObj.month} {dateObj.date}</h1>
+                    <h1 className="Daily-header-text"><span className="highlighted">{dateObj.month} {dateObj.date}</span></h1>
                 </div>
 
                 <DailyMood currentMood={currentMood} />

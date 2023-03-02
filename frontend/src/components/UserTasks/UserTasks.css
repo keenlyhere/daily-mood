@@ -10,6 +10,10 @@
 
 }
 
+.UserTasks-header-container {
+    width: 100%;
+}
+
 .UserTasks-headers {
     font-size: 22px;
     margin-bottom: 18px;
@@ -175,7 +179,8 @@
 
 @media (min-width: 1288px) {
     .UserTasks-category-container,
-    .UserTasks-cat-container {
+    .UserTasks-cat-container,
+    .UserTasks-header-container {
         max-width: 880px;
     }
 
