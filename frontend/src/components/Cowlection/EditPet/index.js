@@ -19,7 +19,6 @@ export default function EditPet({ user, pet, petToEdit, endEditPet }) {
     const handlePetNameChange = (e) => {
         e.preventDefault();
 
-        console.log("pet", pet)
         const newPetInfo = {
             "name": petName
         }
@@ -46,7 +45,8 @@ export default function EditPet({ user, pet, petToEdit, endEditPet }) {
             }
 
             const newPetInfo = {
-                "name": petName
+                "name": petName,
+                "setActive": false
             }
 
             dispatch(editPetInfo(pet.id, newPetInfo))
@@ -56,6 +56,7 @@ export default function EditPet({ user, pet, petToEdit, endEditPet }) {
                 })
             dispatch(loadAllUserItems());
             endActiveInput();
+            endEditPet();
         }
     }
 
@@ -63,20 +64,26 @@ export default function EditPet({ user, pet, petToEdit, endEditPet }) {
         // <h2 className="Pet-gachapon-flavor">
         //     {pet.name}
         // </h2>
-        <div className="Pet-gachapon-flavor">
-            <input
-                className="Pet-edit"
-                value={petName}
-                onChange={(e) => setPetName(e.target.value)}
-                onKeyDown={onKeyDown}
-            />
-            <button
-                className="UserTasks-category-save Pet-edit"
-                onClick={handlePetNameChange}
-                disabled={petName.length > 12 || petName.length < 1 ? true : false}
-            >
-                Save
-            </button>
+        <div className="Pet-gachapon-flavor PetName-header">
+            <form className="Pet-edit-form">
+                <input
+                    className="Pet-edit-input Pet-edit"
+                    value={petName}
+                    onChange={(e) => setPetName(e.target.value)}
+                    onKeyDown={onKeyDown}
+                />
+                <button
+                    className={`UserTasks-category-save Pet-edit ${petName.length < 3 || petName.length > 12 ? "isDisabled" : ""}`}
+                    onClick={handlePetNameChange}
+                    disabled={petName.length > 12 || petName.length < 1 ? true : false}
+                >
+                    Save
+                </button>
+            </form>
+            <div className="Pet-edit-error-text">
+                {petName.length > 12 ? "Max. 12 characters" : ""}
+                {petName.length < 3 ? "Min. 3 characters" : ""}
+            </div>
         </div>
     )
 }

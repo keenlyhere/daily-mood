@@ -213,3 +213,13 @@ p.PetGachapon-text {
 .setActive {
     font-size: 14px;
 }
+
+.Pet-stats {
+    margin-bottom: 8px;
+    height: 22px;
+}
+
+/* .Pet-gachapon-description.cowlectionPage {
+    display: flex;
+    gap: 0;
+} */

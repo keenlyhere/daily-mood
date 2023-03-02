@@ -69,14 +69,15 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
                                         onKeyDown={onKeyDown}
                                     />
                                     <button
-                                        className="UserTasks-category-save"
+                                        className={`UserTasks-category-save ${catName.length < 3 || catName.length > 12 ? "isDisabled" : ""}`}
                                         onClick={endActiveInput}
-                                        disabled={catName.length > 12 || catName.length < 1 ? true : false}
+                                        disabled={catName.length > 12 || catName.length < 3 ? true : false}
                                     >
                                         Save
                                     </button>
                                     <div className="EditCategory-error-text">
                                         {catName.length > 12 ? "Max. 12 characters" : ""}
+                                        {catName.length < 3 ? "Min. 3 characters" : ""}
                                     </div>
                                 </div>
                             ) : (
@@ -98,8 +99,9 @@ export default function EditCategory( { allTasks, categoryTasks, category, taskT
 
                                 <div className="UserTasks-actions-container">
                                     <button
-                                        className="UserTasks-save"
+                                        className={`UserTasks-save ${catName.length < 3 || catName.length > 12 ? "isDisabled" : ""}`}
                                         onClick={handleCatNameChange}
+                                        disabled={catName.length > 12 || catName.length < 3 ? true : false}
                                         // onClick={endEditTasks}
                                     >
                                         Done editing
