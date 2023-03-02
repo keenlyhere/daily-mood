@@ -2,9 +2,9 @@
 
 ## 🐄 **About**
 
-Datcord is a full-stack web application cloned and inspired by Discord. The build currently supports six features for user interactivity: (1) Servers: Full CRUD, (2) Channels: Full CRUD, (3) Channel Messages: Full CRUD, (4) Memberships: Full CRUD, (5) Theme: Switch between light and dark mode, (6) Friendship: Full CRUD
+Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is website for users to track their daily feelings and tasks. It currently has 4 features: (1) Dailies: Full CRUD, (2) Tasks: Full CRUD, (3) Pets: Full CRUD, (4) Shop: read and update.
 
-[Click to view DatCord Live](linkhere)
+[Click to view Daily Moo'd Live](https://daily-mood.onrender.com/)
 
 ## 💻 **Tech Stack**
 
