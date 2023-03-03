@@ -159,14 +159,27 @@ router.put("/points", requireAuth, async (req, res, next) => {
         })
     }
 
-    if (pointsEarned === 5 || pointsEarned === -5) {
+    if (pointsEarned === 5) {
         if (user.pointsEarnedDailies < 15) {
-            const updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
+            let updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
+
             await user.update({
                 moolah: updatedMoolah,
                 pointsEarnedDailies: updatedPointsEarnedDailies
             });
         }
+    } else if (pointsEarned === -5) {
+        let updatedPointsEarnedDailies = user.pointsEarnedDailies + pointsEarned;
+
+            if (updatedPointsEarnedDailies < 1) {
+                updatedPointsEarnedDailies = 0;
+            }
+
+            await user.update({
+                moolah: updatedMoolah,
+                pointsEarnedDailies: updatedPointsEarnedDailies
+            });
+            
     } else {
         if (user.pointsEarnedToday < 10) {
             // console.log("user", user.pointsEarnedToday)
