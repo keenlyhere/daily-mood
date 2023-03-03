@@ -57,13 +57,13 @@ export default function TestChart() {
         currentDate.getMonth() + 1,
         0
     ).getDate();
-    console.log("numDaysInMonth", numDaysInMonth);
+    // console.log("numDaysInMonth", numDaysInMonth);
 
     const daysInMonth = [];
     for (let i = 1; i <= numDaysInMonth; i++) {
         daysInMonth.push(i);
     }
-    console.log("daysInMonth !!! ===>", daysInMonth)
+    // console.log("daysInMonth !!! ===>", daysInMonth)
 
     const moodValues = {
         "Sad": 1,
@@ -134,17 +134,18 @@ export default function TestChart() {
     };
 
     const options = {
-        animations: {
+        animation: {
             y: {
                 easing: 'easeInOutElastic',
                 from: (ctx) => {
-                if (ctx.type === 'data') {
-                    if (ctx.mode === 'default' && !ctx.dropped) {
-                    ctx.dropped = true;
-                    return 0;
+                    if (ctx.type === 'data') {
+                        if (ctx.mode === 'default' && !ctx.dropped) {
+                        ctx.dropped = true;
+                        return 0;
+                        }
                     }
-                }
-                }
+                },
+                duration: 2000
             }
         },
         plugins: {
@@ -181,7 +182,49 @@ export default function TestChart() {
     }
 
     if (isLoaded) {
-        // console.log("monthlyMoods ===>", monthlyMoods);
+        console.log("monthlyMoods ===>", monthlyMoods);
+        const moodData = {};
+
+        for (let i = 0; i < monthlyMoods.length; i++) {
+            const moodValue = monthlyMoods[i];
+
+            if (!moodData[moodValue]) {
+                moodData[moodValue] = 1;
+            } else {
+                moodData[moodValue] += 1;
+            }
+        }
+
+        console.log("moodData", moodData);
+
+        const moodBarWidth = (value) => {
+            let backgroundColor;
+
+            if (value === 1) {
+                backgroundColor = "#002E00";
+            } else if (value === 2) {
+                backgroundColor = "#005400";
+            } else if (value === 3) {
+                backgroundColor = "#5aa13e";
+            } else if (value === 4) {
+                backgroundColor = "#C9E2BB";
+            } else {
+                backgroundColor = "#F9DE92";
+            }
+
+            let widthValue;
+
+            if (moodData[value]) {
+                widthValue = moodData[value] / monthlyMoods.length * 100;
+            } else {
+                widthValue = 0;
+            }
+
+            return {
+                "width": `${widthValue}%`,
+                backgroundColor
+            }
+        }
 
         return (
             <div className="Stats-container">
@@ -190,6 +233,48 @@ export default function TestChart() {
                     options={options}
                     data={data}
                 />
+                <h1 className="Stats-header">Mood Bar</h1>
+                <div className="MoodBar-container">
+                </div>
+                <div className="MoodBar-filled-container">
+                    <div className="MoodBar-filled" style={moodBarWidth(5)}></div>
+                    <div className="MoodBar-filled" style={moodBarWidth(4)}></div>
+                    <div className="MoodBar-filled" style={moodBarWidth(3)}></div>
+                    <div className="MoodBar-filled" style={moodBarWidth(2)}></div>
+                    <div className="MoodBar-filled" style={moodBarWidth(1)}></div>
+                </div>
+                <div className="MoodBar-images-container">
+                    <div className="MoodBar-image-percent">
+                        <img src={cow_ecstatic} className="MoodBar-cows" alt="Ecstatic mood" />
+                        { moodData[5] ? (
+                            moodData[5] / monthlyMoods.length * 100
+                        ) : ("0") }%
+                    </div>
+                    <div className="MoodBar-image-percent">
+                        <img src={cow_happy} className="MoodBar-cows" alt="Ecstatic mood" />
+                        { moodData[4] ? (
+                            moodData[4] / monthlyMoods.length * 100
+                        ) : ("0") }%
+                    </div>
+                    <div className="MoodBar-image-percent">
+                        <img src={cow_content} className="MoodBar-cows" alt="Ecstatic mood" />
+                        { moodData[3] ? (
+                            moodData[3] / monthlyMoods.length * 100
+                        ) : ("0") }%
+                    </div>
+                    <div className="MoodBar-image-percent">
+                        <img src={cow_meh} className="MoodBar-cows" alt="Ecstatic mood" />
+                        { moodData[2] ? (
+                            moodData[2] / monthlyMoods.length * 100
+                        ) : ("0") }%
+                    </div>
+                    <div className="MoodBar-image-percent">
+                        <img src={cow_sad} className="MoodBar-cows" alt="Ecstatic mood" />
+                        { moodData[1] ? (
+                            moodData[1] / monthlyMoods.length * 100
+                        ) : ("0") }%
+                    </div>
+                </div>
             </div>
         )
     } else {
