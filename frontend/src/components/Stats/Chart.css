@@ -1,0 +1,5 @@
+.Stats-container {
+    width: calc(100% - 320px);
+    max-width: 880px;
+    padding: 44px;
+}

@@ -24,6 +24,8 @@ import DayPicker from "./components/SignupFormModal/DatePicker/DayPicker";
 import Testing from "./testing";
 import Monthly from "./components/Monthly";
 import SpecificDayEntries from "./components/DayEntries/SpecificDayEntries";
+// import LineChart from "./components/Stats/LineChart";
+import TestChart from "./components/Stats/TestChart";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +67,13 @@ function App() {
               <SideBar user={user} />
               <SpecificDayEntries />
             </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/stats" exact={true}>
+            <div className="Page-container">
+              <SideBar user={user} />
+              <TestChart />
+            </div>
+              {/* <LineChart /> */}
           </ProtectedRoute>
           <ProtectedRoute path="/tasks/future" exact={true}>
             <h1>You cannot record the future.</h1>
