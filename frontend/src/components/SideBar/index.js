@@ -156,7 +156,7 @@ export default function SideBar({ user }) {
                     to="/monthly"
                     className="SideBar-link"
                 >
-                    Monthly
+                    Cowlendar
                 </NavLink>
                 <NavLink
                     to="/store"

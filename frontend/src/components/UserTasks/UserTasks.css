@@ -1,13 +1,15 @@
 .UserTasks-container {
-    padding: 18px 44px;
+    padding: 44px;
     width: calc(100% - 320px);
     height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* gap: 18px; */
-
+    border-right: 1px solid #F2F2F2;
+    background-color: #fffefe;
+    -webkit-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    -moz-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
 }
 
 .UserTasks-header-container {
@@ -208,6 +210,7 @@
 }
 
 @media (min-width: 1288px) {
+    .UserTasks-container,
     .UserTasks-category-container,
     .UserTasks-cat-container,
     .UserTasks-header-container {

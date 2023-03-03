@@ -1,9 +1,17 @@
 .Store-container {
     width: calc(100% - 320px);
-    padding: 25px;
+    padding: 44px;
     height: 100%;
     overflow-y: scroll;
     background-color: white;
+}
+
+.Store-pet-gachapon,
+.Store-bg-gachapon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .Gachapon {
@@ -237,12 +245,12 @@ p.PetGachapon-text {
     top: 0;
     left: 0;
     width: 100%;
+    padding: 18px 0;
 }
 
 .Gachapon-header {
     text-align: center;
     flex-grow: 1;
-    margin-left: -27px;
     font-family: "KeenlysFont", Bungee, sans-serif;
     font-size: 5rem;
     color: #c9e2bb;
@@ -250,4 +258,5 @@ p.PetGachapon-text {
     position: relative;
     width: 100%;
     z-index: 1;
+    padding: 18px 0;
 }
