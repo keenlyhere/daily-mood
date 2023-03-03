@@ -1,10 +1,15 @@
 .Monthly-container {
-    padding: 18px 44px;
+    padding: 44px;
     width: calc(100% - 320px);
     height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #F2F2F2;
+    background-color: #fffefe;
+    -webkit-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    -moz-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
 }
 
 .Monthly-calendar-container {
@@ -22,9 +27,31 @@
     align-items: center;
 }
 
-.Monthly-calendar-month {
+/* .Monthly-calendar-month {
     width: 150px;
     text-align: center;
+} */
+
+.Monthly-calendar-month {
+    text-align: center;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 5rem;
+    color: #c9e2bb;
+    text-shadow: 5px 5px 0px #1b3012;
+    position: relative;
+    width: 320px;
+    z-index: 1;
+}
+
+.Monthly-calendar-month:before {
+    content: attr(data-content);
+    font-size: 5rem;
+    position: absolute;
+    -webkit-text-stroke: 5px #1b3012;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
 }
 
 .Monthly-calendar-main-container {
@@ -76,7 +103,7 @@
 
 .Mood-image:hover {
     /* transform: rotate(4deg); */
-    animation: wiggle infinite 0.5s;
+    animation: wiggle infinite 0.4s;
 }
 
 @keyframes wiggle {
@@ -122,7 +149,7 @@
 }
 
 @media (min-width: 1288px) {
-    .Monthly-calendar-container {
+    .Monthly-container {
         max-width: 880px;
     }
 

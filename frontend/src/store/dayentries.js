@@ -22,12 +22,12 @@ const normalizeDays = (entries) => {
     entries.forEach(entry => {
         const [ year, month, day ] = entry.day.split("-");
         const entryDate = new Date(year, month, day);
-        console.log("entry.day", entry);
-        console.log("entryDate", entryDate);
-        console.log("entry.getDate", entryDate.getDate());
+        // console.log("entry.day", entry);
+        // console.log("entryDate", entryDate);
+        // console.log("entry.getDate", entryDate.getDate());
         normalizedData[entryDate.getDate()] = entry;
     });
-    console.log("normalizedData", normalizedData)
+    // console.log("normalizedData", normalizedData)
     return normalizedData;
 }
 

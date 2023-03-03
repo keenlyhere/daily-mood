@@ -88,6 +88,7 @@
     padding: 36px;
     width: 100%;
     justify-content: space-between;
+    height: 100vh;
 }
 
 .SplashPage-info-container:nth-child(odd) {

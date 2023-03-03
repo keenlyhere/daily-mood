@@ -1,24 +1,56 @@
 .UserTasks-container {
-    padding: 18px 44px;
+    padding: 44px;
     width: calc(100% - 320px);
     height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* gap: 18px; */
-
+    border-right: 1px solid #F2F2F2;
+    background-color: #fffefe;
+    -webkit-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    -moz-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
 }
 
 .UserTasks-header-container {
     width: 100%;
 }
 
-.UserTasks-headers {
+/* .UserTasks-headers {
     font-size: 22px;
     margin-bottom: 18px;
     text-align: center;
+} */
+
+.UserTasks-header-container {
+    width: 100%;
 }
+
+.UserTasks-main-headers:before {
+    text-align: center;
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 3.3px #1b3012;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.UserTasks-main-headers {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -27px;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 3.3rem;
+    color: #c9e2bb;
+    text-shadow: 3.3px 3.3px 0px #1b3012;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 18px;
+}
+
 
 .UserTasks-container::after {
     content: "";
@@ -178,6 +210,7 @@
 }
 
 @media (min-width: 1288px) {
+    .UserTasks-container,
     .UserTasks-category-container,
     .UserTasks-cat-container,
     .UserTasks-header-container {

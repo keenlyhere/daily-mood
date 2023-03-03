@@ -71,7 +71,9 @@ export default function PetCare({ activePet, user }) {
 
     return (
         <div className="PetCare-container">
-            <h2 className="PetCare-header">Pet Food</h2>
+            <div className="Gachapon-header-container">
+                <h1 className="Gachapon-header" data-content={"Pet Food"}>Pet Food</h1>
+            </div>
             <p className="PetCare-text">Each food item is a single use item. When you purchase it, it will be automatically fed to your active pet and increase its health.</p>
             <p className="PetCare-text">Note: Pet health cannot go over 100.</p>
             <div className="Pet-gachapon-prizes">
@@ -124,7 +126,9 @@ export default function PetCare({ activePet, user }) {
                     </div>
                 ))}
             </div>
-            <h2 className="PetCare-header">Pet Toys</h2>
+            <div className="Gachapon-header-container">
+                <h1 className="Gachapon-header" data-content={"Pet Toys"}>Pet Toys</h1>
+            </div>
             <p className="PetCare-text">Rent a toy to play with your moo once! It will boost your active pet's friendliness toward you!</p>
             <p className="PetCare-text">Note: Pet friendliness cannot go over 100.</p>
             <div className="Pet-gachapon-prizes">

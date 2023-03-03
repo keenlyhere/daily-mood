@@ -156,7 +156,7 @@ export default function SideBar({ user }) {
                     to="/monthly"
                     className="SideBar-link"
                 >
-                    Monthly
+                    Cowlendar
                 </NavLink>
                 <NavLink
                     to="/store"
@@ -175,6 +175,26 @@ export default function SideBar({ user }) {
 
         </div>
     ) : (
-        "Loading..."
+        <div className="SideBar-container">
+            We're milking the servers for all they're worth to load your mood.
+            {/* <div className="SideBar-logo-container skeleton skeleton-logo"></div>
+            <div className="SideBar-logout-container skeleton skeleton-button"></div>
+            <div className="SideBar-user-container skeleton">
+                <div className="SideBar-username skeleton skeleton-text"></div>
+                <div className="SideBar-moolah skeleton skeleton-text"></div>
+            </div>
+            <div className="SideBar-pet-container skeleton">
+                <div className="SideBar-pet-image-container skeleton skeleton-pet"></div>
+                <div className="SideBar-moolah skeleton skeleton-text"></div>
+                <div className="SideBar-moolah skeleton skeleton-text"></div>
+            </div>
+            <div className="SideBar-links skeleton">
+                <div className="SideBar-link skeleton skeleton-link"></div>
+                <div className="SideBar-link skeleton skeleton-link"></div>
+                <div className="SideBar-link skeleton skeleton-link"></div>
+                <div className="SideBar-link skeleton skeleton-link"></div>
+                <div className="SideBar-link skeleton skeleton-link"></div>
+            </div> */}
+        </div>
     )
 }

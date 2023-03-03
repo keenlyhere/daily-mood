@@ -418,6 +418,7 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
     });
 });
 
+// GET /api/day/moods/:year/:month get all moods in a month
 router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
     const { user } = req;
 
@@ -433,7 +434,8 @@ router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
             day: {
                 [Op.between]: [startDate, endDate]
             }
-        }
+        },
+        order: [[ "day", "ASC" ]]
     })
 
     if (!allMoodsInMonth.length > 0) {
