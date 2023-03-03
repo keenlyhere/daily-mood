@@ -91,4 +91,4 @@ npx dotenv sequelize db:seed:all
 
 ## Database Schema Design
 
-![Deja-Moo database schema](https://github.com/keenlyhere/API-project/blob/main/backend/assets/airbnb_dbdiagram.png?raw=true)
+![Daily Moo'd DB Schema](https://media.discordapp.net/attachments/1077123206135169065/1077649852198031361/image.png)
