@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { actionAddDayEntry, addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../store/dayentries";
+import { Redirect, useHistory, useParams } from "react-router-dom";
+import { actionAddDayEntry, addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay, loadSpecificDay } from "../../store/dayentries";
 import "./DayEntries.css";
 
 import cow_ecstatic from "../../assets/cow_ecstatic.png";
@@ -16,12 +16,18 @@ import DailyMood from "./DailyMood";
 import DailyImage from "./DailyImage";
 import DailyJournal from "./DailyJournal";
 
-export default function Daily() {
+export default function SpecificDayEntries() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((state) => state.session.user);
     const currentDay = useSelector((state) => state.day.dayEntries);
-    // console.log("DAILY USER >>>>>:", currentDay);
+    const { year, month, date } = useParams();
+    const selectedDate = new Date(year, +month - 1, date);
+    // console.log("selectedDate", selectedDate);
+    const today = new Date();
+    // console.log("today", today)
+
+
     let currentMood;
     let currentImage;
     let currentJournal;
@@ -37,8 +43,7 @@ export default function Daily() {
         setEditJournal(false)
     }
 
-    const today = new Date();
-    const dateObj = formatDateHeader(today);
+    const dateObj = formatDateHeader(selectedDate);
 
     const [mood, setMood] = useState(currentMood ? currentMood : "");
     const [dailyImage, setDailyImage] = useState(null);
@@ -59,8 +64,14 @@ export default function Daily() {
 
 
     useEffect(() => {
-        dispatch(loadCurrentDay(user.id)).then(() => setIsLoaded(true))
+        dispatch(loadSpecificDay(user.id, selectedDate)).then(() => setIsLoaded(true))
     }, [dispatch])
+
+    if (selectedDate.getTime() > today.getTime()) {
+        return (
+            <Redirect to="/tasks/future" />
+        )
+    }
 
     if (isLoaded) {
 
@@ -175,9 +186,19 @@ export default function Daily() {
 
         }
 
+        console.log("currentDay", currentDay);
+
         return (
             <div className="Daily-container">
                 <div className="Daily-header-date">
+                    <div className="Daily-back">
+                        <button
+                            className="Daily-back-button"
+                            onClick={() => history.push("/monthly")}
+                        >
+                            Back
+                        </button>
+                    </div>
                     <h1 className="Daily-header-text"><span className="highlighted">{dateObj.month} {dateObj.date}</span></h1>
                 </div>
 

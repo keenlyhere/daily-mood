@@ -27,8 +27,19 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     max-width: 880px;
+}
+
+.Daily-back-button {
+    justify-content: initial;
+}
+
+.Daily-header-text {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -27px;
 }
 
 span.highlighted {
@@ -39,6 +50,12 @@ span.highlighted {
     background-size: 110% auto;
 }
 
+.Daily-back-button {
+    background-color: #c9e2bb;
+    border: 0;
+    border-radius: 18px;
+    padding: 0.25rem 0.75rem;
+}
 
 /* FOR DAILY MOOD */
 

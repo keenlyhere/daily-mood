@@ -153,6 +153,12 @@ export default function SideBar({ user }) {
                     Tasks
                 </NavLink>
                 <NavLink
+                    to="/monthly"
+                    className="SideBar-link"
+                >
+                    Monthly
+                </NavLink>
+                <NavLink
                     to="/store"
                     className="SideBar-link"
                 >
