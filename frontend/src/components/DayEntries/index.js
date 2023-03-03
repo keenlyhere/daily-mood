@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { actionAddDayEntry, addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../store/dayentries";
 import "./DayEntries.css";
+import "./DayEntriesLoader.css";
 
 import cow_ecstatic from "../../assets/cow_ecstatic.png";
 import cow_happy from "../../assets/cow_happy.png";
@@ -191,8 +192,12 @@ export default function Daily() {
             </div>
         );
     } else {
-        <div className="Daily-container skeleton">
-            <p>Loading...</p>
+        <div className="Daily-container">
+            We're milking the servers for all they're worth to load your mood.
+            {/* <div className="Daily-header-date skeleton-header"></div>
+            <div className="Daily-mood-container skeleton-body"></div>
+            <div className="Daily-mood-container skeleton-body"></div>
+            <div className="Daily-mood-container skeleton-body"></div> */}
         </div>
     }
 

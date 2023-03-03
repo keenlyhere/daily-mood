@@ -283,7 +283,7 @@ export default function Store({ user }) {
     } else {
         return (
             <div className="Store-container">
-                Loading...
+                Cow-abunga! We're loading your mood data!
             </div>
         )
     }

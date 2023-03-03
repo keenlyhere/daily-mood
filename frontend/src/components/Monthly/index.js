@@ -15,6 +15,7 @@ export default function Monthly() {
     const today = new Date();
     const todaysDate = today.getDate();
     const todaysMonth = today.getMonth();
+    const todaysYear = today.getFullYear();
     console.log("todaysMonth ===>", todaysMonth);
 
     const moodImages = {
@@ -131,7 +132,7 @@ export default function Monthly() {
                         )) }
                         { dates.map((date, idx) => (
                             <div key={idx} className={date ? 'day' : 'empty'}>
-                                <div className={`Date-container ${todaysDate === date && todaysMonth === currentDate.getMonth() ? "todaysDate" : "" }`}>
+                                <div className={`Date-container ${todaysDate === date && todaysMonth === currentDate.getMonth() && todaysYear === currentDate.getFullYear() ? "todaysDate" : "" }`}>
                                     {date}
                                 </div>
                                 {
@@ -167,7 +168,7 @@ export default function Monthly() {
     } else {
         return (
             <div className="Monthly-container">
-                <h1>Loading... T_T</h1>
+                Moo-ving towards a better mood...
             </div>
         )
     }

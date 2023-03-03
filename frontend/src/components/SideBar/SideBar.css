@@ -134,3 +134,98 @@
     text-align: center;
     font-weight: 600;
 }
+
+.skeleton {
+    animation: skeleton-loading 1d linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #e7e6e6;
+    }
+
+    100% {
+        background-color: #d3d3d3;
+    }
+}
+
+.skeleton-container {
+    height: 100%;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skeleton-logo {
+    background-color: #89a866;
+    margin: 16px 28px;
+    border-radius: 28px;
+    height: 50px;
+    width: 150px;
+    align-self: center;
+}
+
+.skeleton-button {
+    background-color: #89a866;
+    width: 90px;
+    height: 36px;
+    border-radius: 28px;
+    align-self: center;
+}
+
+.skeleton-text {
+    height: 1rem;
+    width: 100%;
+    border-radius: 28px;
+    margin-bottom: 16px;
+    background-color: #89a866;
+}
+
+.skeleton-pet {
+    background-color: #89a866;
+    width: 264px;
+    height: 264px;
+    border-radius: 50%;
+    padding: 16px 28px;
+    margin-bottom: 16px;
+}
+
+.skeleton-link {
+    background-color: #89a866;
+    width: 180px;
+    height: 44px;
+    border-radius: 28px;
+    margin-bottom: 16px;
+}
+
+.skeleton-header {
+    height: 60px;
+    width: 240px;
+    border-radius: 28px;
+    background-color: #89a866;
+    margin-bottom: 18px;
+}
+
+.skeleton-header-2 {
+    height: 40px;
+    width: 240px;
+    border-radius: 28px;
+    background-color: #89a866;
+    margin-bottom: 18px;
+}
+
+.UserTasks-container.skeleton {
+    padding: 44px;
+    width: calc(100% - 320px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skeleton-body {
+    height: 180px;
+    margin-bottom: 44px;
+}

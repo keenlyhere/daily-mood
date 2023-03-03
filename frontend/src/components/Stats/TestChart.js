@@ -297,7 +297,7 @@ export default function TestChart() {
     } else {
         return (
             <div className="Stats-container">
-                Loading...
+                "Don't be udderly frustrated, we're almost done loading!"
             </div>
         )
     }

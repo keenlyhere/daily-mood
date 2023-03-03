@@ -180,7 +180,7 @@ function App() {
     );
   } else {
     return (
-      "Loading..."
+      ""
     )
   }
 }

@@ -214,7 +214,9 @@ export default function SpecificDayEntries() {
             </div>
         );
     } else {
-        <p>Loading...</p>
+        <div className="Daily-container">
+            Don't have a cow, we're just loading your mood!
+        </div>
     }
 
 }
