@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { actionAddDayEntry, addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay, loadSpecificDay } from "../../store/dayentries";
+import { actionAddDayEntry, addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay, loadSpecificDay } from "../../store/dayentries";
 import "./DayEntries.css";
 
 import cow_ecstatic from "../../assets/cow_ecstatic.png";
@@ -22,6 +22,8 @@ export default function SpecificDayEntries() {
     const user = useSelector((state) => state.session.user);
     const currentDay = useSelector((state) => state.day.dayEntries);
     const { year, month, date } = useParams();
+    const formatMonth = `0${month}`.slice(-2);
+    const formatDate = `0${date}`.slice(-2);
     const selectedDate = new Date(year, +month - 1, date);
     // console.log("selectedDate", selectedDate);
     const today = new Date();
@@ -81,7 +83,7 @@ export default function SpecificDayEntries() {
             setMood(val);
 
             if (action === "create") {
-                const addMood = await dispatch(addDayEntry({ entryType: "dayMood", entryData: val }))
+                const addMood = await dispatch(addPastDayEntry({ entryType: "dayMood", entryData: val }, `${year-month-date}`))
                     .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                     .catch(async (res) => {
                         const data = await res.json();
@@ -117,7 +119,7 @@ export default function SpecificDayEntries() {
                     if (data && data.errors) setErrors(data.errors);
                 })
             } else {
-                return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
+                return dispatch(addPastDayEntry({ entryType: "dayImage", entryData: file }, `${year-month-date}`))
                     .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                     .then(dispatch(loadCurrentDay(user.id)))
                     .catch(async (res) => {
@@ -168,7 +170,7 @@ export default function SpecificDayEntries() {
                     return setErrors(error);
                 }
 
-                const addJournal = await dispatch(addDayEntry({ entryType: "dayJournal", entryData: val }))
+                const addJournal = await dispatch(addPastDayEntry({ entryType: "dayJournal", entryData: val }, `${year-month-date}`))
                     .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                     .catch(async (res) => {
                         const data = await res.json();
@@ -202,11 +204,11 @@ export default function SpecificDayEntries() {
                     <h1 className="Daily-header-text"><span className="highlighted">{dateObj.month} {dateObj.date}</span></h1>
                 </div>
 
-                <DailyMood currentMood={currentMood} />
+                <DailyMood currentMood={currentMood} date={`${year}-${formatMonth}-${formatDate}`} />
 
-                <DailyImage currentImage={currentImage} />
+                <DailyImage currentImage={currentImage} date={`${year}-${formatMonth}-${formatDate}`} />
 
-                <DailyJournal currentJournal={currentJournal} />
+                <DailyJournal currentJournal={currentJournal} date={`${year}-${formatMonth}-${formatDate}`} />
 
 
             </div>

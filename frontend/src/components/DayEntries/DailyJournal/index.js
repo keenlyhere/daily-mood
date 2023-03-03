@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
+import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
 
-export default function DailyJournal({ currentJournal }) {
+export default function DailyJournal({ currentJournal, date }) {
     const dispatch = useDispatch();
     const [dailyJournal, setDailyJournal] = useState(currentJournal ? currentJournal.entryData : "");
     const [ editJournal, setEditJournal ] = useState(false);
@@ -34,13 +34,23 @@ export default function DailyJournal({ currentJournal }) {
             return setErrors(error);
         }
 
-        const addJournal = await dispatch(addDayEntry({ entryType: "dayJournal", entryData: val }))
-            .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+        if (date) {
+            const addJournal = await dispatch(addPastDayEntry({ entryType: "dayJournal", entryData: val }, date))
             .then(() => dispatch(loadCurrentDay()))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             })
+        } else {
+            const addJournal = await dispatch(addDayEntry({ entryType: "dayJournal", entryData: val }))
+                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+                .then(() => dispatch(loadCurrentDay()))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                })
+        }
+
 
 
     }

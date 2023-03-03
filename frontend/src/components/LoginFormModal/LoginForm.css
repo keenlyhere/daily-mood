@@ -193,8 +193,21 @@
     font-size: 14px;
 }
 
+.Form-error-container-birthday {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 5px; */
+}
+
+
 .Form-error {
     padding: 4px 0px;
     font-size: 12px;
     color: #ed4245;
+}
+
+.Form-error-container-birthday > .Form-error {
+    font-size: 11px;
 }

@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
+import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
 import add_photo from "../../../assets/add_photo.png"
 import uploadImage from "../../../assets/cloud-arrow-up-solid.svg";
 
-export default function DailyImage({ currentImage }) {
+export default function DailyImage({ currentImage, date }) {
     const dispatch = useDispatch();
     const [dailyImage, setDailyImage] = useState(null);
     const [dailyImageUrl, setDailyImageUrl] = useState(currentImage ? currentImage.entryData : "");
     const [imageChanged, setImageChanged] = useState(false);
     const [ errors, setErrors ] = useState({});
+
+    console.log("date ===>", date)
+    console.log("current image ===>", currentImage)
 
     const updateFile = async (e, action) => {
         const file = e.target.files[0];
@@ -30,13 +33,25 @@ export default function DailyImage({ currentImage }) {
                 if (data && data.errors) setErrors(data.errors);
             })
         } else {
-            return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
-                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+            if (date) {
+                console.log("dailyImage date")
+                return dispatch(addPastDayEntry({ entryType: "dayImage", entryData: file }, date))
                 .then(dispatch(loadCurrentDay()))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 })
+            } else {
+                console.log("not date")
+                return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
+                    .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+                    .then(dispatch(loadCurrentDay()))
+                    .catch(async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) setErrors(data.errors);
+                    })
+            }
+
         }
 
     }
