@@ -12,8 +12,8 @@ export default function DailyImage({ currentImage, date }) {
     const [imageChanged, setImageChanged] = useState(false);
     const [ errors, setErrors ] = useState({});
 
-    console.log("date ===>", date)
-    console.log("current image ===>", currentImage)
+    // console.log("date ===>", date)
+    // console.log("current image ===>", currentImage)
 
     const updateFile = async (e, action) => {
         const file = e.target.files[0];
