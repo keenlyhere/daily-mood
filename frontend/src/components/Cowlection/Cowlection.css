@@ -1,9 +1,54 @@
 .Cowlection-container {
     width: calc(100% - 320px);
-    padding: 18px 0px 0px 18px;
+    padding: 44px;
     height: 100%;
     overflow-y: scroll;
     background-color: white;
+}
+
+.Cowlection-header {
+    width: 100%;
+}
+
+.Cowlection-header-text:before {
+    text-align: center;
+    content: "Your udderly adorable herd";
+    position: absolute;
+    -webkit-text-stroke: 4.3px #1b3012;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.Cowlection-header-text,
+.Cowlection-header-text-background {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -27px;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 4.3rem;
+    color: #c9e2bb;
+    text-shadow: 4.3px 4.3px 0px #1b3012;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 18px;
+}
+
+.Cowlection-header-background {
+    width: 100%;
+}
+
+.Cowlection-header-text-background:before {
+    text-align: center;
+    content: "Your bovine backdrops";
+    position: absolute;
+    -webkit-text-stroke: 4.3px #1b3012;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .Cowlection-cows {

@@ -159,7 +159,9 @@ export default function Cowlection({ user }) {
                 </div>
                 { page === "cows" && (
                     <>
-                        <h1>Your udderly adorable herd</h1>
+                        <div className="Cowlection-header">
+                            <h1 className="Cowlection-header-text">Your udderly adorable herd</h1>
+                        </div>
                         <div className="Cowlection-cows">
                             { allUserPets.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
@@ -250,7 +252,9 @@ export default function Cowlection({ user }) {
                 {
                     page === "backgrounds" && (
                         <>
-                            <h1>Your bovine backdrops</h1>
+                            <div className="Cowlection-header-background">
+                                <h1 className="Cowlection-header-text-background">Your bovine backdrops</h1>
+                            </div>
                             <div className="Cowlection-cows">
                             { bgs.userBgImages.map((pet, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">

@@ -112,7 +112,7 @@ export default function Monthly() {
                     >
                         <i class="fa-solid fa-angle-left"></i>
                     </button>
-                    <h2 className="Monthly-calendar-month">{currentDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</h2>
+                    <h1 className="Monthly-calendar-month" data-content={`${currentDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}>{currentDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</h1>
                     <button
                         className="Monthly-button-change"
                         onClick={handleNextMonth}

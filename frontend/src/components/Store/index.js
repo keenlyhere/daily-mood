@@ -125,7 +125,9 @@ export default function Store({ user }) {
                 {
                     page === "cows" && (
                         <div className="Store-pet-gachapon">
-                            <h2>Pet Gachapon</h2>
+                            <div className="Gachapon-header-container">
+                                <h1 className="Gachapon-header" data-content={"Pet Gachapon"}>Pet Gachapon</h1>
+                            </div>
                             { userFlavors.length >= 9 ? (
                                 "You've collected all the cows!"
                             ) : (
@@ -200,7 +202,9 @@ export default function Store({ user }) {
                 {
                     page === "backgrounds" && (
                         <div className="Store-bg-gachapon">
-                            <h2>Background gachapon</h2>
+                            <div className="Gachapon-header-container">
+                                <h1 className="Gachapon-header" data-content={"Background Gachapon"}>Background Gachapon</h1>
+                            </div>
                             {
                                 userBgNames.length >= 3 ? (
                                     "You've collected all the backgrounds!"

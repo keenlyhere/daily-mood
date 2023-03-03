@@ -223,3 +223,31 @@ p.PetGachapon-text {
     display: flex;
     gap: 0;
 } */
+
+.Gachapon-header-container {
+    width: 100%;
+}
+
+.Gachapon-header:before {
+    text-align: center;
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 5px #1b3012;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.Gachapon-header {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -27px;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 5rem;
+    color: #c9e2bb;
+    text-shadow: 5px 5px 0px #1b3012;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}

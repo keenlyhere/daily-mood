@@ -201,7 +201,7 @@ export default function SpecificDayEntries() {
                             Back
                         </button>
                     </div>
-                    <h1 className="Daily-header-text"><span className="highlighted">{dateObj.month} {dateObj.date}</span></h1>
+                    <h1 className="Daily-header-text" data-content={`${dateObj.month} ${dateObj.date}`}>{dateObj.month} {dateObj.date}</h1>
                 </div>
 
                 <DailyMood currentMood={currentMood} date={`${year}-${formatMonth}-${formatDate}`} />

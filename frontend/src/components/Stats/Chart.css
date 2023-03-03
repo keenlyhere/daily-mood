@@ -1,7 +1,48 @@
 .Stats-container {
-    width: calc(100% - 320px);
-    max-width: 880px;
     padding: 44px;
+    /* width: calc(100% - 320px); */
+    width: 100%;
+    overflow-y: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* gap: 44px; */
+}
+
+.Stats-container::after {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0) url("https://keenlychung.com/dailymood/cowbg.png") repeat-y right center;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+
+.Stats-main-header {
+    text-align: center;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 5rem;
+    color: #c9e2bb;
+    text-shadow: 5px 5px 0px #1b3012;
+    position: relative;
+    width: 100%;
+}
+
+.Stats-main-header:before {
+    content: attr(data-content);
+    font-size: 5rem;
+    position: absolute;
+    -webkit-text-stroke: 5px #1b3012;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
 }
 
 .Stats-header {
@@ -15,6 +56,12 @@
     border-radius: 88px;
     position: relative;
 } */
+
+.MoodBar-line-chart {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
 
 .MoodBar-filled-container {
     display: flex;
@@ -44,4 +91,48 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
+}
+
+.MoodBar-percent {
+    font-size: 0.75rem;
+}
+
+@media (min-width: 1288px) {
+    .Stats-container {
+        max-width: 880px;
+    }
+
+    .Stats-container::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0) url("https://keenlychung.com/dailymood/cowbg.png") repeat-y right center;
+        opacity: 0.3;
+        z-index: -1;
+    }
+
+    .Stats-main-header {
+        text-align: center;
+        font-family: "KeenlysFont", Bungee, sans-serif;
+        font-size: 5rem;
+        /* color: #c9e2bb; */
+        color: #c9e2bb;
+        /* -webkit-text-stroke: 1px #1b3012; */
+        /* paint-order: stroke fill; */
+        text-shadow: 5px 5px 0px #1b3012;
+        position: relative;
+    }
+
+    .Stats-main-header:before {
+        content: attr(data-content);
+        font-size: 5rem;
+        position: absolute;
+        -webkit-text-stroke: 5px #1b3012;
+        z-index: -1;
+    }
 }

@@ -82,7 +82,7 @@ export default function UserTasks() {
             <div className="UserTasks-container">
                 <>
                 <div className="UserTasks-header-container">
-                    <h3 className="UserTasks-headers">
+                    <h3 className="UserTasks-main-headers" data-content="Habits">
                         Habits
                     </h3>
                 </div>
@@ -120,7 +120,7 @@ export default function UserTasks() {
                     allUnfinishedTodo !== undefined && Object.keys(allUnfinishedTodo).length ? (
                         <>
                             <div className="UserTasks-header-container">
-                                <h3 className="UserTasks-headers">
+                                <h3 className="UserTasks-main-headers" data-content="Unfinished To-Do's">
                                     Unfinished To-Do's
                                 </h3>
                             </div>
@@ -135,7 +135,7 @@ export default function UserTasks() {
                 }
 
                 <div className="UserTasks-header-container">
-                    <h3 className="UserTasks-headers">
+                    <h3 className="UserTasks-main-headers" data-content="Today's To-Do's">
                         Today's To-Do's
                     </h3>
                 </div>

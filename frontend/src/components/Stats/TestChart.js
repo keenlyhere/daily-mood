@@ -149,13 +149,16 @@ export default function TestChart() {
             }
         },
         plugins: {
-            title: {
-                display: true,
-                text: (ctx) => `${currentDate.toLocaleDateString("default", { month: "long" })} Mood Flow`
-            },
+            // title: {
+            //     display: true,
+            //     text: (ctx) => `${currentDate.toLocaleDateString("default", { month: "long" })} Mood Flow`
+            // },
             tooltip: {
                 mode: 'index'
             },
+            legend: {
+                display: false
+            }
         },
         radius: 5,
         pointBackgroundColor: "#fff",
@@ -201,15 +204,15 @@ export default function TestChart() {
             let backgroundColor;
 
             if (value === 1) {
-                backgroundColor = "#002E00";
+                backgroundColor = "#29372b";
             } else if (value === 2) {
-                backgroundColor = "#005400";
+                backgroundColor = "#266031";
             } else if (value === 3) {
-                backgroundColor = "#5aa13e";
+                backgroundColor = "#35a148";
             } else if (value === 4) {
-                backgroundColor = "#C9E2BB";
+                backgroundColor = "#b0d46d";
             } else {
-                backgroundColor = "#F9DE92";
+                backgroundColor = "#e3c93c";
             }
 
             let widthValue;
@@ -229,11 +232,15 @@ export default function TestChart() {
         return (
             <div className="Stats-container">
                 {/* <Chart type="bar" data={chartData} redraw /> */}
-                <Line
-                    options={options}
-                    data={data}
-                />
-                <h1 className="Stats-header">Mood Bar</h1>
+                <h1 className="Stats-main-header" data-content={`${currentDate.toLocaleDateString("default", { month: "short" })} ${currentDate.getFullYear()} Analysis`}>{currentDate.toLocaleDateString("default", { month: "short" })} {currentDate.getFullYear()} Analysis</h1>
+                <h2 className="Stats-header">Mood Flow</h2>
+                <div className="MoodBar-line-chart">
+                    <Line
+                        options={options}
+                        data={data}
+                    />
+                </div>
+                <h2 className="Stats-header">Mood Bar</h2>
                 <div className="MoodBar-container">
                 </div>
                 <div className="MoodBar-filled-container">
@@ -246,33 +253,43 @@ export default function TestChart() {
                 <div className="MoodBar-images-container">
                     <div className="MoodBar-image-percent">
                         <img src={cow_ecstatic} className="MoodBar-cows" alt="Ecstatic mood" />
-                        { moodData[5] ? (
-                            moodData[5] / monthlyMoods.length * 100
-                        ) : ("0") }%
+                        <div className="MoodBar-percent">
+                            { moodData[5] ? (
+                                moodData[5] / monthlyMoods.length * 100
+                            ) : ("0") }%
+                        </div>
                     </div>
                     <div className="MoodBar-image-percent">
                         <img src={cow_happy} className="MoodBar-cows" alt="Ecstatic mood" />
-                        { moodData[4] ? (
-                            moodData[4] / monthlyMoods.length * 100
-                        ) : ("0") }%
+                        <div className="MoodBar-percent">
+                            { moodData[4] ? (
+                                moodData[4] / monthlyMoods.length * 100
+                            ) : ("0") }%
+                        </div>
                     </div>
                     <div className="MoodBar-image-percent">
                         <img src={cow_content} className="MoodBar-cows" alt="Ecstatic mood" />
-                        { moodData[3] ? (
-                            moodData[3] / monthlyMoods.length * 100
-                        ) : ("0") }%
+                        <div className="MoodBar-percent">
+                            { moodData[3] ? (
+                                moodData[3] / monthlyMoods.length * 100
+                            ) : ("0") }%
+                        </div>
                     </div>
                     <div className="MoodBar-image-percent">
                         <img src={cow_meh} className="MoodBar-cows" alt="Ecstatic mood" />
-                        { moodData[2] ? (
-                            moodData[2] / monthlyMoods.length * 100
-                        ) : ("0") }%
+                        <div className="MoodBar-percent">
+                            { moodData[2] ? (
+                                moodData[2] / monthlyMoods.length * 100
+                            ) : ("0") }%
+                        </div>
                     </div>
                     <div className="MoodBar-image-percent">
                         <img src={cow_sad} className="MoodBar-cows" alt="Ecstatic mood" />
-                        { moodData[1] ? (
-                            moodData[1] / monthlyMoods.length * 100
-                        ) : ("0") }%
+                        <div className="MoodBar-percent">
+                            { moodData[1] ? (
+                                moodData[1] / monthlyMoods.length * 100
+                            ) : ("0") }%
+                        </div>
                     </div>
                 </div>
             </div>

@@ -38,10 +38,34 @@
     z-index: 2;
 }
 
+/* .Daily-header-text {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -27px;
+} */
+
+.Daily-header-text:before {
+    text-align: center;
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 5px #1b3012;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 .Daily-header-text {
     text-align: center;
     flex-grow: 1;
     margin-left: -27px;
+    font-family: "KeenlysFont", Bungee, sans-serif;
+    font-size: 5rem;
+    color: #c9e2bb;
+    text-shadow: 5px 5px 0px #1b3012;
+    position: relative;
+    width: 100%;
+    z-index: 1;
 }
 
 span.highlighted {
@@ -83,6 +107,7 @@ span.highlighted {
     gap: 8px;
     width: 100%;
     flex-direction: row-reverse;
+    flex-wrap: wrap;
 }
 
 .Daily-moods-container {
