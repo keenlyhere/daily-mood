@@ -33,7 +33,9 @@
 }
 
 .Daily-back-button {
+    position: relative;
     justify-content: initial;
+    z-index: 2;
 }
 
 .Daily-header-text {
@@ -55,6 +57,7 @@ span.highlighted {
     border: 0;
     border-radius: 18px;
     padding: 0.25rem 0.75rem;
+    z-index: 3;
 }
 
 /* FOR DAILY MOOD */

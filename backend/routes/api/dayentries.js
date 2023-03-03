@@ -189,6 +189,114 @@ router.post("/", singleMulterUpload("image"), requireAuth, async (req, res, next
     });
 });
 
+// POST /api/day/:year/:month/:day
+router.post("/:day", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const day = req.params.day;
+
+    const currentUser = await User.findByPk(user.id, {
+        attributes: {
+            exclude: ["birthday", "displayPic", "theme", "activePet", "activeBg", "updatedAt"],
+        },
+    });
+
+    const { entryType, entryData } = req.body;
+    let newDayImage;
+
+    // const selectedDate = year + `0${month}`.slice(-2) + `0${day}`.slice(-2);
+    // console.log("selectedDate ===>", selectedDate);
+
+    const today = await DayEntry.findAll({
+        where: {
+            [Op.and]: {
+                day: day,
+                userId: user.id,
+            },
+        },
+    });
+
+    const err = {};
+    err.errors = [];
+    if (today.length) {
+        for (let i = 0; i < today.length; i++) {
+            let entry = today[i];
+
+            if (entry.entryType === entryType) {
+                err.title = "Forbidden";
+                err.status = 403;
+                err.statusCode = 403;
+                err.message = "You have already created an entry for the day.";
+                err.errors.push("You have already created an entry for the day.");
+                return next(err);
+            }
+        }
+    }
+
+    if (req.file) {
+        newDayImage = await singlePublicFileUpload(req.file);
+    } else {
+        newDayImage = entryData;
+    }
+
+    switch (entryType) {
+        case "dayMood": {
+            let mood = await user.createDayEntry({
+                day: day,
+                entryType,
+                entryData,
+            });
+
+            mood = mood.toJSON();
+
+            mood.User = currentUser;
+            // console.log("USER MOOLAH>>>>", currentUser.moolah);
+
+            res.status(201);
+            return res.json({
+                dayEntry: mood,
+            });
+        }
+        case "dayImage": {
+            let image = await user.createDayEntry({
+                day: day,
+                entryType,
+                entryData: newDayImage,
+            });
+
+            image = image.toJSON();
+
+            image.User = currentUser;
+
+            res.status(201);
+            return res.json({
+                dayEntry: image,
+            });
+        }
+        case "dayJournal": {
+            let journal = await user.createDayEntry({
+                day: day,
+                entryType,
+                entryData,
+            });
+
+            journal = journal.toJSON();
+
+            journal.User = currentUser;
+
+            res.status(201);
+            return res.json({
+                dayEntry: journal,
+            });
+        }
+        default:
+            break;
+    }
+
+    return res.json({
+        error: "should not see this",
+    });
+});
+
 // EDIT /api/day/:entryId
 router.put("/:entryId", singleMulterUpload("image"), requireAuth, async (req, res, next) => {
     const { user } = req;

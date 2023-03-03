@@ -44,7 +44,6 @@ export default function SignupFormModal() {
         // setChosenDay(selectedDay);
     };
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
@@ -60,6 +59,7 @@ export default function SignupFormModal() {
 
             // setErrors({});
             const birthday = new Date(year, monthToNum[month] - 1, day);
+            console.log("birthday ===>", birthday);
 
             if (!email) {
                 submitErrors.emailRequired = "Email is required.";
@@ -85,7 +85,20 @@ export default function SignupFormModal() {
                 submitErrors.lastName = "First name is required.";
             }
 
+            if (!year) {
+                submitErrors.year = "Birth year is required."
+            }
+
+            if (!month) {
+                submitErrors.month = "Birth month is required."
+            }
+
+            if (!day) {
+                submitErrors.day = "Birth day is required."
+            }
+
             if (Object.keys(submitErrors).length > 0) {
+                console.log("submitErrors", submitErrors)
                 return setErrors(submitErrors);
             }
 
@@ -239,8 +252,10 @@ export default function SignupFormModal() {
                     <MonthPicker chosenMonth={month} chosenYear={year} onChange={handleMonthChange} />
                     <DayPicker chosenDay={day} chosenYear={year} chosenMonth={month} onChange={handleDayChange} />
                 </div>
-                    <div className="Form-error-container">
-                        {errors && errors.birthday && <p className="Form-error">{errors.birthday}</p>}
+                    <div className="Form-error-container-birthday">
+                        {errors && errors.year && <p className="Form-error">{errors.year}</p>}
+                        {errors && errors.month && <p className="Form-error">{errors.month}</p>}
+                        {errors && errors.day && <p className="Form-error">{errors.day}</p>}
                     </div>
                 <div className="SignUpForm-group-split">
                     <div className="SignUpForm-group-half password">

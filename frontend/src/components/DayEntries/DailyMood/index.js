@@ -5,24 +5,35 @@ import cow_meh from "../../../assets/cow_meh.png";
 import cow_sad from "../../../assets/cow_sad.png";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addDayEntry, deleteDayEntry, editDayEntry } from "../../../store/dayentries";
+import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
 
-export default function DailyMood({ currentMood }) {
+export default function DailyMood({ currentMood, date }) {
     const dispatch = useDispatch();
     const [mood, setMood] = useState(currentMood ? currentMood : "");
     const [ errors, setErrors ] = useState({});
+
 
     const handleMoodChange = async (action, val) => {
         setMood(val);
 
         if (action === "create") {
-            const addMood = await dispatch(addDayEntry({ entryType: "dayMood", entryData: val }))
-                .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+            if (date) {
+                console.log("date");
+                const addMood = await dispatch(addPastDayEntry({ entryType: "dayMood", entryData: val }, date))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 })
+            } else {
+                const addMood = await dispatch(addDayEntry({ entryType: "dayMood", entryData: val }))
+                    .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
+                    .catch(async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) setErrors(data.errors);
+                    })
+            }
+
         } else {
             const currentMoodId = currentMood.id;
             // console.log("currentMoodId >>>>>> \n", currentMoodId);

@@ -74,6 +74,22 @@
     width: auto;
 }
 
+.Mood-image:hover {
+    /* transform: rotate(4deg); */
+    animation: wiggle infinite 0.5s;
+}
+
+@keyframes wiggle {
+    50% {
+        transform: rotate(4deg);
+    }
+
+    100% {
+        transform: rotate(-4deg);
+    }
+}
+
+
 .Date-container {
     font-size: 10px;
 }

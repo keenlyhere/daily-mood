@@ -4,6 +4,7 @@ const LOAD_CURRENT_DAY = "dayEntries/LOAD_CURRENT_DAY";
 const LOAD_SPECIFIC_DAY = "dayEntries/LOAD_SPECIFIC_DAY";
 const LOAD_MONTHLY_MOODS = "dayEntries/LOAD_MONTHLY_MOODS";
 const ADD_DAY_ENTRY = "dayEntries/ADD_DAY_ENTRY";
+const ADD_PAST_DAY_ENTRY = "dayEntries/ADD_PAST_DAY_ENTRY";
 const EDIT_DAY_ENTRY = "dayEntries/EDIT_DAY_ENTRY";
 const DELETE_DAY_ENTRY = "dayEntries/DELETE_DAY_ENTRY";
 
@@ -123,6 +124,34 @@ export const addDayEntry = (newEntry) => async (dispatch) => {
     }
 
     const res = await csrfFetch(`/api/day`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: formData
+    })
+
+    if (res.ok) {
+        const entry = await res.json();
+        // console.log("addDayEntry - entry:", entry);
+        dispatch(actionAddDayEntry(entry.dayEntry));
+        return entry;
+    }
+}
+
+export const addPastDayEntry = (newEntry, date) => async (dispatch) => {
+    const { entryType, entryData } = newEntry;
+    const formData = new FormData();
+
+    formData.append("entryType", entryType);
+
+    if (entryType === "dayImage") {
+        formData.append("image", entryData);
+    } else {
+        formData.append("entryData", entryData);
+    }
+
+    const res = await csrfFetch(`/api/day/${date}`, {
         method: "POST",
         headers: {
             "Content-Type": "multipart/form-data"
