@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_CURRENT_DAY = "dayEntries/LOAD_CURRENT_DAY";
 const LOAD_SPECIFIC_DAY = "dayEntries/LOAD_SPECIFIC_DAY";
+const LOAD_MONTHLY_MOODS = "dayEntries/LOAD_MONTHLY_MOODS";
 const ADD_DAY_ENTRY = "dayEntries/ADD_DAY_ENTRY";
 const EDIT_DAY_ENTRY = "dayEntries/EDIT_DAY_ENTRY";
 const DELETE_DAY_ENTRY = "dayEntries/DELETE_DAY_ENTRY";
@@ -11,6 +12,21 @@ const normalize = (entries) => {
     if (!entries.length) return entries;
     entries.forEach(entry => normalizedData[entry.id] = entry);
     // console.log("normalize - normalizedData:", normalizedData);
+    return normalizedData;
+}
+
+const normalizeDays = (entries) => {
+    const normalizedData = {};
+    if (!entries.length) return entries;
+    entries.forEach(entry => {
+        const [ year, month, day ] = entry.day.split("-");
+        const entryDate = new Date(year, month, day);
+        console.log("entry.day", entry);
+        console.log("entryDate", entryDate);
+        console.log("entry.getDate", entryDate.getDate());
+        normalizedData[entryDate.getDate()] = entry;
+    });
+    console.log("normalizedData", normalizedData)
     return normalizedData;
 }
 
@@ -28,6 +44,13 @@ export const actionLoadSpecificDay = (userId, dayEntries) => {
         type: LOAD_SPECIFIC_DAY,
         userId,
         dayEntries
+    }
+}
+
+export const actionLoadMonthlyMoods = (monthlyMoods) => {
+    return {
+        type: LOAD_MONTHLY_MOODS,
+        monthlyMoods
     }
 }
 
@@ -71,8 +94,19 @@ export const loadSpecificDay = (userId, date) => async (dispatch) => {
     if (res.ok) {
         const entries = await res.json();
         // console.log("loadSpecificDay - entries:", entries);
-        dispatch(actionLoadSpecificDay(userId, entries));
+        dispatch(actionLoadSpecificDay(userId, entries.dayEntries));
         return entries;
+    }
+}
+
+export const loadMonthlyMoods = (year, month) => async (dispatch) => {
+    const res = await csrfFetch(`/api/day/moods/${year}/${month}`);
+
+    if (res.ok) {
+        const monthlyMoods = await res.json();
+        console.log("loadMonthlyMoods ===>", monthlyMoods);
+        dispatch(actionLoadMonthlyMoods(monthlyMoods));
+        return monthlyMoods;
     }
 }
 
@@ -161,6 +195,13 @@ export default function dayEntriesReducer(state = initialState, action) {
             const specificDayEntriesState = { ...state };
             specificDayEntriesState.dayEntries = normalize(action.dayEntries);
             return specificDayEntriesState;
+        }
+        case LOAD_MONTHLY_MOODS: {
+            let monthlyMoodsState = JSON.stringify(state);
+            monthlyMoodsState = JSON.parse(monthlyMoodsState);
+            monthlyMoodsState.monthlyMoods = normalizeDays(action.monthlyMoods.monthlyMoods);
+            console.log("monthlyMoodsState ===> ", monthlyMoodsState);
+            return monthlyMoodsState;
         }
         case ADD_DAY_ENTRY: {
             const addDayEntryState = { ...state };

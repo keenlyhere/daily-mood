@@ -76,7 +76,7 @@ router.get("/:day", requireAuth, async (req, res, next) => {
     });
 
     const queriedDayData = {
-        DayEntries: queriedDayArray,
+        dayEntries: queriedDayArray,
     };
 
     // console.log("queriedDAY>>>>>\n", queriedDayData);
@@ -309,5 +309,34 @@ router.delete("/:entryId", requireAuth, async (req, res, next) => {
         statusCode: 200,
     });
 });
+
+router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    let { year, month } = req.params;
+
+    const startDate = new Date(year, month, 1);
+    const endDate = new Date(year, Number(month) + 1, 0);
+
+    const allMoodsInMonth = await DayEntry.findAll({
+        where: {
+            userId: user.id,
+            entryType: "dayMood",
+            day: {
+                [Op.between]: [startDate, endDate]
+            }
+        }
+    })
+
+    if (!allMoodsInMonth.length > 0) {
+        return res.json({
+            monthlyMoods: [],
+        });
+    }
+
+    return res.json({
+        monthlyMoods: allMoodsInMonth
+    })
+})
 
 module.exports = router;

@@ -23,6 +23,7 @@ import MonthPicker from "./components/SignupFormModal/DatePicker/MonthPicker";
 import DayPicker from "./components/SignupFormModal/DatePicker/DayPicker";
 import Testing from "./testing";
 import Monthly from "./components/Monthly";
+import SpecificDayEntries from "./components/DayEntries/SpecificDayEntries";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,12 @@ function App() {
             <div className="Page-container">
               <SideBar user={user} />
               <Daily />
+            </div>
+          </ProtectedRoute>
+          <ProtectedRoute path="/day/:year-:month-:date" exact={true}>
+            <div className="Page-container">
+              <SideBar user={user} />
+              <SpecificDayEntries />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/tasks/future" exact={true}>
