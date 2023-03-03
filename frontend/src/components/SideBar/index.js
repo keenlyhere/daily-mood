@@ -159,6 +159,12 @@ export default function SideBar({ user }) {
                     Cowlendar
                 </NavLink>
                 <NavLink
+                    to="/stats"
+                    className="SideBar-link"
+                >
+                    Moo'd Analysis
+                </NavLink>
+                <NavLink
                     to="/store"
                     className="SideBar-link"
                 >

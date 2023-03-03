@@ -1,13 +1,16 @@
 .Stats-container {
     padding: 44px;
-    /* width: calc(100% - 320px); */
+    width: calc(100% - 320px);
     width: 100%;
     overflow-y: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* gap: 44px; */
+    border-right: 1px solid #F2F2F2;
+    background-color: #fffefe;
+    -webkit-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    -moz-box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
+    box-shadow: 7px -4px 13px -12px rgba(214,214,214,0.66);
 }
 
 .Stats-container::after {
@@ -32,6 +35,7 @@
     text-shadow: 5px 5px 0px #1b3012;
     position: relative;
     width: 100%;
+    z-index: 2;
 }
 
 .Stats-main-header:before {
