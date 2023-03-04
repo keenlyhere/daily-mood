@@ -255,7 +255,7 @@ export default function TestChart() {
                         <img src={cow_ecstatic} className="MoodBar-cows" alt="Ecstatic mood" />
                         <div className="MoodBar-percent">
                             { moodData[5] ? (
-                                moodData[5] / monthlyMoods.length * 100
+                                Math.round(moodData[5] / monthlyMoods.length * 100)
                             ) : ("0") }%
                         </div>
                     </div>
@@ -263,7 +263,7 @@ export default function TestChart() {
                         <img src={cow_happy} className="MoodBar-cows" alt="Ecstatic mood" />
                         <div className="MoodBar-percent">
                             { moodData[4] ? (
-                                moodData[4] / monthlyMoods.length * 100
+                                Math.round(+moodData[4] / monthlyMoods.length * 100)
                             ) : ("0") }%
                         </div>
                     </div>
@@ -271,7 +271,7 @@ export default function TestChart() {
                         <img src={cow_content} className="MoodBar-cows" alt="Ecstatic mood" />
                         <div className="MoodBar-percent">
                             { moodData[3] ? (
-                                moodData[3] / monthlyMoods.length * 100
+                                Math.round(+moodData[3] / monthlyMoods.length * 100)
                             ) : ("0") }%
                         </div>
                     </div>
@@ -279,7 +279,7 @@ export default function TestChart() {
                         <img src={cow_meh} className="MoodBar-cows" alt="Ecstatic mood" />
                         <div className="MoodBar-percent">
                             { moodData[2] ? (
-                                moodData[2] / monthlyMoods.length * 100
+                                Math.round(+moodData[2] / monthlyMoods.length * 100)
                             ) : ("0") }%
                         </div>
                     </div>
@@ -287,7 +287,7 @@ export default function TestChart() {
                         <img src={cow_sad} className="MoodBar-cows" alt="Ecstatic mood" />
                         <div className="MoodBar-percent">
                             { moodData[1] ? (
-                                moodData[1] / monthlyMoods.length * 100
+                                Math.round(moodData[1] / monthlyMoods.length * 100)
                             ) : ("0") }%
                         </div>
                     </div>

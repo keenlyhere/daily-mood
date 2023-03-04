@@ -145,6 +145,8 @@
 .UserTasks-actions-container {
     display: flex;
     gap: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 .UserTasks-header-text {
@@ -163,6 +165,10 @@
 
 .no-hover {
     cursor:default;
+}
+
+.fa-pen {
+    font-size: 15px;
 }
 
 .edit-input {

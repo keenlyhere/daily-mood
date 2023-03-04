@@ -3,10 +3,10 @@ import "./Footer.css";
 export default function Footer() {
     return (
         <div className="Footer-container">
-            <a href="https://github.com/keenlyhere">
+            <a href="https://github.com/keenlyhere" target="_blank">
                 <i className="fa-brands fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/keenly-chung-b10485257/">
+            <a href="https://www.linkedin.com/in/keenly-chung-b10485257/" target="_blank">
                 <i className="fa-brands fa-linkedin"></i>
             </a>
             Keenly Chung 2023

@@ -233,9 +233,10 @@ export default function dayEntriesReducer(state = initialState, action) {
             return monthlyMoodsState;
         }
         case ADD_DAY_ENTRY: {
-            const addDayEntryState = { ...state };
+            let addDayEntryState = JSON.stringify(state);
+            addDayEntryState = JSON.parse(addDayEntryState)
             addDayEntryState.dayEntries = { ...state.dayEntries, [action.dayEntry.id]: action.dayEntry }
-            // console.log("ADD_REVIEW - addReviewState:", addReviewState);
+            console.log("ADD_DAY_ENTRY - addDayEntryState:", addDayEntryState);
             return addDayEntryState;
         }
         case DELETE_DAY_ENTRY: {

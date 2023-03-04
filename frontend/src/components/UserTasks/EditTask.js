@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteTask, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import ConfirmDelete from "../ConfirmDelete";
+import OpenModalButton from "../OpenModalButton";
 
 export default function EditTask({ taskId, category, taskName, taskType, icon, user }) {
     const { closeModal } = useModal();
@@ -13,6 +15,12 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
     const [ disabled, setIsDisabled ] = useState(true);
     const [ step, setStep ] = useState(category ? 1 : 0);
     const [ errors, setErrors ] = useState({});
+    const [showMenu, setShowMenu] = useState(false);
+    const closeMenu = () => setShowMenu(false);
+
+    console.log("iconSelected ===>", iconSelected);
+    console.log("categoryName ===>", categoryName);
+    console.log("newTaskName ===>", newTaskName);
 
     const iconsArray = [
         "https://keenlychung.com/dailymood/01.png",
@@ -49,6 +57,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
         const err = {};
 
 
@@ -60,17 +69,20 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             err.nameLength2 = "Please enter a task name";
         }
 
-        if (!newTaskName.taskIcon) {
+        if (!iconSelected) {
             err.taskIcon = "Please select an icon";
         }
 
-        if (!newTaskName.categoryName) {
+        if (!categoryName) {
+            console.log("categoryName", newTaskName.categoryName);
             err.categoryName = "Please enter a category name";
         }
 
         if (!taskType) {
             err.categoryName = "Please specify a task type";
         }
+
+        console.log("errors", err)
 
         if (Object.keys(err).length > 0) {
             return setErrors(err);
@@ -83,13 +95,13 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             taskType
         };
 
-        // console.log("NEW TASK >>>", newTask);
+        console.log("NEW TASK >>>", newTask);
 
         const editedTask = await dispatch(editTask(taskId, newTask))
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                // console.log("HIT ERRORS IN EDIT TASK\n", res);
+                console.log("HIT ERRORS IN EDIT TASK\n", res);
                 if (res && res.errors) setErrors(res.errors);
             })
 
@@ -108,7 +120,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
     }
 
     // console.log("ICON SELECTED", iconSelected);
-    console.log("NEW TASK NAME ===>", newTaskName);
+    // console.log("NEW TASK NAME ===>", newTaskName);
 
     return (
         <div className="CreateTaskModal-container">
@@ -117,7 +129,13 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
                     <i className="fa-sharp fa-solid fa-xmark"></i>
                 </button>
                 <h2 className="EditTask-create">Select an icon</h2>
-                <button className="CreateTaskModal-delete" onClick={handleDelete}>Delete</button>
+                <OpenModalButton
+                    buttonText={"Delete"}
+                    onButtonClick={closeMenu}
+                    modalComponent={<ConfirmDelete onDelete={() => handleDelete(taskId)}/>}
+                    buttonClass="CreateTaskModal-delete"
+                />
+
             </div>
             <form className="CreateTaskModal-form" onSubmit={handleSubmit}>
                 {

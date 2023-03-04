@@ -7,12 +7,15 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
+import ConfirmDelete from "../../ConfirmDelete";
+import OpenModalButton from "../../OpenModalButton";
 
 export default function DailyMood({ currentMood, date }) {
     const dispatch = useDispatch();
     const [mood, setMood] = useState(currentMood ? currentMood : "");
     const [ errors, setErrors ] = useState({});
-
+    const [showMenu, setShowMenu] = useState(false);
+    const closeMenu = () => setShowMenu(false);
 
     const handleMoodChange = async (action, val) => {
         setMood(val);
@@ -100,7 +103,13 @@ export default function DailyMood({ currentMood, date }) {
                     <div className="Daily-header">
                         <p className="Daily-text">How was your day?</p>
                         <div className="Daily-action-buttons-container">
-                            <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayMood", currentMood.id)}></i>
+                            <OpenModalButton
+                                buttonText={<i className="fa-solid fa-trash"></i>}
+                                onButtonClick={closeMenu}
+                                modalComponent={<ConfirmDelete onDelete={() => handleDeleteEntry("dayMood", currentMood.id)}/>
+                            }   icon="delete"
+                            />
+                            {/* <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayMood", currentMood.id)}></i> */}
                         </div>
                     </div>
                     <div className="Daily-moods-container">

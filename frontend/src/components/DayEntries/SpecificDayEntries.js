@@ -189,6 +189,9 @@ export default function SpecificDayEntries() {
         }
 
         console.log("currentDay", currentDay);
+        console.log("currentMood", currentMood);
+        console.log("currentMood", currentImage);
+        console.log("currentMood", currentJournal);
 
         return (
             <div className="Daily-container">

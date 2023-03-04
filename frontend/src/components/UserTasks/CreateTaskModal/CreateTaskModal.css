@@ -26,12 +26,13 @@
 
 .CreateTaskModal-delete {
     position: relative;
-    top: 11px;
-    left: 300px;
-    background: lightpink;
+    top: -8px;
+    left: 310px;
+    background: #FF7276;
     border-radius: 8px;
     padding: 3px 8px;
     border: 0;
+    color: #fff;
 }
 
 .CreateTaskModal-create {
