@@ -4,6 +4,8 @@ import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry, loadCurrent
 import { addPoints } from "../../../store/session";
 import add_photo from "../../../assets/add_photo.png"
 import uploadImage from "../../../assets/cloud-arrow-up-solid.svg";
+import ConfirmDelete from "../../ConfirmDelete";
+import OpenModalButton from "../../OpenModalButton";
 
 export default function DailyImage({ currentImage, date }) {
     const dispatch = useDispatch();
@@ -11,6 +13,8 @@ export default function DailyImage({ currentImage, date }) {
     const [dailyImageUrl, setDailyImageUrl] = useState(currentImage ? currentImage.entryData : "");
     const [imageChanged, setImageChanged] = useState(false);
     const [ errors, setErrors ] = useState({});
+    const [ showMenu, setShowMenu ] = useState(false);
+    const closeMenu = () => setShowMenu(false);
 
     // console.log("date ===>", date)
     // console.log("current image ===>", currentImage)
@@ -36,7 +40,7 @@ export default function DailyImage({ currentImage, date }) {
             if (date) {
                 console.log("dailyImage date")
                 return dispatch(addPastDayEntry({ entryType: "dayImage", entryData: file }, date))
-                .then(dispatch(loadCurrentDay()))
+                // .then(dispatch(loadCurrentDay()))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
@@ -98,7 +102,13 @@ export default function DailyImage({ currentImage, date }) {
                     <div className="Daily-header">
                         <p className="Daily-text">Today's photo</p>
                         <div className="Daily-action-buttons-container">
-                            <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayImage", currentImage.id)}></i>
+                            <OpenModalButton
+                                buttonText={<i className="fa-solid fa-trash"></i>}
+                                onButtonClick={closeMenu}
+                                modalComponent={<ConfirmDelete currentImage={currentImage} onDelete={() => handleDeleteEntry("dayImage", currentImage.id)}/>
+                            }   icon="delete"
+                            />
+                            {/* <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayImage", currentImage.id)}></i> */}
                         </div>
                     </div>
                     <div className="Daily-image-input-container">

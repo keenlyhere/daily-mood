@@ -5,6 +5,7 @@ import { changeCatName, deleteTaskCategory, editTask, loadCurrentDayTasks } from
 import OpenModalButton from "../OpenModalButton";
 import CreateTaskModal from "./CreateTaskModal";
 import EditCategory from "./EditCategory";
+import ConfirmDelete from "../ConfirmDelete";
 
 export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user }) {
     const dispatch = useDispatch();
@@ -92,11 +93,16 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                                         className="fa-solid fa-pen clickable"
                                         onClick={() => startEditTasks(idx)}
                                     ></i>
-
-                                <i
+                                    <OpenModalButton
+                                        buttonText={<i className="fa-solid fa-trash"></i>}
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<ConfirmDelete onDelete={() => handleCategoryDelete(category, taskType, date)}/>
+                                    }   icon="delete"
+                                    />
+                                {/* <i
                                     className="fa-solid fa-trash-can clickable"
                                     onClick={() => handleCategoryDelete(category, taskType, date)}
-                                ></i>
+                                ></i> */}
                             </div>
                         </div>
                         <div className="UserTasks-icons-container">

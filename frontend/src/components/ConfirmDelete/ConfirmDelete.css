@@ -1,0 +1,78 @@
+.ConfirmDelete-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    gap: 10px;
+}
+
+.ConfirmDelete-top {
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #c9e2bb;
+}
+
+.ConfirmDelete-close {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: 0;
+}
+
+.ConfirmDelete-top-header {
+    position: absolute;
+    top: 15px;
+    left: 153px;
+    font-size: 16px;
+    font-weight: 700;
+    background: none;
+}
+
+.ConfirmDelete-message {
+    padding: 68px 18px 12px 18px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.ConfirmDelete-button-container {
+    margin: 0px 18px 0px 18px;
+    display: flex;
+    gap: 8px;
+}
+
+.ConfirmDelete-delete-button {
+    height: 48px;
+    width: 50%;
+    background: #c9e2bb;
+    border-radius: 8px;
+    border: none;
+    color: #1b3012;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.ConfirmDelete-cancel-button {
+    height: 48px;
+    width: 50%;
+    background: #c4c4c4;
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0;
+}
+
+.ConfirmDelete-delete-button:hover,
+.ConfirmDelete-cancel-button:hover {
+    border: 2px solid #c9e2bb;
+    background-color: #ffffff;
+    color: #1b3012;
+}

@@ -136,16 +136,56 @@
 }
 
 .Monthly-button-change {
-    background-color: transparent;
+    background-color: white;
     border: 1px solid #d3d3d3;
     border-radius: 50%;
     height: max-content;
-    aspect-ratio: 1;
+    width: 24px;
 }
 
 .fa-angle-left,
 .fa-angle-right {
     color: #5aa13e;
+}
+
+.Monthly-calendar-filter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    gap: 18px;
+    width: 100%;
+    margin-top: 44px;
+}
+
+.Monthly-calendar-filter-header {
+    font-weight: 600;
+}
+
+.Monthly-calendar-filter-moods {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.Monthly-calendar-filter-reset {
+    background-color: #c9e2bb;
+    min-width: 6rem;
+    padding: 8px 16px;
+    border-radius: 28px;
+    border: solid 1px #1b3012;
+    font-weight: 600;
+    box-shadow: 2px 2.5px #1b3012;
+    transition: transform 50ms, box-shadow 50ms;
+}
+
+.Monthly-calendar-filter-reset:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px #1b3012;
 }
 
 @media (min-width: 1288px) {

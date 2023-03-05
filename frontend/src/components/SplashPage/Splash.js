@@ -15,7 +15,7 @@ export default function Splash(){
                     <div className="SplashPage-main-banner-text">
                         <h1 className="SplashPage-welcome">Welcome to Daily Moo'd,</h1>
                         <p className="Splash-text">
-                            the cow-themed mood tracking app that makes self-care fun! With our app, you can track your moods, complete tasks, and earn points to unlock adorable cows that you can feed, play with, and take care of.
+                            the cow-themed mood tracking app that makes self-care fun! With our app, you can track your moods, complete tasks, and earn moolah to unlock adorable cows that you can feed, play with, and take care of.
                         </p>
                         {/* <button className="SplashPage-signup">
                             Sign Up Today!
@@ -62,6 +62,8 @@ export default function Splash(){
                 />
             </div>
             <Footer />
+            <div className="SplashPage-footer-container">
+            </div>
         </div>
     )
 }

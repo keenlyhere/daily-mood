@@ -13,7 +13,7 @@
     font-size: 16px;
 }
 
-.SignUp,
+/* .SignUp,
 .LogIn {
     background: #c9e2bb;
     border: 1px solid #c4c4c4;
@@ -22,16 +22,40 @@
     width: 100px;
     font-weight: 600;
     cursor: pointer;
-}
+} */
 
-.LogIn {
+/* .LogIn {
     background: #fff;
-}
+} */
 
-.SignUp:hover {
+/* .SignUp:hover {
     background: #fff;
 }
 
 .LogIn:hover {
     background: #c9e2bb;
+} */
+
+
+.LogIn, .SignUp,
+.SideBar-logout {
+    background-color: #fff;
+    min-width: 6rem;
+    padding: 8px 16px;
+    border-radius: 28px;
+    border: solid 1px #1b3012;
+    font-weight: 600;
+    box-shadow: 2px 2.5px #1b3012;
+    transition: transform 50ms, box-shadow 50ms;
+}
+
+.SignUp {
+    background-color: #c9e2bb;
+}
+
+.LogIn:hover,
+.SignUp:hover,
+.SideBar-logout:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px #1b3012;
 }

@@ -50,7 +50,8 @@
 .Navigation-list-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 18px;
+    padding-right: 8px;
 }
 
 .Navigation-list-modal {

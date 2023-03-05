@@ -1,7 +1,11 @@
 .SplashPage-container {
-    padding-top: 80px;
+    margin-top: 80px;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100vh;
+    overflow-y: auto;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 .SplashPage-main-banner {
@@ -9,11 +13,12 @@
     width: 100%;
     height: calc(100vh - 80px);
     overflow: hidden;
-    background-image: url("https://keenlychung.com/dailymood/landingpage.png");
+    background-image: url("https://keenlychung.com/dailymood/landingpage.jpg");
     background-size: cover;
     background-position: 100% 20%;
     /* background: rgb(100,134,74);
     background: linear-gradient(180deg, rgba(100,134,74,1) 0%, rgba(201,226,187,1) 100%); */
+    scroll-snap-align: start;
 }
 
 .SplashPage-main-banner-div {
@@ -38,7 +43,8 @@
 
 .SplashPage-welcome {
     /* font-size: clamp(24px, 5vw, 33px); */
-    font-size: 3rem;
+    font-family: "KeenlysFont";
+    font-size: 4rem;
     padding-bottom: 16px;
     /* white-space: nowrap; */
 }
@@ -89,10 +95,16 @@
     width: 100%;
     justify-content: space-between;
     height: 100vh;
+    scroll-snap-align: start;
 }
 
 .SplashPage-info-container:nth-child(odd) {
     background-color: #c9e2bb;
+    /* scroll-snap-align: start; */
+}
+
+.SplashPage-footer-container {
+    height: 80px;
 }
 
 .SplashPage-cow-image-info {
@@ -113,11 +125,12 @@
 
     .SplashPage-placeholder {
         display: block;
-        width: 60%;
+        width: 50%;
     }
 
     .SplashPage-main-banner-text {
-        width: 35%;
+        margin-left: 44px;
+        width: 50%;
         display: flex;
         flex-direction: column;
         justify-content: center;

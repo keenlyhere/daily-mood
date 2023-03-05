@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addDayEntry, addPastDayEntry, deleteDayEntry, editDayEntry, loadCurrentDay } from "../../../store/dayentries";
 import { addPoints } from "../../../store/session";
+import ConfirmDelete from "../../ConfirmDelete";
+import OpenModalButton from "../../OpenModalButton";
 
 export default function DailyJournal({ currentJournal, date }) {
     const dispatch = useDispatch();
@@ -9,6 +11,8 @@ export default function DailyJournal({ currentJournal, date }) {
     const [ editJournal, setEditJournal ] = useState(false);
     // console.log("editJournalEntry", currentJournal);
     const [ errors, setErrors ] = useState({});
+    const [ showMenu, setShowMenu ] = useState(false);
+    const closeMenu = () => setShowMenu(false);
 
     const startEditJournal = (e) => {
         setEditJournal(true);
@@ -36,7 +40,7 @@ export default function DailyJournal({ currentJournal, date }) {
 
         if (date) {
             const addJournal = await dispatch(addPastDayEntry({ entryType: "dayJournal", entryData: val }, date))
-            .then(() => dispatch(loadCurrentDay()))
+            // .then(() => dispatch(loadCurrentDay()))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
@@ -209,7 +213,13 @@ export default function DailyJournal({ currentJournal, date }) {
                             >
                                 Edit
                             </button>
-                            <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i>
+                            <OpenModalButton
+                                buttonText={<i className="fa-solid fa-trash"></i>}
+                                onButtonClick={closeMenu}
+                                modalComponent={<ConfirmDelete currentJournal={currentJournal} onDelete={() => handleDeleteEntry("dayJournal", currentJournal.id)}/>
+                            }   icon="delete"
+                            />
+                            {/* <i className="fa-solid fa-trash clickable" onClick={() => handleDeleteEntry("dayJournal", currentJournal.id)}></i> */}
                         </div>
                     </div>
                 </div>

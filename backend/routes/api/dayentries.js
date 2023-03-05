@@ -15,19 +15,23 @@ const router = express.Router();
 // GET /api/day/current - get's current day
 router.get("/current", requireAuth, async (req, res, next) => {
     const { user } = req;
+
+    const now = new Date();
+    const query = {
+        where: {
+            [Op.and]: {
+                day: now,
+                userId:user.id
+            }
+        }
+    }
+
+
+
     // query for current day
     // if an entry does not exist yet i.e. arraylength 0?, then frontend should have forms?
     // otherwise, should display the data for that day
-    const now = new Date();
-    const today = await DayEntry.findAll({
-        where: {
-            [Op.and]: {
-                // day: formatDate(now),
-                day: now,
-                userId: user.id,
-            },
-        },
-    });
+    const today = await DayEntry.findAll(query);
 
     if (!today.length > 0) {
         return res.json({
@@ -427,7 +431,7 @@ router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
     const startDate = new Date(year, month, 1);
     const endDate = new Date(year, Number(month) + 1, 0);
 
-    const allMoodsInMonth = await DayEntry.findAll({
+    const query = {
         where: {
             userId: user.id,
             entryType: "dayMood",
@@ -436,7 +440,15 @@ router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
             }
         },
         order: [[ "day", "ASC" ]]
-    })
+    }
+
+    if (req.query.mood) {
+        query.where.entryData = req.query.mood
+    }
+
+    console.log("*** QUERY ==>", query)
+
+    const allMoodsInMonth = await DayEntry.findAll(query)
 
     if (!allMoodsInMonth.length > 0) {
         return res.json({
