@@ -145,7 +145,7 @@ export default function TestChart() {
                         }
                     }
                 },
-                duration: 2000
+                duration: 1300
             }
         },
         plugins: {
@@ -242,7 +242,11 @@ export default function TestChart() {
                             options={options}
                             data={data}
                         />
-                    ) : ("No data to display :c")}
+                    ) : (
+                            <div className="MoodBar-line-chart">
+                                No data to display :c
+                            </div>
+                        )}
                 </div>
                 <h2 className="Stats-header">Mood Bar</h2>
                 <div className="MoodBar-container">
