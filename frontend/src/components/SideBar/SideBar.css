@@ -34,7 +34,7 @@
     left: 0;
 }
 
-.SideBar-logo-container,
+.SideBar-logo-container,ƒ
 .SideBar-moolah-container {
     padding: 16px 28px;
 }
@@ -83,14 +83,14 @@
 
 .SideBar-link:hover {
     background-color: #E1F8D4;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
 }
 
 .SideBar-link.active {
     background-color: white;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
 }
 
 .SideBar-pet-stats-hp-bar-container {
@@ -118,12 +118,12 @@
     justify-content: center;
 }
 
-.SideBar-logout {
+/* .SideBar-logout {
     padding: 8px 18px;
     border-radius: 18px;
     border: none;
     background-color: #F5FBF2;
-}
+} */
 
 .SideBar-pet-stats-hp {
     padding-bottom: 12px;

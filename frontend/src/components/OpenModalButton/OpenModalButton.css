@@ -37,14 +37,15 @@
 } */
 
 
-.LogIn, .SignUp {
+.LogIn, .SignUp,
+.SideBar-logout {
     background-color: #fff;
     min-width: 6rem;
     padding: 8px 16px;
     border-radius: 28px;
-    border: solid 1px #266031;
+    border: solid 1px #1b3012;
     font-weight: 600;
-    box-shadow: 2px 2.5px #266031;
+    box-shadow: 2px 2.5px #1b3012;
     transition: transform 50ms, box-shadow 50ms;
 }
 
@@ -53,7 +54,8 @@
 }
 
 .LogIn:hover,
-.SignUp:hover {
+.SignUp:hover,
+.SideBar-logout:hover {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px #266031;
+    box-shadow: 1px 1px #1b3012;
 }

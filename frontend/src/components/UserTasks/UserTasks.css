@@ -74,6 +74,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 44px;
+    box-sizing: border-box;
+    height: max-content;
 }
 
 .UserTasks-cat-container {
@@ -98,7 +100,7 @@
 }
 
 .UserTasks-icon-container {
-    height: 88px;
+    min-height: 88px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,6 +156,7 @@
     border: 1px solid transparent;
     border-radius: 8px;
     width: 13ch;
+    font-weight: 600;
 }
 
 .UserTasks-category-name {

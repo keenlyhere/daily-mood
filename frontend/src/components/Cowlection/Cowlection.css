@@ -10,7 +10,8 @@
     width: 100%;
 }
 
-.Cowlection-header-text:before {
+.Cowlection-header-text:before,
+.Cowlection-header-text-background:before {
     text-align: center;
     content: "Your udderly adorable herd";
     position: absolute;
@@ -19,6 +20,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    padding: 18px;
 }
 
 .Cowlection-header-text,
@@ -34,6 +36,7 @@
     width: 100%;
     z-index: 1;
     margin-bottom: 18px;
+    padding: 18px;
 }
 
 .Cowlection-header-background {
