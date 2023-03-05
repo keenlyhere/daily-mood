@@ -8,7 +8,8 @@
     "start": "per-env",
     "start:development": "nodemon ./bin/www",
     "start:production": "node ./bin/www",
-    "build": "node psql-setup-script.js"
+    "build": "node psql-setup-script.js",
+    "reset-db": "npx dotenv sequelize-cli db:seed:undo:all && npx dotenv sequelize-cli db:migrate:undo:all && npx dotenv sequelize-cli db:migrate && npx dotenv sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",
