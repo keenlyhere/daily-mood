@@ -69,10 +69,10 @@ export default function Navigation({ isLoaded }) {
                             <span className="Navigation-user">Hey {sessionUser.firstName}</span>
                         </li>
                         <li className="profile-dropdown-links">
-                            <button onClick={() => history.push("/daily")} className="profile-dropdown-logout">Daily</button>
+                            <button onClick={() => history.push("/daily")} className="SignUp">Daily</button>
                         </li>
                         <li className="profile-dropdown-links">
-                            <button onClick={logout} className="profile-dropdown-logout LogIn">Log Out</button>
+                            <button onClick={logout} className="LogIn">Log Out</button>
                         </li>
                     </div>
                 ) : (

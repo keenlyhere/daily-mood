@@ -229,16 +229,20 @@ export default function TestChart() {
             }
         }
 
+        console.log("data", data.labels.length)
+
         return (
             <div className="Stats-container">
                 {/* <Chart type="bar" data={chartData} redraw /> */}
                 <h1 className="Stats-main-header" data-content={`${currentDate.toLocaleDateString("default", { month: "short" })} ${currentDate.getFullYear()} Analysis`}>{currentDate.toLocaleDateString("default", { month: "short" })} {currentDate.getFullYear()} Analysis</h1>
                 <h2 className="Stats-header">Mood Flow</h2>
                 <div className="MoodBar-line-chart">
-                    <Line
-                        options={options}
-                        data={data}
-                    />
+                    { data && data.labels.length ? (
+                        <Line
+                            options={options}
+                            data={data}
+                        />
+                    ) : ("No data to display :c")}
                 </div>
                 <h2 className="Stats-header">Mood Bar</h2>
                 <div className="MoodBar-container">
