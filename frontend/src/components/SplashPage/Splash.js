@@ -62,6 +62,8 @@ export default function Splash(){
                 />
             </div>
             <Footer />
+            <div className="SplashPage-footer-container">
+            </div>
         </div>
     )
 }

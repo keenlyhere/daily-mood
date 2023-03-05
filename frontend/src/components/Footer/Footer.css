@@ -1,5 +1,6 @@
 .Footer-container {
     height: 80px;
+    width: 100%;
     background-color: #C9E2BB;
     padding: 18px;
     display: flex;
