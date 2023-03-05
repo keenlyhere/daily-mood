@@ -7,7 +7,7 @@ import CreateTaskModal from "./CreateTaskModal";
 import EditCategory from "./EditCategory";
 import ConfirmDelete from "../ConfirmDelete";
 
-export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user }) {
+export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user, isUnfinished }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [tasksActive, setTasksActive] = useState([]);
@@ -124,17 +124,23 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                                 </div>
                             ))}
                             <div className="UserTasks-icon-container">
-                                <OpenModalButton
-                                    buttonText={
-                                        <div className="UserTasks-create-task-button clickable">
-                                            <i className="fa-solid fa-plus"></i>
-                                        </div>
-                                    }
-                                    onButtonClick={closeMenu}
-                                    modalComponent={<CreateTaskModal category={category} taskType={taskType} user={user} />}
-                                    buttonClass="Category-edit"
-                                />
-                                <p className="UserTasks-taskName">New {category}</p>
+                                { isUnfinished ? (
+                                    ""
+                                ) : (
+                                    <>
+                                        <OpenModalButton
+                                            buttonText={
+                                                <div className="UserTasks-create-task-button clickable">
+                                                    <i className="fa-solid fa-plus"></i>
+                                                </div>
+                                            }
+                                            onButtonClick={closeMenu}
+                                            modalComponent={<CreateTaskModal category={category} taskType={taskType} user={user} />}
+                                            buttonClass="Category-edit"
+                                        />
+                                        <p className="UserTasks-taskName">New {category}</p>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

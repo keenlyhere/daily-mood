@@ -75,6 +75,7 @@
     height: 4rem;
     border-radius: 88px;
     overflow: hidden;
+    background-color: #d3d3d3;
 }
 
 .MoodBar-filled {

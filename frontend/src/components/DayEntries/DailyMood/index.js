@@ -83,6 +83,7 @@ export default function DailyMood({ currentMood, date }) {
                             alt="Content mood"
                             className={`Dailies-mood-image clickable ${mood === "Content" ? "active-mood" : ""}`}
                             onClick={() => handleMoodChange("create", "Content")}
+                            id="Content"
                         />
                         <img
                             src={cow_happy}
@@ -131,6 +132,7 @@ export default function DailyMood({ currentMood, date }) {
                                 alt="Content mood"
                                 className={`Dailies-mood-image clickable ${currentMood.entryData === "Content" ? "active-mood" : ""}`}
                                 onClick={() => handleMoodChange("edit", "Content")}
+                                id="Content"
                             />
                             <img
                                 src={cow_happy}

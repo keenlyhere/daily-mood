@@ -126,7 +126,7 @@ export default function UserTasks() {
                             </div>
 
                             <div className="UserTasks-cat-container">
-                                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} />
+                                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} isUnfinished={true} />
                             </div>
                         </>
                     ) : (

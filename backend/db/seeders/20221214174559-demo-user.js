@@ -24,13 +24,13 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         email: 'demo@user.io',
-        firstName: "Demo",
-        lastName: "User",
+        firstName: "Milhouse",
+        lastName: "Van Houten",
         hashedPassword: bcrypt.hashSync('password'),
         birthday: "2012-01-01",
-        displayPic: "https://www.example.com/images/bob-smith.png",
+        displayPic: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/05/18/09/the-simpsons-milhouse.png?width=1200",
         theme: "cows",
-        moolah: 100,
+        moolah: 300,
         activePet: 1,
         activeBg: 1
       },

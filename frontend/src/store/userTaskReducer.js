@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { formatDate } from "../utils/dateFormating";
 
 const LOAD_CURRENT_DAY_TASKS = "userTasks/LOAD_CURRENT_DAY_TASKS";
 const LOAD_SPECIFIC_DAY_TASKS = "userTasks/LOAD_SPECIFIC_DAY_TASKS";
@@ -246,7 +247,12 @@ export default function userTasksReducer(state = initialState, action) {
                 editTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
                 return editTaskState;
             } else {
-                editTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+                const now = new Date();
+                if (action.task.day === formatDate(now)) {
+                    editTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+                } else {
+                    editTaskState.userTasks.unfinishedToDo = { ...state.userTasks.unfinishedToDo, [action.task.id]: action.task }
+                }
             }
             return editTaskState;
         }
