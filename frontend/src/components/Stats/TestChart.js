@@ -74,8 +74,8 @@ export default function TestChart() {
     }
 
     useEffect(() => {
-        dispatch(loadMonthlyMoods(currentDate.getFullYear(), 1))
-        // dispatch(loadMonthlyMoods(currentDate.getFullYear(), currentDate.getMonth()))
+        // dispatch(loadMonthlyMoods(currentDate.getFullYear(), 1))
+        dispatch(loadMonthlyMoods(currentDate.getFullYear(), currentDate.getMonth()))
             .then((res) => {
                 const moodData = [];
                 const days = [];
