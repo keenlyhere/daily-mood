@@ -63,7 +63,9 @@
 
 .MoodBar-line-chart {
     width: 100%;
-    padding-bottom: 44px;
+    padding:  18px;
+    border-radius: 18px;
+    border: 1px solid #e5e5e5;
     /* height: 100%; */
     background-color: #fff;
     display: flex;
