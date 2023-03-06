@@ -66,7 +66,7 @@ export default function Navigation({ isLoaded }) {
                 { sessionUser ? (
                     <div className="Navigation-list-right">
                         <li className="profile-dropdown-links">
-                            <span className="Navigation-user">Hey {sessionUser.firstName}</span>
+                            <span className="Navigation-user">Hey <span className="Navigation-user-name">{sessionUser.firstName}</span>!</span>
                         </li>
                         <li className="profile-dropdown-links">
                             <button onClick={() => history.push("/daily")} className="SignUp">Daily</button>

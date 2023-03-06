@@ -35,6 +35,11 @@
     padding-right: 25px;
 }
 
+.Navigation-user-name {
+    font-weight: 600;
+    color: #5ba13f;
+}
+
 .Navigation-links:link, .Navigation-links:visited {
     color: #000000;
     text-decoration: none;
