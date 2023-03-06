@@ -35,23 +35,31 @@ Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is a web applicatio
 ## ✨ **Features**:
 
 ### Splash Page
-
+![Splash-demo](https://keenlychung.com/dailymood/dm_01_splash.gif)
 
 
 ### Dailies
-
+![Dailies-demo](https://keenlychung.com/dailymood/dm_02_dailies.gif)
 
 
 ### Tasks
+![Tasks-demo](https://keenlychung.com/dailymood/dm_03_tasks.gif)
 
 
+### Monthly view
+![Cowlendar-demo](https://keenlychung.com/dailymood/dm_04_cowlendar.gif)
 
-### Pets
+
+### Stats
+![Stats-demo](https://keenlychung.com/dailymood/dm_05_stats.gif)
 
 
+## Pets & Store
+![Store-demo](https://keenlychung.com/dailymood/dm_06_store.gif)
 
-### Gachapon
 
+## Collection
+![Cowlection-demo](https://keenlychung.com/dailymood/dm_07_cowlection.gif)
 
 
 ## 📁 Installation
