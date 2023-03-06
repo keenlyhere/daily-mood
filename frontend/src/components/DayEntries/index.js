@@ -201,7 +201,7 @@ export default function Daily() {
                 <div></div>
                 <div></div>
             </div>
-            Don't have a cow! We're almost done loading your data!
+            We're udderly sorry for the delay, your content is loading!
         </div>
         // </div>
     }

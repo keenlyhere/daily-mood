@@ -312,7 +312,7 @@ export default function TestChart() {
                 <div></div>
                 <div></div>
             </div>
-                {/* "Don't be udderly frustrated, we're almost done loading!" */}
+                Don't be pasture bedtime yet, we're almost done loading.
         </div>
         )
     }
