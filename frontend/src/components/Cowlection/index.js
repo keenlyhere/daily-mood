@@ -256,10 +256,10 @@ export default function Cowlection({ user }) {
                                 <h1 className="Cowlection-header-text-background">Your bovine backdrops</h1>
                             </div>
                             <div className="Cowlection-cows">
-                            { bgs.userBgImages.map((pet, idx) => (
+                            { bgs.userBgImages.map((bg, idx) => (
                                 <div key={idx} className="Pet-gachapon-card">
                                     <div className="Bg-gachapon-card-image">
-                                        <img src={pet} className={`Bg-gachapon-bg ${userFlavors.includes(cows.userCowFlavors[idx]) ? "" : "notOwned"}`} alt="Gachapon pet prize" />
+                                        <img src={bg} className={`Bg-gachapon-bg`} alt="Gachapon pet prize" />
                                     </div>
                                     <div className="Pet-gachapon-description">
                                         <h2 className="Pet-gachapon-flavor">
