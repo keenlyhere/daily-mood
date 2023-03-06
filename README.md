@@ -54,11 +54,11 @@ Daily Moo'd, a loose clone of the mobile Lifestyle app, DailyBean, is a web appl
 ![Stats-demo](https://keenlychung.com/dailymood/dm_05_stats.gif)
 
 
-## Pets & Store
+### Pets & Store
 ![Store-demo](https://keenlychung.com/dailymood/dm_06_store.gif)
 
 
-## Collection
+### Collection
 ![Cowlection-demo](https://keenlychung.com/dailymood/dm_07_cowlection.gif)
 
 
