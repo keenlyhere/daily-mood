@@ -304,9 +304,16 @@ export default function TestChart() {
         )
     } else {
         return (
-            <div className="Stats-container">
-                "Don't be udderly frustrated, we're almost done loading!"
+            <div className="App-container">
+            <div className="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
+                {/* "Don't be udderly frustrated, we're almost done loading!" */}
+        </div>
         )
     }
 

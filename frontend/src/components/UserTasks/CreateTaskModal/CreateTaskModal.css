@@ -78,7 +78,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: brightness(0.7)
+    /* filter: brightness(0.7); */
 }
 
 .UserTasks-icon-div {
@@ -87,14 +87,22 @@
     align-items: center;
 }
 
-.CreateTaskModal-icon-container > img,
-.UserTasks-icon-div > img {
+.CreateTaskModal-icon-container > img {
     height: 30px;
+    filter: opacity(0.4);
 }
 
-.CreateTaskModal-icon-container:hover,
+.CreateTaskModal-icon-container > img:hover,
+.CreateTaskModal-icon-container.selected > img {
+    filter: brightness(1) opacity(1);
+}
+
 .CreateTaskModal-icon-container.selected {
-    filter: brightness(1)
+    border: 1px solid #1b3012;
+}
+
+.CreateTaskModal-icon-container.selected.no-border {
+    border: 0;
 }
 
 .CreateTaskModal-next {

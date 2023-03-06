@@ -192,13 +192,18 @@ export default function Daily() {
             </div>
         );
     } else {
-        <div className="Daily-container">
-            We're milking the servers for all they're worth to load your mood.
-            {/* <div className="Daily-header-date skeleton-header"></div>
-            <div className="Daily-mood-container skeleton-body"></div>
-            <div className="Daily-mood-container skeleton-body"></div>
-            <div className="Daily-mood-container skeleton-body"></div> */}
+        // <div className="Daily-container">
+        <div className="App-container">
+            <div className="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            Don't have a cow! We're almost done loading your data!
         </div>
+        // </div>
     }
 
 }

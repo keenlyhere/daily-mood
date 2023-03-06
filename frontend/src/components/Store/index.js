@@ -13,6 +13,7 @@ import PetCare from "./PetCare";
 
 // test starts here
 import gachaBase from "../../assets/gacha/gachaBase.png";
+import gachaponbanner from "../../assets/gachaponbanner.jpg";
 
 export default function Store({ user }) {
     const dispatch = useDispatch();
@@ -132,7 +133,12 @@ export default function Store({ user }) {
                                 "You've collected all the cows!"
                             ) : (
                                 <OpenModalButton
-                                    buttonText={<img src={gachaBase} alt="Pet gachapon" />}
+                                    buttonText={(
+                                        <>
+                                            <div className="Gachapon">Play the pet gachapon today!</div>
+                                            <p className="Gachapon-text">Adopt a cute new moo to join your family! You won't regret it!</p>
+                                        </>
+                                    )}
                                     onButtonClick={closeMenu}
                                     modalComponent={<PetGachapon userFlavors={userFlavors} user={user} />}
                                     buttonClass="Gachapon"
@@ -210,7 +216,12 @@ export default function Store({ user }) {
                                     "You've collected all the backgrounds!"
                                 ) : (
                                     <OpenModalButton
-                                        buttonText={<img src={gachaBase} alt="Pet gachapon" />}
+                                        buttonText={(
+                                        <>
+                                            <div className="Gachapon">Play the background gachapon today!</div>
+                                            <p className="Gachapon-text">Get a brand spankin` new background for your cute moo.</p>
+                                        </>
+                                    )}
                                         onButtonClick={closeMenu}
                                         modalComponent={<BgGachapon userBgNames={userBgNames} user={user} />}
                                         buttonClass="Gachapon"
@@ -282,8 +293,15 @@ export default function Store({ user }) {
         )
     } else {
         return (
-            <div className="Store-container">
-                Cow-abunga! We're loading your mood data!
+            <div className="App-container">
+                <div className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                    Cow-abunga! We're loading your mood data!
             </div>
         )
     }

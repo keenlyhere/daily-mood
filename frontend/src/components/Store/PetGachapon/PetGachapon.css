@@ -176,6 +176,7 @@
 
 .isDisabled {
     background-color: #ffffffdb;
+    cursor: not-allowed;
 }
 
 .PetGachapon-text-container {

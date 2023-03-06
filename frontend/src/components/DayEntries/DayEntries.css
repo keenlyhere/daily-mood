@@ -127,23 +127,24 @@ span.highlighted {
 }
 
 .Dailies-mood-image {
-    filter: brightness(0.3)
+    filter: brightness(0.3);
 }
 
 .Dailies-mood-image:hover {
-    filter: brightness(1)
+    filter: brightness(1);
+    animation: wiggle infinite 0.4s;
 }
 
 .Dailies-mood-image.sad-icon:hover {
-    filter: brightness(1.5)
+    filter: brightness(1.5);
 }
 
 .active-mood {
-    filter: brightness(1)
+    filter: brightness(1);
 }
 
 .Dailies-mood-image.sad-icon.active-mood {
-    filter: brightness(2.5)
+    filter: brightness(2.5);
 }
 
 

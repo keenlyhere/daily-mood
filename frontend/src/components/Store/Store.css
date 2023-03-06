@@ -12,15 +12,45 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
-.Gachapon {
-    background: transparent;
+.Store-pet-gachapon > .OpenModalButton-container,
+.Store-bg-gachapon > .OpenModalButton-container {
+    width: 100%;
+    padding: 30px;
 }
 
-.Gachapon > img {
+button.Gachapon {
+    background-image: url("https://keenlychung.com/dailymood/gachaponbanner.jpg");
+    background-color: #fff;
+    background-size: contain;
+    background-position: 300px;
+    background-repeat: no-repeat;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #9AB28C;
+    object-fit: contain;
     height: 200px;
+    width: 100%;
+    text-align: left;
+    padding: 28px;
 }
+
+div.Gachapon {
+    font-family: "KeenlysFont";
+    font-size: 2.5rem;
+}
+
+.Gachapon-text {
+    margin-top: 12px;
+    font-size: 16px;
+    max-width: 400px;
+}
+
+/* .Gachapon > img {
+    height: 150px;
+} */
 
 .Pet-gachapon-prizes {
     display: grid;

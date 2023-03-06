@@ -180,7 +180,13 @@ function App() {
     );
   } else {
     return (
-      ""
+      <div className="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     )
   }
 }
