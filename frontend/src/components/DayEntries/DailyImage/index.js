@@ -94,7 +94,7 @@ export default function DailyImage({ currentImage, date }) {
                                 </div>
                             )}
                         </label>
-                        <input id="Daily-image-upload" type="file" onChange={(e) => updateFile(e, "add")} />
+                        <input id="Daily-image-upload" type="file" accept="image/*" onChange={(e) => updateFile(e, "add")} />
                     </div>
                 </div>
             ) : (

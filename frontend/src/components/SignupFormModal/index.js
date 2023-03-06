@@ -186,7 +186,7 @@ export default function SignupFormModal() {
                     <label htmlFor="profile-pic-upload" className="SignUpForm-profile-pic-upload clickable">
                         Add a photo of yourself!
                     </label>
-                    <input id="profile-pic-upload" type="file" onChange={updateFile} />
+                    <input id="profile-pic-upload" type="file" accept="image/*" onChange={updateFile} />
                 </div>
             <div className="SignUpForm-main-container">
                 <div className="SignUpForm-group email">
