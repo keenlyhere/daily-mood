@@ -89,6 +89,9 @@
 
 .Mood-container.pastDate {
     background-color: #F2F2F2;
+    background-image: url("https://keenlychung.com/dailymood/no_mood.png");
+    background-size: 90px;
+    background-position: center;
 }
 
 .Mood-container.futureDate {

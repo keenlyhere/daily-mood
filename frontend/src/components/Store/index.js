@@ -212,7 +212,7 @@ export default function Store({ user }) {
                                 <h1 className="Gachapon-header" data-content={"Background Gachapon"}>Background Gachapon</h1>
                             </div>
                             {
-                                userBgNames.length >= 3 ? (
+                                userBgNames.length >= 4 ? (
                                     "You've collected all the backgrounds!"
                                 ) : (
                                     <OpenModalButton

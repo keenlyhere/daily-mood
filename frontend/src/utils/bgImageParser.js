@@ -1,7 +1,8 @@
 const backgrounds = {
     "Farm": "https://keenlychung.com/dailymood/backgrounds/bg_default.PNG",
     "FlowerFields": "https://keenlychung.com/dailymood/backgrounds/bg_flower_fields.PNG",
-    "Castle": "https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG"
+    "Castle": "https://keenlychung.com/dailymood/backgrounds/bg_castle.PNG",
+    "Forest": "https://keenlychung.com/dailymood/backgrounds/bg_forest.jpg"
 }
 
 export const bgImageParser = (bgName) => {
