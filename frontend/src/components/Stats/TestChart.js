@@ -243,7 +243,7 @@ export default function TestChart() {
                             data={data}
                         />
                     ) : (
-                            <div className="MoodBar-line-chart">
+                            <div>
                                 No data to display :c
                             </div>
                         )}
