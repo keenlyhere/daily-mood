@@ -33,11 +33,15 @@ export default function BgGachapon({ userBgNames, user }) {
     const backgrounds = [
         {
             "bgName": "Farm",
-            "rarity": 7
+            "rarity": 5.5
+        },
+        {
+            "bgName": "Forest",
+            "rarity": 2
         },
         {
             "bgName": "FlowerFields",
-            "rarity": 2.5
+            "rarity": 2
         },
         {
             "bgName": "Castle",

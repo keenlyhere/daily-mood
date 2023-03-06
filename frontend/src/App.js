@@ -186,6 +186,7 @@ function App() {
         <div></div>
         <div></div>
         <div></div>
+        Moo-ving data into place, please wait...
       </div>
     )
   }

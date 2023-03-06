@@ -83,8 +83,7 @@ export default function SpecificDayTasks() {
                     <div></div>
                     <div></div>
                 </div>
-                {/* We're milking the servers for all they're worth to load your mood. */}
-                Cow-abunga! We're loading your mood data!
+                The herd is on the move, loading your content now!
             </div>
         )
     }

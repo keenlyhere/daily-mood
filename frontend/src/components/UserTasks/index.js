@@ -183,7 +183,7 @@ export default function UserTasks() {
                     <div></div>
                     <div></div>
                 </div>
-                {/* We're milking the servers for all they're worth to load your mood. */}
+                We're not fowl, we're just cow-nting down the loading time!
             </div>
         )
     }

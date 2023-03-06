@@ -197,7 +197,7 @@ export default function Monthly() {
                     <div></div>
                     <div></div>
                 </div>
-                    {/* Moo-ving towards a better mood... */}
+                    Moo-ving towards a better mood...
             </div>
         )
     }
