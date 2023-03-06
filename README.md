@@ -2,7 +2,7 @@
 
 ## 🐮 **About**
 
-Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is a web application for users to track their daily feelings and tasks. It currently has 4 features: (1) Dailies: Full CRUD, (2) Tasks: Full CRUD, (3) Pets: create, read, and update, (4) Shop: read and update.
+Daily Moo'd, a loose clone of the mobile Lifestyle app, DailyBean, is a web application for users to track their daily feelings and tasks. It currently has 4 features: (1) Dailies: Full CRUD, (2) Tasks: Full CRUD, (3) Pets: create, read, and update, (4) Shop: read and update.
 
 [Click to view Daily Moo'd Live](https://daily-mood.onrender.com/)
 
@@ -55,7 +55,7 @@ Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is a web applicatio
 
 
 ## Pets & Store
-![Store-demo](https://keenlychung.com/dailymood/dm_06_store.gif)
+![Store-demo](https://keenlychung.com/dailymood/dm_06_stor.gif)
 
 
 ## Collection
