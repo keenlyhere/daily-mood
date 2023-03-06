@@ -175,14 +175,15 @@ export default function UserTasks() {
         )
     } else {
         return (
-            <div className="UserTasks-container">
-                We're milking the servers for all they're worth to load your mood.
-                {/* <div className="Daily-header-date skeleton-header"></div>
-                <div className="Daily-mood-container skeleton-body"></div>
-                <div className="Daily-header-date skeleton-header"></div>
-                <div className="Daily-mood-container skeleton-body"></div>
-                <div className="Daily-header-date skeleton-header"></div>
-                <div className="Daily-mood-container skeleton-body"></div> */}
+            <div className="App-container">
+                <div className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                {/* We're milking the servers for all they're worth to load your mood. */}
             </div>
         )
     }

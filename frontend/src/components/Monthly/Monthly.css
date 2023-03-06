@@ -177,15 +177,8 @@
     min-width: 6rem;
     padding: 8px 16px;
     border-radius: 28px;
-    border: solid 1px #1b3012;
+    border: solid 1px #9AB28C;
     font-weight: 600;
-    box-shadow: 2px 2.5px #1b3012;
-    transition: transform 50ms, box-shadow 50ms;
-}
-
-.Monthly-calendar-filter-reset:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px #1b3012;
 }
 
 @media (min-width: 1288px) {

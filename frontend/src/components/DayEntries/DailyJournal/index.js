@@ -163,7 +163,7 @@ export default function DailyJournal({ currentJournal, date }) {
                         <div className="Daily-action-buttons-container">
 
                             <button
-                                className={ `Daily-journal-save clickable ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
+                                className={ `Daily-journal-save ${dailyJournal.length < 5 || dailyJournal.length > 200 ? "isDisabled" : ""}`}
                                 onClick={() => handleJournalSave("create", dailyJournal)}
                                 disabled={dailyJournal.length < 5 || dailyJournal.length > 200 ? true : false}
                             >

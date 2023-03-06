@@ -189,8 +189,15 @@ export default function Monthly() {
         );
     } else {
         return (
-            <div className="Monthly-container">
-                Moo-ving towards a better mood...
+            <div className="App-container">
+                <div className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                    {/* Moo-ving towards a better mood... */}
             </div>
         )
     }

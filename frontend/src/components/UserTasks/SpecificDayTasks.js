@@ -74,7 +74,16 @@ export default function SpecificDayTasks() {
         )
     } else {
         return (
-            <div className="UserTasks-container">
+
+            <div className="App-container">
+                <div className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                {/* We're milking the servers for all they're worth to load your mood. */}
                 Cow-abunga! We're loading your mood data!
             </div>
         )

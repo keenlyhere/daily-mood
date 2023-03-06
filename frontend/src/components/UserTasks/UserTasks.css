@@ -87,6 +87,7 @@
 
 .UserTasks-header {
     margin-bottom: 8px;
+    min-height: 30px;
     display: flex;
     justify-content: space-between;
 }
@@ -118,6 +119,11 @@
     /* margin-right: auto; */
 }
 
+.UserTasks-icon-div > img {
+    height: 30px;
+    width: 30px;
+}
+
 .UserTasks-create-task-button {
     display: flex;
     justify-content: center;
@@ -127,16 +133,16 @@
 
 .fa-plus {
     -webkit-text-stroke: 2px;
-    color: #c9e2bb
+    color: #c9e2bb;
 }
 
 .UserTasks-incomplete {
-    filter: grayscale(1)
+    filter: grayscale(1) opacity(0.6);
 }
 
 .UserTasks-incomplete:hover,
 .UserTasks-create-task-button:hover {
-    filter: grayscale(0)
+    filter: grayscale(0);
 }
 
 .UserTasks-taskName {
@@ -154,9 +160,11 @@
 .UserTasks-header-text {
     background-color: #c9e2bb;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 28px;
     width: 13ch;
     font-weight: 600;
+    padding-left: 8px;
+    margin-left: -8px;
 }
 
 .UserTasks-category-name {
@@ -184,7 +192,8 @@
 }
 
 .UserTasks-category-save {
-    border-radius: 8px;
+    border-radius: 28px;
+    padding: 2px 7px;
     border: 0;
     background-color: white;
 }
@@ -203,8 +212,8 @@
 }
 
 .UserTasks-save {
-    padding: 3px 8px;
-    border-radius: 8px;
+    padding: 4px 10px;
+    border-radius: 28px;
     border: 0;
     background-color: white;
 }

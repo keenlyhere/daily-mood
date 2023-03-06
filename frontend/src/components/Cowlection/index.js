@@ -295,7 +295,14 @@ export default function Cowlection({ user }) {
         )
     } else {
         return (
-            <div className="Cowlection-container">
+            <div className="App-container">
+                <div className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
                 Don't have a cow, we're just loading your mood!
             </div>
         )

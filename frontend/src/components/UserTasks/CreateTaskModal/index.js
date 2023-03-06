@@ -40,7 +40,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
         "https://keenlychung.com/dailymood/27.png",
         "https://keenlychung.com/dailymood/28.png",
         "https://keenlychung.com/dailymood/29.png",
-        "https://keenlychung.com/dailymood/10.png",
+        "https://keenlychung.com/dailymood/30.png",
     ]
 
     const categoryProp = category ? category : "";
@@ -174,7 +174,7 @@ export default function CreateTaskModal({ category, taskType, user }) {
                 {
                     step === 2 && (
                         <div className="CreateTaskModal-step-container">
-                            <div className={`CreateTaskModal-icon-container selected`}>
+                            <div className={`CreateTaskModal-icon-container selected no-border`}>
                                 <img src={iconSelected} alt="Task icon" />
                             </div>
                             <input
