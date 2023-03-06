@@ -1,8 +1,8 @@
 # Daily Moo'd
 
-## 🐄 **About**
+## 🐮 **About**
 
-Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is website for users to track their daily feelings and tasks. It currently has 4 features: (1) Dailies: Full CRUD, (2) Tasks: Full CRUD, (3) Pets: Full CRUD, (4) Shop: read and update.
+Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is a web application for users to track their daily feelings and tasks. It currently has 4 features: (1) Dailies: Full CRUD, (2) Tasks: Full CRUD, (3) Pets: create, read, and update, (4) Shop: read and update.
 
 [Click to view Daily Moo'd Live](https://daily-mood.onrender.com/)
 
@@ -27,6 +27,10 @@ Daily Moo'd, a clone of the mobile Lifestyle app, DailyBean, is website for user
 [![react][react-shield]][react-url]
 [![react-router][react-router-shield]][react-router-url]
 [![redux][redux-shield]][redux-url]
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
+
+### Hosting:
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
 ## ✨ **Features**:
 
@@ -88,6 +92,9 @@ npx dotenv sequelize db:seed:all
 [redux-url]: https://redux.js.org/
 [linkedin-url]: https://www.linkedin.com/in/nguyenpeterviet/
 
+## ✅ Roadmap
+- [ ] Themes
+- [ ] More customization for pets
 
 ## Database Schema Design
 
