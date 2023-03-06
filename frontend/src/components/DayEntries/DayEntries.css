@@ -298,10 +298,10 @@ span.highlighted {
 }
 
 .Daily-journal-save {
-    border-radius: 8px;
+    border-radius: 28px;
     border: 0;
     background-color: #fff;
-    padding: 3px 8px;
+    padding: 4px 10px;
 }
 
 .Daily-action-buttons-container {
@@ -311,8 +311,8 @@ span.highlighted {
 }
 
 .isDisabled {
-    background: lightgray;
-    color: white;
+    background: #fff;
+    color: lightgrey;
 }
 
 .Daily-journal-char-count-container {

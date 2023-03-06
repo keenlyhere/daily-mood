@@ -51,4 +51,10 @@ router.get("/api/csrf/restore", (req, res) => {
 	});
 });
 
+router.get("/health", (req, res) => {
+	res.status(200).json({
+		"Status": "OK"
+	})
+})
+
 module.exports = router;
