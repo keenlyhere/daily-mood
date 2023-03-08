@@ -98,7 +98,6 @@ npx dotenv sequelize db:seed:all
 [react-url]: https://reactjs.org/
 [react-router-url]: https://reactrouter.com/en/main
 [redux-url]: https://redux.js.org/
-[linkedin-url]: https://www.linkedin.com/in/nguyenpeterviet/
 
 ## ✅ Roadmap
 - [ ] Themes
