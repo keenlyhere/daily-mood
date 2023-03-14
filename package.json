@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/keenlyhere/daily-mood/issues"
   },
-  "homepage": "https://github.com/keenlyhere/daily-mood#readme"
+  "homepage": "https://github.com/keenlyhere/daily-mood#readme",
+  "dependencies": {
+    "react-beautiful-dnd": "^13.1.1"
+  }
 }

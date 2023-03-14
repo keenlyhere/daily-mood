@@ -62,9 +62,91 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 5,
       type: DataTypes.INTEGER
     },
+    toDoCategoryOrder: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
+    habitCategoryOrder: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
+    toDoTaskOrder: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
+    habitTaskOrder: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'UserTask',
+    hooks: {
+      async beforeCreate(userTask) {
+        console.log("beforeCreate userTask ===>", userTask);
+        const { taskType, categoryName } = userTask;
+
+        const categoryOrderCol = taskType === "Habit" ? "habitCategoryOrder" : "toDoCategoryOrder";
+
+        // find max category order for this categoryName in this taskType
+        const maxCategoryOrder = await UserTask.max(categoryOrderCol, {
+          where: {
+            taskType
+          }
+        });
+
+        // if no tasks in the category, then the order should start at 1
+        if (!maxCategoryOrder) {
+          if (taskType === "Habit") {
+            userTask.habitTaskOrder = 1;
+          } else {
+            userTask.toDoTaskOrder = 1;
+          }
+        }
+
+        const category = await UserTask.findOne({
+          where: {
+            taskType,
+            categoryName
+          }
+        })
+
+        if (!category) {
+          userTask[categoryOrderCol] = 1;
+        } else {
+          userTask[categoryOrderCol] = maxCategoryOrder;
+        }
+
+        // if no category currently exists, the new category should start at 1
+        // if a new category is created, set the order to the maxCategoryOrder + 1
+        // if (!maxCategoryOrder) {
+        //   userTask[categoryOrderCol] = 1;
+        // } else {
+        //   userTask[categoryOrderCol] = maxCategoryOrder + 1;
+        // }
+
+        const lastTaskInCategory = await UserTask.findOne({
+          where: {
+            taskType,
+            categoryName
+          },
+          order: [
+            [
+              taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder", "DESC"
+            ]
+          ]
+        });
+
+        // if a task in that category exists already
+        if (lastTaskInCategory) {
+          userTask[taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder"] = lastTaskInCategory[taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder"] + 1;
+        } else {
+          // if there are no tasks in this category yet, then it should be ordered first
+          userTask[taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder"] = 1;
+        }
+          console.log("===>", userTask)
+      }
+    }
   });
   return UserTask;
 };

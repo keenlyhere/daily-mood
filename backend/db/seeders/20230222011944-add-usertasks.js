@@ -28,7 +28,11 @@ module.exports = {
       taskType: "Habit",
       taskIcon: "https://keenlychung.com/dailymood/01.png",
       isCompleted: true,
-      pointsEarned: 1
+      pointsEarned: 1,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 1,
+      habitTaskOrder: 1,
     },
     {
       userId: 1,
@@ -38,7 +42,11 @@ module.exports = {
       taskType: "Habit",
       taskIcon: "https://keenlychung.com/dailymood/02.png",
       isCompleted: true,
-      pointsEarned: 1
+      pointsEarned: 1,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 1,
+      habitTaskOrder: 2,
     },
     {
       userId: 1,
@@ -48,7 +56,11 @@ module.exports = {
       taskType: "Habit",
       taskIcon: "https://keenlychung.com/dailymood/03.png",
       isCompleted: true,
-      pointsEarned: 1
+      pointsEarned: 1,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 1,
+      habitTaskOrder: 3,
     },
     {
       userId: 1,
@@ -58,7 +70,11 @@ module.exports = {
       taskType: "Habit",
       taskIcon: "https://keenlychung.com/dailymood/04.png",
       isCompleted: true,
-      pointsEarned: 1
+      pointsEarned: 1,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 1,
+      habitTaskOrder: 4,
     },
     {
       userId: 1,
@@ -68,7 +84,11 @@ module.exports = {
       taskType: "To-Do",
       taskIcon: "https://keenlychung.com/dailymood/05.png",
       isCompleted: true,
-      pointsEarned: 1
+      pointsEarned: 1,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 1,
+      habitTaskOrder: 1,
     },
     {
       userId: 1,
@@ -78,7 +98,11 @@ module.exports = {
       taskType: "To-Do",
       taskIcon: "https://keenlychung.com/dailymood/06.png",
       isCompleted: false,
-      pointsEarned: 0
+      pointsEarned: 0,
+      toDoCategoryOrder: 1,
+      habitCategoryOrder: 1,
+      toDoTaskOrder: 2,
+      habitTaskOrder: 1,
     },
    ], {})
   },
