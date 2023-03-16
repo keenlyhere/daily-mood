@@ -24,6 +24,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
             userId: user.id,
             day: now,
         },
+        order: [["toDoCategoryOrder", "ASC"]]
     });
 
 
@@ -93,12 +94,16 @@ router.get("/current", requireAuth, async (req, res, next) => {
     });
     const habitsOnMostRecentDay = await UserTask.findAll({
         where: {
-            [Op.and]: {
-                userId: user.id,
-                day: mostRecentDay,
-                taskType: "Habit",
-            },
+            userId: user.id,
+            day: mostRecentDay,
+            taskType: "Habit"
+            // [Op.and]: {
+            //     userId: user.id,
+            //     day: mostRecentDay,
+            //     taskType: "Habit",
+            // },
         },
+        order: [["habitCategoryOrder", "ASC"]]
     });
 
     // console.log("HABITS ON MOST RECENT DAY", mostRecentDay);
@@ -111,6 +116,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
                 taskType: "Habit",
             },
         },
+        order: [["habitCategoryOrder", "ASC"]]
     });
 
     const dailyHabits = [];
@@ -505,6 +511,108 @@ router.post("/", requireAuth, async (req, res, next) => {
     // }
 });
 
+// PUT /api/tasks/updateOrder
+router.put("/updateOrder", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const now = new Date();
+
+    let habitsToday;
+    let habitsTodayCategories;
+    let toDoToday;
+    let toDoTodayCategories;
+
+    // array with category names in new order
+    const { newOrder, taskType } = req.body;
+
+    const newOrderObj = {};
+    for (let i = 0; i < newOrder.length; i++) {
+        newOrderObj[newOrder[i]] = i + 1;
+    }
+
+    if (taskType === "To-Do") {
+        toDoToday = await UserTask.findAll({
+            where: {
+                userId: user.id,
+                day: now,
+                taskType
+            }
+        })
+
+        toDoToday.forEach((task) => {
+            const newTaskCatOrder = newOrderObj[task.categoryName];
+
+            if (newTaskCatOrder) {
+                task.toDoCategoryOrder = newTaskCatOrder;
+                task.save();
+            }
+
+            toDoToday.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
+
+            const toDoTodayCategoriesSet = {};
+            toDoToday.forEach((task) => {
+                task = task.toJSON();
+                if (!toDoTodayCategoriesSet[task.categoryName]) {
+                    toDoTodayCategoriesSet[task.categoryName] = 1;
+                } else {
+                    toDoTodayCategoriesSet[task.categoryName] += 1;
+                }
+                // toDoTodayCategoriesSet.add(habit.categoryName);
+            });
+
+            // toDoTodayCategories = [...toDoTodayCategoriesSet];
+            // toDoTodayCategories = [Object.keys(toDoTodayCategoriesSet)];
+            toDoTodayCategories = toDoTodayCategoriesSet;
+        })
+    }
+
+    if (taskType === "Habit") {
+        habitsToday = await UserTask.findAll({
+            where: {
+                userId: user.id,
+                day: now,
+                taskType
+            }
+        });
+
+        habitsToday.forEach((habit) => {
+            const newHabitOrder = newOrderObj[habit.categoryName];
+            console.log("habit", newHabitOrder);
+
+            if (newHabitOrder) {
+                habit.habitCategoryOrder = newHabitOrder;
+                habit.save();
+            }
+        })
+
+        habitsToday.sort((a, b) => a.habitCategoryOrder - b.habitCategoryOrder);
+
+        // const habitsTodayCategoriesSet = new Set();
+        const habitsTodayCategoriesSet = {};
+        habitsToday.forEach((habit) => {
+            habit = habit.toJSON();
+            if (!habitsTodayCategoriesSet[habit.categoryName]) {
+                habitsTodayCategoriesSet[habit.categoryName] = 1;
+            } else {
+                habitsTodayCategoriesSet[habit.categoryName] += 1;
+            }
+            // habitsTodayCategoriesSet.add(habit.categoryName);
+        });
+
+        // habitsTodayCategories = [...habitsTodayCategoriesSet];
+        // habitsTodayCategories = [Object.keys(habitsTodayCategoriesSet)];
+        habitsTodayCategories = habitsTodayCategoriesSet
+
+    }
+
+    return res.json({
+        habitsToday,
+        habitsTodayCategories: Object.keys(habitsTodayCategories),
+        toDoToday,
+        toDoTodayCategories
+    })
+
+})
+
 // EDIT /api/task/:taskId
 router.put("/:taskId", requireAuth, async (req, res, next) => {
     const { user } = req;
@@ -663,6 +771,8 @@ router.put("/:oldCatName/:newCatName", requireAuth, async (req, res, next) => {
             break;
     }
 })
+
+
 
 // DELETE /api/tasks/:taskId - specific task
 router.delete("/:taskId", requireAuth, async (req, res, next) => {

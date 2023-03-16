@@ -83,7 +83,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'UserTask',
     hooks: {
       async beforeCreate(userTask) {
-        console.log("beforeCreate userTask ===>", userTask);
         const { taskType, categoryName } = userTask;
 
         const categoryOrderCol = taskType === "Habit" ? "habitCategoryOrder" : "toDoCategoryOrder";
@@ -108,9 +107,7 @@ module.exports = (sequelize, DataTypes) => {
           if (taskType === "Habit") {
             userTask.habitCategoryOrder = maxCategoryOrder + 1;
           } else {
-            console.log("changing toDoCategoryOrder \n\n\n\n\n\n\n")
             userTask.toDoCategoryOrder = maxCategoryOrder + 1;
-            console.log("userTask.toDoCategoryOrder *** ==>", userTask.toDoCategoryOrder);
           }
         }
 
@@ -127,14 +124,6 @@ module.exports = (sequelize, DataTypes) => {
         } else {
           userTask[categoryOrderCol] = category[categoryOrderCol];
         }
-
-        // if no category currently exists, the new category should start at 1
-        // if a new category is created, set the order to the maxCategoryOrder + 1
-        // if (!maxCategoryOrder) {
-        //   userTask[categoryOrderCol] = 1;
-        // } else {
-        //   userTask[categoryOrderCol] = maxCategoryOrder + 1;
-        // }
 
         const lastTaskInCategory = await UserTask.findOne({
           where: {
@@ -155,7 +144,6 @@ module.exports = (sequelize, DataTypes) => {
           // if there are no tasks in this category yet, then it should be ordered first
           userTask[taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder"] = 1;
         }
-          // console.log("===>", userTask)
       }
     }
   });

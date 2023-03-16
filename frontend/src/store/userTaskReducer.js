@@ -8,12 +8,14 @@ const EDIT_TASK = "userTasks/EDIT_TASK";
 const DELETE_TASK = "userTasks/DELETE_TASK";
 const DELETE_TASK_CATEGORY = "userTasks/DELETE_TASK_CATEGORY";
 const EDIT_TASK_CATEGORY = "userTasks/EDIT_TASK_CATEGORY";
+const EDIT_CATEGORY_ORDER = "userTasks/EDIT_CATEGORY_ORDER";
 
 const normalize = (tasks) => {
     const normalizedData = {};
     if (!tasks.length) return tasks;
+    console.log("TASKS ==>", tasks)
     tasks.forEach(task => normalizedData[task.id] = task);
-    // console.log("NORMALIZED DATA ---", normalizedData)
+    console.log("NORMALIZED DATA ---", normalizedData)
     return normalizedData;
 }
 
@@ -70,6 +72,13 @@ export const actionChangeCatName = (task, taskType) => {
         type: EDIT_TASK_CATEGORY,
         task,
         taskType
+    }
+}
+
+export const actionEditCategoryOrder = (userTasks) => {
+    return {
+        type: EDIT_CATEGORY_ORDER,
+        userTasks
     }
 }
 
@@ -173,6 +182,22 @@ export const changeCatName = (oldCatName, newCatName, taskType) => async (dispat
     }
 }
 
+export const editCatOrder = (newOrder, taskType) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tasks/updateOrder`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ newOrder, taskType })
+    })
+
+    if (res.ok) {
+        const newCatOrder = await res.json();
+        dispatch(actionEditCategoryOrder(newCatOrder, taskType));
+        return newCatOrder;
+    }
+}
+
 const initialState = {
     userTasks: {}
 }
@@ -183,16 +208,28 @@ export default function userTasksReducer(state = initialState, action) {
             // userDayTasksState.userTasks = normalize(action.userTasks);
             userDayTasksState.userTasks = action.userTasks;
 
+            // if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
+            //     userDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habitsToday);
+            // }
+
+            // if (action.userTasks.toDoToday && action.userTasks.toDoToday.length) {
+            //     userDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDoToday);
+            // }
+
+            // if (action.userTasks.unfinishedToDo && action.userTasks.unfinishedToDo.length) {
+            //     userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
+            // }
+
             if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
-                userDayTasksState.userTasks.habitsToday = normalize(action.userTasks.habitsToday);
+                userDayTasksState.userTasks.habitsToday = action.userTasks.habitsToday;
             }
 
             if (action.userTasks.toDoToday && action.userTasks.toDoToday.length) {
-                userDayTasksState.userTasks.toDoToday = normalize(action.userTasks.toDoToday);
+                userDayTasksState.userTasks.toDoToday = action.userTasks.toDoToday;
             }
 
             if (action.userTasks.unfinishedToDo && action.userTasks.unfinishedToDo.length) {
-                userDayTasksState.userTasks.unfinishedToDo = normalize(action.userTasks.unfinishedToDo);
+                userDayTasksState.userTasks.unfinishedToDo = action.userTasks.unfinishedToDo;
             }
 
             // console.log("LOAD_CURRENT_DAY_TASKS - userDayTasksState", action.userTasks);
@@ -292,6 +329,28 @@ export default function userTasksReducer(state = initialState, action) {
             // }
             // console.log("DELETE TASK STATE >>>>>>>\n", deleteTaskCategoryState);
             return deleteTaskCategoryState;
+        }
+        case EDIT_CATEGORY_ORDER: {
+            let editCatOrderState = JSON.stringify(state);
+            editCatOrderState = JSON.parse(editCatOrderState);
+
+            console.log("editCatOrderState ==>", editCatOrderState.userTasks.habitsToday);
+
+            if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
+                editCatOrderState.userTasks.habitsToday = action.userTasks.habitsToday;
+            }
+
+            if (action.userTasks.toDoToday && action.userTasks.toDoToday.length) {
+                editCatOrderState.userTasks.toDoToday = action.userTasks.toDoToday;
+            }
+
+            if (action.userTasks.unfinishedToDo && action.userTasks.unfinishedToDo.length) {
+                editCatOrderState.userTasks.unfinishedToDo = action.userTasks.unfinishedToDo;
+            }
+
+            console.log("editCatOrderState after ==>\n", editCatOrderState);
+
+            return editCatOrderState;
         }
         default:
             return state;

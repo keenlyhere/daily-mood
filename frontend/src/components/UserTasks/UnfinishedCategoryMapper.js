@@ -12,9 +12,9 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [tasksActive, setTasksActive] = useState([]);
-    const [ editTasks, setEditTasks ] = useState(false);
-    const [ catName, setCatName ] = useState(null);
-    const [ categoryToEdit, setCategoryToEdit ] = useState(null);
+    const [editTasks, setEditTasks] = useState(false);
+    const [catName, setCatName] = useState(null);
+    const [categoryToEdit, setCategoryToEdit] = useState(null);
     const closeMenu = () => setShowMenu(false);
 
     /* CREATE HABIT */
@@ -29,33 +29,32 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
             taskName: task.taskName,
             taskType: task.taskType,
             taskIcon: task.taskIcon,
-            isCompleted: !task.isCompleted
-        }
+            isCompleted: !task.isCompleted,
+        };
 
         // console.log("CHECKED *", editedTask);
         const completedTask = await dispatch(editTask(task.id, editedTask));
 
         if (editedTask.isCompleted === true) {
-            const addMoolah = await dispatch(addPoints({ "pointsEarned": 1 }));
+            const addMoolah = await dispatch(addPoints({ pointsEarned: 1 }));
         } else {
-            const minusMoolah = await dispatch(addPoints({ "pointsEarned": -1 }));
+            const minusMoolah = await dispatch(addPoints({ pointsEarned: -1 }));
         }
-    }
+    };
 
     const handleCatNameChange = async (oldCatName, newCatName) => {
-        const editCatName = await dispatch(changeCatName(oldCatName, catName))
-            .then(endEditTasks)
-    }
+        const editCatName = await dispatch(changeCatName(oldCatName, catName)).then(endEditTasks);
+    };
 
     const startEditTasks = (category) => {
         setEditTasks(true);
         setCategoryToEdit(category);
-    }
+    };
 
     const endEditTasks = (e) => {
-        setEditTasks(false)
+        setEditTasks(false);
         dispatch(loadCurrentDayTasks());
-    }
+    };
 
     /* DELETE HABIT */
     /* DELETE TO-DO */
@@ -65,114 +64,113 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
         );
     };
 
-    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
+    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks);
 
     return allTasks && Object.keys(allTasks).length ? (
         <Droppable droppableId="unfinishedToDo">
             {(provided, snapshot) => (
-                <div
-                    className="UserTasks-cat-container"
-                    { ...provided.droppableProps }
-                    ref={provided.innerRef}
-                >
+                <div className="UserTasks-cat-container" {...provided.droppableProps} ref={provided.innerRef}>
                     {Object.keys(categoryTasks).map((category, idx) => (
-                        <Draggable
-                            key={idx}
-                            draggableId={category}
-                            index={idx}
-                        >
-                            {
-                                (provided) => (
-                                    <div
-                                        className="UserTasks-Containers" key={idx}
-                                        { ...provided.draggableProps }
-                                        { ...provided.dragHandleProps}
-                                        ref={provided.innerRef}
-                                    >
-                                        { editTasks && idx === categoryToEdit ? (
-                                            <EditCategory
-                                                allTasks={allTasks}
-                                                categoryTasks={categoryTasks}
-                                                category={category}
-                                                taskType={taskType}
-                                                date={date}
-                                                user={user}
-                                                categoryToEdit={categoryToEdit}
-                                                endEditTasks={endEditTasks}
-                                            />
-
-                                        ) : (
-                                            <div key={category} className={`UserTasks-category-container`}>
-                                                <div className="UserTasks-header">
-                                                    <div className="UserTasks-category-name">
-                                                            <p className="UserTasks-header-text no-hover">{category}</p>
-                                                    </div>
-                                                    <div className="UserTasks-actions-container">
-
-                                                            <i
-                                                                className="fa-solid fa-pen clickable"
-                                                                onClick={() => startEditTasks(idx)}
-                                                            ></i>
-                                                            <OpenModalButton
-                                                                buttonText={<i className="fa-solid fa-trash"></i>}
-                                                                onButtonClick={closeMenu}
-                                                                modalComponent={<ConfirmDelete onDelete={() => handleCategoryDelete(category, taskType, date)}/>
-                                                            }   icon="delete"
+                        <Draggable key={idx} draggableId={category} index={idx}>
+                            {(provided) => (
+                                <div
+                                    className="UserTasks-Containers"
+                                    key={idx}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {editTasks && idx === categoryToEdit ? (
+                                        <EditCategory
+                                            allTasks={allTasks}
+                                            categoryTasks={categoryTasks}
+                                            category={category}
+                                            taskType={taskType}
+                                            date={date}
+                                            user={user}
+                                            categoryToEdit={categoryToEdit}
+                                            endEditTasks={endEditTasks}
+                                        />
+                                    ) : (
+                                        <div key={category} className={`UserTasks-category-container`}>
+                                            <div className="UserTasks-header">
+                                                <div className="UserTasks-category-name">
+                                                    <p className="UserTasks-header-text no-hover">{category}</p>
+                                                </div>
+                                                <div className="UserTasks-actions-container">
+                                                    <i
+                                                        className="fa-solid fa-pen clickable"
+                                                        onClick={() => startEditTasks(idx)}
+                                                    ></i>
+                                                    <OpenModalButton
+                                                        buttonText={<i className="fa-solid fa-trash"></i>}
+                                                        onButtonClick={closeMenu}
+                                                        modalComponent={
+                                                            <ConfirmDelete
+                                                                onDelete={() =>
+                                                                    handleCategoryDelete(category, taskType, date)
+                                                                }
                                                             />
-                                                        {/* <i
+                                                        }
+                                                        icon="delete"
+                                                    />
+                                                    {/* <i
                                                             className="fa-solid fa-trash-can clickable"
                                                             onClick={() => handleCategoryDelete(category, taskType, date)}
                                                         ></i> */}
-                                                    </div>
-                                                </div>
-                                                <div className="UserTasks-icons-container">
-                                                    {categoryTasks[category].map((task, idx) => (
-                                                        <div key={idx} className="UserTasks-icon-container">
-                                                            <div
-                                                                className="UserTasks-icon-div"
-                                                                onClick={() => handleCheck(task)}
-                                                            >
-                                                                <img
-                                                                    src={task.taskIcon}
-                                                                    className={`UserTasks-icon clickable ${
-                                                                        task.isCompleted ? "" : "UserTasks-incomplete"
-                                                                    }`}
-                                                                    alt="Task icon"
-                                                                />
-                                                            </div>
-                                                            <p className="UserTasks-taskName">{task.taskName}</p>
-                                                        </div>
-                                                    ))}
-                                                    <div className="UserTasks-icon-container">
-                                                        { isUnfinished ? (
-                                                            ""
-                                                        ) : (
-                                                            <>
-                                                                <OpenModalButton
-                                                                    buttonText={
-                                                                        <div className="UserTasks-create-task-button clickable">
-                                                                            <i className="fa-solid fa-plus"></i>
-                                                                        </div>
-                                                                    }
-                                                                    onButtonClick={closeMenu}
-                                                                    modalComponent={<CreateTaskModal category={category} taskType={taskType} user={user} />}
-                                                                    buttonClass="Category-edit"
-                                                                />
-                                                                <p className="UserTasks-taskName">New {category}</p>
-                                                            </>
-                                                        )}
-                                                    </div>
                                                 </div>
                                             </div>
-                                        )}
-                                    </div>
-                                )
-                            }
+                                            <div className="UserTasks-icons-container">
+                                                {categoryTasks[category].map((task, idx) => (
+                                                    <div key={idx} className="UserTasks-icon-container">
+                                                        <div
+                                                            className="UserTasks-icon-div"
+                                                            onClick={() => handleCheck(task)}
+                                                        >
+                                                            <img
+                                                                src={task.taskIcon}
+                                                                className={`UserTasks-icon clickable ${
+                                                                    task.isCompleted ? "" : "UserTasks-incomplete"
+                                                                }`}
+                                                                alt="Task icon"
+                                                            />
+                                                        </div>
+                                                        <p className="UserTasks-taskName">{task.taskName}</p>
+                                                    </div>
+                                                ))}
+                                                <div className="UserTasks-icon-container">
+                                                    {isUnfinished ? (
+                                                        ""
+                                                    ) : (
+                                                        <>
+                                                            <OpenModalButton
+                                                                buttonText={
+                                                                    <div className="UserTasks-create-task-button clickable">
+                                                                        <i className="fa-solid fa-plus"></i>
+                                                                    </div>
+                                                                }
+                                                                onButtonClick={closeMenu}
+                                                                modalComponent={
+                                                                    <CreateTaskModal
+                                                                        category={category}
+                                                                        taskType={taskType}
+                                                                        user={user}
+                                                                    />
+                                                                }
+                                                                buttonClass="Category-edit"
+                                                            />
+                                                            <p className="UserTasks-taskName">New {category}</p>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </Draggable>
                     ))}
-                    {snapshot.isDraggingOver ? (
-                        provided.placeholder
-                    ) : ""}
+                    {snapshot.isDraggingOver ? provided.placeholder : ""}
                 </div>
             )}
         </Droppable>
