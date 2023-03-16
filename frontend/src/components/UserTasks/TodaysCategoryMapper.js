@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPoints } from "../../store/session";
 import { changeCatName, deleteTaskCategory, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import OpenModalButton from "../OpenModalButton";
@@ -13,8 +13,10 @@ export default function TodaysCategoryMapper({ allTasks, categoryTasks, taskType
     const [showMenu, setShowMenu] = useState(false);
     const [tasksActive, setTasksActive] = useState([]);
     const [ editTasks, setEditTasks ] = useState(false);
+    const [ isDraggingDisabled, setIsDraggingDisabled ] = useState(false);
     const [ catName, setCatName ] = useState(null);
     const [ categoryToEdit, setCategoryToEdit ] = useState(null);
+    const categoryList = useSelector((state) => state.tasks.userTasks.toDoTodayCategories);
     const closeMenu = () => setShowMenu(false);
 
     /* CREATE HABIT */
@@ -49,11 +51,14 @@ export default function TodaysCategoryMapper({ allTasks, categoryTasks, taskType
 
     const startEditTasks = (category) => {
         setEditTasks(true);
+        setIsDraggingDisabled(true);
+        console.log("isDraggingEnables", isDraggingDisabled);
         setCategoryToEdit(category);
     }
 
     const endEditTasks = (e) => {
         setEditTasks(false)
+        setIsDraggingDisabled(false);
         dispatch(loadCurrentDayTasks());
     }
 
@@ -77,14 +82,16 @@ export default function TodaysCategoryMapper({ allTasks, categoryTasks, taskType
                 >
                     {Object.keys(categoryTasks).map((category, idx) => (
                         <Draggable
-                            key={idx}
-                            draggableId={category}
+                            key={categoryList[idx]}
+                            draggableId={categoryList[idx]}
                             index={idx}
+                            isDragDisabled={Object.keys(categoryTasks).length < 2 || isDraggingDisabled}
                         >
                             {
                                 (provided) => (
                                     <div
-                                        className="UserTasks-Containers" key={idx}
+                                        className="UserTasks-Containers"
+                                        key={idx}
                                         { ...provided.draggableProps }
                                         { ...provided.dragHandleProps}
                                         ref={provided.innerRef}

@@ -15,6 +15,7 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
     const [editTasks, setEditTasks] = useState(false);
     const [catName, setCatName] = useState(null);
     const [categoryToEdit, setCategoryToEdit] = useState(null);
+    const [ isDraggingDisabled, setIsDraggingDisabled ] = useState(false);
     const closeMenu = () => setShowMenu(false);
 
     /* CREATE HABIT */
@@ -71,7 +72,12 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
             {(provided, snapshot) => (
                 <div className="UserTasks-cat-container" {...provided.droppableProps} ref={provided.innerRef}>
                     {Object.keys(categoryTasks).map((category, idx) => (
-                        <Draggable key={idx} draggableId={category} index={idx}>
+                        <Draggable
+                            key={idx}
+                            draggableId={category}
+                            index={idx}
+                            isDragDisabled={Object.keys(categoryTasks).length < 2 || isDraggingDisabled}
+                        >
                             {(provided) => (
                                 <div
                                     className="UserTasks-Containers"
@@ -80,28 +86,13 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
                                     {...provided.dragHandleProps}
                                     ref={provided.innerRef}
                                 >
-                                    {editTasks && idx === categoryToEdit ? (
-                                        <EditCategory
-                                            allTasks={allTasks}
-                                            categoryTasks={categoryTasks}
-                                            category={category}
-                                            taskType={taskType}
-                                            date={date}
-                                            user={user}
-                                            categoryToEdit={categoryToEdit}
-                                            endEditTasks={endEditTasks}
-                                        />
-                                    ) : (
+                                    {
                                         <div key={category} className={`UserTasks-category-container`}>
                                             <div className="UserTasks-header">
                                                 <div className="UserTasks-category-name">
                                                     <p className="UserTasks-header-text no-hover">{category}</p>
                                                 </div>
                                                 <div className="UserTasks-actions-container">
-                                                    <i
-                                                        className="fa-solid fa-pen clickable"
-                                                        onClick={() => startEditTasks(idx)}
-                                                    ></i>
                                                     <OpenModalButton
                                                         buttonText={<i className="fa-solid fa-trash"></i>}
                                                         onButtonClick={closeMenu}
@@ -165,7 +156,7 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
+                                    }
                                 </div>
                             )}
                         </Draggable>

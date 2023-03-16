@@ -182,18 +182,18 @@ export const changeCatName = (oldCatName, newCatName, taskType) => async (dispat
     }
 }
 
-export const editCatOrder = (newOrder, taskType) => async (dispatch) => {
+export const editCatOrder = (newOrder, type, isUnfinished) => async (dispatch) => {
     const res = await csrfFetch(`/api/tasks/updateOrder`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ newOrder, taskType })
+        body: JSON.stringify({ newOrder, type, isUnfinished })
     })
 
     if (res.ok) {
         const newCatOrder = await res.json();
-        dispatch(actionEditCategoryOrder(newCatOrder, taskType));
+        dispatch(actionEditCategoryOrder(newCatOrder, type));
         return newCatOrder;
     }
 }

@@ -15,6 +15,8 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
     const [editTasks, setEditTasks] = useState(false);
     const [catName, setCatName] = useState(null);
     const [categoryToEdit, setCategoryToEdit] = useState(null);
+    const [ isDraggingDisabled, setIsDraggingDisabled ] = useState(false);
+
     const categoryList = useSelector((state) => state.tasks.userTasks.habitsTodayCategories);
     // const [ categoryOrder, setCategoryOrder ] = useState(Object.keys(categoryTasks));
     const [isLoaded, setIsLoaded] = useState(false);
@@ -55,11 +57,13 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
     const startEditTasks = (category) => {
         setEditTasks(true);
+        setIsDraggingDisabled(true);
         setCategoryToEdit(category);
     };
 
     const endEditTasks = (e) => {
         setEditTasks(false);
+        setIsDraggingDisabled(false);
         dispatch(loadCurrentDayTasks());
     };
 
@@ -78,9 +82,17 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
     return allTasks && Object.keys(allTasks).length ? (
         <Droppable droppableId="habitsToday">
             {(provided, snapshot) => (
-                <div className="UserTasks-cat-container" {...provided.droppableProps} ref={provided.innerRef}>
+                <div className="UserTasks-cat-container"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                >
                     {Object.keys(categoryTasks).map((category, idx) => (
-                        <Draggable draggableId={categoryList[idx]} key={categoryList[idx]} index={idx}>
+                        <Draggable
+                            draggableId={categoryList[idx]}
+                            key={categoryList[idx]}
+                            index={idx}
+                            isDragDisabled={Object.keys(categoryTasks).length < 2 || isDraggingDisabled}
+                        >
                             {(provided) => (
                                 <div
                                     className="UserTasks-Containers"

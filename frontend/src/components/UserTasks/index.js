@@ -82,6 +82,7 @@ export default function UserTasks() {
             console.log("destination | source | draggable", source.index);
             console.table(draggableId);
             let type;
+            let isUnfinished = false;
 
             if (!destination) {
                 return;
@@ -92,19 +93,26 @@ export default function UserTasks() {
             }
 
             let column;
+            console.log("column ===>", column);
+            console.log("droppableId ===>", source.droppableId);
 
             if (source.droppableId === "habitsToday") {
                 column = categoryHabits;
-                console.log("column", column);
+                // console.log("column", column);
                 type = "Habit"
             } else if (source.droppableId === "toDoToday") {
-                column = categoryHabits;
-                type = "To-Do"
+                column = categoryToDoToday;
+                type = "To-Do";
+                console.log("column!!!", column)
+            } else if (source.droppableId === "unfinishedToDoToday") {
+                column = categoryUnfinishedToDo;
+                type = "To-Do";
+                isUnfinished = true;
             }
 
             if (source.droppableId !== destination.droppableId) {
-                console.log("source", source.draggableId);
-                console.log("dest", destination.draggableId);
+                // console.log("source", source.draggableId);
+                // console.log("dest", destination.draggableId);
                 return;
             }
 
@@ -115,7 +123,7 @@ export default function UserTasks() {
 
             console.log("newOrder", newOrder);
 
-            await dispatch(editCatOrder(newOrder, type));
+            await dispatch(editCatOrder(newOrder, type, isUnfinished));
             await dispatch(loadCurrentDayTasks(user.id));
         };
 
