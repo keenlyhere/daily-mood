@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addPoints } from "../../store/session";
 import { changeCatName, deleteTaskCategory, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import OpenModalButton from "../OpenModalButton";
@@ -8,7 +8,7 @@ import EditCategory from "./EditCategory";
 import ConfirmDelete from "../ConfirmDelete";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user, isUnfinished }) {
+export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, taskType, date, user, isUnfinished }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [tasksActive, setTasksActive] = useState([]);
@@ -16,15 +16,7 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
     const [catName, setCatName] = useState(null);
     const [categoryToEdit, setCategoryToEdit] = useState(null);
     const [ isDraggingDisabled, setIsDraggingDisabled ] = useState(false);
-
-    const categoryList = useSelector((state) => state.tasks.userTasks.habitsTodayCategories);
-    // const [ categoryOrder, setCategoryOrder ] = useState(Object.keys(categoryTasks));
-    const [isLoaded, setIsLoaded] = useState(false);
     const closeMenu = () => setShowMenu(false);
-
-    // useEffect(() => {
-    //     console.log("CATEGORY TASK ORDER UPDATED");
-    // }, [categoryTasks]);
 
     /* CREATE HABIT */
     /* CREATE TO-DO */
@@ -57,13 +49,11 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
 
     const startEditTasks = (category) => {
         setEditTasks(true);
-        setIsDraggingDisabled(true);
         setCategoryToEdit(category);
     };
 
     const endEditTasks = (e) => {
         setEditTasks(false);
-        setIsDraggingDisabled(false);
         dispatch(loadCurrentDayTasks());
     };
 
@@ -75,21 +65,16 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         );
     };
 
-    console.log("<=== CATEGEORY ORDER ===>");
-    console.table(categoryList);
-    console.log(categoryTasks);
+    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks);
 
     return allTasks && Object.keys(allTasks).length ? (
-        <Droppable droppableId="habitsToday">
+        <Droppable droppableId="unfinishedToDo">
             {(provided, snapshot) => (
-                <div className="UserTasks-cat-container"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                >
+                <div className="UserTasks-cat-container" {...provided.droppableProps} ref={provided.innerRef}>
                     {Object.keys(categoryTasks).map((category, idx) => (
                         <Draggable
-                            draggableId={categoryList[idx]}
-                            key={categoryList[idx]}
+                            key={idx}
+                            draggableId={category}
                             index={idx}
                             isDragDisabled={Object.keys(categoryTasks).length < 2 || isDraggingDisabled}
                         >
@@ -101,28 +86,13 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                                     {...provided.dragHandleProps}
                                     ref={provided.innerRef}
                                 >
-                                    {editTasks && idx === categoryToEdit ? (
-                                        <EditCategory
-                                            allTasks={allTasks}
-                                            categoryTasks={categoryTasks}
-                                            category={category}
-                                            taskType={taskType}
-                                            date={date}
-                                            user={user}
-                                            categoryToEdit={categoryToEdit}
-                                            endEditTasks={endEditTasks}
-                                        />
-                                    ) : (
+                                    {
                                         <div key={category} className={`UserTasks-category-container`}>
                                             <div className="UserTasks-header">
                                                 <div className="UserTasks-category-name">
                                                     <p className="UserTasks-header-text no-hover">{category}</p>
                                                 </div>
                                                 <div className="UserTasks-actions-container">
-                                                    <i
-                                                        className="fa-solid fa-pen clickable"
-                                                        onClick={() => startEditTasks(idx)}
-                                                    ></i>
                                                     <OpenModalButton
                                                         buttonText={<i className="fa-solid fa-trash"></i>}
                                                         onButtonClick={closeMenu}
@@ -186,15 +156,12 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
+                                    }
                                 </div>
                             )}
                         </Draggable>
                     ))}
-                    {/* {snapshot.isDraggingOver ? (
-                        provided.placeholder
-                    ) : ""} */}
-                    {provided.placeholder}
+                    {snapshot.isDraggingOver ? provided.placeholder : ""}
                 </div>
             )}
         </Droppable>
