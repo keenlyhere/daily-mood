@@ -95,12 +95,22 @@ module.exports = (sequelize, DataTypes) => {
           }
         });
 
+        // console.log("maxCategoryOrder ===> \n\n\n", maxCategoryOrder);
+
         // if no tasks in the category, then the order should start at 1
         if (!maxCategoryOrder) {
           if (taskType === "Habit") {
             userTask.habitTaskOrder = 1;
           } else {
             userTask.toDoTaskOrder = 1;
+          }
+        } else {
+          if (taskType === "Habit") {
+            userTask.habitCategoryOrder = maxCategoryOrder + 1;
+          } else {
+            console.log("changing toDoCategoryOrder \n\n\n\n\n\n\n")
+            userTask.toDoCategoryOrder = maxCategoryOrder + 1;
+            console.log("userTask.toDoCategoryOrder *** ==>", userTask.toDoCategoryOrder);
           }
         }
 
@@ -111,10 +121,11 @@ module.exports = (sequelize, DataTypes) => {
           }
         })
 
+        // if category does not exist yet, increment the order by one
         if (!category) {
-          userTask[categoryOrderCol] = 1;
+          userTask[categoryOrderCol] = maxCategoryOrder + 1;
         } else {
-          userTask[categoryOrderCol] = maxCategoryOrder;
+          userTask[categoryOrderCol] = category[categoryOrderCol];
         }
 
         // if no category currently exists, the new category should start at 1
@@ -144,7 +155,7 @@ module.exports = (sequelize, DataTypes) => {
           // if there are no tasks in this category yet, then it should be ordered first
           userTask[taskType === "Habit" ? "habitTaskOrder" : "toDoTaskOrder"] = 1;
         }
-          console.log("===>", userTask)
+          // console.log("===>", userTask)
       }
     }
   });

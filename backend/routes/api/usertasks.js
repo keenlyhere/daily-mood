@@ -26,6 +26,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         },
     });
 
+
     const dailyToDo = [];
 
     toDoToday.forEach((task) => {
@@ -50,8 +51,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
             day: {
                 [Op.not]: now,
             },
+            taskType: "To-Do",
+            isCompleted: false
         },
+        order: [["toDoCategoryOrder", "ASC"]]
     });
+
+    console.log("allTasks \n\n\n", allTasks)
 
     const toDoArray = [];
 
@@ -74,12 +80,17 @@ router.get("/current", requireAuth, async (req, res, next) => {
         }
     });
 
+    // console.log("unfinishedToDo ===> \n\n\n", unfinishedToDo)
     const unfinishedToDoCategories = [...unFinishedToDoCategories];
 
     // ---> FIND ALL MOST RECENT HABITS
     // ---> IF CURRENT DAY HAS NO HABITS, THEN CREATE HABITS FOR THE DAY BASED ON THE MOST RECENT HABITS
 
-    const mostRecentDay = await UserTask.max("day");
+    const mostRecentDay = await UserTask.max("day", {
+        where: {
+            taskType: "Habit"
+        }
+    });
     const habitsOnMostRecentDay = await UserTask.findAll({
         where: {
             [Op.and]: {
@@ -89,6 +100,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
             },
         },
     });
+
+    // console.log("HABITS ON MOST RECENT DAY", mostRecentDay);
 
     const habitsToday = await UserTask.findAll({
         where: {
@@ -102,9 +115,10 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const dailyHabits = [];
     if (!habitsToday.length) {
-        // console.log("no habits today\n\n\n\n\n\n");
+        console.log("no habits today\n\n\n\n\n\n");
         for (let i = 0; i < habitsOnMostRecentDay.length; i++) {
             let habit = habitsOnMostRecentDay[i];
+            console.log("habit", habit)
 
             const newHabit = await user.createUserTask({
                 day: now,

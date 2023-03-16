@@ -8,7 +8,7 @@ import EditCategory from "./EditCategory";
 import ConfirmDelete from "../ConfirmDelete";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType, date, user, isUnfinished }) {
+export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, taskType, date, user, isUnfinished }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const [tasksActive, setTasksActive] = useState([]);
@@ -65,10 +65,10 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         );
     };
 
-    // console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
+    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks)
 
     return allTasks && Object.keys(allTasks).length ? (
-        <Droppable droppableId="habitsToday">
+        <Droppable droppableId="unfinishedToDo">
             {(provided, snapshot) => (
                 <div
                     className="UserTasks-cat-container"

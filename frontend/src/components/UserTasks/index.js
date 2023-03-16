@@ -8,6 +8,9 @@ import { formatDate } from "../../utils/dateFormating";
 import "./UserTasks.css";
 import OpenModalButton from "../OpenModalButton";
 import CreateTaskModal from "./CreateTaskModal";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import UnfinishedCategoryMapper from "./UnfinishedCategoryMapper";
+import TodaysCategoryMapper from "./TodaysCategoryMapper";
 
 
 export default function UserTasks() {
@@ -27,6 +30,8 @@ export default function UserTasks() {
         dispatch(loadCurrentDayTasks(user.id)).then(() => setIsLoaded(true)).catch((error) => console.log("errors", error))
     }, [dispatch])
 
+    // console.log("*** allTasks *** \n", allTasks)
+
     const categoryTasksHelper = (tasks) => {
         const categoryTasks = {};
 
@@ -42,6 +47,46 @@ export default function UserTasks() {
         }
 
         return categoryTasks;
+    }
+
+    const onDragEnd = (result) => {
+        const { destination, source, draggableId } = result;
+        console.log("destination | source | draggable", source)
+
+        if (!destination) {
+            return;
+        }
+
+        if (destination.droppableId === source.droppableId &&
+            destination.index === source.index) {
+                return;
+        }
+
+        let column;
+
+        if (source.droppableId === "habitsToday") {
+            console.log("allTasks", allTasks);
+            column = allTasks;
+            console.log("column", column)
+        }
+
+        if (source.droppableId !== destination.droppableId) {
+            console.log("source", source.draggableId);
+            console.log("dest", destination.draggableId);
+            return;
+        }
+
+        // const column = allTasks[source.droppableId];
+        const newOrder = column.habitsTodayCategories;
+        newOrder.splice(source.index, 1);
+        newOrder.splice(destination.index, 0, draggableId);
+
+        const newColumn = {
+            ...column,
+            habitsTodayCategories: newOrder
+        }
+
+        console.log("newOrder", newOrder)
     }
 
     if (isLoaded) {
@@ -79,99 +124,107 @@ export default function UserTasks() {
         ))
 
         return (
-            <div className="UserTasks-container">
-                <>
-                <div className="UserTasks-header-container">
-                    <h3 className="UserTasks-main-headers" data-content="Habits">
-                        Habits
-                    </h3>
-                </div>
-
-                <div className="UserTasks-cat-container">
-                    <CategoryTasksMapper allTasks={allHabits} categoryTasks={categoryHabits} taskType={"Habit"} date={now} user={user} />
-                </div>
-
-                <div className="UserTasks-category-container">
-                    { allHabits === undefined || Object.keys(categoryHabits).length === 0 ? (
-                        <p className="UserTasks-create-new">
-                            Oh moo! You don't have any habits! Why don't you create one?
-                        </p>
-                    ) : (
-                        <p className="UserTasks-create-new">
-                            Create new habit block
-                        </p>
-                    )}
-                    <div className="UserTasks-icon-container">
-                        <OpenModalButton
-                            buttonText={
-                                <div className="UserTasks-create-task-button clickable">
-                                    <i className="fa-solid fa-plus"></i>
-                                </div>
-                            }
-                            onButtonClick={closeMenu}
-                            modalComponent={<CreateTaskModal taskType={"Habit"} user={user} />}
-                            buttonClass="Category-edit"
-                        />
-                        <p className="UserTasks-taskName">New block</p>
+            <DragDropContext
+                onDragEnd={onDragEnd}
+            >
+                <div className="UserTasks-container">
+                    <>
+                    <div className="UserTasks-header-container">
+                        <h3 className="UserTasks-main-headers" data-content="Habits">
+                            Habits
+                        </h3>
                     </div>
-                </div>
-
-                {
-                    allUnfinishedTodo !== undefined && Object.keys(allUnfinishedTodo).length ? (
-                        <>
-                            <div className="UserTasks-header-container">
-                                <h3 className="UserTasks-main-headers" data-content="Unfinished To-Do's">
-                                    Unfinished To-Do's
-                                </h3>
-                            </div>
-
-                            <div className="UserTasks-cat-container">
-                                <CategoryTasksMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} isUnfinished={true} />
-                            </div>
-                        </>
-                    ) : (
-                        ""
-                    )
-                }
-
-                <div className="UserTasks-header-container">
-                    <h3 className="UserTasks-main-headers" data-content="Today's To-Do's">
-                        Today's To-Do's
-                    </h3>
-                </div>
 
 
-                <div className="UserTasks-cat-container">
-                    <CategoryTasksMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
-                </div>
-
-                <div className="UserTasks-category-container">
-                    { allToDoToday === undefined || Object.keys(categoryToDoToday).length === 0 ? (
-                        <p className="UserTasks-create-new">
-                            Oh moo! You don't have any to-do's! Why don't you create one?
-                        </p>
-                    ) : (
-                        <p className="UserTasks-create-new">
-                            Create new habit block
-                        </p>
-                    )}
-                    <div className="UserTasks-icon-container">
-                        <OpenModalButton
-                            buttonText={
-                                <div className="UserTasks-create-task-button clickable">
-                                    <i className="fa-solid fa-plus"></i>
-                                </div>
-                            }
-                            onButtonClick={closeMenu}
-                            modalComponent={<CreateTaskModal taskType={"To-Do"} user={user} />}
-                            buttonClass="Category-edit"
-                        />
-                        <p className="UserTasks-taskName">New block</p>
+                    <CategoryTasksMapper
+                        allTasks={allHabits}
+                        categoryTasks={categoryHabits}
+                        taskType={"Habit"}
+                        date={now}
+                        user={user}
+                    />
+                    <div className="UserTasks-category-container">
+                        { allHabits === undefined || Object.keys(categoryHabits).length === 0 ? (
+                            <p className="UserTasks-create-new">
+                                Oh moo! You don't have any habits! Why don't you create one?
+                            </p>
+                        ) : (
+                            <p className="UserTasks-create-new">
+                                Create new habit block
+                            </p>
+                        )}
+                        <div className="UserTasks-icon-container">
+                            <OpenModalButton
+                                buttonText={
+                                    <div className="UserTasks-create-task-button clickable">
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
+                                }
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateTaskModal taskType={"Habit"} user={user} />}
+                                buttonClass="Category-edit"
+                            />
+                            <p className="UserTasks-taskName">New block</p>
+                        </div>
                     </div>
-                </div>
-                </>
 
-            </div>
+                    {
+                        allUnfinishedTodo !== undefined && Object.keys(allUnfinishedTodo).length ? (
+                            <>
+                                <div className="UserTasks-header-container">
+                                    <h3 className="UserTasks-main-headers" data-content="Unfinished To-Do's">
+                                        Unfinished To-Do's
+                                    </h3>
+                                </div>
+
+                                <div className="UserTasks-cat-container">
+                                    <UnfinishedCategoryMapper allTasks={allUnfinishedTodo} categoryTasks={categoryUnfinishedToDo} taskType={"To-Do"} date={now} user={user} isUnfinished={true} />
+                                </div>
+                            </>
+                        ) : (
+                            ""
+                        )
+                    }
+
+                    <div className="UserTasks-header-container">
+                        <h3 className="UserTasks-main-headers" data-content="Today's To-Do's">
+                            Today's To-Do's
+                        </h3>
+                    </div>
+
+
+                    <div className="UserTasks-cat-container">
+                        <TodaysCategoryMapper allTasks={allToDoToday} categoryTasks={categoryToDoToday} taskType={"To-Do"} date={now} user={user} />
+                    </div>
+
+                    <div className="UserTasks-category-container">
+                        { allToDoToday === undefined || Object.keys(categoryToDoToday).length === 0 ? (
+                            <p className="UserTasks-create-new">
+                                Oh moo! You don't have any to-do's! Why don't you create one?
+                            </p>
+                        ) : (
+                            <p className="UserTasks-create-new">
+                                Create new habit block
+                            </p>
+                        )}
+                        <div className="UserTasks-icon-container">
+                            <OpenModalButton
+                                buttonText={
+                                    <div className="UserTasks-create-task-button clickable">
+                                        <i className="fa-solid fa-plus"></i>
+                                    </div>
+                                }
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateTaskModal taskType={"To-Do"} user={user} />}
+                                buttonClass="Category-edit"
+                            />
+                            <p className="UserTasks-taskName">New block</p>
+                        </div>
+                    </div>
+                    </>
+
+                </div>
+            </DragDropContext>
         )
     } else {
         return (

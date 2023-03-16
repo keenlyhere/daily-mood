@@ -26,6 +26,7 @@ import Monthly from "./components/Monthly";
 import SpecificDayEntries from "./components/DayEntries/SpecificDayEntries";
 // import LineChart from "./components/Stats/LineChart";
 import TestChart from "./components/Stats/TestChart";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
   const dispatch = useDispatch();
@@ -94,7 +95,6 @@ function App() {
             <div className="Page-container">
               <SideBar user={user} />
               <UserTasks />
-
             </div>
           </ProtectedRoute>
           <ProtectedRoute path="/store" exact={true}>

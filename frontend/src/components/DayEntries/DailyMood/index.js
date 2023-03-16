@@ -22,7 +22,7 @@ export default function DailyMood({ currentMood, date }) {
 
         if (action === "create") {
             if (date) {
-                console.log("date");
+                // console.log("date");
                 const addMood = await dispatch(addPastDayEntry({ entryType: "dayMood", entryData: val }, date))
                 .catch(async (res) => {
                     const data = await res.json();
