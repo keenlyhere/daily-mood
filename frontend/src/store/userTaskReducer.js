@@ -159,7 +159,7 @@ export const editTask = (taskId, task) => async (dispatch) => {
 
     if (res.ok) {
         const editedTask = await res.json();
-        // console.log("editTask - editedTask:", editedTask);
+        console.log("editTask - editedTask:", editedTask);
         dispatch(actionEditTask(taskId, editedTask.task));
         return editedTask;
     }
@@ -277,18 +277,35 @@ export default function userTasksReducer(state = initialState, action) {
         case EDIT_TASK: {
             let editTaskState = JSON.stringify(state);
             editTaskState = JSON.parse(editTaskState);
-            // console.log("action.taskId", action.taskId)
-            // console.log("action.task", action.task)
 
             if (action.task.taskType === "Habit") {
-                editTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday, [action.task.id]: action.task };
-                return editTaskState;
+                editTaskState.userTasks.habitsToday = { ...state.userTasks.habitsToday };
+                for (let key in editTaskState.userTasks.habitsToday) {
+                    if (editTaskState.userTasks.habitsToday[key].id === action.task.id) {
+                        editTaskState.userTasks.habitsToday[key] = action.task;
+                        break;
+                    }
+                }
             } else {
                 const now = new Date();
                 if (action.task.day === formatDate(now)) {
-                    editTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday, [action.task.id]: action.task };
+                    editTaskState.userTasks.toDoToday = { ...state.userTasks.toDoToday };
+
+                    for (let key in editTaskState.userTasks.toDoToday) {
+                        if (editTaskState.userTasks.toDoToday[key].id === action.task.id) {
+                            editTaskState.userTasks.toDoToday[key] = action.task;
+                            break;
+                        }
+                    }
+
                 } else {
-                    editTaskState.userTasks.unfinishedToDo = { ...state.userTasks.unfinishedToDo, [action.task.id]: action.task }
+                    editTaskState.userTasks.unfinishedToDo = { ...state.userTasks.unfinishedToDo }
+                    for (let key in editTaskState.userTasks.unfinishedToDo) {
+                        if (editTaskState.userTasks.unfinishedToDo[key].id === action.task.id) {
+                            editTaskState.userTasks.unfinishedToDo[key] = action.task;
+                            break;
+                        }
+                    }
                 }
             }
             return editTaskState;
