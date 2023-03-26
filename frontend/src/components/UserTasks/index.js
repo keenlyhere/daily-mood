@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { editCatOrder, loadCurrentDayTasks } from "../../store/userTaskReducer";
+import { actionCatNameOrder, editCatOrder, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import CategoryTasksMapper from "./CategoryMapper";
 import { formatDate } from "../../utils/dateFormating";
 
@@ -20,6 +20,8 @@ export default function UserTasks() {
     const allTasks = useSelector((state) => state.tasks.userTasks);
     const [showMenu, setShowMenu] = useState(false);
     const closeMenu = () => setShowMenu(false);
+
+    const [ allHabitState, setAllHabitState ] = useState(allTasks.habitsToday ? allTasks.habitsToday : []);
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [isEnabled, setIsEnabled] = useState(false);
@@ -45,6 +47,12 @@ export default function UserTasks() {
 
     const categoryTasksHelper = (tasks) => {
         const categoryTasks = {};
+        // if (tasks[0] && tasks[0].taskType === "Habit") {
+        // console.log("TASKS ===> ===> \n", tasks);
+        // console.log("allHAbits ===> ===> \n", allTasks.habitsToday);
+        //     // tasks.sort((a, b) => a.habitCategoryOrder - b.habitCategoryOrder);
+        // console.log("TASKS after ===> ===> \n", tasks);
+        // }
 
         for (const key in tasks) {
             let task = tasks[key];
@@ -66,6 +74,7 @@ export default function UserTasks() {
         const allHabits = allTasks.habitsToday;
         // all habits in their respective categories
         const categoryHabits = categoryTasksHelper(allHabits);
+        // setAllHabitState(allHabits);
         // console.log("*** ALL HABITS ***", allHabits);
         // console.log("*** CATEGORY HABITS ***", categoryHabits, Object.keys(categoryHabits));
 
@@ -80,9 +89,12 @@ export default function UserTasks() {
         const onDragEnd = async (result) => {
             const { destination, source, draggableId } = result;
             console.log("destination | source | draggable", source.index);
-            console.table(draggableId);
+            // console.table(draggableId);
             let type;
             let isUnfinished = false;
+            let newTaskOrder;
+            const newOrderObj = {};
+            let newCatOrder;
 
             if (!destination) {
                 return;
@@ -93,21 +105,26 @@ export default function UserTasks() {
             }
 
             let column;
-            console.log("column ===>", column);
             console.log("droppableId ===>", source.droppableId);
 
             if (source.droppableId === "habitsToday") {
                 column = categoryHabits;
-                // console.log("column", column);
-                type = "Habit"
+                type = "Habit";
+                newTaskOrder = Object.values(allHabits);
+                console.log("allHabits ==>", allHabits)
+                console.log("newTaskOrder ==>", newTaskOrder)
+
             } else if (source.droppableId === "toDoToday") {
                 column = categoryToDoToday;
                 type = "To-Do";
-                console.log("column!!!", column)
-            } else if (source.droppableId === "unfinishedToDoToday") {
+                newTaskOrder = allToDoToday;
+                // console.log("column!!!", column)
+            } else if (source.droppableId === "unfinishedToDo") {
                 column = categoryUnfinishedToDo;
+                console.log("column ==>", column);
                 type = "To-Do";
                 isUnfinished = true;
+                newTaskOrder = allUnfinishedTodo;
             }
 
             if (source.droppableId !== destination.droppableId) {
@@ -123,8 +140,76 @@ export default function UserTasks() {
 
             console.log("newOrder", newOrder);
 
-            await dispatch(editCatOrder(newOrder, type, isUnfinished));
-            await dispatch(loadCurrentDayTasks(user.id));
+            for (let i = 0; i < newOrder.length; i++) {
+                newOrderObj[newOrder[i]] = i + 1;
+            }
+
+            console.log("source.droppableId", source.droppableId);
+
+            if (source.droppableId === "habitsToday") {
+                allHabits.forEach((task) => {
+                    const newTaskCatOrder = newOrderObj[task.categoryName];
+                    task.habitCategoryOrder = newTaskCatOrder;
+                })
+
+                allHabits.sort((a, b) => a.habitCategoryOrder - b.habitCategoryOrder);
+
+                const allHabitsCatSet = {};
+                allHabits.forEach((task) => {
+                    if (!allHabitsCatSet[task.categoryName]) {
+                        allHabitsCatSet[task.categoryName] = 1;
+                    } else {
+                        allHabitsCatSet[task.categoryName] += 1;
+                    }
+                })
+
+                newCatOrder = allHabits;
+            } else if (source.droppableId === "toDoToday") {
+                allToDoToday.forEach((task) => {
+                    const newTaskCatOrder = newOrderObj[task.categoryName];
+                    task.toDoCategoryOrder = newTaskCatOrder;
+                })
+
+                allToDoToday.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
+
+                const allToDoTodayCatSet = {};
+                allToDoToday.forEach((task) => {
+                    if (!allToDoTodayCatSet[task.categoryName]) {
+                        allToDoTodayCatSet[task.categoryName] = 1;
+                    } else {
+                        allToDoTodayCatSet[task.categoryName] += 1;
+                    }
+                })
+
+                newCatOrder = allToDoToday;
+            } else {
+                allUnfinishedTodo.forEach((task) => {
+                    const newTaskCatOrder = newOrderObj[task.categoryName];
+                    task.toDoCategoryOrder = newTaskCatOrder;
+                })
+
+                allUnfinishedTodo.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
+
+                const allUnfinishedTodoCatSet = {};
+                allUnfinishedTodo.forEach((task) => {
+                    if (!allUnfinishedTodoCatSet[task.categoryName]) {
+                        allUnfinishedTodoCatSet[task.categoryName] = 1;
+                    } else {
+                        allUnfinishedTodoCatSet[task.categoryName] += 1;
+                    }
+                })
+
+                newCatOrder = allUnfinishedTodo;
+            }
+
+
+
+            await dispatch(editCatOrder(newOrder, newCatOrder, type, isUnfinished))
+            // setAllHabitState(data.habitsToday);
+            // console.log("setAllHabitsState", allHabitState);
+
+            // await dispatch(actionCatNameOrder(newOrder, newCatOrder, type, isUnfinished));
+            // await dispatch(loadCurrentDayTasks(user.id));
         };
 
         const categoryHabitsMapper = Object.keys(categoryHabits).map((category) => (
@@ -155,6 +240,7 @@ export default function UserTasks() {
 
                         <CategoryTasksMapper
                             allTasks={allHabits}
+                            allHabitState={allHabitState}
                             categoryTasks={categoryHabits}
                             taskType={"Habit"}
                             date={now}

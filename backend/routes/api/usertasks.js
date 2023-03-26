@@ -531,50 +531,8 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
         newOrderObj[newOrder[i]] = i + 1;
     }
 
-
-    if (type === "To-Do") {
-        toDoToday = await UserTask.findAll({
-            where: {
-                userId: user.id,
-                day: now,
-                taskType: type
-            }
-        })
-
-        toDoToday.forEach((task) => {
-            const newTaskCatOrder = newOrderObj[task.categoryName];
-            console.log("newOrderObj", newOrderObj);
-            console.log("newTaskCatOrder", task.categoryName, newTaskCatOrder);
-
-            if (newTaskCatOrder) {
-                task.toDoCategoryOrder = newTaskCatOrder;
-                task.save();
-            }
-
-        })
-        toDoToday.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
-        console.log("toDoToday", toDoToday);
-
-        const toDoTodayCategoriesSet = {};
-        toDoToday.forEach((task) => {
-            task = task.toJSON();
-            if (!toDoTodayCategoriesSet[task.categoryName]) {
-                toDoTodayCategoriesSet[task.categoryName] = 1;
-            } else {
-                toDoTodayCategoriesSet[task.categoryName] += 1;
-            }
-        });
-
-        toDoTodayCategories = toDoTodayCategoriesSet;
-
-        return res.json({
-            toDoToday,
-            toDoTodayCategories: Object.keys(toDoTodayCategories)
-        })
-    }
-
     if (isUnfinished) {
-        unfinishedToDoToday = await UserTask.findAll({
+        unfinishedToDo = await UserTask.findAll({
         where: {
             userId: user.id,
             day: {
@@ -584,7 +542,7 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
             isCompleted: false
         }})
 
-        unfinishedToDoToday.forEach((task) => {
+        unfinishedToDo.forEach((task) => {
             const newTaskCatOrder = newOrderObj[task.categoryName];
             console.log("newOrderObj", newOrderObj);
             console.log("newTaskCatOrder", task.categoryName, newTaskCatOrder);
@@ -596,7 +554,7 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
         })
 
         unfinishedToDo.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
-        console.log("unfinishedToDo", unfinishedToDo);
+        // console.log("unfinishedToDo", unfinishedToDo);
 
         const unfinishedToDoCategoriesSet = {};
         unfinishedToDo.forEach((task) => {
@@ -613,6 +571,47 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
         return res.json({
             unfinishedToDo,
             unfinishedToDoCategories: Object.keys(unfinishedToDoCategories)
+        })
+    }
+
+    if (type === "To-Do") {
+        toDoToday = await UserTask.findAll({
+            where: {
+                userId: user.id,
+                day: now,
+                taskType: type
+            }
+        })
+
+        toDoToday.forEach((task) => {
+            const newTaskCatOrder = newOrderObj[task.categoryName];
+            // console.log("newOrderObj", newOrderObj);
+            // console.log("newTaskCatOrder", task.categoryName, newTaskCatOrder);
+
+            if (newTaskCatOrder) {
+                task.toDoCategoryOrder = newTaskCatOrder;
+                task.save();
+            }
+
+        })
+        toDoToday.sort((a, b) => a.toDoCategoryOrder - b.toDoCategoryOrder);
+        // console.log("toDoToday", toDoToday);
+
+        const toDoTodayCategoriesSet = {};
+        toDoToday.forEach((task) => {
+            task = task.toJSON();
+            if (!toDoTodayCategoriesSet[task.categoryName]) {
+                toDoTodayCategoriesSet[task.categoryName] = 1;
+            } else {
+                toDoTodayCategoriesSet[task.categoryName] += 1;
+            }
+        });
+
+        toDoTodayCategories = toDoTodayCategoriesSet;
+
+        return res.json({
+            toDoToday,
+            toDoTodayCategories: Object.keys(toDoTodayCategories)
         })
     }
 
@@ -636,7 +635,6 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
         })
 
         habitsToday.sort((a, b) => a.habitCategoryOrder - b.habitCategoryOrder);
-
         // const habitsTodayCategoriesSet = new Set();
         const habitsTodayCategoriesSet = {};
         habitsToday.forEach((habit) => {

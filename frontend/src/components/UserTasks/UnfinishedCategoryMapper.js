@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPoints } from "../../store/session";
 import { changeCatName, deleteTaskCategory, editTask, loadCurrentDayTasks } from "../../store/userTaskReducer";
 import OpenModalButton from "../OpenModalButton";
@@ -17,6 +17,7 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
     const [categoryToEdit, setCategoryToEdit] = useState(null);
     const [ isDraggingDisabled, setIsDraggingDisabled ] = useState(false);
     const closeMenu = () => setShowMenu(false);
+    const categoryList = useSelector((state) => state.tasks.userTasks.unfinishedToDoCategories);
 
     /* CREATE HABIT */
     /* CREATE TO-DO */
@@ -70,11 +71,14 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
     return allTasks && Object.keys(allTasks).length ? (
         <Droppable droppableId="unfinishedToDo">
             {(provided, snapshot) => (
-                <div className="UserTasks-cat-container" {...provided.droppableProps} ref={provided.innerRef}>
+                <div className="UserTasks-cat-container"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                >
                     {Object.keys(categoryTasks).map((category, idx) => (
                         <Draggable
-                            key={idx}
-                            draggableId={category}
+                            key={categoryList[idx]}
+                            draggableId={categoryList[idx]}
                             index={idx}
                             isDragDisabled={Object.keys(categoryTasks).length < 2 || isDraggingDisabled}
                         >

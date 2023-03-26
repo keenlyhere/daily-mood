@@ -9,6 +9,7 @@ const DELETE_TASK = "userTasks/DELETE_TASK";
 const DELETE_TASK_CATEGORY = "userTasks/DELETE_TASK_CATEGORY";
 const EDIT_TASK_CATEGORY = "userTasks/EDIT_TASK_CATEGORY";
 const EDIT_CATEGORY_ORDER = "userTasks/EDIT_CATEGORY_ORDER";
+const EDIT_CATEGORY_NAME_ORDER = "userTasks/EDIT_CATEGORY_NAME_ORDER";
 
 const normalize = (tasks) => {
     const normalizedData = {};
@@ -79,6 +80,16 @@ export const actionEditCategoryOrder = (userTasks) => {
     return {
         type: EDIT_CATEGORY_ORDER,
         userTasks
+    }
+}
+
+export const actionCatNameOrder = (newOrder, newCatOrder, taskType, isUnfinished) => {
+    return {
+        type: EDIT_CATEGORY_NAME_ORDER,
+        newOrder,
+        newCatOrder,
+        taskType,
+        isUnfinished
     }
 }
 
@@ -182,7 +193,8 @@ export const changeCatName = (oldCatName, newCatName, taskType) => async (dispat
     }
 }
 
-export const editCatOrder = (newOrder, type, isUnfinished) => async (dispatch) => {
+export const editCatOrder = (newOrder, newCatOrder, type, isUnfinished) => async (dispatch) => {
+    dispatch(actionCatNameOrder(newOrder, newCatOrder, type, isUnfinished))
     const res = await csrfFetch(`/api/tasks/updateOrder`, {
         method: "PUT",
         headers: {
@@ -193,7 +205,8 @@ export const editCatOrder = (newOrder, type, isUnfinished) => async (dispatch) =
 
     if (res.ok) {
         const newCatOrder = await res.json();
-        dispatch(actionEditCategoryOrder(newCatOrder, type));
+        // dispatch(actionEditCategoryOrder(newCatOrder, type));
+        console.log("new cat order", newCatOrder)
         return newCatOrder;
     }
 }
@@ -286,6 +299,7 @@ export default function userTasksReducer(state = initialState, action) {
                         break;
                     }
                 }
+                editTaskState.userTasks.habitsToday = Object.values(editTaskState.userTasks.habitsToday);
             } else {
                 const now = new Date();
                 if (action.task.day === formatDate(now)) {
@@ -297,7 +311,7 @@ export default function userTasksReducer(state = initialState, action) {
                             break;
                         }
                     }
-
+                    editTaskState.userTasks.toDoToday = Object.values(editTaskState.userTasks.toDoToday);
                 } else {
                     editTaskState.userTasks.unfinishedToDo = { ...state.userTasks.unfinishedToDo }
                     for (let key in editTaskState.userTasks.unfinishedToDo) {
@@ -306,6 +320,8 @@ export default function userTasksReducer(state = initialState, action) {
                             break;
                         }
                     }
+
+                    editTaskState.userTasks.unfinishedToDo = Object.values(editTaskState.userTasks.unfinishedToDo);
                 }
             }
             return editTaskState;
@@ -351,7 +367,7 @@ export default function userTasksReducer(state = initialState, action) {
             let editCatOrderState = JSON.stringify(state);
             editCatOrderState = JSON.parse(editCatOrderState);
 
-            console.log("editCatOrderState ==>", editCatOrderState.userTasks.habitsToday);
+            console.log("editCatOrderState ==>", editCatOrderState.userTasks.unfinishedToDo);
 
             if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
                 editCatOrderState.userTasks.habitsToday = action.userTasks.habitsToday;
@@ -368,6 +384,26 @@ export default function userTasksReducer(state = initialState, action) {
             console.log("editCatOrderState after ==>\n", editCatOrderState);
 
             return editCatOrderState;
+        }
+        case EDIT_CATEGORY_NAME_ORDER: {
+            let editCatOrderState = JSON.stringify(state);
+            editCatOrderState = JSON.parse(editCatOrderState);
+            console.log("action.newOrder", action.newOrder);
+            if (action.taskType === "Habit") {
+                editCatOrderState.userTasks.habitsToday = action.newCatOrder;
+                editCatOrderState.userTasks.habitsTodayCategories = action.newOrder;
+            } else if (action.isUnfinished === true) {
+                console.log("action.isUnfinished", action.isUnfinished);
+                editCatOrderState.userTasks.unfinishedToDo = action.newCatOrder;
+                editCatOrderState.userTasks.unfinishedToDoCategories = action.newOrder;
+            } else {
+                editCatOrderState.userTasks.toDoToday = action.newCatOrder;
+                editCatOrderState.userTasks.toDoTodayCategories = action.newOrder;
+            }
+            console.log("editcatOrderState", editCatOrderState);
+
+            return editCatOrderState;
+
         }
         default:
             return state;
