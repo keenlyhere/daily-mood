@@ -30,7 +30,7 @@ module.exports = {
         birthday: "2012-01-01",
         displayPic: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/05/18/09/the-simpsons-milhouse.png?width=1200",
         theme: "cows",
-        moolah: 300,
+        moolah: 600,
         activePet: 1,
         activeBg: 1
       },

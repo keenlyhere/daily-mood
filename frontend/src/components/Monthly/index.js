@@ -156,6 +156,7 @@ export default function Monthly() {
                                                 Mood-container
                                                 ${isDateInPast(date) ? "pastDate clickable" : "" }
                                                 ${isDateInFuture(date) ? "futureDate" : "" }
+                                                ${todaysDate === date && todaysMonth === currentDate.getMonth() && todaysYear === currentDate.getFullYear() ? "pastDate clickable" : ""}
                                                 ${date === null ? "empty" : "" }
                                             `}
                                             onClick={() => history.push(`/day/${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${date}`)}
@@ -174,11 +175,11 @@ export default function Monthly() {
                             When did I record...
                         </div>
                         <div className="Monthly-calendar-filter-moods">
-                            <img src={cow_ecstatic} className="Mood-image" alt="Ecstatic mood" onClick={() => handleFilter("Ecstatic")} />
-                            <img src={cow_happy} className="Mood-image" alt="Happy mood" onClick={() => handleFilter("Happy")} />
-                            <img src={cow_content} className="Mood-image" alt="Content mood" onClick={() => handleFilter("Content")} />
-                            <img src={cow_meh} className="Mood-image" alt="Meh mood" onClick={() => handleFilter("Meh")} />
-                            <img src={cow_sad} className="Mood-image" alt="Sad mood" onClick={() => handleFilter("Sad")} />
+                            <img src={cow_ecstatic} className="Mood-image clickable" alt="Ecstatic mood" onClick={() => handleFilter("Ecstatic")} />
+                            <img src={cow_happy} className="Mood-image clickable" alt="Happy mood" onClick={() => handleFilter("Happy")} />
+                            <img src={cow_content} className="Mood-image clickable" alt="Content mood" onClick={() => handleFilter("Content")} />
+                            <img src={cow_meh} className="Mood-image clickable" alt="Meh mood" onClick={() => handleFilter("Meh")} />
+                            <img src={cow_sad} className="Mood-image clickable" alt="Sad mood" onClick={() => handleFilter("Sad")} />
                         </div>
                         <button className="Monthly-calendar-filter-reset" onClick={() => handleFilter(null)}>
                             Reset
