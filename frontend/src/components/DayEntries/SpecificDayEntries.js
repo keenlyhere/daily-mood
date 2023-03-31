@@ -56,7 +56,7 @@ export default function SpecificDayEntries() {
     const [dailyJournal, setDailyJournal] = useState(currentJournal ? currentJournal.entryData : "");
 
     if (currentDay) {
-        console.log("current day ===>", currentDay)
+        // console.log("current day ===>", currentDay)
         currentMood = Object.values(currentDay).filter((entry) => entry.entryType === "dayMood")[0];
         currentImage = Object.values(currentDay).filter((entry) => entry.entryType === "dayImage")[0];
         currentJournal = Object.values(currentDay).filter((entry) => entry.entryType === "dayJournal")[0];
@@ -188,10 +188,10 @@ export default function SpecificDayEntries() {
 
         }
 
-        console.log("currentDay", currentDay);
-        console.log("currentMood", currentMood);
-        console.log("currentMood", currentImage);
-        console.log("currentMood", currentJournal);
+        // console.log("currentDay", currentDay);
+        // console.log("currentMood", currentMood);
+        // console.log("currentMood", currentImage);
+        // console.log("currentMood", currentJournal);
 
         return (
             <div className="Daily-container">

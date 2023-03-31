@@ -446,7 +446,7 @@ router.get("/moods/:year/:month", requireAuth, async (req, res, next) => {
         query.where.entryData = req.query.mood
     }
 
-    console.log("*** QUERY ==>", query)
+    // console.log("*** QUERY ==>", query)
 
     const allMoodsInMonth = await DayEntry.findAll(query)
 

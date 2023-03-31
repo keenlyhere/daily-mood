@@ -66,7 +66,7 @@ export default function UnfinishedCategoryMapper({ allTasks, categoryTasks, task
         );
     };
 
-    console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks);
+    // console.log("OBJECT KEYS CATEGORY TASKS ===>", categoryTasks);
 
     return allTasks && Object.keys(allTasks).length ? (
         <Droppable droppableId="unfinishedToDo">

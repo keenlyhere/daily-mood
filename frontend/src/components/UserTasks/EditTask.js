@@ -18,9 +18,9 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
     const [showMenu, setShowMenu] = useState(false);
     const closeMenu = () => setShowMenu(false);
 
-    console.log("iconSelected ===>", iconSelected);
-    console.log("categoryName ===>", categoryName);
-    console.log("newTaskName ===>", newTaskName);
+    // console.log("iconSelected ===>", iconSelected);
+    // console.log("categoryName ===>", categoryName);
+    // console.log("newTaskName ===>", newTaskName);
 
     const iconsArray = [
         "https://keenlychung.com/dailymood/01.png",
@@ -74,7 +74,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
         }
 
         if (!categoryName) {
-            console.log("categoryName", newTaskName.categoryName);
+            // console.log("categoryName", newTaskName.categoryName);
             err.categoryName = "Please enter a category name";
         }
 
@@ -82,7 +82,7 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             err.categoryName = "Please specify a task type";
         }
 
-        console.log("errors", err)
+        // console.log("errors", err)
 
         if (Object.keys(err).length > 0) {
             return setErrors(err);
@@ -95,13 +95,13 @@ export default function EditTask({ taskId, category, taskName, taskType, icon, u
             taskType
         };
 
-        console.log("NEW TASK >>>", newTask);
+        // console.log("NEW TASK >>>", newTask);
 
         const editedTask = await dispatch(editTask(taskId, newTask))
             .then(() => dispatch(loadCurrentDayTasks(user.id)))
             .then(closeModal)
             .catch(async (res) => {
-                console.log("HIT ERRORS IN EDIT TASK\n", res);
+                // console.log("HIT ERRORS IN EDIT TASK\n", res);
                 if (res && res.errors) setErrors(res.errors);
             })
 

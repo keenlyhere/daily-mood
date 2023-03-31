@@ -75,9 +75,9 @@ export default function CategoryTasksMapper({ allTasks, categoryTasks, taskType,
         );
     };
 
-    console.log("<=== CATEGEORY ORDER ===>");
+    // console.log("<=== CATEGEORY ORDER ===>");
     // console.table(categoryList);
-    console.log(categoryTasks);
+    // console.log(categoryTasks);
 
     if (allHabitState && allHabitState.length) {
         <Droppable droppableId="habitsToday">

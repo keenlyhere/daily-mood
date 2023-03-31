@@ -90,7 +90,7 @@ export default function TestChart() {
             .then(() => setIsLoaded(true));
     }, [dispatch])
 
-    console.log("daysOfMonth", daysOfMonth)
+    // console.log("daysOfMonth", daysOfMonth)
 
     const data = {
         labels: daysOfMonth,
@@ -129,7 +129,7 @@ export default function TestChart() {
     };
 
     const xAxisCallback = (value, index, values) => {
-        console.log("value", value)
+        // console.log("value", value)
         return daysInMonth[value];
     };
 
@@ -185,7 +185,7 @@ export default function TestChart() {
     }
 
     if (isLoaded) {
-        console.log("monthlyMoods ===>", monthlyMoods);
+        // console.log("monthlyMoods ===>", monthlyMoods);
         const moodData = {};
 
         for (let i = 0; i < monthlyMoods.length; i++) {
@@ -198,7 +198,7 @@ export default function TestChart() {
             }
         }
 
-        console.log("moodData", moodData);
+        // console.log("moodData", moodData);
 
         const moodBarWidth = (value) => {
             let backgroundColor;
@@ -229,7 +229,7 @@ export default function TestChart() {
             }
         }
 
-        console.log("data", data.labels.length)
+        // console.log("data", data.labels.length)
 
         return (
             <div className="Stats-container">
