@@ -59,7 +59,7 @@ export default function SignupFormModal() {
 
             // setErrors({});
             const birthday = new Date(year, monthToNum[month] - 1, day);
-            console.log("birthday ===>", birthday);
+            // console.log("birthday ===>", birthday);
 
             if (!email) {
                 submitErrors.emailRequired = "Email is required.";
@@ -98,23 +98,23 @@ export default function SignupFormModal() {
             }
 
             if (Object.keys(submitErrors).length > 0) {
-                console.log("submitErrors", submitErrors)
+                // console.log("submitErrors", submitErrors)
                 return setErrors(submitErrors);
             }
 
-            console.log("BIRTHDAY ===>", birthday);
+            // console.log("BIRTHDAY ===>", birthday);
             return dispatch(sessionActions.signup({ email, firstName, lastName, password, birthday, displayPic }))
                 // .then(console.log("req went through"))
                 .then(() => history.push("/daily"))
                 .then(closeModal)
                 .catch(async (res) => {
                     const data = await res.json();
-                    console.log("data, errors:", data, data.errors)
+                    // console.log("data, errors:", data, data.errors)
                     const signUpErrors = {};
                     if (data && data.errors) {
                         for (let i = 0; i < data.errors.length; i++) {
                             const currError = data.errors[i];
-                            console.log("currError", currError)
+                            // console.log("currError", currError)
 
                             switch (currError) {
                                 case "User with that email already exists":

@@ -38,7 +38,7 @@ export default function DailyImage({ currentImage, date }) {
             })
         } else {
             if (date) {
-                console.log("dailyImage date")
+                // console.log("dailyImage date")
                 return dispatch(addPastDayEntry({ entryType: "dayImage", entryData: file }, date))
                 // .then(dispatch(loadCurrentDay()))
                 .catch(async (res) => {
@@ -46,7 +46,7 @@ export default function DailyImage({ currentImage, date }) {
                     if (data && data.errors) setErrors(data.errors);
                 })
             } else {
-                console.log("not date")
+                // console.log("not date")
                 return dispatch(addDayEntry({ entryType: "dayImage", entryData: file }))
                     .then(() => dispatch(addPoints({ "pointsEarned": 5 })))
                     .then(dispatch(loadCurrentDay()))

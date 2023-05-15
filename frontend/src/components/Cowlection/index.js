@@ -103,10 +103,10 @@ export default function Cowlection({ user }) {
         }
 
         const changeActivePet = async (flavor) => {
-            console.log("flavor", flavor)
-            console.log("allpets", allUserPets)
+            // console.log("flavor", flavor)
+            // console.log("allpets", allUserPets)
             const desiredActive = wantedPet(flavor);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActivePet = await dispatch(editActivePet(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));
@@ -116,7 +116,7 @@ export default function Cowlection({ user }) {
 
         const changeActiveBg = async (bg) => {
             const desiredActive = wantedBg(bg);
-            console.log("desiredActive ===>", desiredActive)
+            // console.log("desiredActive ===>", desiredActive)
 
             const setActiveBg = await dispatch(editActiveBg(user.id, desiredActive.id))
                 .then(dispatch(loadUserActives()));

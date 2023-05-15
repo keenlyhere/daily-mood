@@ -40,7 +40,7 @@ export default function UserTasks() {
     useEffect(() => {
         dispatch(loadCurrentDayTasks(user.id))
             .then(() => setIsLoaded(true))
-            .catch((error) => console.log("errors", error));
+            // .catch((error) => console.log("errors", error));
     }, [dispatch]);
 
     // console.log("*** allTasks *** \n", allTasks)
@@ -88,7 +88,7 @@ export default function UserTasks() {
 
         const onDragEnd = async (result) => {
             const { destination, source, draggableId } = result;
-            console.log("destination | source | draggable", source.index);
+            // console.log("destination | source | draggable", source.index);
             // console.table(draggableId);
             let type;
             let isUnfinished = false;
@@ -105,14 +105,14 @@ export default function UserTasks() {
             }
 
             let column;
-            console.log("droppableId ===>", source.droppableId);
+            // console.log("droppableId ===>", source.droppableId);
 
             if (source.droppableId === "habitsToday") {
                 column = categoryHabits;
                 type = "Habit";
                 newTaskOrder = Object.values(allHabits);
-                console.log("allHabits ==>", allHabits)
-                console.log("newTaskOrder ==>", newTaskOrder)
+                // console.log("allHabits ==>", allHabits)
+                // console.log("newTaskOrder ==>", newTaskOrder)
 
             } else if (source.droppableId === "toDoToday") {
                 column = categoryToDoToday;
@@ -121,7 +121,7 @@ export default function UserTasks() {
                 // console.log("column!!!", column)
             } else if (source.droppableId === "unfinishedToDo") {
                 column = categoryUnfinishedToDo;
-                console.log("column ==>", column);
+                // console.log("column ==>", column);
                 type = "To-Do";
                 isUnfinished = true;
                 newTaskOrder = allUnfinishedTodo;
@@ -138,13 +138,13 @@ export default function UserTasks() {
             newOrder.splice(source.index, 1);
             newOrder.splice(destination.index, 0, draggableId);
 
-            console.log("newOrder", newOrder);
+            // console.log("newOrder", newOrder);
 
             for (let i = 0; i < newOrder.length; i++) {
                 newOrderObj[newOrder[i]] = i + 1;
             }
 
-            console.log("source.droppableId", source.droppableId);
+            // console.log("source.droppableId", source.droppableId);
 
             if (source.droppableId === "habitsToday") {
                 allHabits.forEach((task) => {

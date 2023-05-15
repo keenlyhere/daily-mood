@@ -14,9 +14,9 @@ const EDIT_CATEGORY_NAME_ORDER = "userTasks/EDIT_CATEGORY_NAME_ORDER";
 const normalize = (tasks) => {
     const normalizedData = {};
     if (!tasks.length) return tasks;
-    console.log("TASKS ==>", tasks)
+    // console.log("TASKS ==>", tasks)
     tasks.forEach(task => normalizedData[task.id] = task);
-    console.log("NORMALIZED DATA ---", normalizedData)
+    // console.log("NORMALIZED DATA ---", normalizedData)
     return normalizedData;
 }
 
@@ -170,7 +170,7 @@ export const editTask = (taskId, task) => async (dispatch) => {
 
     if (res.ok) {
         const editedTask = await res.json();
-        console.log("editTask - editedTask:", editedTask);
+        // console.log("editTask - editedTask:", editedTask);
         dispatch(actionEditTask(taskId, editedTask.task));
         return editedTask;
     }
@@ -206,7 +206,7 @@ export const editCatOrder = (newOrder, newCatOrder, type, isUnfinished) => async
     if (res.ok) {
         const newCatOrder = await res.json();
         // dispatch(actionEditCategoryOrder(newCatOrder, type));
-        console.log("new cat order", newCatOrder)
+        // console.log("new cat order", newCatOrder)
         return newCatOrder;
     }
 }
@@ -367,7 +367,7 @@ export default function userTasksReducer(state = initialState, action) {
             let editCatOrderState = JSON.stringify(state);
             editCatOrderState = JSON.parse(editCatOrderState);
 
-            console.log("editCatOrderState ==>", editCatOrderState.userTasks.unfinishedToDo);
+            // console.log("editCatOrderState ==>", editCatOrderState.userTasks.unfinishedToDo);
 
             if (action.userTasks.habitsToday && action.userTasks.habitsToday.length) {
                 editCatOrderState.userTasks.habitsToday = action.userTasks.habitsToday;
@@ -381,26 +381,26 @@ export default function userTasksReducer(state = initialState, action) {
                 editCatOrderState.userTasks.unfinishedToDo = action.userTasks.unfinishedToDo;
             }
 
-            console.log("editCatOrderState after ==>\n", editCatOrderState);
+            // console.log("editCatOrderState after ==>\n", editCatOrderState);
 
             return editCatOrderState;
         }
         case EDIT_CATEGORY_NAME_ORDER: {
             let editCatOrderState = JSON.stringify(state);
             editCatOrderState = JSON.parse(editCatOrderState);
-            console.log("action.newOrder", action.newOrder);
+            // console.log("action.newOrder", action.newOrder);
             if (action.taskType === "Habit") {
                 editCatOrderState.userTasks.habitsToday = action.newCatOrder;
                 editCatOrderState.userTasks.habitsTodayCategories = action.newOrder;
             } else if (action.isUnfinished === true) {
-                console.log("action.isUnfinished", action.isUnfinished);
+                // console.log("action.isUnfinished", action.isUnfinished);
                 editCatOrderState.userTasks.unfinishedToDo = action.newCatOrder;
                 editCatOrderState.userTasks.unfinishedToDoCategories = action.newOrder;
             } else {
                 editCatOrderState.userTasks.toDoToday = action.newCatOrder;
                 editCatOrderState.userTasks.toDoTodayCategories = action.newOrder;
             }
-            console.log("editcatOrderState", editCatOrderState);
+            // console.log("editcatOrderState", editCatOrderState);
 
             return editCatOrderState;
 

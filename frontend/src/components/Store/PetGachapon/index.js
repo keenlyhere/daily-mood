@@ -30,7 +30,7 @@ export default function PetGachapon({ userFlavors, user }) {
     // const [ startGacha, setStartGacha ] = useState(false);
 
     const prizeCapsule = document.querySelector(".Gachapon-prize");
-    console.log("prizeCapsule:", prizeCapsule);
+    // console.log("prizeCapsule:", prizeCapsule);
 
     const startGacha = async (e) => {
         const error = {};
@@ -52,7 +52,7 @@ export default function PetGachapon({ userFlavors, user }) {
             setPrizeActive(true);
             setShuffleActiveText(true);
             setShuffleActive(false);
-            console.log("shuffleActive after true ? :", shuffleActive);
+            // console.log("shuffleActive after true ? :", shuffleActive);
         }, 3000);
 
         setTimeout(() => {
@@ -182,7 +182,7 @@ export default function PetGachapon({ userFlavors, user }) {
 
     }
 
-    console.log("shuffleActive ? :", shuffleActive)
+    // console.log("shuffleActive ? :", shuffleActive)
 
     return (
         <div className="PetGachapon-container">

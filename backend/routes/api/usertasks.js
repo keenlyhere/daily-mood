@@ -58,7 +58,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         order: [["toDoCategoryOrder", "ASC"]]
     });
 
-    console.log("allTasks \n\n\n", allTasks)
+    // console.log("allTasks \n\n\n", allTasks)
 
     const toDoArray = [];
 
@@ -121,10 +121,10 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const dailyHabits = [];
     if (!habitsToday.length) {
-        console.log("no habits today\n\n\n\n\n\n");
+        // console.log("no habits today\n\n\n\n\n\n");
         for (let i = 0; i < habitsOnMostRecentDay.length; i++) {
             let habit = habitsOnMostRecentDay[i];
-            console.log("habit", habit)
+            // console.log("habit", habit)
 
             const newHabit = await user.createUserTask({
                 day: now,
@@ -544,8 +544,8 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
 
         unfinishedToDo.forEach((task) => {
             const newTaskCatOrder = newOrderObj[task.categoryName];
-            console.log("newOrderObj", newOrderObj);
-            console.log("newTaskCatOrder", task.categoryName, newTaskCatOrder);
+            // console.log("newOrderObj", newOrderObj);
+            // console.log("newTaskCatOrder", task.categoryName, newTaskCatOrder);
 
             if (newTaskCatOrder) {
                 task.toDoCategoryOrder = newTaskCatOrder;
@@ -626,7 +626,7 @@ router.put("/updateOrder", requireAuth, async (req, res, next) => {
 
         habitsToday.forEach((habit) => {
             const newHabitOrder = newOrderObj[habit.categoryName];
-            console.log("habit", newHabitOrder);
+            // console.log("habit", newHabitOrder);
 
             if (newHabitOrder) {
                 habit.habitCategoryOrder = newHabitOrder;

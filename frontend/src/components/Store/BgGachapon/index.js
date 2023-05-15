@@ -69,7 +69,7 @@ export default function BgGachapon({ userBgNames, user }) {
             setPrizeActive(true);
             setShuffleActiveText(true);
             setShuffleActive(false);
-            console.log("shuffleActive after true ? :", shuffleActive);
+            // console.log("shuffleActive after true ? :", shuffleActive);
         }, 3000);
 
         setTimeout(() => {

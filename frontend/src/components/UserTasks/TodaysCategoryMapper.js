@@ -52,7 +52,7 @@ export default function TodaysCategoryMapper({ allTasks, categoryTasks, taskType
     const startEditTasks = (category) => {
         setEditTasks(true);
         setIsDraggingDisabled(true);
-        console.log("isDraggingEnables", isDraggingDisabled);
+        // console.log("isDraggingEnables", isDraggingDisabled);
         setCategoryToEdit(category);
     }
 

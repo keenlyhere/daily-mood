@@ -16,7 +16,7 @@ export default function Monthly() {
     const todaysDate = today.getDate();
     const todaysMonth = today.getMonth();
     const todaysYear = today.getFullYear();
-    console.log("todaysMonth ===>", todaysMonth);
+    // console.log("todaysMonth ===>", todaysMonth);
 
     const moodImages = {
         "Meh": cow_meh,
@@ -31,10 +31,10 @@ export default function Monthly() {
     const userMoods = useSelector(state => state.day.monthlyMoods);
     const [ filter, setFilter ] = useState(null);
 
-    console.log("currentDate", currentDate);
+    // console.log("currentDate", currentDate);
 
     useEffect(() => {
-        console.log("filter ===>", filter)
+        // console.log("filter ===>", filter)
         dispatch(loadMonthlyMoods(currentDate.getFullYear(), currentDate.getMonth(), filter))
             .then(() => setIsLoaded(true));
     }, [dispatch, currentDate, filter])

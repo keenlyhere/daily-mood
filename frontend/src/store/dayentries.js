@@ -120,7 +120,7 @@ export const loadMonthlyMoods = (year, month, mood) => async (dispatch) => {
 
     if (res.ok) {
         const monthlyMoods = await res.json();
-        console.log("loadMonthlyMoods ===>", monthlyMoods);
+        // console.log("loadMonthlyMoods ===>", monthlyMoods);
         dispatch(actionLoadMonthlyMoods(monthlyMoods));
         return monthlyMoods;
     }
@@ -255,21 +255,21 @@ export default function dayEntriesReducer(state = initialState, action) {
             let monthlyMoodsState = JSON.stringify(state);
             monthlyMoodsState = JSON.parse(monthlyMoodsState);
             monthlyMoodsState.monthlyMoods = normalizeDays(action.monthlyMoods.monthlyMoods);
-            console.log("monthlyMoodsState ===> ", monthlyMoodsState);
+            // console.log("monthlyMoodsState ===> ", monthlyMoodsState);
             return monthlyMoodsState;
         }
         case LOAD_SPECIFIC_MOODS: {
             let specificMoodsState = JSON.stringify(state);
             specificMoodsState = JSON.parse(specificMoodsState);
             specificMoodsState.monthlyMoods = normalizeDays(action.specificMoods.monthlyMoods);
-            console.log("specificMoodsState ===>", specificMoodsState);
+            // console.log("specificMoodsState ===>", specificMoodsState);
             return specificMoodsState;
         }
         case ADD_DAY_ENTRY: {
             let addDayEntryState = JSON.stringify(state);
             addDayEntryState = JSON.parse(addDayEntryState)
             addDayEntryState.dayEntries = { ...state.dayEntries, [action.dayEntry.id]: action.dayEntry }
-            console.log("ADD_DAY_ENTRY - addDayEntryState:", addDayEntryState);
+            // console.log("ADD_DAY_ENTRY - addDayEntryState:", addDayEntryState);
             return addDayEntryState;
         }
         case DELETE_DAY_ENTRY: {
