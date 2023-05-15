@@ -40,7 +40,7 @@ module.exports = {
                     userId: 1,
                     day: "2023-02-18",
                     entryType: "dayJournal",
-                    entryData: "I didn't have the greatest day today, but it wasn't completely bad.",
+                    entryData: "I didn't have the greatest day today, but it wasn't completely bad!",
                 },
                 {
                     userId: 1,
